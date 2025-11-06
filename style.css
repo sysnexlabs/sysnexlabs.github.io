@@ -1,0 +1,37 @@
+:root {
+  --turquoise: #00ffcc;
+  --aubergine: #7b1e3a;
+  --coral: #ff6600;
+  --royal-blue: #0066ff;
+  --dark-bg: #0d0d0d;
+  --light-text: #e6fdf8;
+}
+* { box-sizing: border-box; }
+body { font-family: 'Lexend',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; margin:0; color:var(--light-text); background:var(--dark-bg);}
+.navbar { position: sticky; top:0; display:flex; justify-content:space-between; align-items:center; padding:0.75rem 1.25rem; background:rgba(13,13,13,0.85); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.08); z-index:10;}
+.brand { display:flex; align-items:center; gap:0.5rem;}
+.logo { height:32px;}
+.brand-text { color:var(--turquoise); font-weight:700; letter-spacing:0.5px;}
+.navbar a { color:var(--turquoise); text-decoration:none; margin-left:1rem;}
+.navbar a.active,.navbar a:hover { color:var(--coral);}
+.hero { display:grid; grid-template-columns:1.1fr 0.9fr; gap:2rem; align-items:center; min-height:75vh; padding:5rem 1.25rem 2rem;}
+.hero-inner h1 { margin:0 0 0.5rem 0; font-size: clamp(2rem, 4.5vw, 3.2rem); color:var(--turquoise);}
+.hero-inner p { opacity:0.9; max-width:60ch; line-height:1.6;}
+.cta-row { margin-top:1.25rem; display:flex; gap:0.75rem;}
+.btn { padding:0.75rem 1.1rem; border-radius:10px; font-weight:600; text-decoration:none;}
+.btn.primary { background:var(--coral); color:#fff;}
+.btn.ghost { border:1px solid var(--turquoise); color:var(--turquoise);}
+.btn.ghost:hover { background: rgba(0,255,204,0.08);}
+.hero-media img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,0.08);}
+.features { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; padding:2rem 1.25rem 3rem;}
+.card { background: linear-gradient(180deg, rgba(0,255,204,0.06), rgba(13,13,13,0.9)); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.25rem;}
+.card h3 { margin:0 0 0.5rem 0; color:var(--coral);}
+.card p { margin:0;}
+.content { padding:5rem 1.25rem 2rem; max-width:960px; margin:0 auto;}
+.content h1 { color:var(--turquoise);}
+footer { display:flex; justify-content:space-between; padding:1rem 1.25rem; border-top:1px solid rgba(255,255,255,0.08);}
+.foot-brand { display:flex; align-items:center; gap:0.5rem; opacity:0.9;}
+.foot-logo { height:22px;}
+.foot-links a { color:var(--turquoise); margin-left:1rem; text-decoration:none;}
+.foot-links a:hover { color:var(--coral);}
+@media (max-width: 900px){ .hero{ grid-template-columns:1fr;} .features{ grid-template-columns:1fr;}}
