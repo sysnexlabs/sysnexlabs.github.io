@@ -11,22 +11,8 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <meta name="description" content="Sysnex Labs builds Rust-based SysML v2 tooling and MBSE methodology for model-to-code integration, functional safety, and intelligent traceability." />
 </head>
-<body>
-  <header class="navbar" role="banner">
-    <div class="brand">
-      <img src="assets/logo_S_black2.svg" alt="Sysnex Labs" class="logo" />
-      <span class="brand-text"><span class="brand-text-primary">SYSNEX</span><span class="brand-text-secondary">Labs</span></span>
-    </div>
-    <nav role="navigation" aria-label="Main navigation">
-      <a href="index.html" class="active" aria-current="page" data-i18n="nav.home">Home</a>
-      <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="methods.html" data-i18n="nav.methods">Methods</a>
-      <a href="tools.html" data-i18n="nav.tools">Tools</a>
-      <a href="process.html" data-i18n="nav.process">Process</a>
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
-    </nav>
-    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">DE</button>
-  </header>
+<body data-page="home">
+  <div data-include="partials/header.html"></div>
 
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-overlay" aria-hidden="true"></div>
@@ -132,17 +118,8 @@
     </div>
   </section>
 
-  <footer role="contentinfo">
-    <div class="foot-brand">
-      <img src="assets/logo_S_black2.svg" alt="Sysnex Labs logo" class="foot-logo" />
-      <span class="brand-text"><span class="brand-text-primary">SYSNEX</span><span class="brand-text-secondary">Labs</span></span>
-    </div>
-    <div class="foot-links">
-      <a href="privacy.html" data-i18n="footer.privacy">Privacy</a>
-      <a href="imprint.html" data-i18n="footer.imprint">Imprint</a>
-      <a href="mailto:hello@sysnexlabs.com" data-i18n="footer.contact">hello@sysnexlabs.com</a>
-    </div>
-  </footer>
+  <div data-include="partials/footer.html"></div>
+  <script src="include.js" defer></script>
   <script src="i18n.js" defer></script>
 </body>
 </html>
