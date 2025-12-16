@@ -9,6 +9,9 @@ const Header = () => {
   const navigate = useNavigate()
   const [activePage, setActivePage] = useState('home')
   const [lang, setLang] = useState('en')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [productOpen, setProductOpen] = useState(false)
+  const [consultingOpen, setConsultingOpen] = useState(false)
 
   useEffect(() => {
     // Determine active page based on current pathname
@@ -27,6 +30,25 @@ const Header = () => {
     
     setActivePage(page)
   }, [location.pathname])
+
+  useEffect(() => {
+    // Close mobile menu & submenus on navigation
+    setMenuOpen(false)
+    setProductOpen(false)
+    setConsultingOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+        setProductOpen(false)
+        setConsultingOpen(false)
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   useEffect(() => {
     // Sync with static i18n if available
@@ -88,6 +110,11 @@ const Header = () => {
   }
 
   const handleHomeClick = (e) => {
+    // Always close mobile navigation when navigating
+    setMenuOpen(false)
+    setProductOpen(false)
+    setConsultingOpen(false)
+
     // If already on home page, scroll to top and force navigation
     if (location.pathname === '/' || location.pathname === '/index.html') {
       e.preventDefault()
@@ -107,7 +134,7 @@ const Header = () => {
   }
 
   return (
-    <header className="navbar" role="banner">
+    <header className={`navbar ${menuOpen ? 'is-open' : ''}`} role="banner">
       <div className="brand">
         <Link 
           to="/" 
@@ -122,7 +149,33 @@ const Header = () => {
         </Link>
       </div>
       
-      <nav role="navigation" aria-label="Main navigation">
+      <div className="navbar-actions">
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-controls="siteNav"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span className="sr-only">Menu</span>
+          <span className="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
+        <div className="header-controls">
+          <button 
+            className="lang-toggle" 
+            id="langToggle" 
+            type="button" 
+            aria-label="Switch language"
+            onClick={toggleLanguage}
+          >
+            {lang === 'en' ? 'DE' : 'EN'}
+          </button>
+          <ThemeToggle />
+        </div>
+      </div>
+
+      <nav id="siteNav" role="navigation" aria-label="Main navigation">
         <Link 
           to="/" 
           className={`nav-link ${isActive('home') ? 'active' : ''}`}
@@ -132,14 +185,27 @@ const Header = () => {
           {t('nav.home')}
         </Link>
         
-        <div className="nav-dropdown">
-          <Link 
-            to="/product" 
-            className={`nav-link-dropdown ${isActive('product') ? 'active' : ''}`}
-            data-page="product"
-          >
-            {t('nav.product')}
-          </Link>
+        <div className={`nav-dropdown ${productOpen ? 'is-open' : ''}`}>
+          <div className="nav-dropdown-trigger">
+            <Link 
+              to="/product" 
+              className={`nav-link-dropdown ${isActive('product') ? 'active' : ''}`}
+              data-page="product"
+            >
+              {t('nav.product')}
+            </Link>
+            <button
+              className="dropdown-toggle"
+              type="button"
+              aria-label="Toggle Product submenu"
+              aria-expanded={productOpen}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setProductOpen((v) => !v)
+              }}
+            />
+          </div>
           <div className="dropdown-menu">
             <Link to="/product" className={location.pathname === '/product' ? 'active' : ''} data-page="product">{t('nav.product') || 'Overview'}</Link>
             <Link to="/try-yourself" className={location.pathname.includes('try-yourself') ? 'active' : ''} data-page="try-yourself">{t('nav.try-yourself')}</Link>
@@ -147,14 +213,27 @@ const Header = () => {
           </div>
         </div>
         
-        <div className="nav-dropdown">
-          <Link 
-            to="/methods" 
-            className={`nav-link-dropdown ${isActive('consulting') ? 'active' : ''}`}
-            data-page="consulting"
-          >
-            {t('nav.consulting') || 'Consulting'}
-          </Link>
+        <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
+          <div className="nav-dropdown-trigger">
+            <Link 
+              to="/methods" 
+              className={`nav-link-dropdown ${isActive('consulting') ? 'active' : ''}`}
+              data-page="consulting"
+            >
+              {t('nav.consulting') || 'Consulting'}
+            </Link>
+            <button
+              className="dropdown-toggle"
+              type="button"
+              aria-label="Toggle Consulting submenu"
+              aria-expanded={consultingOpen}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setConsultingOpen((v) => !v)
+              }}
+            />
+          </div>
           <div className="dropdown-menu">
             <Link to="/methods" className={location.pathname === '/methods' ? 'active' : ''} data-page="methods">{t('nav.methods') || 'Methods'}</Link>
             <Link to="/process" className={location.pathname === '/process' ? 'active' : ''} data-page="process">{t('nav.process') || 'Process'}</Link>
@@ -171,19 +250,6 @@ const Header = () => {
           {t('nav.contact')}
         </Link>
       </nav>
-      
-      <div className="header-controls">
-        <button 
-          className="lang-toggle" 
-          id="langToggle" 
-          type="button" 
-          aria-label="Switch language"
-          onClick={toggleLanguage}
-        >
-          {lang === 'en' ? 'DE' : 'EN'}
-        </button>
-        <ThemeToggle />
-      </div>
     </header>
   )
 }

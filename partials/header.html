@@ -3,11 +3,28 @@
     <img src="assets/logo_S_black2.svg" alt="Sysnex Labs" class="logo" />
     <span class="brand-text"><span class="brand-text-primary">SYSNEX</span><span class="brand-text-secondary">Labs</span></span>
   </div>
-  <nav role="navigation" aria-label="Main navigation">
+  <div class="navbar-actions">
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-controls="siteNav"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Menu</span>
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+    </button>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">DE</button>
+  </div>
+  <nav id="siteNav" role="navigation" aria-label="Main navigation">
     <a href="index.html" data-i18n="nav.home" data-page="home">Home</a>
     
     <div class="nav-dropdown">
-      <a href="product.html" class="nav-link-dropdown" data-i18n="nav.product" data-page="product">Product</a>
+      <div class="nav-dropdown-trigger">
+        <a href="product.html" class="nav-link-dropdown" data-i18n="nav.product" data-page="product">Product</a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Product submenu" aria-expanded="false"></button>
+      </div>
       <div class="dropdown-menu">
         <a href="product.html" data-i18n="nav.product.overview" data-page="product">Overview</a>
         <a href="pricing.html" data-i18n="nav.pricing" data-page="pricing">Pricing</a>
@@ -16,7 +33,10 @@
     </div>
     
     <div class="nav-dropdown">
-      <a href="methods.html" class="nav-link-dropdown" data-i18n="nav.consulting" data-page="consulting">Consulting</a>
+      <div class="nav-dropdown-trigger">
+        <a href="methods.html" class="nav-link-dropdown" data-i18n="nav.consulting" data-page="consulting">Consulting</a>
+        <button class="dropdown-toggle" type="button" aria-label="Toggle Consulting submenu" aria-expanded="false"></button>
+      </div>
       <div class="dropdown-menu">
         <a href="methods.html" data-i18n="nav.methods" data-page="methods">Methods</a>
         <a href="process.html" data-i18n="nav.process" data-page="process">Process</a>
@@ -26,5 +46,4 @@
     
     <a href="about.html" data-i18n="nav.about" data-page="about">About</a>
   </nav>
-  <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">DE</button>
 </header>
