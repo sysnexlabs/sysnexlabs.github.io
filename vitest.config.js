@@ -13,6 +13,16 @@ export default defineConfig({
     exclude: ['src/test/e2e/**', '**/*.e2e.test.*'],
     // Test timeout for WASM tests (they may take longer)
     testTimeout: 30000,
+    // Increase memory limit for workers
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        singleThread: false,
+        minThreads: 1,
+        maxThreads: 1,
+        isolate: true,
+      },
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
