@@ -11,15 +11,13 @@
  * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { getSharedWasmInstance, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { getSharedWasmInstance } from '../helpers/wasmTestHelper'
 
 let wasmInstance
-let skipIfNoWasm
 
 beforeAll(async () => {
   wasmInstance = await getSharedWasmInstance()
-  skipIfNoWasm = createSkipFn(it)
 })
 
 afterAll(() => {
@@ -40,8 +38,6 @@ function generateDeepNesting(depth) {
 }
 
 describe('WASM Edge Cases', () => {
-  const skipIfNoWasm = !wasmInstance ? it.skip : it
-
   const edgeCases = [
     {
       name: 'Empty file',
@@ -100,7 +96,7 @@ describe('WASM Edge Cases', () => {
   ]
 
   edgeCases.forEach(({ name, code, shouldPanic }) => {
-    skipIfNoWasm(`should handle ${name} without panics`, async () => {
+    it(`should handle ${name} without panics`, async () => {
       try {
         const result = await wasmInstance.generate_cst(code, `test://${name.replace(/\s+/g, '-')}`)
         
@@ -126,7 +122,7 @@ describe('WASM Edge Cases', () => {
   })
 
   describe('Array Bounds Edge Cases', () => {
-    skipIfNoWasm('should handle code with many attributes without bounds errors', async () => {
+    it('should handle code with many attributes without bounds errors', async () => {
       // Reduced from 100 to 20 to save memory
       const attributes = Array(20).fill(0).map((_, i) =>
         `        attribute attr${i} :> ScalarValues::String;`
@@ -144,7 +140,7 @@ ${attributes}
       expect(result.root).toBeDefined()
     })
 
-    skipIfNoWasm('should handle code with many nested parts without bounds errors', async () => {
+    it('should handle code with many nested parts without bounds errors', async () => {
       // Reduced from 50 to 15 to save memory
       const parts = Array(15).fill(0).map((_, i) =>
         `    part def Part${i} {\n        attribute id :> ScalarValues::String;\n    }`
@@ -160,7 +156,7 @@ ${attributes}
   })
 
   describe('Line Index Edge Cases', () => {
-    skipIfNoWasm('should handle single line code', async () => {
+    it('should handle single line code', async () => {
       const code = "package 'Test' { part def Test {} }"
       
       const result = await wasmInstance.generate_cst(code, 'test://single-line')
@@ -169,7 +165,7 @@ ${attributes}
       expect(result.root).toBeDefined()
     })
 
-    skipIfNoWasm('should handle code with only newlines', async () => {
+    it('should handle code with only newlines', async () => {
       const code = '\n\n\n'
       
       try {
@@ -180,7 +176,7 @@ ${attributes}
       }
     })
 
-    skipIfNoWasm('should handle code with very long lines', async () => {
+    it('should handle code with very long lines', async () => {
       const longLine = 'a'.repeat(10000)
       const code = `package 'Test' {\n    part def Test {\n        attribute name :> ScalarValues::String = '${longLine}';\n    }\n}`
       
@@ -191,7 +187,7 @@ ${attributes}
   })
 
   describe('Recursion Depth Edge Cases', () => {
-    skipIfNoWasm('should handle deep recursion without stack overflow', async () => {
+    it('should handle deep recursion without stack overflow', async () => {
       const deepCode = generateDeepNesting(100)
       
       const result = await wasmInstance.generate_cst(deepCode, 'test://deep-recursion')
@@ -200,7 +196,7 @@ ${attributes}
       expect(result.root).toBeDefined()
     })
 
-    skipIfNoWasm('should handle very deep recursion (500 levels)', async () => {
+    it('should handle very deep recursion (500 levels)', async () => {
       const veryDeepCode = generateDeepNesting(500)
       
       try {

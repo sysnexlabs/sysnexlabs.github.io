@@ -10,15 +10,13 @@
  * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { getSharedWasmInstance, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { getSharedWasmInstance } from '../helpers/wasmTestHelper'
 
 let wasmInstance
-let skipIfNoWasm
 
 beforeAll(async () => {
   wasmInstance = await getSharedWasmInstance()
-  skipIfNoWasm = createSkipFn(it)
 })
 
 afterAll(() => {
@@ -28,7 +26,7 @@ afterAll(() => {
 describe('WASM Panic Detection', () => {
 
   describe('CST Generation Panics', () => {
-    skipIfNoWasm('should not panic on Vehicle System example (previously panicked)', async () => {
+    it('should not panic on Vehicle System example (previously panicked)', async () => {
       // This is the exact code that caused "RuntimeError: unreachable"
       const code = `package 'Vehicle System' {
     doc /*
@@ -77,7 +75,7 @@ describe('WASM Panic Detection', () => {
       }
     })
 
-    skipIfNoWasm('should catch panics and convert to errors', async () => {
+    it('should catch panics and convert to errors', async () => {
       // Test that catch_unwind is working
       const code = "package 'Test' { part def Test {} }"
       
@@ -99,7 +97,7 @@ describe('WASM Panic Detection', () => {
       })
     })
 
-    skipIfNoWasm('should handle empty source without array bounds panic', async () => {
+    it('should handle empty source without array bounds panic', async () => {
       // Empty source could cause array bounds issues in line_col
       try {
         const result = await wasmInstance.generate_cst('', 'test://empty')
@@ -113,7 +111,7 @@ describe('WASM Panic Detection', () => {
       }
     })
 
-    skipIfNoWasm('should handle out-of-bounds line indices without panic', async () => {
+    it('should handle out-of-bounds line indices without panic', async () => {
       // Code that might cause out-of-bounds access in line_col
       const code = "package 'Test' { part def Test {} }"
 
@@ -134,7 +132,7 @@ describe('WASM Panic Detection', () => {
   })
 
   describe('HIR Generation Panics', () => {
-    skipIfNoWasm('should not panic on HIR generation', async () => {
+    it('should not panic on HIR generation', async () => {
       const code = `package 'Vehicle System' {
     part def Vehicle {
         attribute speed :> ScalarValues::Real;
@@ -151,7 +149,7 @@ describe('WASM Panic Detection', () => {
   })
 
   describe('Analytics Generation Panics', () => {
-    skipIfNoWasm('should not panic on analytics generation', async () => {
+    it('should not panic on analytics generation', async () => {
       const code = `package 'Vehicle System' {
     part def Vehicle {
         attribute speed :> ScalarValues::Real;
@@ -168,7 +166,7 @@ describe('WASM Panic Detection', () => {
   })
 
   describe('Panic Hook Verification', () => {
-    skipIfNoWasm('should have panic hook initialized', () => {
+    it('should have panic hook initialized', () => {
       // Verify that panic hook is set up
       // This is checked by the fact that panics are caught
       expect(wasmInstance).toBeDefined()
@@ -176,7 +174,7 @@ describe('WASM Panic Detection', () => {
   })
 
   describe('Error vs Panic Detection', () => {
-    skipIfNoWasm('should distinguish between errors and panics', async () => {
+    it('should distinguish between errors and panics', async () => {
       const code = "package 'Test' { part def Test {} }"
       
       try {

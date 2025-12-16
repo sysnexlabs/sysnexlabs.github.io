@@ -84,7 +84,10 @@ export function cleanupWasm() {
 }
 
 /**
- * Helper to skip tests if WASM is not available
+ * Create a skipIfNoWasm function for use in tests
+ * Returns it if WASM is available, it.skip if not
+ * @param {Function} it - The test function from vitest
+ * @returns {Function} Either it or it.skip
  */
 export function skipIfNoWasm(it) {
   return sharedWasmInstance ? it : it.skip

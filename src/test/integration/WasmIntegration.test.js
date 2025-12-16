@@ -7,15 +7,13 @@
  * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { getSharedWasmInstance, cleanupWasm, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { getSharedWasmInstance, cleanupWasm } from '../helpers/wasmTestHelper'
 
 let wasmInstance
-let skipIfNoWasm
 
 beforeAll(async () => {
   wasmInstance = await getSharedWasmInstance()
-  skipIfNoWasm = createSkipFn(it)
 })
 
 afterAll(() => {
@@ -25,7 +23,7 @@ afterAll(() => {
 describe('Real WASM Integration Tests', () => {
 
   describe('CST Generation', () => {
-    skipIfNoWasm('should generate CST without panics for valid code', async () => {
+    it('should generate CST without panics for valid code', async () => {
       const code = "package 'Test' { part def Test {} }"
       
       const result = await wasmInstance.generate_cst(code, 'test://file')
@@ -38,7 +36,7 @@ describe('Real WASM Integration Tests', () => {
       expect(() => JSON.parse(JSON.stringify(result))).not.toThrow()
     })
 
-    skipIfNoWasm('should handle empty code without panics', async () => {
+    it('should handle empty code without panics', async () => {
       // Should return an error, not panic
       try {
         const result = await wasmInstance.generate_cst('', 'test://file')
@@ -52,7 +50,7 @@ describe('Real WASM Integration Tests', () => {
       }
     })
 
-    skipIfNoWasm('should handle Vehicle System example without panics', async () => {
+    it('should handle Vehicle System example without panics', async () => {
       const code = `package 'Vehicle System' {
     doc /*
      * A simple vehicle system example demonstrating
@@ -87,7 +85,7 @@ describe('Real WASM Integration Tests', () => {
       expect(() => JSON.parse(JSON.stringify(result))).not.toThrow()
     })
 
-    skipIfNoWasm('should handle moderately sized files without panics', async () => {
+    it('should handle moderately sized files without panics', async () => {
       // Reduced from 100 to 20 to save memory
       const parts = Array(20).fill(0).map((_, i) =>
         `    part def Part${i} {\n        attribute id :> ScalarValues::String;\n    }`
@@ -101,7 +99,7 @@ describe('Real WASM Integration Tests', () => {
       expect(result.root).toBeDefined()
     })
 
-    skipIfNoWasm('should handle code with parse errors gracefully', async () => {
+    it('should handle code with parse errors gracefully', async () => {
       const code = `package 'Test' {
     part def Test {
         attribute invalid :> 
@@ -122,7 +120,7 @@ describe('Real WASM Integration Tests', () => {
   })
 
   describe('HIR Generation', () => {
-    skipIfNoWasm('should generate HIR without panics', async () => {
+    it('should generate HIR without panics', async () => {
       const code = "package 'Test' { part def Test {} }"
       
       const result = await wasmInstance.generate_hir(code, 'test://file')
@@ -131,7 +129,7 @@ describe('Real WASM Integration Tests', () => {
       expect(() => JSON.parse(JSON.stringify(result))).not.toThrow()
     })
 
-    skipIfNoWasm('should handle Vehicle System example for HIR', async () => {
+    it('should handle Vehicle System example for HIR', async () => {
       const code = `package 'Vehicle System' {
     part def Vehicle {
         attribute speed :> ScalarValues::Real;
@@ -146,7 +144,7 @@ describe('Real WASM Integration Tests', () => {
   })
 
   describe('Analytics Generation', () => {
-    skipIfNoWasm('should generate analytics without panics', async () => {
+    it('should generate analytics without panics', async () => {
       const code = "package 'Test' { part def Test {} }"
       
       const result = await wasmInstance.generate_analytics(code, 'test://file')
@@ -157,7 +155,7 @@ describe('Real WASM Integration Tests', () => {
   })
 
   describe('Panic Detection', () => {
-    skipIfNoWasm('should catch panics and return errors instead of crashing', async () => {
+    it('should catch panics and return errors instead of crashing', async () => {
       const problematicCode = `package 'Vehicle System' {
     part def Vehicle {
         attribute speed :> ScalarValues::Real;
@@ -192,7 +190,7 @@ describe('Real WASM Integration Tests', () => {
       }
     })
 
-    skipIfNoWasm('should handle array bounds errors gracefully', async () => {
+    it('should handle array bounds errors gracefully', async () => {
       // Test with code that might cause array bounds issues
       const code = "package 'Test' { part def Test {} }"
 
