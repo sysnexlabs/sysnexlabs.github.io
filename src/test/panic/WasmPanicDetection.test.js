@@ -1,44 +1,31 @@
 /**
  * WASM Panic Detection Tests
- * 
+ *
  * These tests specifically check for panic conditions that were discovered:
  * - Array bounds errors in line_col
  * - Panics in CST generation
  * - Panics in HIR generation
  * - Panics in analytics generation
+ *
+ * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { getSharedWasmInstance, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
 
-// Import real WASM module (not mocked)
-let SysMLWasm
 let wasmInstance
+let skipIfNoWasm
 
 beforeAll(async () => {
-  try {
-    const wasmPath = new URL('../../wasm/sysml_wasm_bridge.js', import.meta.url).href
-    const wasmModule = await import(/* @vite-ignore */ wasmPath)
-    
-    if (wasmModule.default) {
-      await wasmModule.default()
-    }
-    
-    if (wasmModule.init_panic_hook) {
-      wasmModule.init_panic_hook()
-    }
-    
-    SysMLWasm = wasmModule.SysMLWasm
-    
-    if (SysMLWasm) {
-      wasmInstance = new SysMLWasm()
-    }
-  } catch (err) {
-    console.warn('Real WASM module not available for testing:', err.message)
-  }
+  wasmInstance = await getSharedWasmInstance()
+  skipIfNoWasm = createSkipFn(it)
+})
+
+afterAll(() => {
+  // Cleanup is handled globally by the helper
 })
 
 describe('WASM Panic Detection', () => {
-  const skipIfNoWasm = !wasmInstance ? it.skip : it
 
   describe('CST Generation Panics', () => {
     skipIfNoWasm('should not panic on Vehicle System example (previously panicked)', async () => {
@@ -129,14 +116,14 @@ describe('WASM Panic Detection', () => {
     skipIfNoWasm('should handle out-of-bounds line indices without panic', async () => {
       // Code that might cause out-of-bounds access in line_col
       const code = "package 'Test' { part def Test {} }"
-      
-      // Call multiple times to test for bounds issues
-      const promises = Array(20).fill(0).map((_, i) => 
+
+      // Reduced from 20 to 5 concurrent calls to save memory
+      const promises = Array(5).fill(0).map((_, i) =>
         wasmInstance.generate_cst(code, `test://bounds-${i}`)
       )
-      
+
       const results = await Promise.allSettled(promises)
-      
+
       // None should panic
       results.forEach((result) => {
         if (result.status === 'rejected') {

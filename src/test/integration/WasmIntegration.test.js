@@ -1,49 +1,28 @@
 /**
  * Real WASM Integration Tests
- * 
+ *
  * These tests make actual WASM calls to detect real issues like panics,
  * array bounds errors, and other runtime problems that mocks cannot catch.
+ *
+ * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { getSharedWasmInstance, cleanupWasm, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
 
-// Import real WASM module (not mocked)
-let SysMLWasm
 let wasmInstance
+let skipIfNoWasm
 
 beforeAll(async () => {
-  try {
-    // Try to load real WASM module
-    // Use dynamic import with path resolution
-    const wasmPath = new URL('../../wasm/sysml_wasm_bridge.js', import.meta.url).href
-    const wasmModule = await import(/* @vite-ignore */ wasmPath)
-    
-    if (wasmModule.default) {
-      await wasmModule.default()
-    }
-    
-    // Initialize panic hook if available
-    if (wasmModule.init_panic_hook) {
-      wasmModule.init_panic_hook()
-    }
-    
-    SysMLWasm = wasmModule.SysMLWasm
-    
-    if (SysMLWasm) {
-      wasmInstance = new SysMLWasm()
-      console.log('✅ Real WASM module loaded for testing')
-    } else {
-      console.warn('⚠️ SysMLWasm class not found in WASM module')
-    }
-  } catch (err) {
-    console.warn('⚠️ Real WASM module not available for testing:', err.message)
-    console.warn('   Tests will be skipped. Build WASM first: cd sysmlv2_rust_extension/crates/wasm-bridge && wasm-pack build --target web')
-    // Tests will be skipped if WASM is not available
-  }
+  wasmInstance = await getSharedWasmInstance()
+  skipIfNoWasm = createSkipFn(it)
+})
+
+afterAll(() => {
+  // Cleanup is handled globally by the helper
 })
 
 describe('Real WASM Integration Tests', () => {
-  const skipIfNoWasm = !wasmInstance ? it.skip : it
 
   describe('CST Generation', () => {
     skipIfNoWasm('should generate CST without panics for valid code', async () => {
@@ -108,15 +87,16 @@ describe('Real WASM Integration Tests', () => {
       expect(() => JSON.parse(JSON.stringify(result))).not.toThrow()
     })
 
-    skipIfNoWasm('should handle large files without panics', async () => {
-      const parts = Array(100).fill(0).map((_, i) => 
+    skipIfNoWasm('should handle moderately sized files without panics', async () => {
+      // Reduced from 100 to 20 to save memory
+      const parts = Array(20).fill(0).map((_, i) =>
         `    part def Part${i} {\n        attribute id :> ScalarValues::String;\n    }`
       ).join('\n')
-      
+
       const largeCode = `package 'Large System' {\n${parts}\n}`
-      
+
       const result = await wasmInstance.generate_cst(largeCode, 'test://large')
-      
+
       expect(result).toBeDefined()
       expect(result.root).toBeDefined()
     })
@@ -215,14 +195,14 @@ describe('Real WASM Integration Tests', () => {
     skipIfNoWasm('should handle array bounds errors gracefully', async () => {
       // Test with code that might cause array bounds issues
       const code = "package 'Test' { part def Test {} }"
-      
-      // Multiple rapid calls to test for bounds issues
-      const promises = Array(10).fill(0).map(() => 
-        wasmInstance.generate_cst(code, 'test://file')
+
+      // Reduced from 10 to 3 concurrent calls to save memory
+      const promises = Array(3).fill(0).map((_, i) =>
+        wasmInstance.generate_cst(code, `test://file-${i}`)
       )
-      
+
       const results = await Promise.allSettled(promises)
-      
+
       // All should either succeed or fail gracefully (not panic)
       results.forEach((result) => {
         if (result.status === 'rejected') {

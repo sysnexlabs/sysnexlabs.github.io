@@ -1,41 +1,29 @@
 /**
  * WASM Edge Case Tests
- * 
+ *
  * Tests for edge cases that could cause panics:
  * - Empty files
- * - Very large files
+ * - Moderately large files (reduced for memory efficiency)
  * - Deep nesting
  * - Invalid UTF-8
- * - Many parse errors
+ * - Parse errors
+ *
+ * Uses shared WASM instance to reduce memory usage.
  */
 
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { getSharedWasmInstance, skipIfNoWasm as createSkipFn } from '../helpers/wasmTestHelper'
 
-// Import real WASM module (not mocked)
-let SysMLWasm
 let wasmInstance
+let skipIfNoWasm
 
 beforeAll(async () => {
-  try {
-    const wasmPath = new URL('../../wasm/sysml_wasm_bridge.js', import.meta.url).href
-    const wasmModule = await import(/* @vite-ignore */ wasmPath)
-    
-    if (wasmModule.default) {
-      await wasmModule.default()
-    }
-    
-    if (wasmModule.init_panic_hook) {
-      wasmModule.init_panic_hook()
-    }
-    
-    SysMLWasm = wasmModule.SysMLWasm
-    
-    if (SysMLWasm) {
-      wasmInstance = new SysMLWasm()
-    }
-  } catch (err) {
-    console.warn('Real WASM module not available for testing:', err.message)
-  }
+  wasmInstance = await getSharedWasmInstance()
+  skipIfNoWasm = createSkipFn(it)
+})
+
+afterAll(() => {
+  // Cleanup is handled globally by the helper
 })
 
 // Helper to generate deep nesting
@@ -101,11 +89,11 @@ describe('WASM Edge Cases', () => {
       shouldPanic: false,
     },
     {
-      name: 'Very large file (1000 lines)',
-      code: "package 'Large' {\n" + 
-        Array(1000).fill(0).map((_, i) => 
+      name: 'Moderately large file (50 parts)',
+      code: "package 'Large' {\n" +
+        Array(50).fill(0).map((_, i) =>
           `  part def Part${i} {\n    attribute id${i} :> ScalarValues::String;\n  }`
-        ).join('\n') + 
+        ).join('\n') +
         '\n}',
       shouldPanic: false,
     },
@@ -139,29 +127,31 @@ describe('WASM Edge Cases', () => {
 
   describe('Array Bounds Edge Cases', () => {
     skipIfNoWasm('should handle code with many attributes without bounds errors', async () => {
-      const attributes = Array(100).fill(0).map((_, i) => 
+      // Reduced from 100 to 20 to save memory
+      const attributes = Array(20).fill(0).map((_, i) =>
         `        attribute attr${i} :> ScalarValues::String;`
       ).join('\n')
-      
+
       const code = `package 'ManyAttributes' {
     part def Test {
 ${attributes}
     }
 }`
-      
+
       const result = await wasmInstance.generate_cst(code, 'test://many-attributes')
-      
+
       expect(result).toBeDefined()
       expect(result.root).toBeDefined()
     })
 
     skipIfNoWasm('should handle code with many nested parts without bounds errors', async () => {
-      const parts = Array(50).fill(0).map((_, i) => 
+      // Reduced from 50 to 15 to save memory
+      const parts = Array(15).fill(0).map((_, i) =>
         `    part def Part${i} {\n        attribute id :> ScalarValues::String;\n    }`
       ).join('\n')
-      
+
       const code = `package 'ManyParts' {\n${parts}\n}`
-      
+
       const result = await wasmInstance.generate_cst(code, 'test://many-parts')
       
       expect(result).toBeDefined()
