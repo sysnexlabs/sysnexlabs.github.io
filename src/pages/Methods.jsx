@@ -99,7 +99,7 @@ const Methods = () => {
           >
             <h1>MBSE Methodology</h1>
             <p className="page-hero-description">
-              Sysnex Labs provides practical, proven methods for adopting Model-Based Systems Engineering 
+              SysNex Systems provides practical, proven methods for adopting Model-Based Systems Engineering 
               with SysML v2. Our methodology bridges the gap between traditional systems engineering and 
               modern software development practices.
             </p>

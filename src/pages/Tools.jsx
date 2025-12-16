@@ -137,7 +137,7 @@ const Tools = () => {
           >
             <h1>Development Tools &amp; Environment</h1>
             <p className="page-hero-description">
-              Sysnex Labs provides a complete, AI-augmented development environment for SysML v2 modeling. 
+              SysNex Systems provides a complete, AI-augmented development environment for SysML v2 modeling. 
               Our tooling integrates seamlessly with VS Code, Git, and modern development workflows, bringing 
               systems engineering into the 21st century.
             </p>

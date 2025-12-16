@@ -9,11 +9,11 @@ const Footer = () => {
         <div className="footer-brand">
           <div className="brand">
             <div className="brand-logo">
-              <img src="./assets/logo_S_black2.svg" alt="Sysnex Labs" className="logo" />
+              <img src="./assets/logo_S_black2.svg" alt="SysNex Systems" className="logo" />
             </div>
             <span className="brand-text">
               <span className="brand-text-primary">SYSNEX</span>
-              <span className="brand-text-secondary">Labs</span>
+              <span className="brand-text-secondary">Systems</span>
             </span>
           </div>
           <p className="footer-tagline">
@@ -45,7 +45,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p className="footer-copyright">
-          © {new Date().getFullYear()} Sysnex Labs. All rights reserved.
+          © {new Date().getFullYear()} SysNex Systems. All rights reserved.
         </p>
       </div>
     </footer>

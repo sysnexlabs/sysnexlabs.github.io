@@ -9,7 +9,7 @@ const Product = () => {
     {
       icon: '🚀',
       title: 'Multi-Platform Delivery',
-      description: 'Available as VS Code Extension (50M+ users), Standalone Desktop App, and SaaS Cloud Platform. Choose the deployment that fits your workflow.',
+      description: 'Available as VS Code Extension (50M+ users), Tauri App, and SaaS by SysNex Systems. Choose the deployment that fits your workflow.',
       tags: ['50M+ Users', 'Zero Learning Curve', 'Cross-Platform']
     },
     {
@@ -62,7 +62,7 @@ const Product = () => {
     },
     {
       icon: '🖥️',
-      title: 'Standalone Desktop App',
+      title: 'Tauri App',
       description: 'Native desktop application built with Tauri for maximum performance and offline capability.',
       features: [
         'Native desktop performance',
@@ -76,7 +76,7 @@ const Product = () => {
     },
     {
       icon: '☁️',
-      title: 'SaaS Cloud Platform',
+      title: 'SaaS by SysNex Systems',
       description: 'Web-based IDE accessible from any browser. Real-time collaboration, cloud storage, and zero-install deployment.',
       features: [
         'Access from any browser',
@@ -183,7 +183,7 @@ const Product = () => {
             <div className="hero-badge">Enterprise MBSE Tooling</div>
             <h1>SysML v2 Language Server</h1>
             <p className="page-hero-description">
-              First enterprise-grade SysML v2 Language Server available as VS Code Extension, Standalone Desktop App, and SaaS Cloud Platform. 
+              First enterprise-grade SysML v2 Language Server available as VS Code Extension, Tauri App, and SaaS by SysNex Systems. 
               Production-ready LSP with AI integration, Git workflows, and multi-industry compliance variants.
             </p>
             <div className="hero-cta">

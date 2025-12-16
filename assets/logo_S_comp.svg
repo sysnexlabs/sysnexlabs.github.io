@@ -4,9 +4,9 @@
 <svg
    version="1.1"
    id="svg1"
-   width="1334.0494"
+   width="1511.1632"
    height="614.72174"
-   viewBox="0 0 1334.0494 614.72174"
+   viewBox="0 0 1511.1632 614.72174"
    sodipodi:docname="logo_S_comp.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    inkscape:export-filename="/Users/schauanr/Documents/sysnex/common/logo_SYSNEX.png"
@@ -47,12 +47,12 @@
      inkscape:deskcolor="#d1d1d1"
      showguides="true"
      inkscape:zoom="0.47447638"
-     inkscape:cx="704.98768"
-     inkscape:cy="345.64418"
+     inkscape:cx="669.15871"
+     inkscape:cy="420.4635"
      inkscape:window-width="1440"
-     inkscape:window-height="841"
+     inkscape:window-height="842"
      inkscape:window-x="0"
-     inkscape:window-y="31"
+     inkscape:window-y="30"
      inkscape:window-maximized="1"
      inkscape:current-layer="g6-0">
     <sodipodi:guide
@@ -69,6 +69,11 @@
        position="-374.12252,-22.884083"
        orientation="0,-1"
        id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="459.45385,566.24725"
+       orientation="1,0"
+       id="guide4"
        inkscape:locked="false" />
   </sodipodi:namedview>
   <g
@@ -155,27 +160,27 @@
           <text
              xml:space="preserve"
              style="font-size:192px;line-height:0;text-align:start;letter-spacing:-20px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ad003c;fill-opacity:1;stroke:none;stroke-width:34.3;stroke-dasharray:none;stroke-opacity:1"
-             x="188.20201"
-             y="-500.13263"
+             x="156.58821"
+             y="-495.91748"
              id="text6"
              transform="rotate(179.08102)"><tspan
                sodipodi:role="line"
                id="tspan6"
-               x="178.20201"
-               y="-500.13263"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Lexend Exa';-inkscape-font-specification:'Lexend Exa';text-align:center;letter-spacing:-20px;baseline-shift:baseline;text-anchor:middle;stroke-width:34.3;stroke-dasharray:none">SYSNEX</tspan></text>
+               x="146.58821"
+               y="-495.91748"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Lexend Exa';-inkscape-font-specification:'Lexend Exa';text-align:center;letter-spacing:-20px;baseline-shift:baseline;text-anchor:middle;stroke-width:34.3;stroke-dasharray:none">SysNex</tspan></text>
           <text
              xml:space="preserve"
              style="font-size:192px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ad003c;fill-opacity:1;stroke:none;stroke-width:17.4;stroke-dasharray:none;stroke-opacity:1"
-             x="-221.52582"
-             y="-325.71762"
+             x="-219.41823"
+             y="-277.24313"
              id="text6-0"
              transform="rotate(179.08102)"><tspan
                sodipodi:role="line"
                id="tspan6-4"
-               x="-221.52582"
-               y="-325.71762"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:'Lexend Exa';-inkscape-font-specification:'Lexend Exa';fill:#ff6600;fill-opacity:1">Labs</tspan></text>
+               x="-219.41823"
+               y="-277.24313"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:'Lexend Exa';-inkscape-font-specification:'Lexend Exa';fill:#ff6600;fill-opacity:1">Solutions</tspan></text>
         </g>
       </g>
     </g>

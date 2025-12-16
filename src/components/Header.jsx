@@ -24,8 +24,10 @@ const Header = () => {
       page = 'contact'
     } else if (path === '/product' || path.includes('/try-yourself')) {
       page = 'product'
-    } else if (path === '/methods' || path === '/process' || path === '/tools' || path === '/about') {
+    } else if (path === '/methods' || path === '/process' || path === '/tools') {
       page = 'consulting'
+    } else if (path === '/about' || path === '/about.html') {
+      page = 'about'
     }
     
     setActivePage(page)
@@ -160,10 +162,10 @@ const Header = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
           onClick={handleHomeClick}
         >
-          <img src="./assets/logo_S_black2.svg" alt="Sysnex Labs" className="logo" />
+          <img src="./assets/logo_S_black2.svg" alt="SysNex Systems" className="logo" />
           <span className="brand-text">
             <span className="brand-text-primary">SYSNEX</span>
-            <span className="brand-text-secondary">Labs</span>
+            <span className="brand-text-secondary">Systems</span>
           </span>
         </Link>
       </div>
@@ -261,9 +263,16 @@ const Header = () => {
             <Link to="/methods" className={location.pathname === '/methods' ? 'active' : ''} data-page="methods">{t('nav.methods') || 'Methods'}</Link>
             <Link to="/process" className={location.pathname === '/process' ? 'active' : ''} data-page="process">{t('nav.process') || 'Process'}</Link>
             <Link to="/tools" className={location.pathname === '/tools' ? 'active' : ''} data-page="tools">{t('nav.tools') || 'Tools'}</Link>
-            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''} data-page="about">{t('nav.about') || 'About'}</Link>
           </div>
         </div>
+        
+        <Link 
+          to="/about" 
+          className={`nav-link ${isActive('about') ? 'active' : ''}`}
+          data-page="about"
+        >
+          {t('nav.about') || 'About'}
+        </Link>
         
         <Link 
           to="/contact" 

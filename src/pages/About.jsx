@@ -82,9 +82,9 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1>About Sysnex Labs</h1>
+            <h1>About SysNex Systems</h1>
             <p className="page-hero-description">
-              Sysnex Labs unites software engineering excellence with model‑based systems engineering. 
+              SysNex Systems unites software engineering excellence with model‑based systems engineering. 
               We design lightweight tooling and practical methods that help organizations adopt SysML v2 – 
               from textual modeling to intelligent analysis, with special focus on functional safety and compliance.
             </p>

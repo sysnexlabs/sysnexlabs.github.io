@@ -80,7 +80,7 @@ const Process = () => {
           >
             <h1>Process Excellence &amp; Standards Compliance</h1>
             <p className="page-hero-description">
-              <span>Sysnex Labs brings deep expertise in international systems engineering and functional safety standards. Our process knowledge spans </span>
+              <span>SysNex Systems brings deep expertise in international systems engineering and functional safety standards. Our process knowledge spans </span>
               <strong>ISO 15288</strong>
               <span> (Systems and Software Engineering — System Life Cycle Processes) and </span>
               <strong>ISO 26262</strong>
