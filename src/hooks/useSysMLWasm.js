@@ -45,15 +45,16 @@ export function useSysMLWasm() {
           console.log('🔍 [WASM] Attempting to load from:', wasmJsPath)
           if (import.meta.env.VITEST) {
             const injected = globalThis.__SYSML_WASM_TEST_MODULE__
-            if (injected !== undefined) {
-              if (injected === null) {
-                const injectedErr = globalThis.__SYSML_WASM_TEST_MODULE_ERROR__
-                throw injectedErr instanceof Error ? injectedErr : new Error(injectedErr || 'WASM module not found')
-              }
-              wasmModule = injected
-            } else {
-              wasmModule = await import(/* @vite-ignore */ wasmJsPath)
+            // In tests, never try to import the real WASM bundle (it is large and
+            // can easily OOM the Vitest worker). Tests must inject a mock module.
+            if (injected === undefined) {
+              throw new Error('WASM module not provided in tests')
             }
+            if (injected === null) {
+              const injectedErr = globalThis.__SYSML_WASM_TEST_MODULE_ERROR__
+              throw injectedErr instanceof Error ? injectedErr : new Error(injectedErr || 'WASM module not found')
+            }
+            wasmModule = injected
           } else {
             wasmModule = await import(/* @vite-ignore */ wasmJsPath)
           }

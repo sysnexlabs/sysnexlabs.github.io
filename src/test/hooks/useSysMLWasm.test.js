@@ -186,6 +186,15 @@ describe('useSysMLDocumentation', () => {
     const mockWasm = new MockSysMLWasm()
     const generateSpy = vi.spyOn(mockWasm, 'generate_documentation')
 
+    // Ensure the hook uses our mocked WASM instance (instead of fallback)
+    globalThis.__SYSML_WASM_TEST_MODULE__ = {
+      default: async () => {},
+      init_panic_hook: () => {},
+      SysMLWasm: function SysMLWasm() {
+        return mockWasm
+      }
+    }
+
     const { result, rerender } = renderHook(
       ({ code }) => useSysMLDocumentation(code),
       { initialProps: { code: VALID_SYSML_CODE.simple } }

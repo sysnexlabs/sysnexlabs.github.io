@@ -8,6 +8,8 @@ import { renderWithProviders } from '../utils/testHelpers'
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
+const docCache = new Map()
+const EMPTY_DOC = { chapters: [], file_uri: 'editor://current', _empty: true }
 
 vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLWasm: () => ({
@@ -19,11 +21,15 @@ vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLDocumentation: (code) => {
     if (!code || code.trim().length === 0) {
       return {
-        documentation: { chapters: [], file_uri: 'editor://current' },
+        documentation: EMPTY_DOC,
         loading: false,
       }
     }
-    const doc = mockWasm.generate_documentation(code, 'editor://current')
+    let doc = docCache.get(code)
+    if (!doc) {
+      doc = mockWasm.generate_documentation(code, 'editor://current')
+      docCache.set(code, doc)
+    }
     return {
       documentation: doc || { chapters: [], file_uri: 'editor://current' },
       loading: false,
@@ -39,23 +45,23 @@ describe('DocumentationTabs', () => {
   it('should render all tab buttons', () => {
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    expect(screen.getByText('Documentation')).toBeInTheDocument()
-    expect(screen.getByText('CST')).toBeInTheDocument()
-    expect(screen.getByText('HIR')).toBeInTheDocument()
-    expect(screen.getByText('Stats')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Documentation' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'CST' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'HIR' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Stats' })).toBeInTheDocument()
   })
 
   it('should show Documentation tab by default', () => {
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    expect(screen.getByText('Documentation')).toHaveClass('active')
+    expect(screen.getByRole('button', { name: 'Documentation' })).toHaveClass('active')
   })
 
   it('should switch to CST tab when clicked', async () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const cstTab = screen.getByText('CST')
+    const cstTab = screen.getByRole('button', { name: 'CST' })
     await user.click(cstTab)
 
     await waitFor(() => {
@@ -67,7 +73,7 @@ describe('DocumentationTabs', () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const hirTab = screen.getByText('HIR')
+    const hirTab = screen.getByRole('button', { name: 'HIR' })
     await user.click(hirTab)
 
     await waitFor(() => {
@@ -79,7 +85,7 @@ describe('DocumentationTabs', () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const statsTab = screen.getByText('Stats')
+    const statsTab = screen.getByRole('button', { name: 'Stats' })
     await user.click(statsTab)
 
     await waitFor(() => {
@@ -91,11 +97,11 @@ describe('DocumentationTabs', () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const cstTab = screen.getByText('CST')
+    const cstTab = screen.getByRole('button', { name: 'CST' })
     await user.click(cstTab)
 
     await waitFor(() => {
-      expect(screen.getByText(/CST|Concrete Syntax Tree/i)).toBeInTheDocument()
+      expect(screen.getByText('CST (Concrete Syntax Tree)')).toBeInTheDocument()
     })
   })
 
@@ -103,11 +109,11 @@ describe('DocumentationTabs', () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const hirTab = screen.getByText('HIR')
+    const hirTab = screen.getByRole('button', { name: 'HIR' })
     await user.click(hirTab)
 
     await waitFor(() => {
-      expect(screen.getByText(/HIR|High-level Intermediate Representation/i)).toBeInTheDocument()
+      expect(screen.getByText('HIR (High-level Intermediate Representation)')).toBeInTheDocument()
     })
   })
 
@@ -115,11 +121,11 @@ describe('DocumentationTabs', () => {
     const user = userEvent.setup()
     renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-    const statsTab = screen.getByText('Stats')
+    const statsTab = screen.getByRole('button', { name: 'Stats' })
     await user.click(statsTab)
 
     await waitFor(() => {
-      expect(screen.getByText(/Analytics|Statistics/i)).toBeInTheDocument()
+      expect(screen.getByText('Analytics & Statistics')).toBeInTheDocument()
     })
   })
 
@@ -133,13 +139,13 @@ describe('DocumentationTabs', () => {
     const { rerender } = renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.simple} />)
 
     await waitFor(() => {
-      expect(screen.getByText('Simple Example')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 2, name: /Simple Example/i })).toBeInTheDocument()
     })
 
     rerender(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     await waitFor(() => {
-      expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
     })
   })
 })

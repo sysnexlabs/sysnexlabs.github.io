@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useLayoutEffect } from 'react'
 import TryYourselfEditor from '../../components/TryYourselfEditor/TryYourselfEditor'
 import DocumentationView from '../../components/DocumentationView/DocumentationView'
 import DocumentationTabs from '../../components/DocumentationTabs/DocumentationTabs'
@@ -10,6 +11,8 @@ import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelper
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
+const docCache = new Map()
+const EMPTY_DOC = { chapters: [], file_uri: 'editor://current', _empty: true }
 const mockDiagnostics = [
   { line: 1, message: 'Package name must be quoted', severity: 'error' },
   { line: 3, message: 'Attribute missing type', severity: 'warning' },
@@ -25,11 +28,15 @@ vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLDocumentation: vi.fn((code) => {
     if (!code || code.trim().length === 0) {
       return {
-        documentation: { chapters: [], file_uri: 'editor://current' },
+        documentation: EMPTY_DOC,
         loading: false,
       }
     }
-    const doc = mockWasm.generate_documentation(code, 'editor://current')
+    let doc = docCache.get(code)
+    if (!doc) {
+      doc = mockWasm.generate_documentation(code, 'editor://current')
+      docCache.set(code, doc)
+    }
     return {
       documentation: doc || { chapters: [], file_uri: 'editor://current' },
       loading: false,
@@ -43,9 +50,32 @@ const mockMonaco = {
   languages: {
     register: vi.fn(),
     setMonarchTokensProvider: vi.fn(),
+    registerDocumentSemanticTokensProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerHoverProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerCompletionItemProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDefinitionProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerReferenceProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDocumentSymbolProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerInlayHintsProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerFoldingRangeProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerSignatureHelpProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    CompletionItemKind: { Text: 0 },
+  },
+  Range: function Range(startLineNumber, startColumn, endLineNumber, endColumn) {
+    this.startLineNumber = startLineNumber
+    this.startColumn = startColumn
+    this.endLineNumber = endLineNumber
+    this.endColumn = endColumn
+  },
+  MarkerSeverity: {
+    Error: 8,
+    Warning: 4,
+    Info: 2,
+    Hint: 1,
   },
   editor: {
     setModelMarkers: vi.fn(),
+    getModelMarkers: vi.fn(() => []),
     defineTheme: vi.fn(),
     setTheme: vi.fn(),
     MarkerSeverity: {
@@ -59,11 +89,10 @@ const mockMonaco = {
 
 vi.mock('@monaco-editor/react', () => ({
   default: ({ onChange, value, onMount }) => {
-    if (onMount) {
-      setTimeout(() => {
-        onMount(mockEditor, mockMonaco)
-      }, 0)
-    }
+    useLayoutEffect(() => {
+      if (onMount) onMount(mockEditor, mockMonaco)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return <div data-testid="monaco-editor">Monaco Editor</div>
   },
 }))
@@ -196,7 +225,9 @@ describe('IDE Core Features', () => {
           Array.isArray(rule) && rule[1] === 'keyword'
         )
         expect(keywordRule).toBeDefined()
-        expect(keywordRule[0]).toMatch(/package|part|attribute/)
+        const keywordPattern =
+          keywordRule[0] instanceof RegExp ? keywordRule[0].source : String(keywordRule[0])
+        expect(keywordPattern).toMatch(/package|part|attribute/)
       })
     })
 
@@ -225,7 +256,7 @@ describe('IDE Core Features', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
@@ -233,14 +264,24 @@ describe('IDE Core Features', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle')).toBeInTheDocument()
-        expect(screen.getByText('Engine')).toBeInTheDocument()
-        expect(screen.getByText('Wheel')).toBeInTheDocument()
+        expect(screen.getAllByText('Vehicle').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('Engine').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('Wheel').length).toBeGreaterThan(0)
       })
     })
 
     it('should display attributes with types', async () => {
+      const user = userEvent.setup()
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+
+      await waitFor(() => {
+        expect(screen.getAllByText('Vehicle').length).toBeGreaterThan(0)
+      })
+
+      const expandButtons = screen.queryAllByText('▶')
+      if (expandButtons.length > 0) {
+        await user.click(expandButtons[0])
+      }
 
       await waitFor(() => {
         expect(screen.getByText('speed')).toBeInTheDocument()
@@ -262,7 +303,7 @@ describe('IDE Core Features', () => {
       const user = userEvent.setup()
       renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-      const cstTab = screen.getByText('CST')
+      const cstTab = screen.getByRole('button', { name: 'CST' })
       await user.click(cstTab)
 
       await waitFor(() => {
@@ -274,10 +315,10 @@ describe('IDE Core Features', () => {
       const user = userEvent.setup()
       renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-      await user.click(screen.getByText('CST'))
+      await user.click(screen.getByRole('button', { name: 'CST' }))
 
       await waitFor(() => {
-        expect(screen.getByText(/CST|Concrete Syntax Tree/i)).toBeInTheDocument()
+        expect(screen.getByText('CST (Concrete Syntax Tree)')).toBeInTheDocument()
       })
     })
 
@@ -285,10 +326,10 @@ describe('IDE Core Features', () => {
       const user = userEvent.setup()
       renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-      await user.click(screen.getByText('HIR'))
+      await user.click(screen.getByRole('button', { name: 'HIR' }))
 
       await waitFor(() => {
-        expect(screen.getByText(/HIR|High-level Intermediate Representation/i)).toBeInTheDocument()
+        expect(screen.getByText('HIR (High-level Intermediate Representation)')).toBeInTheDocument()
       })
     })
 
@@ -296,10 +337,10 @@ describe('IDE Core Features', () => {
       const user = userEvent.setup()
       renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
-      await user.click(screen.getByText('Stats'))
+      await user.click(screen.getByRole('button', { name: 'Stats' }))
 
       await waitFor(() => {
-        expect(screen.getByText(/Analytics|Statistics/i)).toBeInTheDocument()
+        expect(screen.getByText('Analytics & Statistics')).toBeInTheDocument()
       })
     })
   })
@@ -309,13 +350,13 @@ describe('IDE Core Features', () => {
       const { rerender } = renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.simple} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Simple Example')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Simple Example/i })).toBeInTheDocument()
       })
 
       rerender(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 

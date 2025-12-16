@@ -11,6 +11,15 @@ afterEach(() => {
   cleanup()
 })
 
+// Silence noisy debug logs during tests.
+// Important: don't use vi.spyOn here (it records every call + args, which can OOM).
+if (!globalThis.__VITEST_CONSOLE_SILENCED__) {
+  globalThis.__VITEST_CONSOLE_SILENCED__ = true
+  console.log = () => {}
+  console.info = () => {}
+  console.debug = () => {}
+}
+
 // Mock matchMedia used by ThemeProvider
 if (typeof window !== 'undefined' && !window.matchMedia) {
   window.matchMedia = vi.fn().mockImplementation((query) => ({

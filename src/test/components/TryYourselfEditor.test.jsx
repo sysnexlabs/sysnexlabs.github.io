@@ -1,19 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useLayoutEffect } from 'react'
 import TryYourselfEditor from '../../components/TryYourselfEditor/TryYourselfEditor'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE, INVALID_SYSML_CODE } from '../utils/testData'
 import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelpers'
 
+const mockWasmInstance = new MockSysMLWasm()
+
 // Mock useSysMLParser hook
 vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLParser: vi.fn((code) => {
-    const mockWasm = new MockSysMLWasm()
-    return mockWasm.parse(code)
+    return mockWasmInstance.parse(code)
   }),
   useSysMLWasm: () => ({
-    wasm: new MockSysMLWasm(),
+    wasm: mockWasmInstance,
     loading: false,
     error: null,
   }),
@@ -29,9 +31,32 @@ const mockMonaco = {
   languages: {
     register: vi.fn(),
     setMonarchTokensProvider: vi.fn(),
+    registerDocumentSemanticTokensProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerHoverProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerCompletionItemProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDefinitionProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerReferenceProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDocumentSymbolProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerInlayHintsProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerFoldingRangeProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerSignatureHelpProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    CompletionItemKind: { Text: 0 },
+  },
+  Range: function Range(startLineNumber, startColumn, endLineNumber, endColumn) {
+    this.startLineNumber = startLineNumber
+    this.startColumn = startColumn
+    this.endLineNumber = endLineNumber
+    this.endColumn = endColumn
+  },
+  MarkerSeverity: {
+    Error: 8,
+    Warning: 4,
+    Info: 2,
+    Hint: 1,
   },
   editor: {
     setModelMarkers: vi.fn(),
+    getModelMarkers: vi.fn(() => []),
     defineTheme: vi.fn(),
     setTheme: vi.fn(),
     MarkerSeverity: {
@@ -45,12 +70,11 @@ const mockMonaco = {
 
 vi.mock('@monaco-editor/react', () => ({
   default: ({ onChange, value, onMount }) => {
-    // Simulate editor mount
-    if (onMount) {
-      setTimeout(() => {
-        onMount(mockEditor, mockMonaco)
-      }, 0)
-    }
+    // Simulate editor mount (layout effect, so parent useEffect sees editorRef)
+    useLayoutEffect(() => {
+      if (onMount) onMount(mockEditor, mockMonaco)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return <div data-testid="monaco-editor">Monaco Editor: {value?.substring(0, 50)}</div>
   },
 }))

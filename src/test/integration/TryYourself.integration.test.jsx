@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useLayoutEffect } from 'react'
 import TryYourself from '../../pages/TryYourself'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE } from '../utils/testData'
@@ -8,6 +9,8 @@ import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelper
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
+const docCache = new Map()
+const EMPTY_DOC = { chapters: [], file_uri: 'editor://current', _empty: true }
 
 vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLParser: vi.fn(() => []),
@@ -19,14 +22,26 @@ vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLDocumentation: (code) => {
     if (!code || code.trim().length === 0) {
       return {
-        documentation: { chapters: [], file_uri: 'editor://current' },
+        documentation: EMPTY_DOC,
         loading: false,
       }
     }
-    const doc = mockWasm.generate_documentation(code, 'editor://current')
-    return {
-      documentation: doc || { chapters: [], file_uri: 'editor://current' },
-      loading: false,
+    try {
+      let doc = docCache.get(code)
+      if (!doc) {
+        doc = mockWasm.generate_documentation(code, 'editor://current')
+        docCache.set(code, doc)
+      }
+      return {
+        documentation: doc || { chapters: [], file_uri: 'editor://current' },
+        loading: false,
+      }
+    } catch {
+      // Mimic real hook behavior: fall back gracefully
+      return {
+        documentation: EMPTY_DOC,
+        loading: false,
+      }
     }
   },
 }))
@@ -37,9 +52,33 @@ const mockMonaco = {
   languages: {
     register: vi.fn(),
     setMonarchTokensProvider: vi.fn(),
+    setLanguageConfiguration: vi.fn(),
+    registerDocumentSemanticTokensProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerHoverProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerCompletionItemProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDefinitionProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerReferenceProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerDocumentSymbolProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerInlayHintsProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerFoldingRangeProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    registerSignatureHelpProvider: vi.fn(() => ({ dispose: vi.fn() })),
+    CompletionItemKind: { Text: 0 },
+  },
+  Range: function Range(startLineNumber, startColumn, endLineNumber, endColumn) {
+    this.startLineNumber = startLineNumber
+    this.startColumn = startColumn
+    this.endLineNumber = endLineNumber
+    this.endColumn = endColumn
+  },
+  MarkerSeverity: {
+    Error: 8,
+    Warning: 4,
+    Info: 2,
+    Hint: 1,
   },
   editor: {
     setModelMarkers: vi.fn(),
+    getModelMarkers: vi.fn(() => []),
     defineTheme: vi.fn(),
     setTheme: vi.fn(),
     MarkerSeverity: {
@@ -53,11 +92,10 @@ const mockMonaco = {
 
 vi.mock('@monaco-editor/react', () => ({
   default: ({ onChange, value, onMount }) => {
-    if (onMount) {
-      setTimeout(() => {
-        onMount(mockEditor, mockMonaco)
-      }, 0)
-    }
+    useLayoutEffect(() => {
+      if (onMount) onMount(mockEditor, mockMonaco)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return <div data-testid="monaco-editor">Monaco Editor: {value?.substring(0, 50)}</div>
   },
 }))
@@ -71,26 +109,27 @@ describe('Try Yourself Page - Integration Tests', () => {
     it('should render editor and documentation side by side', () => {
       renderWithProviders(<TryYourself />)
 
-      expect(screen.getByText('Try SysML v2 Yourself')).toBeInTheDocument()
-      expect(screen.getByTestId('monaco-editor')).toBeInTheDocument()
-      expect(screen.getByText('Documentation')).toBeInTheDocument()
+      // i18n is mocked, so we assert the hero heading exists
+      expect(screen.getByRole('heading', { level: 1, name: 'title' })).toBeInTheDocument()
+      expect(screen.getAllByTestId('monaco-editor')[0]).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Documentation' })).toBeInTheDocument()
     })
 
     it('should update documentation when code changes', async () => {
       renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
     it('should display all tabs in documentation view', () => {
       renderWithProviders(<TryYourself />)
 
-      expect(screen.getByText('Documentation')).toBeInTheDocument()
-      expect(screen.getByText('CST')).toBeInTheDocument()
-      expect(screen.getByText('HIR')).toBeInTheDocument()
-      expect(screen.getByText('Stats')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Documentation' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'CST' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'HIR' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Stats' })).toBeInTheDocument()
     })
   })
 
@@ -111,7 +150,7 @@ describe('Try Yourself Page - Integration Tests', () => {
       renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
@@ -165,7 +204,7 @@ describe('Try Yourself Page - Integration Tests', () => {
 
       // Should fallback to simple parser
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
@@ -191,7 +230,7 @@ describe('Try Yourself Page - Integration Tests', () => {
       renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
@@ -199,11 +238,11 @@ describe('Try Yourself Page - Integration Tests', () => {
       const user = userEvent.setup()
       renderWithProviders(<TryYourself />)
 
-      const helloWorldExample = screen.getByText('Hello World')
-      await user.click(helloWorldExample)
+      const exampleSelect = screen.getByLabelText(/Example/i, { selector: 'select#example-select' })
+      await user.selectOptions(exampleSelect, 'Hello World')
 
       await waitFor(() => {
-        expect(screen.getByText('Hello World')).toBeInTheDocument()
+        expect(screen.getAllByTestId('monaco-editor')[0].textContent).toMatch(/package 'Hello World'/i)
       })
     })
   })

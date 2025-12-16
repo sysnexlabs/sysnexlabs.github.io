@@ -980,8 +980,8 @@ export default function DocumentationView({ code }) {
       <div className="documentation-view">
         <div className="doc-header">
           <h3>Documentation</h3>
-          {wasmLoading && <span className="doc-loading">Loading...</span>}
-          {!wasmLoading && code && code.trim().length > 0 && (
+          {(wasmLoading || documentation?._loading) && <span className="doc-loading">Loading...</span>}
+          {!wasmLoading && !documentation?._loading && code && code.trim().length > 0 && (
             <span className="doc-loading">No documentation found. Check your code syntax.</span>
           )}
         </div>

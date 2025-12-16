@@ -6,31 +6,38 @@ import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE } from '../utils/testData'
 import { renderWithProviders } from '../utils/testHelpers'
 
+const mockWasmInstance = new MockSysMLWasm()
+const docCache = new Map()
+const EMPTY_DOC = { chapters: [], file_uri: 'editor://current', _empty: true }
+
 // Mock useSysMLDocumentation hook
 vi.mock('../../hooks/useSysMLWasm', () => ({
   useSysMLDocumentation: vi.fn((code) => {
     if (!code || code.trim().length === 0) {
       return {
-        documentation: { chapters: [], file_uri: 'editor://current' },
+        documentation: EMPTY_DOC,
         loading: false,
       }
     }
-    const mockWasm = new MockSysMLWasm()
     try {
-      const doc = mockWasm.generate_documentation(code, 'editor://current')
+      let doc = docCache.get(code)
+      if (!doc) {
+        doc = mockWasmInstance.generate_documentation(code, 'editor://current')
+        docCache.set(code, doc)
+      }
       return {
         documentation: doc || { chapters: [], file_uri: 'editor://current' },
         loading: false,
       }
     } catch {
       return {
-        documentation: { chapters: [], file_uri: 'editor://current' },
+        documentation: EMPTY_DOC,
         loading: false,
       }
     }
   }),
   useSysMLWasm: () => ({
-    wasm: new MockSysMLWasm(),
+    wasm: mockWasmInstance,
     loading: false,
     error: null,
   }),
@@ -48,15 +55,20 @@ describe('DocumentationView', () => {
       expect(screen.getByText(/Start typing SysML v2 code/i)).toBeInTheDocument()
     })
 
-    it('should show loading state when WASM is processing', () => {
-      const { useSysMLDocumentation } = vi.mocked(require('../../hooks/useSysMLWasm'))
-      useSysMLDocumentation.mockReturnValueOnce({
-        documentation: { chapters: [], file_uri: 'editor://current' },
+    it('should show loading state when WASM is processing', async () => {
+      const { useSysMLDocumentation } = vi.mocked(await import('../../hooks/useSysMLWasm'))
+      const originalImpl = useSysMLDocumentation.getMockImplementation()
+      const loadingDoc = { chapters: [], file_uri: 'editor://current', _empty: true }
+      useSysMLDocumentation.mockImplementation(() => ({
+        documentation: loadingDoc,
         loading: true,
-      })
+      }))
 
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
-      expect(screen.getByText(/Loading/i)).toBeInTheDocument()
+      expect(screen.getByText('Loading...')).toBeInTheDocument()
+
+      // Restore default behavior for following tests
+      useSysMLDocumentation.mockImplementation(originalImpl)
     })
   })
 
@@ -65,7 +77,7 @@ describe('DocumentationView', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
 
@@ -73,7 +85,7 @@ describe('DocumentationView', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        const packageTitle = screen.getByText('Vehicle System')
+        const packageTitle = screen.getByRole('heading', { level: 2, name: /Vehicle System/i })
         expect(packageTitle).toBeInTheDocument()
       })
     })
@@ -82,14 +94,24 @@ describe('DocumentationView', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle')).toBeInTheDocument()
-        expect(screen.getByText('Engine')).toBeInTheDocument()
-        expect(screen.getByText('Wheel')).toBeInTheDocument()
+        expect(screen.getAllByText('Vehicle').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('Engine').length).toBeGreaterThan(0)
+        expect(screen.getAllByText('Wheel').length).toBeGreaterThan(0)
       })
     })
 
     it('should display attributes', async () => {
+      const user = userEvent.setup()
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+
+      await waitFor(() => {
+        expect(screen.getAllByText('Vehicle').length).toBeGreaterThan(0)
+      })
+
+      const expandButtons = screen.queryAllByText('▶')
+      if (expandButtons.length > 0) {
+        await user.click(expandButtons[0])
+      }
 
       await waitFor(() => {
         expect(screen.getByText('speed')).toBeInTheDocument()
@@ -137,8 +159,7 @@ describe('DocumentationView', () => {
       renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        const vehicleElement = screen.getByText('Vehicle')
-        expect(vehicleElement).toBeInTheDocument()
+        expect(screen.getAllByText('Vehicle').length).toBeGreaterThan(0)
       })
 
       // Elements should be expandable
@@ -152,7 +173,7 @@ describe('DocumentationView', () => {
 
   describe('Error Handling', () => {
     it('should handle WASM errors gracefully', async () => {
-      const { useSysMLDocumentation } = vi.mocked(require('../../hooks/useSysMLWasm'))
+      const { useSysMLDocumentation } = vi.mocked(await import('../../hooks/useSysMLWasm'))
       useSysMLDocumentation.mockReturnValueOnce({
         documentation: { chapters: [], file_uri: 'editor://current' },
         loading: false,
@@ -162,7 +183,7 @@ describe('DocumentationView', () => {
 
       // Should fallback to simple parser
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
   })
@@ -172,13 +193,13 @@ describe('DocumentationView', () => {
       const { rerender } = renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.simple} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Simple Example')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Simple Example/i })).toBeInTheDocument()
       })
 
       rerender(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
-        expect(screen.getByText('Vehicle System')).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /Vehicle System/i })).toBeInTheDocument()
       })
     })
   })

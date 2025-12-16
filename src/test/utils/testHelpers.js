@@ -109,10 +109,12 @@ export function renderWithWasm(component, mockWasm) {
  * Create a mock Monaco editor
  */
 export function createMockMonacoEditor() {
+  const model = {
+    getLineLength: vi.fn(() => 100),
+    uri: { toString: () => 'inmemory://model.sysml' },
+  }
   return {
-    getModel: vi.fn(() => ({
-      getLineLength: vi.fn(() => 100),
-    })),
+    getModel: vi.fn(() => model),
     setPosition: vi.fn(),
     revealLineInCenter: vi.fn(),
     focus: vi.fn(),
