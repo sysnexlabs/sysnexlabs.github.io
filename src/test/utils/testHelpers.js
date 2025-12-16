@@ -2,7 +2,10 @@
  * Test helper functions
  */
 
+import React from 'react'
 import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+import { ThemeProvider } from '../../contexts/ThemeContext'
 import { vi } from 'vitest'
 
 /**
@@ -10,6 +13,26 @@ import { vi } from 'vitest'
  */
 export function waitForAsync() {
   return new Promise(resolve => setTimeout(resolve, 0))
+}
+
+/**
+ * Render with common providers (Theme + Router)
+ */
+export function renderWithProviders(ui, { route = '/' } = {}) {
+  const wrap = (node) =>
+    React.createElement(
+      ThemeProvider,
+      null,
+      React.createElement(MemoryRouter, { initialEntries: [route] }, node)
+    )
+
+  const result = render(wrap(ui))
+
+  // Ensure rerender keeps providers (tests often call rerender(ui))
+  const originalRerender = result.rerender
+  result.rerender = (nextUi) => originalRerender(wrap(nextUi))
+
+  return result
 }
 
 /**

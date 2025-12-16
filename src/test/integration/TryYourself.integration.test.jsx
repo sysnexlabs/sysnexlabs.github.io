@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TryYourself from '../../pages/TryYourself'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE } from '../utils/testData'
-import { createMockMonacoEditor } from '../utils/testHelpers'
+import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelpers'
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
@@ -69,7 +69,7 @@ describe('Try Yourself Page - Integration Tests', () => {
 
   describe('Full Page Integration', () => {
     it('should render editor and documentation side by side', () => {
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       expect(screen.getByText('Try SysML v2 Yourself')).toBeInTheDocument()
       expect(screen.getByTestId('monaco-editor')).toBeInTheDocument()
@@ -77,7 +77,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     })
 
     it('should update documentation when code changes', async () => {
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle System')).toBeInTheDocument()
@@ -85,7 +85,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     })
 
     it('should display all tabs in documentation view', () => {
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       expect(screen.getByText('Documentation')).toBeInTheDocument()
       expect(screen.getByText('CST')).toBeInTheDocument()
@@ -100,7 +100,7 @@ describe('Try Yourself Page - Integration Tests', () => {
       const parseSpy = vi.fn().mockReturnValue([])
       vi.mocked(useSysMLParser).mockImplementation(parseSpy)
 
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
         expect(parseSpy).toHaveBeenCalled()
@@ -108,7 +108,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     })
 
     it('should use WASM documentation generator', async () => {
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle System')).toBeInTheDocument()
@@ -118,7 +118,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     it('should use WASM CST generator when CST tab is active', async () => {
       const user = userEvent.setup()
       const cstSpy = vi.spyOn(mockWasm, 'generate_cst')
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       const cstTab = screen.getByText('CST')
       await user.click(cstTab)
@@ -131,7 +131,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     it('should use WASM HIR generator when HIR tab is active', async () => {
       const user = userEvent.setup()
       const hirSpy = vi.spyOn(mockWasm, 'generate_hir')
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       const hirTab = screen.getByText('HIR')
       await user.click(hirTab)
@@ -144,7 +144,7 @@ describe('Try Yourself Page - Integration Tests', () => {
     it('should use WASM analytics generator when Stats tab is active', async () => {
       const user = userEvent.setup()
       const analyticsSpy = vi.spyOn(mockWasm, 'generate_analytics')
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       const statsTab = screen.getByText('Stats')
       await user.click(statsTab)
@@ -161,7 +161,7 @@ describe('Try Yourself Page - Integration Tests', () => {
         throw new Error('WASM error')
       })
 
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       // Should fallback to simple parser
       await waitFor(() => {
@@ -175,7 +175,7 @@ describe('Try Yourself Page - Integration Tests', () => {
         throw new WebAssembly.RuntimeError('CST error')
       })
 
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       const cstTab = screen.getByText('CST')
       await user.click(cstTab)
@@ -188,7 +188,7 @@ describe('Try Yourself Page - Integration Tests', () => {
 
   describe('Code Examples Integration', () => {
     it('should load and display Vehicle System example', async () => {
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle System')).toBeInTheDocument()
@@ -197,7 +197,7 @@ describe('Try Yourself Page - Integration Tests', () => {
 
     it('should switch between different examples', async () => {
       const user = userEvent.setup()
-      render(<TryYourself />)
+      renderWithProviders(<TryYourself />)
 
       const helloWorldExample = screen.getByText('Hello World')
       await user.click(helloWorldExample)

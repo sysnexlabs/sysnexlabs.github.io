@@ -22,7 +22,11 @@ export function useSysMLWasm() {
         // In production (GitHub Pages), use relative paths since base: './' is set
         // In development, WASM files are in src/wasm/ relative to src/hooks/
         let wasmJsPath, wasmBinaryPath
-        if (import.meta.env.PROD) {
+        if (import.meta.env.VITEST) {
+          // In Vitest, use an alias import so tests can reliably mock the module.
+          wasmJsPath = '@/wasm/sysml_wasm_bridge.js'
+          wasmBinaryPath = undefined
+        } else if (import.meta.env.PROD) {
           // In production, use Vite's BASE_URL which includes the configured base path
           // This ensures paths work correctly for subdirectory deployments (e.g., GitHub Pages)
           const base = import.meta.env.BASE_URL || '/'
@@ -39,7 +43,20 @@ export function useSysMLWasm() {
         let wasmModule
         try {
           console.log('🔍 [WASM] Attempting to load from:', wasmJsPath)
-          wasmModule = await import(/* @vite-ignore */ wasmJsPath)
+          if (import.meta.env.VITEST) {
+            const injected = globalThis.__SYSML_WASM_TEST_MODULE__
+            if (injected !== undefined) {
+              if (injected === null) {
+                const injectedErr = globalThis.__SYSML_WASM_TEST_MODULE_ERROR__
+                throw injectedErr instanceof Error ? injectedErr : new Error(injectedErr || 'WASM module not found')
+              }
+              wasmModule = injected
+            } else {
+              wasmModule = await import(/* @vite-ignore */ wasmJsPath)
+            }
+          } else {
+            wasmModule = await import(/* @vite-ignore */ wasmJsPath)
+          }
         } catch (importErr) {
           // WASM file doesn't exist - this is expected in development
           console.info('WASM module not found, using fallback parser:', importErr.message)
@@ -158,7 +175,8 @@ export function useSysMLParser(code) {
           const lines = code.split('\n')
           
           lines.forEach((line, index) => {
-            if (line.includes('package') && !line.includes("'")) {
+            const trimmed = line.trim()
+            if (trimmed.startsWith('package') && !trimmed.includes("'")) {
               errors.push({
                 line: index + 1,
                 message: "Package name must be quoted with single quotes",
@@ -166,7 +184,7 @@ export function useSysMLParser(code) {
               })
             }
             
-            if (line.includes('attribute') && !line.includes(':>')) {
+            if (trimmed.startsWith('attribute') && !trimmed.includes(':>')) {
               errors.push({
                 line: index + 1,
                 message: "Attribute must have a type (use ':> Type')",
@@ -183,7 +201,8 @@ export function useSysMLParser(code) {
         const lines = code.split('\n')
         
         lines.forEach((line, index) => {
-          if (line.includes('package') && !line.includes("'")) {
+          const trimmed = line.trim()
+          if (trimmed.startsWith('package') && !trimmed.includes("'")) {
             errors.push({
               line: index + 1,
               message: "Package name must be quoted with single quotes",
@@ -191,7 +210,7 @@ export function useSysMLParser(code) {
             })
           }
           
-          if (line.includes('attribute') && !line.includes(':>')) {
+          if (trimmed.startsWith('attribute') && !trimmed.includes(':>')) {
             errors.push({
               line: index + 1,
               message: "Attribute must have a type (use ':> Type')",
@@ -225,8 +244,10 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current') {
       return
     }
 
+    // Mark as loading immediately so consumers/tests don't treat initial false as "done"
+    setLoading(true)
+
     const generateDoc = async () => {
-      setLoading(true)
       // Don't reset documentation to null - keep previous documentation while generating new one
       // This prevents flickering between WASM and fallback
       

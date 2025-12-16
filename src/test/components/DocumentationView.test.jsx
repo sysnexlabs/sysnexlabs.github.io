@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import DocumentationView from '../../components/DocumentationView/DocumentationView'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE } from '../utils/testData'
+import { renderWithProviders } from '../utils/testHelpers'
 
 // Mock useSysMLDocumentation hook
 vi.mock('../../hooks/useSysMLWasm', () => ({
@@ -43,7 +44,7 @@ describe('DocumentationView', () => {
 
   describe('Empty State', () => {
     it('should render empty state when code is empty', () => {
-      render(<DocumentationView code="" />)
+      renderWithProviders(<DocumentationView code="" />)
       expect(screen.getByText(/Start typing SysML v2 code/i)).toBeInTheDocument()
     })
 
@@ -54,14 +55,14 @@ describe('DocumentationView', () => {
         loading: true,
       })
 
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
       expect(screen.getByText(/Loading/i)).toBeInTheDocument()
     })
   })
 
   describe('Documentation Display', () => {
     it('should render documentation for valid code', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle System')).toBeInTheDocument()
@@ -69,7 +70,7 @@ describe('DocumentationView', () => {
     })
 
     it('should display package title', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         const packageTitle = screen.getByText('Vehicle System')
@@ -78,7 +79,7 @@ describe('DocumentationView', () => {
     })
 
     it('should display part definitions', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle')).toBeInTheDocument()
@@ -88,7 +89,7 @@ describe('DocumentationView', () => {
     })
 
     it('should display attributes', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('speed')).toBeInTheDocument()
@@ -97,7 +98,7 @@ describe('DocumentationView', () => {
     })
 
     it('should display doc comments', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText(/A simple vehicle system example/i)).toBeInTheDocument()
@@ -107,7 +108,7 @@ describe('DocumentationView', () => {
 
   describe('Table of Contents', () => {
     it('should render table of contents', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Model Tree')).toBeInTheDocument()
@@ -116,7 +117,7 @@ describe('DocumentationView', () => {
 
     it('should allow navigation via TOC', async () => {
       const user = userEvent.setup()
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Model Tree')).toBeInTheDocument()
@@ -133,7 +134,7 @@ describe('DocumentationView', () => {
   describe('Expand/Collapse', () => {
     it('should allow expanding/collapsing elements', async () => {
       const user = userEvent.setup()
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         const vehicleElement = screen.getByText('Vehicle')
@@ -157,7 +158,7 @@ describe('DocumentationView', () => {
         loading: false,
       })
 
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       // Should fallback to simple parser
       await waitFor(() => {
@@ -168,7 +169,7 @@ describe('DocumentationView', () => {
 
   describe('Code Updates', () => {
     it('should update documentation when code changes', async () => {
-      const { rerender } = render(<DocumentationView code={VALID_SYSML_CODE.simple} />)
+      const { rerender } = renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.simple} />)
 
       await waitFor(() => {
         expect(screen.getByText('Simple Example')).toBeInTheDocument()

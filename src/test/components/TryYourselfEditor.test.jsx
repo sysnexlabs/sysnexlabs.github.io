@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TryYourselfEditor from '../../components/TryYourselfEditor/TryYourselfEditor'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE, INVALID_SYSML_CODE } from '../utils/testData'
-import { createMockMonacoEditor } from '../utils/testHelpers'
+import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelpers'
 
 // Mock useSysMLParser hook
 vi.mock('../../hooks/useSysMLWasm', () => ({
@@ -66,12 +66,12 @@ describe('TryYourselfEditor', () => {
 
   describe('Rendering', () => {
     it('should render Monaco editor', () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
       expect(screen.getByTestId('monaco-editor')).toBeInTheDocument()
     })
 
     it('should display example selector', () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
       expect(screen.getByText('Hello World')).toBeInTheDocument()
       expect(screen.getByText('Vehicle System')).toBeInTheDocument()
       expect(screen.getByText('Requirements')).toBeInTheDocument()
@@ -79,7 +79,7 @@ describe('TryYourselfEditor', () => {
     })
 
     it('should load default example', () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
       const select = screen.getByLabelText(/example/i)
       expect(select).toHaveValue('Vehicle System')
     })
@@ -88,7 +88,7 @@ describe('TryYourselfEditor', () => {
   describe('Example Selection', () => {
     it('should switch examples when selected', async () => {
       const user = userEvent.setup()
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       const select = screen.getByLabelText(/example/i)
       await user.selectOptions(select, 'Hello World')
@@ -99,7 +99,7 @@ describe('TryYourselfEditor', () => {
     it('should call onCodeChange when example changes', async () => {
       const user = userEvent.setup()
       const onCodeChange = vi.fn()
-      render(<TryYourselfEditor onCodeChange={onCodeChange} />)
+      renderWithProviders(<TryYourselfEditor onCodeChange={onCodeChange} />)
 
       const select = screen.getByLabelText(/example/i)
       await user.selectOptions(select, 'Hello World')
@@ -112,7 +112,7 @@ describe('TryYourselfEditor', () => {
 
   describe('Syntax Highlighting', () => {
     it('should register SysML language', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.languages.register).toHaveBeenCalledWith({ id: 'sysml' })
@@ -120,7 +120,7 @@ describe('TryYourselfEditor', () => {
     })
 
     it('should set Monarch tokenizer for syntax highlighting', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.languages.setMonarchTokensProvider).toHaveBeenCalledWith(
@@ -135,7 +135,7 @@ describe('TryYourselfEditor', () => {
     })
 
     it('should define SysML dark theme', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.editor.defineTheme).toHaveBeenCalledWith(
@@ -150,7 +150,7 @@ describe('TryYourselfEditor', () => {
     })
 
     it('should apply SysML dark theme', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.editor.setTheme).toHaveBeenCalledWith('sysml-dark')
@@ -166,7 +166,7 @@ describe('TryYourselfEditor', () => {
         { line: 1, message: 'Test error', severity: 'error' },
       ])
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Diagnostics/i)).toBeInTheDocument()
@@ -182,7 +182,7 @@ describe('TryYourselfEditor', () => {
       const { useSysMLParser } = await import('../../hooks/useSysMLWasm')
       vi.mocked(useSysMLParser).mockReturnValue(diagnostics)
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.editor.setModelMarkers).toHaveBeenCalled()
@@ -207,7 +207,7 @@ describe('TryYourselfEditor', () => {
       const { useSysMLParser } = await import('../../hooks/useSysMLWasm')
       vi.mocked(useSysMLParser).mockReturnValue(diagnostics)
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         const markers = mockMonaco.editor.setModelMarkers.mock.calls[0][2]
@@ -218,11 +218,11 @@ describe('TryYourselfEditor', () => {
       })
     })
 
-    it('should not display diagnostics panel when no errors', () => {
+    it('should not display diagnostics panel when no errors', async () => {
       const { useSysMLParser } = vi.mocked(await import('../../hooks/useSysMLWasm'))
       useSysMLParser.mockReturnValue([])
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       expect(screen.queryByText(/Diagnostics/i)).not.toBeInTheDocument()
     })
@@ -238,7 +238,7 @@ describe('TryYourselfEditor', () => {
       const { useSysMLParser } = await import('../../hooks/useSysMLWasm')
       vi.mocked(useSysMLParser).mockReturnValue(diagnostics)
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Line 5:/i)).toBeInTheDocument()
@@ -260,7 +260,7 @@ describe('TryYourselfEditor', () => {
       const { useSysMLParser } = await import('../../hooks/useSysMLWasm')
       vi.mocked(useSysMLParser).mockReturnValue(diagnostics)
 
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         const diagnosticItem = screen.getByText(/Line 3:/i).closest('li')
@@ -273,7 +273,7 @@ describe('TryYourselfEditor', () => {
   describe('Code Changes', () => {
     it('should call onCodeChange when code changes', async () => {
       const onCodeChange = vi.fn()
-      render(<TryYourselfEditor onCodeChange={onCodeChange} />)
+      renderWithProviders(<TryYourselfEditor onCodeChange={onCodeChange} />)
 
       await waitFor(() => {
         expect(onCodeChange).toHaveBeenCalled()
@@ -285,7 +285,7 @@ describe('TryYourselfEditor', () => {
       const parseSpy = vi.fn().mockReturnValue([])
       vi.mocked(useSysMLParser).mockImplementation(parseSpy)
 
-      const { rerender } = render(<TryYourselfEditor />)
+      const { rerender } = renderWithProviders(<TryYourselfEditor />)
 
       // Change code (simulated by rerendering with different props)
       rerender(<TryYourselfEditor />)

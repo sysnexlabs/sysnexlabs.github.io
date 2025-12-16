@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TryYourselfEditor from '../../components/TryYourselfEditor/TryYourselfEditor'
 import DocumentationView from '../../components/DocumentationView/DocumentationView'
 import DocumentationTabs from '../../components/DocumentationTabs/DocumentationTabs'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE, INVALID_SYSML_CODE } from '../utils/testData'
-import { createMockMonacoEditor } from '../utils/testHelpers'
+import { createMockMonacoEditor, renderWithProviders } from '../utils/testHelpers'
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
@@ -78,7 +78,7 @@ describe('IDE Core Features', () => {
 
   describe('Diagnostics', () => {
     it('should display diagnostics in editor', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Diagnostics/i)).toBeInTheDocument()
@@ -88,7 +88,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should set Monaco markers for diagnostics', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.editor.setModelMarkers).toHaveBeenCalled()
@@ -101,7 +101,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should show correct diagnostic severity', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         const errorDiagnostic = screen.getByText(/Package name must be quoted/i)
@@ -114,7 +114,7 @@ describe('IDE Core Features', () => {
   describe('Navigation', () => {
     it('should navigate to error line when diagnostic is clicked', async () => {
       const user = userEvent.setup()
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Line 1:/i)).toBeInTheDocument()
@@ -130,7 +130,7 @@ describe('IDE Core Features', () => {
 
     it('should navigate to warning line when diagnostic is clicked', async () => {
       const user = userEvent.setup()
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Line 3:/i)).toBeInTheDocument()
@@ -144,7 +144,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should highlight diagnostic items as clickable', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         const diagnosticItem = screen.getByText(/Line 1:/i).closest('li')
@@ -156,7 +156,7 @@ describe('IDE Core Features', () => {
 
   describe('Syntax Highlighting', () => {
     it('should register SysML language for highlighting', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.languages.register).toHaveBeenCalledWith({ id: 'sysml' })
@@ -164,7 +164,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should configure syntax highlighting tokens', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.languages.setMonarchTokensProvider).toHaveBeenCalledWith(
@@ -185,7 +185,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should highlight keywords correctly', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         const tokenizer = mockMonaco.languages.setMonarchTokensProvider.mock.calls[0][1]
@@ -201,7 +201,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should apply custom theme', async () => {
-      render(<TryYourselfEditor />)
+      renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(mockMonaco.editor.defineTheme).toHaveBeenCalledWith(
@@ -222,7 +222,7 @@ describe('IDE Core Features', () => {
 
   describe('Documentation Viewer', () => {
     it('should display documentation for valid code', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle System')).toBeInTheDocument()
@@ -230,7 +230,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should display all parts in documentation', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Vehicle')).toBeInTheDocument()
@@ -240,7 +240,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should display attributes with types', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('speed')).toBeInTheDocument()
@@ -249,7 +249,7 @@ describe('IDE Core Features', () => {
     })
 
     it('should display table of contents', async () => {
-      render(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.vehicle} />)
 
       await waitFor(() => {
         expect(screen.getByText('Model Tree')).toBeInTheDocument()
@@ -260,7 +260,7 @@ describe('IDE Core Features', () => {
   describe('Documentation Tabs', () => {
     it('should switch between tabs', async () => {
       const user = userEvent.setup()
-      render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
       const cstTab = screen.getByText('CST')
       await user.click(cstTab)
@@ -272,7 +272,7 @@ describe('IDE Core Features', () => {
 
     it('should display CST when CST tab is active', async () => {
       const user = userEvent.setup()
-      render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
       await user.click(screen.getByText('CST'))
 
@@ -283,7 +283,7 @@ describe('IDE Core Features', () => {
 
     it('should display HIR when HIR tab is active', async () => {
       const user = userEvent.setup()
-      render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
       await user.click(screen.getByText('HIR'))
 
@@ -294,7 +294,7 @@ describe('IDE Core Features', () => {
 
     it('should display Stats when Stats tab is active', async () => {
       const user = userEvent.setup()
-      render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+      renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
       await user.click(screen.getByText('Stats'))
 
@@ -306,7 +306,7 @@ describe('IDE Core Features', () => {
 
   describe('Integration', () => {
     it('should update documentation when code changes', async () => {
-      const { rerender } = render(<DocumentationView code={VALID_SYSML_CODE.simple} />)
+      const { rerender } = renderWithProviders(<DocumentationView code={VALID_SYSML_CODE.simple} />)
 
       await waitFor(() => {
         expect(screen.getByText('Simple Example')).toBeInTheDocument()
@@ -324,7 +324,7 @@ describe('IDE Core Features', () => {
       const parseSpy = vi.fn().mockReturnValue(mockDiagnostics)
       vi.mocked(useSysMLParser).mockImplementation(parseSpy)
 
-      const { rerender } = render(<TryYourselfEditor />)
+      const { rerender } = renderWithProviders(<TryYourselfEditor />)
 
       await waitFor(() => {
         expect(screen.getByText(/Diagnostics/i)).toBeInTheDocument()

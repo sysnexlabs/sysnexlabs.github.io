@@ -14,8 +14,9 @@ export class MockSysMLWasm {
     const lines = source.split('\n')
     
     lines.forEach((line, index) => {
+      const trimmed = line.trim()
       // Simple validation: check for common errors
-      if (line.includes('package') && !line.includes("'")) {
+      if (trimmed.startsWith('package') && !trimmed.includes("'")) {
         diagnostics.push({
           line: index + 1,
           message: "Package name must be quoted with single quotes",
@@ -23,7 +24,7 @@ export class MockSysMLWasm {
         })
       }
       
-      if (line.includes('attribute') && !line.includes(':>')) {
+      if (trimmed.startsWith('attribute') && !trimmed.includes(':>')) {
         diagnostics.push({
           line: index + 1,
           message: "Attribute must have a type (use ':> Type')",
@@ -238,6 +239,7 @@ export class MockSysMLWasm {
 export function createMockWasmModule() {
   return {
     default: async () => {},
+    init_panic_hook: () => {},
     SysMLWasm: MockSysMLWasm,
   }
 }

@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import DocumentationTabs from '../../components/DocumentationTabs/DocumentationTabs'
 import { MockSysMLWasm } from '../utils/wasmMock'
 import { VALID_SYSML_CODE } from '../utils/testData'
+import { renderWithProviders } from '../utils/testHelpers'
 
 // Mock hooks
 const mockWasm = new MockSysMLWasm()
@@ -36,7 +37,7 @@ describe('DocumentationTabs', () => {
   })
 
   it('should render all tab buttons', () => {
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     expect(screen.getByText('Documentation')).toBeInTheDocument()
     expect(screen.getByText('CST')).toBeInTheDocument()
@@ -45,14 +46,14 @@ describe('DocumentationTabs', () => {
   })
 
   it('should show Documentation tab by default', () => {
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     expect(screen.getByText('Documentation')).toHaveClass('active')
   })
 
   it('should switch to CST tab when clicked', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const cstTab = screen.getByText('CST')
     await user.click(cstTab)
@@ -64,7 +65,7 @@ describe('DocumentationTabs', () => {
 
   it('should switch to HIR tab when clicked', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const hirTab = screen.getByText('HIR')
     await user.click(hirTab)
@@ -76,7 +77,7 @@ describe('DocumentationTabs', () => {
 
   it('should switch to Stats tab when clicked', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const statsTab = screen.getByText('Stats')
     await user.click(statsTab)
@@ -88,7 +89,7 @@ describe('DocumentationTabs', () => {
 
   it('should display CST data when CST tab is active', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const cstTab = screen.getByText('CST')
     await user.click(cstTab)
@@ -100,7 +101,7 @@ describe('DocumentationTabs', () => {
 
   it('should display HIR data when HIR tab is active', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const hirTab = screen.getByText('HIR')
     await user.click(hirTab)
@@ -112,7 +113,7 @@ describe('DocumentationTabs', () => {
 
   it('should display analytics data when Stats tab is active', async () => {
     const user = userEvent.setup()
-    render(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
+    renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.vehicle} />)
 
     const statsTab = screen.getByText('Stats')
     await user.click(statsTab)
@@ -123,13 +124,13 @@ describe('DocumentationTabs', () => {
   })
 
   it('should handle empty code', () => {
-    render(<DocumentationTabs code="" />)
+    renderWithProviders(<DocumentationTabs code="" />)
 
     expect(screen.getByText(/Start typing/i)).toBeInTheDocument()
   })
 
   it('should update content when code changes', async () => {
-    const { rerender } = render(<DocumentationTabs code={VALID_SYSML_CODE.simple} />)
+    const { rerender } = renderWithProviders(<DocumentationTabs code={VALID_SYSML_CODE.simple} />)
 
     await waitFor(() => {
       expect(screen.getByText('Simple Example')).toBeInTheDocument()

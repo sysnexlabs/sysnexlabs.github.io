@@ -7,6 +7,8 @@ import { VALID_SYSML_CODE, INVALID_SYSML_CODE } from '../utils/testData'
 describe('useSysMLWasm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    delete globalThis.__SYSML_WASM_TEST_MODULE__
+    delete globalThis.__SYSML_WASM_TEST_MODULE_ERROR__
   })
 
   afterEach(() => {
@@ -16,7 +18,7 @@ describe('useSysMLWasm', () => {
   describe('WASM loading', () => {
     it('should load WASM module successfully', async () => {
       const mockModule = createMockWasmModule()
-      vi.doMock('../../wasm/sysml_wasm_bridge.js', () => mockModule)
+      globalThis.__SYSML_WASM_TEST_MODULE__ = mockModule
 
       const { result } = renderHook(() => useSysMLWasm())
 
@@ -29,9 +31,8 @@ describe('useSysMLWasm', () => {
     })
 
     it('should handle WASM module loading failure gracefully', async () => {
-      vi.doMock('../../wasm/sysml_wasm_bridge.js', () => {
-        throw new Error('WASM module not found')
-      })
+      globalThis.__SYSML_WASM_TEST_MODULE__ = null
+      globalThis.__SYSML_WASM_TEST_MODULE_ERROR__ = new Error('WASM module not found')
 
       const { result } = renderHook(() => useSysMLWasm())
 
@@ -44,9 +45,8 @@ describe('useSysMLWasm', () => {
     })
 
     it('should use fallback parser when WASM is not available', async () => {
-      vi.doMock('../../wasm/sysml_wasm_bridge.js', () => {
-        throw new Error('WASM module not found')
-      })
+      globalThis.__SYSML_WASM_TEST_MODULE__ = null
+      globalThis.__SYSML_WASM_TEST_MODULE_ERROR__ = new Error('WASM module not found')
 
       const { result } = renderHook(() => useSysMLWasm())
 

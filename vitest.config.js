@@ -10,6 +10,7 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.js'],
     // Include real WASM tests
     include: ['src/**/*.{test,spec}.{js,jsx}'],
+    exclude: ['src/test/e2e/**', '**/*.e2e.test.*'],
     // Test timeout for WASM tests (they may take longer)
     testTimeout: 30000,
     coverage: {
