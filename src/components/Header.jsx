@@ -95,18 +95,37 @@ const Header = () => {
     return false
   }
 
-  const toggleLanguage = () => {
+  const toggleLanguage = (e) => {
+    // Prevent event bubbling and default behavior
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    
     const newLang = lang === 'en' ? 'de' : 'en'
     setLang(newLang)
-    localStorage.setItem('sysnex-lang', newLang)
+    
+    try {
+      localStorage.setItem('sysnex-lang', newLang)
+    } catch (err) {
+      console.warn('Could not save language to localStorage:', err)
+    }
     
     // Trigger static i18n if available
     if (typeof window !== 'undefined' && window.setLanguage) {
-      window.setLanguage(newLang)
+      try {
+        window.setLanguage(newLang)
+      } catch (err) {
+        console.warn('Could not set language via window.setLanguage:', err)
+      }
     }
     
     // Dispatch event for other components
-    window.dispatchEvent(new CustomEvent('languagechange'))
+    try {
+      window.dispatchEvent(new CustomEvent('languagechange'))
+    } catch (err) {
+      console.warn('Could not dispatch languagechange event:', err)
+    }
   }
 
   const handleHomeClick = (e) => {
@@ -168,6 +187,10 @@ const Header = () => {
             type="button" 
             aria-label="Switch language"
             onClick={toggleLanguage}
+            onTouchStart={(e) => {
+              // Ensure touch events work on mobile
+              e.stopPropagation()
+            }}
           >
             {lang === 'en' ? 'DE' : 'EN'}
           </button>

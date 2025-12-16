@@ -5,6 +5,13 @@
   padding: 0 2rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+}
+
 /* Section styles matching Home page exactly */
 .insights-section,
 .page-hero-section {
@@ -64,6 +71,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .methods-grid {
@@ -97,6 +106,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .status-badge {
@@ -115,6 +126,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .vision-statement {
@@ -142,16 +155,39 @@
 .comparison-table-wrapper {
   overflow-x: auto;
   margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .comparison-table-wrapper {
+    margin: 1.5rem 0;
+  }
 }
 
 .comparison-table {
   width: 100%;
+  min-width: 100%;
   border-collapse: collapse;
   background: rgba(13, 13, 13, 0.85);
   border: 1px solid rgba(0, 204, 255, 0.18);
   border-radius: 12px;
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  table-layout: auto;
+}
+
+@media (max-width: 768px) {
+  .comparison-table {
+    font-size: 0.875rem;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8125rem;
+  }
 }
 
 [data-theme="light"] .comparison-table {
@@ -203,6 +239,18 @@
   color: var(--turquoise);
   margin: 0;
   text-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .page-hero-section h1,
+  .insights-section h1 {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    padding: 0 1rem;
+    line-height: 1.2;
+  }
 }
 
 .page-hero-description {
@@ -213,6 +261,18 @@
   margin: 1.5rem 0 0 0;
   max-width: 800px;
   transition: color 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .page-hero-description {
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 100%;
+    padding: 0 1rem;
+    margin: 1rem 0 0 0;
+  }
 }
 
 .section-title {
@@ -234,6 +294,16 @@
   transition: color 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto 2rem;
+  }
+}
+
 /* Card styles matching Home page */
 .insight-card {
   background: rgba(13, 13, 13, 0.85);
@@ -244,6 +314,15 @@
   position: relative;
   overflow: visible;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .insight-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
 }
 
 [data-theme="light"] .insight-card {
@@ -372,6 +451,8 @@
   font-weight: 600;
   color: var(--aubergine);
   margin: 0 0 0.5rem 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .benefit-description {
@@ -381,6 +462,18 @@
   margin: 0;
   font-size: 0.9375rem;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .benefit-title {
+    font-size: 1.125rem;
+  }
+  .benefit-description {
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
 }
 
 /* Roadmap card styles */
@@ -391,6 +484,15 @@
   padding: 2rem;
   transition: all 0.3s ease;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .roadmap-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
 }
 
 [data-theme="light"] .roadmap-card {
@@ -409,6 +511,15 @@
   font-weight: 600;
   color: var(--aubergine);
   margin: 0 0 1.5rem 0;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .roadmap-card-title {
+    font-size: 1.125rem;
+    margin: 0 0 1rem 0;
+  }
 }
 
 .roadmap-list,
@@ -430,6 +541,17 @@
   padding-left: 1.2rem;
   position: relative;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .roadmap-list li,
+  .method-list li {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    padding-left: 1rem;
+  }
 }
 
 .roadmap-list li::before,
@@ -681,6 +803,8 @@
   font-weight: 600;
   color: var(--turquoise);
   margin: 0 0 1rem 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .platform-description {
@@ -689,6 +813,19 @@
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .platform-card h3 {
+    font-size: 1.25rem;
+  }
+  .platform-description {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    margin: 0 0 1rem 0;
+  }
 }
 
 .platform-features {
@@ -729,6 +866,15 @@
   padding: 1.5rem;
   text-align: center;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .lsp-feature-card {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
 }
 
 [data-theme="light"] .lsp-feature-card {
@@ -751,6 +897,8 @@
   font-weight: 600;
   color: var(--turquoise);
   margin: 0 0 0.5rem 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .lsp-feature-card p {
@@ -760,6 +908,18 @@
   line-height: 1.6;
   margin: 0 0 1rem 0;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .lsp-feature-card h4 {
+    font-size: 1rem;
+  }
+  .lsp-feature-card p {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+  }
 }
 
 .lsp-metric {
@@ -779,6 +939,8 @@
   border: 1px solid rgba(0, 204, 255, 0.18);
   border-radius: 18px;
   padding: 2rem;
+  width: 100%;
+  max-width: 100%;
   transition: all 0.3s ease;
   position: relative;
 }
@@ -825,6 +987,8 @@
   font-weight: 600;
   color: var(--turquoise);
   margin: 0.5rem 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .variant-size {
@@ -841,6 +1005,19 @@
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .variant-card h3 {
+    font-size: 1.25rem;
+  }
+  .variant-card p {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    margin: 0 0 1rem 0;
+  }
 }
 
 .variant-features {
@@ -919,6 +1096,19 @@
   line-height: 1.7;
   margin: 0 0 2rem 0;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .cta-content {
+    padding: 0 1rem;
+  }
+  .cta-content p {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0 0 1.5rem 0;
+  }
 }
 
 .cta-buttons {
@@ -938,7 +1128,8 @@
 /* Responsive design matching Home page exactly */
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+    max-width: 100%;
   }
 
   .insights-section,
@@ -961,8 +1152,27 @@
   .differentiators-grid,
   .platforms-grid,
   .lsp-features-grid,
-  .variants-grid {
+  .variants-grid,
+  .status-grid,
+  .architecture-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  /* Ensure cards don't exceed viewport width on mobile */
+  .features-grid > *,
+  .status-grid > *,
+  .architecture-grid > *,
+  .benefits-grid > *,
+  .insights-grid > *,
+  .page-intro-grid > *,
+  .methods-grid > *,
+  .roadmap-grid > * {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .hero-cta,
@@ -972,5 +1182,40 @@
 
   .hero-stats {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Optimize text widths for mobile */
+  .card-title,
+  .insight-title,
+  .roadmap-card-title,
+  .card-description,
+  .insight-description,
+  .benefit-description {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Optimize card padding for mobile */
+  .card,
+  .insight-card,
+  .roadmap-card,
+  .benefit-item,
+  .platform-card,
+  .variant-card,
+  .lsp-feature-card {
+    padding: 1.25rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Optimize section titles and descriptions */
+  .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    padding: 0 1rem;
+  }
+
+  .section-subtitle {
+    padding: 0 1rem;
   }
 }

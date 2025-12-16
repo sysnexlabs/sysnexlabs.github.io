@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sysnex Labs – Model-Based Systems Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <meta name="description" content="Sysnex Labs builds enterprise-grade SysML v2 tooling and MBSE methodology for model-to-code integration, functional safety, and intelligent traceability." />
+  <script>
+    // GitHub Pages 404 fallback
+    // When GitHub Pages serves a 404, it serves this file
+    // We need to redirect to index.html and let React Router handle the routing
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      // Store the original path for React Router
+      sessionStorage.setItem('redirectPath', path + search + hash);
+      
+      // Redirect to index.html
+      // React Router will read the redirectPath from sessionStorage
+      window.location.replace('/index.html');
+    })();
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="./i18n.js"></script>
+  <script type="module" src="./src/main.jsx"></script>
+</body>
+</html>
+

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Header from './components/Header'
@@ -17,6 +17,20 @@ function App() {
   // Get base URL - handle both development and production
   // For GitHub Pages with base './', we need to normalize it
   const baseUrl = import.meta.env.BASE_URL === './' ? '' : (import.meta.env.BASE_URL || '')
+  
+  // Handle redirect from 404.html fallback (GitHub Pages)
+  useEffect(() => {
+    // Check if we have a redirect path stored from 404.html
+    const redirectPath = sessionStorage.getItem('redirectPath')
+    if (redirectPath && redirectPath !== window.location.pathname + window.location.search + window.location.hash) {
+      // Clear the redirect path
+      sessionStorage.removeItem('redirectPath')
+      // Navigate to the stored path
+      window.history.replaceState(null, '', redirectPath)
+      // Trigger a navigation event to update React Router
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    }
+  }, [])
   
   return (
     <ThemeProvider>

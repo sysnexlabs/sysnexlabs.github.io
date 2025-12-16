@@ -25,6 +25,15 @@
   position: relative;
   overflow: visible;
   box-shadow: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .insight-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
 }
 
 [data-theme="light"] .insight-card {
@@ -207,6 +216,15 @@
   padding: 2rem;
   transition: all 0.3s ease;
   box-shadow: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .roadmap-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
 }
 
 [data-theme="light"] .roadmap-card {
@@ -338,7 +356,8 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+    max-width: 100%;
   }
 
   .insights-section,
@@ -353,6 +372,43 @@
   .features-grid,
   .roadmap-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Optimize text widths for mobile */
+  .insight-title,
+  .roadmap-card-title,
+  .benefit-title {
+    font-size: 1.125rem;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .insight-description,
+  .roadmap-list li,
+  .benefit-description {
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  /* Optimize card padding for mobile */
+  .insight-card,
+  .roadmap-card,
+  .benefit-item {
+    padding: 1.25rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Optimize section titles */
+  .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    padding: 0 1rem;
+  }
+
+  .section-subtitle {
+    padding: 0 1rem;
+    font-size: 0.9375rem;
   }
 }
 

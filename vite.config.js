@@ -100,6 +100,20 @@ export default defineConfig({
             }
           }
           
+          // Copy 404.html to dist root (GitHub Pages fallback)
+          const notFoundSource = join(__dirname, '404.html')
+          const notFoundDest = join(__dirname, 'dist/404.html')
+          if (existsSync(notFoundSource)) {
+            try {
+              copyFileSync(notFoundSource, notFoundDest)
+              console.log('✓ Copied 404.html to dist/')
+            } catch (e) {
+              console.error('Error copying 404.html:', e)
+            }
+          } else {
+            console.warn('⚠ 404.html not found:', notFoundSource)
+          }
+          
           // Copy assets folder to dist
           const assetsSource = join(__dirname, 'assets')
           const assetsDest = join(__dirname, 'dist/assets')

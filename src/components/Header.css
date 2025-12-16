@@ -182,6 +182,12 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 204, 255, 0.2);
+  user-select: none;
 }
 
 [data-theme="light"] .navbar .lang-toggle {
@@ -366,10 +372,33 @@
 
   .navbar-actions {
     margin-left: auto;
+    order: 2;
+    z-index: 11;
+    position: relative;
+  }
+
+  .header-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 12;
+  }
+
+  .navbar .lang-toggle {
+    position: relative;
+    z-index: 13;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 204, 255, 0.2);
   }
 
   .nav-toggle {
     display: inline-flex;
+    z-index: 11;
+    position: relative;
   }
 
   .navbar .nav-link,

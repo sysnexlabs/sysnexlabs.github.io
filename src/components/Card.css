@@ -6,6 +6,15 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
 }
 
 [data-theme="light"] .card {
@@ -66,6 +75,15 @@
   margin: 0;
   font-size: 0.9375rem;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .card-description {
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
 }
 
 
