@@ -1,0 +1,135 @@
+.theme-toggle-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 32px;
+  margin: 0;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.theme-toggle-button {
+  overflow: visible;
+}
+
+.theme-toggle-placeholder {
+  position: relative;
+  display: flex;
+  height: 32px;
+  width: 52px;
+  align-items: center;
+  border-radius: 9999px;
+  background: #e5e7eb;
+}
+
+.theme-toggle-button {
+  position: relative;
+  display: flex;
+  height: 32px;
+  width: 52px;
+  min-width: 52px;
+  max-width: 52px;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 3px;
+  box-sizing: border-box;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  overflow: visible;
+}
+
+.theme-toggle-button:focus-visible {
+  outline: 2px solid var(--turquoise);
+  outline-offset: 4px;
+}
+
+.theme-toggle-groove {
+  position: absolute;
+  inset: 2px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.theme-toggle-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.theme-toggle-occlusion {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.theme-toggle-background-icons {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.theme-toggle-background-icons svg {
+  width: 10px;
+  height: 10px;
+}
+
+.theme-toggle-thumb {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 22px;
+  width: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.theme-toggle-thumb-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.theme-toggle-particle-container {
+  position: absolute;
+  inset: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.theme-toggle-particle {
+  position: absolute;
+  border-radius: 9999px;
+}
+
+.theme-toggle-particle-grain {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  opacity: 0.4;
+}
+
+.theme-toggle-thumb-icon {
+  position: relative;
+  z-index: 10;
+}
+
+.theme-toggle-thumb-icon svg {
+  width: 10px;
+  height: 10px;
+}
+

@@ -1,0 +1,121 @@
+.try-yourself-section {
+  padding: 6rem 0;
+  background: var(--bg-primary);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.try-yourself-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.try-yourself-header .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--turquoise);
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 12px rgba(0, 204, 255, 0.3);
+}
+
+.try-yourself-header .section-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  opacity: 0.9;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: color 0.3s ease;
+}
+
+.try-yourself-container {
+  margin-bottom: 2rem;
+}
+
+.try-yourself-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Documentation gets 50% more width (was 1fr 1fr, now 1fr 2fr = 33% : 67%) */
+  gap: 2rem;
+  min-height: 600px;
+}
+
+.editor-column,
+.documentation-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+}
+
+.try-yourself-footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.try-yourself-note {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: rgba(0, 204, 255, 0.05);
+  border: 1px solid rgba(0, 204, 255, 0.1);
+  border-radius: 8px;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .try-yourself-note {
+  background: rgba(0, 204, 255, 0.08);
+  border: 1px solid rgba(0, 204, 255, 0.15);
+}
+
+.try-yourself-note strong {
+  color: var(--turquoise);
+}
+
+.try-yourself-note a {
+  color: var(--turquoise);
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.try-yourself-note a:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .try-yourself-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .editor-column,
+  .documentation-column {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .try-yourself-section {
+    padding: 4rem 0;
+  }
+  
+  .try-yourself-header .section-title {
+    font-size: 2rem;
+  }
+  
+  .try-yourself-header .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .try-yourself-grid {
+    gap: 1.5rem;
+  }
+  
+  .editor-column,
+  .documentation-column {
+    min-height: 400px;
+  }
+}

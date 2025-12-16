@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UVL Demo Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .test-result.pass {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .test-result.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .test-result.pending {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 UVL Demo Test Suite</h1>
+    <p><strong>Purpose</strong>: Verify all fixes for the UVL demo implementation</p>
+
+    <div class="test-section">
+        <h2>Test 1: WASM Module Loading</h2>
+        <div id="test1-result" class="test-result pending">⏳ Waiting for test...</div>
+        <button onclick="runTest1()">Run Test 1</button>
+        <pre id="test1-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: parse_uvl Function Availability</h2>
+        <div id="test2-result" class="test-result pending">⏳ Waiting for test...</div>
+        <button onclick="runTest2()">Run Test 2</button>
+        <pre id="test2-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: UVL Parsing (Vehicle Example)</h2>
+        <div id="test3-result" class="test-result pending">⏳ Waiting for test...</div>
+        <button onclick="runTest3()">Run Test 3</button>
+        <pre id="test3-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Feature Tree Structure</h2>
+        <div id="test4-result" class="test-result pending">⏳ Waiting for test...</div>
+        <button onclick="runTest4()">Run Test 4</button>
+        <pre id="test4-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 5: Children Array Conversion</h2>
+        <div id="test5-result" class="test-result pending">⏳ Waiting for test...</div>
+        <button onclick="runTest5()">Run Test 5</button>
+        <pre id="test5-details"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console-output" class="console-output"></div>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <script type="module">
+        let wasmModule = null;
+        let wasmInstance = null;
+
+        // Override console.log to capture output
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleOutput = document.getElementById('console-output');
+
+        function addConsoleMessage(type, ...args) {
+            const message = args.map(arg =>
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#f48771' : '#d4d4d4';
+            consoleOutput.innerHTML += `<div style="color: ${color}">[${timestamp}] ${message}</div>`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        console.log = (...args) => {
+            originalLog(...args);
+            addConsoleMessage('log', ...args);
+        };
+
+        console.error = (...args) => {
+            originalError(...args);
+            addConsoleMessage('error', ...args);
+        };
+
+        window.clearConsole = () => {
+            consoleOutput.innerHTML = '';
+        };
+
+        // Test 1: Load WASM module
+        window.runTest1 = async () => {
+            const resultDiv = document.getElementById('test1-result');
+            const detailsDiv = document.getElementById('test1-details');
+
+            resultDiv.className = 'test-result pending';
+            resultDiv.textContent = '⏳ Loading WASM module...';
+
+            try {
+                // Try to import WASM module
+                const wasmJsPath = './public/wasm/sysml_wasm_bridge.js';
+                console.log('Attempting to load:', wasmJsPath);
+
+                wasmModule = await import(wasmJsPath);
+
+                // Initialize
+                if (wasmModule.default) {
+                    await wasmModule.default({ module_or_path: './public/wasm/sysml_wasm_bridge_bg.wasm' });
+                }
+
+                if (wasmModule.init_panic_hook) {
+                    wasmModule.init_panic_hook();
+                }
+
+                resultDiv.className = 'test-result pass';
+                resultDiv.textContent = '✅ PASS: WASM module loaded successfully';
+                detailsDiv.textContent = `Module exports: ${Object.keys(wasmModule).join(', ')}`;
+
+            } catch (err) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Could not load WASM module';
+                detailsDiv.textContent = `Error: ${err.message}\n\nNote: Make sure to run this from a dev server (npm run dev)`;
+                console.error(err);
+            }
+        };
+
+        // Test 2: Check parse_uvl function
+        window.runTest2 = async () => {
+            const resultDiv = document.getElementById('test2-result');
+            const detailsDiv = document.getElementById('test2-details');
+
+            if (!wasmModule) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Run Test 1 first';
+                return;
+            }
+
+            resultDiv.className = 'test-result pending';
+            resultDiv.textContent = '⏳ Checking parse_uvl availability...';
+
+            try {
+                const SysMLWasm = wasmModule.SysMLWasm;
+                if (!SysMLWasm) {
+                    throw new Error('SysMLWasm class not found');
+                }
+
+                wasmInstance = new SysMLWasm();
+
+                const hasParseUvl = wasmInstance && typeof wasmInstance.parse_uvl === 'function';
+
+                if (hasParseUvl) {
+                    resultDiv.className = 'test-result pass';
+                    resultDiv.textContent = '✅ PASS: parse_uvl function is available';
+                    detailsDiv.textContent = `Instance methods: ${Object.getOwnPropertyNames(Object.getPrototypeOf(wasmInstance)).join(', ')}`;
+                } else {
+                    throw new Error('parse_uvl function not found');
+                }
+
+            } catch (err) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: parse_uvl not available';
+                detailsDiv.textContent = `Error: ${err.message}`;
+                console.error(err);
+            }
+        };
+
+        // Test 3: Parse UVL code
+        window.runTest3 = async () => {
+            const resultDiv = document.getElementById('test3-result');
+            const detailsDiv = document.getElementById('test3-details');
+
+            if (!wasmInstance) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Run Test 2 first';
+                return;
+            }
+
+            resultDiv.className = 'test-result pending';
+            resultDiv.textContent = '⏳ Parsing UVL code...';
+
+            const uvlCode = `namespace Vehicle
+
+features
+    Vehicle
+        mandatory
+            Engine
+                alternative
+                    GasEngine
+                    ElectricMotor
+            Transmission
+                alternative
+                    Manual
+                    Automatic
+        optional
+            AirConditioning
+            Navigation
+
+constraints
+    ElectricMotor => Automatic
+    GasEngine => !ElectricMotor`;
+
+            try {
+                console.log('Calling parse_uvl with code length:', uvlCode.length);
+                const result = wasmInstance.parse_uvl(uvlCode);
+                console.log('parse_uvl returned:', result);
+
+                if (result && result.root) {
+                    resultDiv.className = 'test-result pass';
+                    resultDiv.textContent = `✅ PASS: UVL parsed successfully (${result.total_features} features)`;
+                    detailsDiv.textContent = JSON.stringify(result, null, 2);
+
+                    // Store result for next test
+                    window.testResult = result;
+                } else {
+                    throw new Error('Result missing root property');
+                }
+
+            } catch (err) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: UVL parsing failed';
+                detailsDiv.textContent = `Error: ${err.message}`;
+                console.error(err);
+            }
+        };
+
+        // Test 4: Verify feature tree structure
+        window.runTest4 = async () => {
+            const resultDiv = document.getElementById('test4-result');
+            const detailsDiv = document.getElementById('test4-details');
+
+            if (!window.testResult) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Run Test 3 first';
+                return;
+            }
+
+            resultDiv.className = 'test-result pending';
+            resultDiv.textContent = '⏳ Validating tree structure...';
+
+            try {
+                const { root } = window.testResult;
+
+                // Check required fields
+                const checks = [
+                    { name: 'root.id exists', pass: !!root.id },
+                    { name: 'root.name exists', pass: !!root.name },
+                    { name: 'root.children is array or null', pass: Array.isArray(root.children) || root.children === null },
+                    { name: 'root has group_type', pass: !!root.group_type },
+                    { name: 'children have correct structure', pass: !root.children || root.children.every(c => c.id && c.name) }
+                ];
+
+                const allPass = checks.every(c => c.pass);
+
+                if (allPass) {
+                    resultDiv.className = 'test-result pass';
+                    resultDiv.textContent = '✅ PASS: Feature tree structure is valid';
+                } else {
+                    throw new Error('Structure validation failed');
+                }
+
+                detailsDiv.textContent = checks.map(c =>
+                    `${c.pass ? '✅' : '❌'} ${c.name}`
+                ).join('\n');
+
+            } catch (err) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Invalid tree structure';
+                detailsDiv.textContent = `Error: ${err.message}`;
+                console.error(err);
+            }
+        };
+
+        // Test 5: Verify children array conversion (simulating FeatureDiagram logic)
+        window.runTest5 = async () => {
+            const resultDiv = document.getElementById('test5-result');
+            const detailsDiv = document.getElementById('test5-details');
+
+            if (!window.testResult) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Run Test 3 first';
+                return;
+            }
+
+            resultDiv.className = 'test-result pending';
+            resultDiv.textContent = '⏳ Testing children conversion...';
+
+            try {
+                const { root } = window.testResult;
+
+                // Simulate the fix from FeatureDiagram.jsx:70
+                const convertChildren = (children) => {
+                    return Array.isArray(children) ? children.map(child => child?.id || child?.name || child) : [];
+                };
+
+                const convertedChildren = convertChildren(root.children);
+
+                // Verify all children are now strings (IDs)
+                const allStrings = convertedChildren.every(id => typeof id === 'string');
+
+                if (allStrings && convertedChildren.length > 0) {
+                    resultDiv.className = 'test-result pass';
+                    resultDiv.textContent = '✅ PASS: Children converted to ID array correctly';
+                    detailsDiv.textContent = `Converted children (${convertedChildren.length}): ${JSON.stringify(convertedChildren, null, 2)}`;
+                } else if (convertedChildren.length === 0) {
+                    throw new Error('No children to convert');
+                } else {
+                    throw new Error('Not all children converted to strings');
+                }
+
+            } catch (err) {
+                resultDiv.className = 'test-result fail';
+                resultDiv.textContent = '❌ FAIL: Children conversion failed';
+                detailsDiv.textContent = `Error: ${err.message}`;
+                console.error(err);
+            }
+        };
+
+        // Auto-run all tests on load
+        window.addEventListener('load', async () => {
+            console.log('🧪 Starting automated test suite...');
+            await new Promise(r => setTimeout(r, 500));
+
+            // Note: Auto-run commented out - run manually from dev server
+            // await runTest1();
+            // await new Promise(r => setTimeout(r, 500));
+            // await runTest2();
+            // await new Promise(r => setTimeout(r, 500));
+            // await runTest3();
+            // await new Promise(r => setTimeout(r, 500));
+            // await runTest4();
+            // await new Promise(r => setTimeout(r, 500));
+            // await runTest5();
+
+            console.log('ℹ️ Click buttons to run tests manually (requires dev server)');
+        });
+    </script>
+</body>
+</html>

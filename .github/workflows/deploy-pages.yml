@@ -1,0 +1,99 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Verify WASM files
+        run: |
+          echo "Checking for WASM files in dist/wasm..."
+          if [ -f "dist/wasm/sysml_wasm_bridge.js" ] && [ -f "dist/wasm/sysml_wasm_bridge_bg.wasm" ]; then
+            echo "✅ WASM files found"
+            ls -lh dist/wasm/
+            echo ""
+            echo "Verifying file sizes:"
+            du -h dist/wasm/sysml_wasm_bridge.js
+            du -h dist/wasm/sysml_wasm_bridge_bg.wasm
+            echo ""
+            echo "Verifying file permissions:"
+            ls -la dist/wasm/sysml_wasm_bridge.js
+            ls -la dist/wasm/sysml_wasm_bridge_bg.wasm
+            echo ""
+            echo "Testing file readability:"
+            head -c 100 dist/wasm/sysml_wasm_bridge.js | head -1
+            file dist/wasm/sysml_wasm_bridge_bg.wasm
+          else
+            echo "❌ WASM files missing!"
+            echo "Contents of dist/wasm/:"
+            ls -la dist/wasm/ || echo "dist/wasm/ does not exist"
+            exit 1
+          fi
+      
+      - name: List all dist files
+        run: |
+          echo "📁 Contents of dist directory:"
+          find dist -type f -name "*.js" -o -name "*.wasm" | head -20
+          echo ""
+          echo "📁 Contents of dist/wasm directory:"
+          ls -la dist/wasm/ || echo "dist/wasm/ does not exist"
+          echo ""
+          echo "📁 Tree structure of dist:"
+          find dist -type f | sort | head -30
+          echo ""
+          echo "📦 Checking artifact contents before upload:"
+          du -sh dist/
+          du -sh dist/wasm/ || echo "dist/wasm/ does not exist"
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+      
+      - name: Verify artifact contents
+        run: |
+          echo "📦 Verifying artifact was created..."
+          echo "Note: Artifact contents cannot be directly inspected, but we verify dist/ before upload"
+          echo "✅ Artifact upload completed"
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

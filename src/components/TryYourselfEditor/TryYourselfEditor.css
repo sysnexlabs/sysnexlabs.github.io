@@ -1,0 +1,147 @@
+.try-yourself-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.95);
+  border: 1px solid rgba(0, 204, 255, 0.18);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .try-yourself-editor {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .editor-header {
+  background: rgba(248, 250, 252, 0.5);
+  border-bottom: 1px solid rgba(0, 204, 255, 0.15);
+}
+
+.editor-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--turquoise, #00ccff);
+}
+
+.example-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.example-selector label {
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+.example-select {
+  padding: 0.5rem 1rem;
+  background: rgba(0, 204, 255, 0.1);
+  border: 1px solid rgba(0, 204, 255, 0.3);
+  border-radius: 6px;
+  color: var(--turquoise, #00ccff);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.example-select:hover {
+  background: rgba(0, 204, 255, 0.15);
+  border-color: rgba(0, 204, 255, 0.5);
+}
+
+.example-select:focus {
+  outline: none;
+  border-color: var(--turquoise, #00ccff);
+  box-shadow: 0 0 0 2px rgba(0, 204, 255, 0.2);
+}
+
+.editor-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.diagnostics-panel {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 0, 0, 0.2);
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.diagnostics-panel h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.diagnostics-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diagnostic {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.diagnostic:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.diagnostic-line {
+  color: var(--text-primary);
+  opacity: 0.6;
+  margin-right: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.diagnostic-message {
+  color: rgba(255, 150, 150, 0.9);
+  transition: color 0.3s ease;
+}
+
+.diagnostic-error .diagnostic-message {
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.diagnostic-warning .diagnostic-message {
+  color: rgba(255, 200, 100, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .example-selector {
+    width: 100%;
+  }
+  
+  .example-select {
+    width: 100%;
+  }
+}

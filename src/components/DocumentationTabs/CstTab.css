@@ -1,0 +1,90 @@
+.cst-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.95);
+}
+
+.cst-header {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cst-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--turquoise, #00ccff);
+}
+
+.cst-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cst-content {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+}
+
+.cst-tree {
+  margin: 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 204, 255, 0.1);
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.cst-loading,
+.cst-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.cst-error {
+  padding: 2rem;
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.cst-error h4 {
+  margin: 0 0 0.5rem 0;
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.cst-error-hint {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 100, 100, 0.1);
+  border-left: 3px solid rgba(255, 100, 100, 0.3);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cst-error-hint code {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8125rem;
+  color: var(--turquoise, #00ccff);
+}

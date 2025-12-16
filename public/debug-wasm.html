@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASM Debug</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .section { margin: 20px 0; padding: 15px; background: #2d2d2d; border-radius: 4px; }
+        .success { color: #4ec9b0; }
+        .error { color: #f48771; }
+        .info { color: #569cd6; }
+        button { padding: 10px 20px; margin: 10px 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔍 WASM Path Diagnostic</h1>
+
+    <div class="section">
+        <h2>Environment Info</h2>
+        <div id="env-info"></div>
+    </div>
+
+    <div class="section">
+        <h2>Path Tests</h2>
+        <button onclick="testPaths()">Test All Paths</button>
+        <div id="path-results"></div>
+    </div>
+
+    <div class="section">
+        <h2>WASM Load Test</h2>
+        <button onclick="testWasmLoad()">Test WASM Load</button>
+        <div id="wasm-results"></div>
+    </div>
+
+    <script>
+        // Display environment info
+        const envInfo = document.getElementById('env-info');
+        envInfo.innerHTML = `
+            <div class="info">Base URL: ${window.location.origin}</div>
+            <div class="info">Path: ${window.location.pathname}</div>
+            <div class="info">Full URL: ${window.location.href}</div>
+            <div class="info">Protocol: ${window.location.protocol}</div>
+            <div class="info">Is Production: ${import.meta.env.PROD}</div>
+        `;
+
+        async function testPaths() {
+            const results = document.getElementById('path-results');
+            results.innerHTML = '<div class="info">Testing paths...</div>';
+
+            const paths = [
+                './wasm/sysml_wasm_bridge.js',
+                '/wasm/sysml_wasm_bridge.js',
+                './wasm/sysml_wasm_bridge_bg.wasm',
+                '/wasm/sysml_wasm_bridge_bg.wasm',
+                '../wasm/sysml_wasm_bridge.js',
+                'wasm/sysml_wasm_bridge.js',
+            ];
+
+            let html = '<h3>Path Resolution Tests:</h3>';
+            for (const path of paths) {
+                try {
+                    const url = new URL(path, window.location.href);
+                    const response = await fetch(url.href, { method: 'HEAD' });
+                    const status = response.ok ?
+                        `<span class="success">✓ ${response.status}</span>` :
+                        `<span class="error">✗ ${response.status}</span>`;
+                    html += `<div>${status} ${path} → ${url.href}</div>`;
+                } catch (err) {
+                    html += `<div><span class="error">✗ ERROR</span> ${path} → ${err.message}</div>`;
+                }
+            }
+
+            results.innerHTML = html;
+        }
+
+        async function testWasmLoad() {
+            const results = document.getElementById('wasm-results');
+            results.innerHTML = '<div class="info">Loading WASM module...</div>';
+
+            try {
+                // Try multiple path strategies
+                const strategies = [
+                    { name: 'Relative (./wasm/)', path: './wasm/sysml_wasm_bridge.js' },
+                    { name: 'Absolute (/wasm/)', path: '/wasm/sysml_wasm_bridge.js' },
+                    { name: 'No prefix (wasm/)', path: 'wasm/sysml_wasm_bridge.js' },
+                ];
+
+                for (const strategy of strategies) {
+                    try {
+                        results.innerHTML += `<div class="info">Trying ${strategy.name}...</div>`;
+
+                        const wasmModule = await import(/* @vite-ignore */ strategy.path);
+
+                        if (wasmModule.default) {
+                            await wasmModule.default();
+                        }
+
+                        if (wasmModule.SysMLWasm) {
+                            const instance = new wasmModule.SysMLWasm();
+                            const hasParseUvl = typeof instance.parse_uvl === 'function';
+
+                            results.innerHTML += `<div class="success">✓ ${strategy.name} SUCCESS!</div>`;
+                            results.innerHTML += `<div class="info">  - Module loaded</div>`;
+                            results.innerHTML += `<div class="info">  - SysMLWasm class found</div>`;
+                            results.innerHTML += `<div class="${hasParseUvl ? 'success' : 'error'}">  - parse_uvl: ${hasParseUvl ? 'available' : 'missing'}</div>`;
+
+                            if (hasParseUvl) {
+                                // Test parse_uvl with simple UVL code
+                                const testUvl = `namespace Test\n\nfeatures\n    Root\n        mandatory\n            FeatureA`;
+                                try {
+                                    const result = instance.parse_uvl(testUvl);
+                                    results.innerHTML += `<div class="success">  - parse_uvl test: ${result && result.root ? 'PASS' : 'FAIL (no root)'}</div>`;
+                                    if (result && result.root) {
+                                        results.innerHTML += `<div class="info">  - Root name: ${result.root.name || result.root.id}</div>`;
+                                        results.innerHTML += `<div class="info">  - Total features: ${result.total_features || 'N/A'}</div>`;
+                                    }
+                                } catch (parseErr) {
+                                    results.innerHTML += `<div class="error">  - parse_uvl test: ERROR - ${parseErr.message}</div>`;
+                                }
+                            }
+
+                            return; // Success, stop trying other strategies
+                        } else {
+                            results.innerHTML += `<div class="error">✗ ${strategy.name} - SysMLWasm class not found</div>`;
+                        }
+                    } catch (err) {
+                        results.innerHTML += `<div class="error">✗ ${strategy.name} - ${err.message}</div>`;
+                    }
+                }
+
+                results.innerHTML += `<div class="error"><br/>All strategies failed!</div>`;
+
+            } catch (err) {
+                results.innerHTML += `<div class="error">Fatal error: ${err.message}</div>`;
+            }
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            setTimeout(testPaths, 500);
+        });
+    </script>
+</body>
+</html>

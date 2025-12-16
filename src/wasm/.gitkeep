@@ -1,0 +1,7 @@
+# This directory will contain the WASM build output
+# After building with: wasm-pack build --target web --out-dir src/wasm
+# Files will be:
+# - sysml_wasm_bridge.js
+# - sysml_wasm_bridge_bg.wasm
+# - sysml_wasm_bridge.d.ts
+# - package.json

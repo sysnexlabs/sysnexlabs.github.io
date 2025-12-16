@@ -1,0 +1,199 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+export default defineConfig({
+  plugins: [
+    react(),
+    // Plugin to copy WASM files to dist during build
+    (() => {
+      // Define copy function outside the plugin object
+      const copyWasmFiles = () => {
+        const wasmDest = join(__dirname, 'dist/wasm')
+        mkdirSync(wasmDest, { recursive: true })
+        
+        // Try to copy from src/wasm first, then public/wasm as fallback
+        const wasmSources = [
+          join(__dirname, 'src/wasm'),
+          join(__dirname, 'public/wasm')
+        ]
+        
+        const files = ['sysml_wasm_bridge.js', 'sysml_wasm_bridge_bg.wasm', 'sysml_wasm_bridge.d.ts', 'package.json']
+        const copiedFiles = new Set()
+        
+        for (const wasmSource of wasmSources) {
+          if (existsSync(wasmSource)) {
+            try {
+              files.forEach(file => {
+                if (copiedFiles.has(file)) return // Skip if already copied
+                
+                const src = join(wasmSource, file)
+                const dest = join(wasmDest, file)
+                if (existsSync(src)) {
+                  copyFileSync(src, dest)
+                  console.log(`✓ Copied ${file} from ${wasmSource} to dist/wasm/`)
+                  copiedFiles.add(file)
+                }
+              })
+            } catch (e) {
+              console.error(`Error copying WASM files from ${wasmSource}:`, e)
+            }
+          }
+        }
+        
+        // Verify all required files were copied
+        const missingFiles = files.filter(file => !copiedFiles.has(file))
+        if (missingFiles.length > 0) {
+          console.error(`❌ Missing WASM files: ${missingFiles.join(', ')}`)
+          console.error('WASM files must be present in either src/wasm/ or public/wasm/')
+          return false
+        } else {
+          console.log('✅ All WASM files copied successfully')
+          return true
+        }
+      }
+      
+      return {
+        name: 'copy-wasm',
+        // Call copy function in writeBundle (after bundles are written)
+        writeBundle() {
+          copyWasmFiles()
+        },
+        // Also call in closeBundle as backup (after all bundles are closed)
+        closeBundle() {
+          // Verify files exist, if not, try copying again
+          const wasmDest = join(__dirname, 'dist/wasm')
+          const requiredFiles = ['sysml_wasm_bridge.js', 'sysml_wasm_bridge_bg.wasm']
+          const missingFiles = requiredFiles.filter(file => !existsSync(join(wasmDest, file)))
+          if (missingFiles.length > 0) {
+            console.warn('⚠️ Some WASM files missing in closeBundle, attempting to copy again...')
+            copyWasmFiles()
+          }
+        
+          // Copy i18n.js to dist root
+          const i18nSource = join(__dirname, 'i18n.js')
+          const i18nDest = join(__dirname, 'dist/i18n.js')
+          if (existsSync(i18nSource)) {
+            try {
+              copyFileSync(i18nSource, i18nDest)
+              console.log('✓ Copied i18n.js to dist/')
+            } catch (e) {
+              console.error('Error copying i18n.js:', e)
+            }
+          } else {
+            console.warn('⚠ i18n.js not found:', i18nSource)
+          }
+
+          // Copy .nojekyll to dist root
+          const nojekyllSource = join(__dirname, '.nojekyll')
+          const nojekyllDest = join(__dirname, 'dist/.nojekyll')
+          if (existsSync(nojekyllSource)) {
+            try {
+              copyFileSync(nojekyllSource, nojekyllDest)
+              console.log('✓ Copied .nojekyll to dist/')
+            } catch (e) {
+              console.error('Error copying .nojekyll:', e)
+            }
+          }
+          
+          // Copy assets folder to dist
+          const assetsSource = join(__dirname, 'assets')
+          const assetsDest = join(__dirname, 'dist/assets')
+          if (existsSync(assetsSource)) {
+            try {
+              mkdirSync(assetsDest, { recursive: true })
+              const files = readdirSync(assetsSource)
+              for (const file of files) {
+                const src = join(assetsSource, file)
+                const dest = join(assetsDest, file)
+                const stat = statSync(src)
+                if (stat.isFile()) {
+                  copyFileSync(src, dest)
+                  console.log(`✓ Copied ${file} to dist/assets/`)
+                }
+              }
+            } catch (e) {
+              console.error('Error copying assets:', e)
+              // Fallback: try copying key files only
+              try {
+                mkdirSync(assetsDest, { recursive: true })
+                const keyFiles = ['logo_S_black2.svg', 'logo_S_comp.svg', 'favicon.svg']
+                keyFiles.forEach(file => {
+                  const src = join(assetsSource, file)
+                  const dest = join(assetsDest, file)
+                  if (existsSync(src)) {
+                    copyFileSync(src, dest)
+                    console.log(`✓ Copied ${file} to dist/assets/`)
+                  }
+                })
+              } catch (e2) {
+                console.error('Error in fallback asset copy:', e2)
+              }
+            }
+          } else {
+            console.warn('⚠ Assets directory not found:', assetsSource)
+          }
+        }
+      }
+    })()
+  ],
+  base: '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      // Allow dynamic imports that might not exist at build time
+      external: [],
+      output: {
+        // Ensure WASM files are copied correctly
+        assetFileNames: (assetInfo) => {
+          // Keep WASM files in wasm/ directory, not assets/
+          if (assetInfo.name && (assetInfo.name.endsWith('.wasm') || assetInfo.name.includes('wasm'))) {
+            return 'wasm/[name][extname]'
+          }
+          return 'assets/[name]-[hash][extname]'
+        },
+        // Ensure chunk files don't interfere with WASM paths
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        // Prevent Vite from rewriting dynamic imports for WASM files
+        manualChunks: undefined
+      },
+      // Suppress warnings about missing WASM imports
+      onwarn(warning, warn) {
+        // Ignore warnings about missing WASM files
+        if (warning.code === 'UNRESOLVED_IMPORT' && warning.id?.includes('wasm')) {
+          return
+        }
+        warn(warning)
+      }
+    }
+  },
+  optimizeDeps: {
+    // Exclude WASM from pre-bundling
+    exclude: ['../wasm/sysml_wasm_bridge.js']
+  },
+  resolve: {
+    // Handle WASM imports gracefully
+    alias: {
+      // This prevents Vite from trying to resolve WASM imports at build time
+    }
+  },
+  // Ensure WASM files are served correctly
+  server: {
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+    },
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: ['..']
+    }
+  }
+})
+
+

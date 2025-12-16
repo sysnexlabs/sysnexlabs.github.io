@@ -1,0 +1,132 @@
+.error-display {
+  padding: 1.5rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.error-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.error-header h4 {
+  margin: 0;
+  color: #ff6b6b;
+  font-size: 1.125rem;
+}
+
+.error-function {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.error-message {
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.error-help {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.error-help h5 {
+  margin: 0 0 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9375rem;
+}
+
+.error-help ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.error-help li {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+}
+
+.error-code-context {
+  margin-top: 1rem;
+}
+
+.error-code-context summary {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  user-select: none;
+}
+
+.error-code-context summary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.error-code-preview {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8125rem;
+  overflow-x: auto;
+}
+
+.error-code-line {
+  display: flex;
+  margin: 0.25rem 0;
+}
+
+.error-line-number {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 1rem;
+  min-width: 3ch;
+  text-align: right;
+  user-select: none;
+}
+
+.error-line-content {
+  color: rgba(255, 255, 255, 0.9);
+  white-space: pre;
+}
+
+.error-code-more {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.error-actions {
+  margin-top: 1rem;
+}
+
+.error-console-button {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.error-console-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

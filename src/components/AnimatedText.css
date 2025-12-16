@@ -1,0 +1,19 @@
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animated-text {
+  display: inline-block;
+}
+
+.animated-text--shiny {
+  animation: shimmer 3s linear infinite;
+}
+
+
+

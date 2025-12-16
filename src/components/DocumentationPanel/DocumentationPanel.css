@@ -1,0 +1,173 @@
+.documentation-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.95);
+  border: 1px solid rgba(0, 204, 255, 0.18);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.doc-header {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+}
+
+.doc-header h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--turquoise, #00ccff);
+}
+
+.doc-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.doc-tab {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-tab:hover {
+  background: rgba(0, 204, 255, 0.1);
+  border-color: rgba(0, 204, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.doc-tab.active {
+  background: rgba(0, 204, 255, 0.15);
+  border-color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00ccff);
+}
+
+.doc-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.doc-content h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--turquoise, #00ccff);
+}
+
+.syntax-reference,
+.tips-section,
+.examples-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.syntax-item,
+.tip-item,
+.example-item {
+  padding: 1rem;
+  background: rgba(0, 204, 255, 0.05);
+  border: 1px solid rgba(0, 204, 255, 0.1);
+  border-radius: 8px;
+}
+
+.syntax-item h5,
+.tip-item h5,
+.example-item h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.syntax-description {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.syntax-code,
+.example-code {
+  margin: 0;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 204, 255, 0.1);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.syntax-code code,
+.example-code code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.tip-item p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.context-info {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(0, 204, 255, 0.1);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  border-radius: 8px;
+}
+
+.context-info h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.context-info code {
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--turquoise, #00ccff);
+}
+
+/* Scrollbar Styling */
+.doc-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.doc-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.doc-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 204, 255, 0.3);
+  border-radius: 4px;
+}
+
+.doc-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 204, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .doc-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .doc-tab {
+    flex: 1;
+    min-width: calc(33.333% - 0.5rem);
+  }
+}

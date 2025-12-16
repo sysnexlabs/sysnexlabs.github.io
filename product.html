@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SysML v2 Language Server – Enterprise MBSE Tooling | Sysnex Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <meta name="description" content="Enterprise-grade SysML v2 Language Server for Visual Studio Code. Production-ready LSP with AI integration, Git workflows, and compliance variants." />
+</head>
+<body data-page="product">
+  <div data-include="partials/header.html"></div>
+
+  <!-- Hero Section -->
+  <section class="product-hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge" data-i18n="product.hero.badge">Enterprise MBSE Tooling</div>
+        <h1 class="hero-title" data-i18n="product.hero.title">SysML v2 Language Server</h1>
+        <p class="hero-subtitle" data-i18n="product.hero.subtitle">First enterprise-grade SysML v2 Language Server available as VS Code Extension, Standalone Desktop App, and SaaS Cloud Platform. Production-ready LSP with AI integration, Git workflows, and multi-industry compliance variants.</p>
+        <div class="hero-cta">
+          <a href="contact.html" class="btn primary" data-i18n="product.hero.cta.primary">Get Started</a>
+          <a href="#features" class="btn ghost" data-i18n="product.hero.cta.secondary">View Features</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="product.hero.stats.users">50M+</div>
+            <div class="stat-label" data-i18n="product.hero.stats.users.label">VSCode Users</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="product.hero.stats.performance">&lt;50ms</div>
+            <div class="stat-label" data-i18n="product.hero.stats.performance.label">LSP Response</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="product.hero.stats.features">18/18</div>
+            <div class="stat-label" data-i18n="product.hero.stats.features.label">LSP Features</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="product.hero.stats.variants">11</div>
+            <div class="stat-label" data-i18n="product.hero.stats.variants.label">Build Variants</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="code-preview">
+          <div class="code-header">
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+            <span class="code-title">Vehicle.sysml</span>
+          </div>
+          <div class="code-content">
+            <pre><code><span class="keyword">package</span> <span class="type">VehicleModel</span> {
+    <span class="keyword">part def</span> <span class="name">Vehicle</span> {
+        <span class="doc">doc</span> <span class="string">/* Main vehicle component */</span>
+        <span class="keyword">part</span> <span class="name">engine</span> : <span class="type">Engine</span>;
+        <span class="keyword">part</span> <span class="name">wheels</span> : <span class="type">Wheel</span> [<span class="number">4</span>];
+        <span class="keyword">attribute</span> <span class="name">mass</span> : <span class="type">Mass</span> = <span class="number">1500</span> [<span class="unit">kg</span>];
+    }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Differentiators -->
+  <section class="differentiators-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.differentiators.heading">Why Choose Our Language Server</h2>
+        <p class="section-subtitle" data-i18n="product.differentiators.subtitle">Built for modern systems engineering teams who demand performance, reliability, and compliance</p>
+      </div>
+      <div class="differentiators-grid">
+        <div class="differentiator-card">
+          <div class="differentiator-icon">🚀</div>
+          <h3 data-i18n="product.differentiators.vscode.title">Multi-Platform Delivery</h3>
+          <p data-i18n="product.differentiators.vscode.body">Available as VS Code Extension (50M+ users), Standalone Desktop App, and SaaS Cloud Platform. Choose the deployment that fits your workflow.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.vscode.tag1">50M+ Users</li>
+            <li data-i18n="product.differentiators.vscode.tag2">Zero Learning Curve</li>
+            <li data-i18n="product.differentiators.vscode.tag3">Cross-Platform</li>
+          </ul>
+        </div>
+        <div class="differentiator-card">
+          <div class="differentiator-icon">🤖</div>
+          <h3 data-i18n="product.differentiators.ai.title">AI-First Architecture</h3>
+          <p data-i18n="product.differentiators.ai.body">Built-in GitHub Copilot, Claude Code, and VS Code AI integration. 40-60% faster model creation with intelligent assistance.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.ai.tag1">GitHub Copilot</li>
+            <li data-i18n="product.differentiators.ai.tag2">Claude Code</li>
+            <li data-i18n="product.differentiators.ai.tag3">VS Code AI</li>
+          </ul>
+        </div>
+        <div class="differentiator-card">
+          <div class="differentiator-icon">⚡</div>
+          <h3 data-i18n="product.differentiators.performance.title">10x Performance</h3>
+          <p data-i18n="product.differentiators.performance.body">&lt;50ms LSP response vs. 200-500ms for legacy Java-based tools. Built for enterprise-scale performance with native compiled architecture.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.performance.tag1">&lt;50ms Response</li>
+            <li data-i18n="product.differentiators.performance.tag2">Native Backend</li>
+            <li data-i18n="product.differentiators.performance.tag3">40x Faster Search</li>
+          </ul>
+        </div>
+        <div class="differentiator-card">
+          <div class="differentiator-icon">🔀</div>
+          <h3 data-i18n="product.differentiators.git.title">Git-Native Workflows</h3>
+          <p data-i18n="product.differentiators.git.body">Native version control, branching, CI/CD workflows. Treat models like code with full Git support—no proprietary SCM required.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.git.tag1">Native Git</li>
+            <li data-i18n="product.differentiators.git.tag2">CI/CD Ready</li>
+            <li data-i18n="product.differentiators.git.tag3">Pull Requests</li>
+          </ul>
+        </div>
+        <div class="differentiator-card">
+          <div class="differentiator-icon">🛡️</div>
+          <h3 data-i18n="product.differentiators.compliance.title">Multi-Industry Compliance</h3>
+          <p data-i18n="product.differentiators.compliance.body">11 variants from Essential (free) to Automotive/Aviation/Medical/Railway. ISO 15288, ASPICE, ISO 26262, DO-178C support.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.compliance.tag1">ISO 15288</li>
+            <li data-i18n="product.differentiators.compliance.tag2">ASPICE 100%</li>
+            <li data-i18n="product.differentiators.compliance.tag3">ISO 26262</li>
+          </ul>
+        </div>
+        <div class="differentiator-card">
+          <div class="differentiator-icon">📊</div>
+          <h3 data-i18n="product.differentiators.analytics.title">Enterprise Analytics</h3>
+          <p data-i18n="product.differentiators.analytics.body">Comprehensive quality metrics, coverage analytics, complexity analysis. Power BI-style dashboards with interactive drill-down.</p>
+          <ul class="feature-tags">
+            <li data-i18n="product.differentiators.analytics.tag1">Quality Metrics</li>
+            <li data-i18n="product.differentiators.analytics.tag2">Coverage Analytics</li>
+            <li data-i18n="product.differentiators.analytics.tag3">Real-Time</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Target User Groups Section -->
+  <section class="user-groups-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.user-groups.heading">Who Is This For?</h2>
+        <p class="section-subtitle" data-i18n="product.user-groups.subtitle">Designed for seven distinct user groups, each with unique workflows and preferences—from code-first developers to visual modelers and compliance teams</p>
+      </div>
+      <div class="user-groups-grid">
+        <div class="user-group-card">
+          <div class="user-group-icon">👨‍💻</div>
+          <h3 data-i18n="product.user-groups.code-first.title">Code-First Users</h3>
+          <p data-i18n="product.user-groups.code-first.body">Software developers and systems engineers who prefer text-based editing, Git workflows, and IDE features. Value LSP features, keyboard shortcuts, and code abstractions.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.code-first.feature1">✅ Complete LSP navigation suite</li>
+            <li data-i18n="product.user-groups.code-first.feature2">✅ Type & Call Hierarchy</li>
+            <li data-i18n="product.user-groups.code-first.feature3">✅ Git-native workflows</li>
+            <li data-i18n="product.user-groups.code-first.feature4">✅ Body Definition Provider</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#features" class="btn ghost small" data-i18n="product.user-groups.code-first.cta">View Features</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">📊</div>
+          <h3 data-i18n="product.user-groups.office.title">Office-Style Users</h3>
+          <p data-i18n="product.user-groups.office.body">Systems engineers and business analysts who prefer Word, Excel, Visio workflows. Value WYSIWYG editing, form-based interfaces, and visual feedback.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.office.feature1">✅ Word-like Documentation Editor</li>
+            <li data-i18n="product.user-groups.office.feature2">✅ Excel-like Requirements Manager</li>
+            <li data-i18n="product.user-groups.office.feature3">✅ Power BI-style Analytics</li>
+            <li data-i18n="product.user-groups.office.feature4">✅ Visio-like Diagram Editor</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#office-suite" class="btn ghost small" data-i18n="product.user-groups.office.cta">View Office Suite</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">🎨</div>
+          <h3 data-i18n="product.user-groups.visual.title">Visual Modelers</h3>
+          <p data-i18n="product.user-groups.visual.body">Model-based systems engineers who prefer diagram-centric workflows, drag-and-drop interactions, and graphical representations. Think visually and spatially.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.visual.feature1">✅ Interactive diagram editor</li>
+            <li data-i18n="product.user-groups.visual.feature2">✅ 7 diagram types (BDD, IBD, Activity, etc.)</li>
+            <li data-i18n="product.user-groups.visual.feature3">✅ ELK.js auto-layout</li>
+            <li data-i18n="product.user-groups.visual.feature4">✅ Visual relationship creation</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#features" class="btn ghost small" data-i18n="product.user-groups.visual.cta">View Diagrams</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">✅</div>
+          <h3 data-i18n="product.user-groups.compliance.title">Compliance & Audit Users</h3>
+          <p data-i18n="product.user-groups.compliance.body">Quality engineers and compliance officers focused on validation, traceability, and standards adherence. Need audit trails, matrices, and automated validation.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.compliance.feature1">✅ ASPICE work products (20 types)</li>
+            <li data-i18n="product.user-groups.compliance.feature2">✅ ISO 26262 ASIL validation</li>
+            <li data-i18n="product.user-groups.compliance.feature3">✅ Traceability matrices</li>
+            <li data-i18n="product.user-groups.compliance.feature4">✅ Real-time diagnostics</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="pricing.html#automotive" class="btn ghost small" data-i18n="product.user-groups.compliance.cta">View Compliance</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">🔬</div>
+          <h3 data-i18n="product.user-groups.analysis.title">Analysis & Simulation Users</h3>
+          <p data-i18n="product.user-groups.analysis.body">Systems analysts and simulation engineers who focus on model execution, constraint validation, and behavioral analysis. Run simulations and analyze results.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.analysis.feature1">✅ State machine execution</li>
+            <li data-i18n="product.user-groups.analysis.feature2">✅ Debugger with breakpoints</li>
+            <li data-i18n="product.user-groups.analysis.feature3">✅ Analytics dashboard</li>
+            <li data-i18n="product.user-groups.analysis.feature4">✅ OCL constraint validation</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#features" class="btn ghost small" data-i18n="product.user-groups.analysis.cta">View Analytics</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">📚</div>
+          <h3 data-i18n="product.user-groups.documentation.title">Documentation-Focused Users</h3>
+          <p data-i18n="product.user-groups.documentation.body">Technical writers and systems engineers who create comprehensive documentation. Value formatting, presentation, and multi-format export capabilities.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.documentation.feature1">✅ Rich documentation editor</li>
+            <li data-i18n="product.user-groups.documentation.feature2">✅ Multi-format export (PDF, HTML, Sphinx)</li>
+            <li data-i18n="product.user-groups.documentation.feature3">✅ Quality indicators</li>
+            <li data-i18n="product.user-groups.documentation.feature4">✅ Interactive diagrams</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#features" class="btn ghost small" data-i18n="product.user-groups.documentation.cta">View Docs</a>
+          </div>
+        </div>
+
+        <div class="user-group-card">
+          <div class="user-group-icon">👥</div>
+          <h3 data-i18n="product.user-groups.collaborative.title">Collaborative Team Users</h3>
+          <p data-i18n="product.user-groups.collaborative.body">Team leads and project managers who need collaboration features, version control, and coordination. Work in teams with multiple stakeholders.</p>
+          <ul class="user-group-features">
+            <li data-i18n="product.user-groups.collaborative.feature1">✅ Git-native workflows</li>
+            <li data-i18n="product.user-groups.collaborative.feature2">✅ Visual diff & merge</li>
+            <li data-i18n="product.user-groups.collaborative.feature3">✅ CI/CD integration</li>
+            <li data-i18n="product.user-groups.collaborative.feature4">✅ Team analytics</li>
+          </ul>
+          <div class="user-group-cta">
+            <a href="#features" class="btn ghost small" data-i18n="product.user-groups.collaborative.cta">View Git Features</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Delivery Platforms Section -->
+  <section class="platforms-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.platforms.heading">Available on Three Platforms</h2>
+        <p class="section-subtitle" data-i18n="product.platforms.subtitle">Choose the deployment option that fits your workflow. All platforms share the same powerful native LSP backend and React component library for a consistent experience.</p>
+      </div>
+      <div class="platforms-grid">
+        <div class="platform-card featured">
+          <div class="platform-badge" data-i18n="product.platforms.vscode.badge">Primary</div>
+          <div class="platform-icon">💻</div>
+          <h3 data-i18n="product.platforms.vscode.title">VS Code Extension</h3>
+          <p class="platform-description" data-i18n="product.platforms.vscode.description">Native VS Code extension with full LSP integration. Seamlessly integrates into your existing development workflow.</p>
+          <ul class="platform-features">
+            <li data-i18n="product.platforms.vscode.feature1">✅ Install from VS Code Marketplace</li>
+            <li data-i18n="product.platforms.vscode.feature2">✅ Zero configuration required</li>
+            <li data-i18n="product.platforms.vscode.feature3">✅ Works with 50M+ VS Code users</li>
+            <li data-i18n="product.platforms.vscode.feature4">✅ Full Git integration</li>
+            <li data-i18n="product.platforms.vscode.feature5">✅ AI integration (Copilot, Claude, VS Code AI)</li>
+            <li data-i18n="product.platforms.vscode.feature6">✅ Cross-platform (Windows, macOS, Linux)</li>
+          </ul>
+          <div class="platform-status" data-i18n="product.platforms.vscode.status">✅ Production-Ready</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">🖥️</div>
+          <h3 data-i18n="product.platforms.standalone.title">Standalone Desktop App</h3>
+          <p class="platform-description" data-i18n="product.platforms.standalone.description">Native desktop application built with Tauri for maximum performance and offline capability. Perfect for teams requiring standalone deployment.</p>
+          <ul class="platform-features">
+            <li data-i18n="product.platforms.standalone.feature1">✅ Native desktop performance</li>
+            <li data-i18n="product.platforms.standalone.feature2">✅ Fully offline capable</li>
+            <li data-i18n="product.platforms.standalone.feature3">✅ No VS Code installation required</li>
+            <li data-i18n="product.platforms.standalone.feature4">✅ Smaller footprint than Electron</li>
+            <li data-i18n="product.platforms.standalone.feature5">✅ Same LSP backend as VS Code extension</li>
+            <li data-i18n="product.platforms.standalone.feature6">✅ Cross-platform (Windows, macOS, Linux)</li>
+          </ul>
+          <div class="platform-status" data-i18n="product.platforms.standalone.status">🚧 Coming Soon</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">☁️</div>
+          <h3 data-i18n="product.platforms.saas.title">SaaS Cloud Platform</h3>
+          <p class="platform-description" data-i18n="product.platforms.saas.description">Web-based IDE accessible from any browser. Real-time collaboration, cloud storage, and zero-install deployment for distributed teams.</p>
+          <ul class="platform-features">
+            <li data-i18n="product.platforms.saas.feature1">✅ Access from any browser</li>
+            <li data-i18n="product.platforms.saas.feature2">✅ Real-time collaboration</li>
+            <li data-i18n="product.platforms.saas.feature3">✅ Cloud-based model storage</li>
+            <li data-i18n="product.platforms.saas.feature4">✅ Zero installation required</li>
+            <li data-i18n="product.platforms.saas.feature5">✅ Same features as desktop versions</li>
+            <li data-i18n="product.platforms.saas.feature6">✅ Enterprise SSO integration</li>
+          </ul>
+          <div class="platform-status" data-i18n="product.platforms.saas.status">🚧 Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LSP Features Section -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.lsp.heading">Complete LSP Implementation</h2>
+        <p class="section-subtitle" data-i18n="product.lsp.intro">18/18 Language Server Protocol features (100% compliance) with production-ready performance</p>
+      </div>
+      <div class="lsp-features-grid">
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">✨</div>
+          <h4 data-i18n="product.lsp.completion.title">Autocompletion</h4>
+          <p data-i18n="product.lsp.completion.body">Context-aware completion with ~10K library types</p>
+          <div class="lsp-metric" data-i18n="product.lsp.completion.metric">~30ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">🔍</div>
+          <h4 data-i18n="product.lsp.navigation.title">Code Navigation</h4>
+          <p data-i18n="product.lsp.navigation.body">Go-to-definition, find references, type hierarchy</p>
+          <div class="lsp-metric" data-i18n="product.lsp.navigation.metric">~15-20ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">⚠️</div>
+          <h4 data-i18n="product.lsp.diagnostics.title">Real-time Diagnostics</h4>
+          <p data-i18n="product.lsp.diagnostics.body">25+ diagnostic collectors with live validation</p>
+          <div class="lsp-metric" data-i18n="product.lsp.diagnostics.metric">~80ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">💡</div>
+          <h4 data-i18n="product.lsp.hover.title">Hover Information</h4>
+          <p data-i18n="product.lsp.hover.body">Rich documentation with library integration</p>
+          <div class="lsp-metric" data-i18n="product.lsp.hover.metric">~15ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">🎨</div>
+          <h4 data-i18n="product.lsp.formatting.title">Document Formatting</h4>
+          <p data-i18n="product.lsp.formatting.body">Full file and range formatting with preservation</p>
+          <div class="lsp-metric" data-i18n="product.lsp.formatting.metric">~50ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">🔧</div>
+          <h4 data-i18n="product.lsp.code-actions.title">Code Actions</h4>
+          <p data-i18n="product.lsp.code-actions.body">Quick fixes and refactoring assistance</p>
+          <div class="lsp-metric" data-i18n="product.lsp.code-actions.metric">Instant</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">🎯</div>
+          <h4 data-i18n="product.lsp.semantic.title">Semantic Highlighting</h4>
+          <p data-i18n="product.lsp.semantic.body">43 token types with syntax classification</p>
+          <div class="lsp-metric" data-i18n="product.lsp.semantic.metric">98%</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">📋</div>
+          <h4 data-i18n="product.lsp.symbols.title">Document Symbols</h4>
+          <p data-i18n="product.lsp.symbols.body">Hierarchical outline with workspace search</p>
+          <div class="lsp-metric" data-i18n="product.lsp.symbols.metric">~25ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">✏️</div>
+          <h4 data-i18n="product.lsp.rename.title">Rename Symbol</h4>
+          <p data-i18n="product.lsp.rename.body">Multi-file renaming with conflict detection</p>
+          <div class="lsp-metric" data-i18n="product.lsp.rename.metric">~40ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">📝</div>
+          <h4 data-i18n="product.lsp.inlay.title">Inlay Hints</h4>
+          <p data-i18n="product.lsp.inlay.body">Type annotations and parameter hints</p>
+          <div class="lsp-metric" data-i18n="product.lsp.inlay.metric">~35ms</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">📞</div>
+          <h4 data-i18n="product.lsp.signature.title">Signature Help</h4>
+          <p data-i18n="product.lsp.signature.body">Function signatures with full HIR traversal</p>
+          <div class="lsp-metric" data-i18n="product.lsp.signature.metric">90%</div>
+        </div>
+        <div class="lsp-feature-card">
+          <div class="lsp-feature-icon">🌳</div>
+          <h4 data-i18n="product.lsp.hierarchy.title">Call & Type Hierarchy</h4>
+          <p data-i18n="product.lsp.hierarchy.body">Relationship navigation and tree views</p>
+          <div class="lsp-metric" data-i18n="product.lsp.hierarchy.metric">95%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Build Variants Section -->
+  <section class="variants-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.variants.heading">Choose Your Edition</h2>
+        <p class="section-subtitle" data-i18n="product.variants.intro">Multiple variants optimized for different use cases—from lightweight CI/CD to enterprise compliance</p>
+      </div>
+      <div class="variants-grid">
+        <div class="variant-card essential">
+          <div class="variant-badge essential-badge" data-i18n="product.variants.essential.badge">Free</div>
+          <h3 data-i18n="product.variants.essential.title">🔹 Essential</h3>
+          <div class="variant-size" data-i18n="product.variants.essential.size">~25 MB</div>
+          <p data-i18n="product.variants.essential.body">Core LSP features: completion, diagnostics, navigation, formatting. Perfect for CI/CD pipelines and lightweight environments.</p>
+          <ul class="variant-features">
+            <li data-i18n="product.variants.essential.feature1">✅ Core LSP Protocol</li>
+            <li data-i18n="product.variants.essential.feature2">✅ Syntax Highlighting</li>
+            <li data-i18n="product.variants.essential.feature3">✅ Code Navigation</li>
+            <li data-i18n="product.variants.essential.feature4">✅ Real-time Diagnostics</li>
+          </ul>
+          <div class="variant-status" data-i18n="product.variants.essential.status">✅ Production-Ready</div>
+          <a href="contact.html" class="variant-cta" data-i18n="product.variants.essential.cta">Download Free</a>
+        </div>
+
+        <div class="variant-card standard featured">
+          <div class="variant-badge standard-badge" data-i18n="product.variants.standard.badge">Recommended</div>
+          <h3 data-i18n="product.variants.standard.title">🔷 Standard</h3>
+          <div class="variant-size" data-i18n="product.variants.standard.size">~35-40 MB</div>
+          <p data-i18n="product.variants.standard.body">Complete professional IDE: all LSP features, documentation, model explorer, requirements, diagrams, analytics.</p>
+          <ul class="variant-features">
+            <li data-i18n="product.variants.standard.feature1">✅ Everything in Essential</li>
+            <li data-i18n="product.variants.standard.feature2">✅ Documentation Viewer</li>
+            <li data-i18n="product.variants.standard.feature3">✅ Requirements Manager</li>
+            <li data-i18n="product.variants.standard.feature4">✅ Diagram Editor</li>
+            <li data-i18n="product.variants.standard.feature5">✅ Analytics Dashboard</li>
+          </ul>
+          <div class="variant-status" data-i18n="product.variants.standard.status">✅ Production-Ready</div>
+          <a href="contact.html" class="variant-cta primary" data-i18n="product.variants.standard.cta">Get License</a>
+        </div>
+
+        <div class="variant-card platform">
+          <div class="variant-badge platform-badge" data-i18n="product.variants.platform.badge">Enterprise</div>
+          <h3 data-i18n="product.variants.platform.title">🔶 Platform</h3>
+          <div class="variant-size" data-i18n="product.variants.platform.size">~50-60 MB</div>
+          <p data-i18n="product.variants.platform.body">Enterprise platform with domain extensions: VSS, YAML Architecture, UVL variability, Python bindings.</p>
+          <ul class="variant-features">
+            <li data-i18n="product.variants.platform.feature1">✅ Everything in Standard</li>
+            <li data-i18n="product.variants.platform.feature2">✅ VSS Integration</li>
+            <li data-i18n="product.variants.platform.feature3">✅ YAML Architecture</li>
+            <li data-i18n="product.variants.platform.feature4">✅ UVL Variability</li>
+            <li data-i18n="product.variants.platform.feature5">✅ Python Bindings</li>
+          </ul>
+          <div class="variant-status" data-i18n="product.variants.platform.status">✅ Production-Ready</div>
+          <a href="contact.html" class="variant-cta" data-i18n="product.variants.platform.cta">Contact Sales</a>
+        </div>
+
+        <div class="variant-card platform-full">
+          <div class="variant-badge platform-full-badge" data-i18n="product.variants.platform-full.badge">Default</div>
+          <h3 data-i18n="product.variants.platform-full.title">🟣 Platform-Full</h3>
+          <div class="variant-size" data-i18n="product.variants.platform-full.size">~60-70 MB</div>
+          <p data-i18n="product.variants.platform-full.body">All features including constraints, execution engine, ASPICE work products. Maximum compatibility and feature set.</p>
+          <ul class="variant-features">
+            <li data-i18n="product.variants.platform-full.feature1">✅ Everything in Platform</li>
+            <li data-i18n="product.variants.platform-full.feature2">✅ Constraint Solver (OCL 2.5)</li>
+            <li data-i18n="product.variants.platform-full.feature3">✅ Execution Engine</li>
+            <li data-i18n="product.variants.platform-full.feature4">✅ ASPICE Work Products</li>
+            <li data-i18n="product.variants.platform-full.feature5">✅ Simulation Support</li>
+          </ul>
+          <div class="variant-status" data-i18n="product.variants.platform-full.status">✅ Production-Ready</div>
+          <a href="contact.html" class="variant-cta" data-i18n="product.variants.platform-full.cta">Download Free</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance Variants -->
+  <section class="compliance-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.compliance.heading">Industry-Specific Compliance Editions</h2>
+        <p class="section-subtitle" data-i18n="product.compliance.intro">Built on ISO 15288 foundation with domain-specific compliance frameworks</p>
+      </div>
+      <div class="compliance-grid">
+        <div class="compliance-card">
+          <div class="compliance-icon">🔧</div>
+          <h3 data-i18n="product.compliance.systems.title">Systems Engineering</h3>
+          <p data-i18n="product.compliance.systems.body">ISO/IEC 15288 foundation with 6 frameworks: System Analysis, Risk Management, Decision Management, Design Definition, Implementation, Project Planning.</p>
+          <div class="compliance-status" data-i18n="product.compliance.systems.status">✅ Available</div>
+        </div>
+
+        <div class="compliance-card">
+          <div class="compliance-icon">🛡️</div>
+          <h3 data-i18n="product.compliance.automotive.title">Automotive/Safety</h3>
+          <p data-i18n="product.compliance.automotive.body">ASPICE 100% + ISO 26262: All 20 ASPICE work products, ASIL decomposition validator, safety analysis and verification workflows.</p>
+          <div class="compliance-status" data-i18n="product.compliance.automotive.status">🚧 Coming Soon</div>
+        </div>
+
+        <div class="compliance-card">
+          <div class="compliance-icon">🔒</div>
+          <h3 data-i18n="product.compliance.security.title">Automotive Security</h3>
+          <p data-i18n="product.compliance.security.body">ISO/SAE 21434 + UNECE WP.29: Threat modeling, TARA, cybersecurity requirements, incident response, and compliance evidence.</p>
+          <div class="compliance-status" data-i18n="product.compliance.security.status">🚧 Coming Soon</div>
+        </div>
+
+        <div class="compliance-card">
+          <div class="compliance-icon">🛩️</div>
+          <h3 data-i18n="product.compliance.aviation.title">Aviation</h3>
+          <p data-i18n="product.compliance.aviation.body">DO-178C/DO-331 certified: Software planning, development, verification, configuration management, quality assurance for DAL A-D.</p>
+          <div class="compliance-status" data-i18n="product.compliance.aviation.status">🚧 Coming Soon</div>
+        </div>
+
+        <div class="compliance-card">
+          <div class="compliance-icon">🏥</div>
+          <h3 data-i18n="product.compliance.medical.title">Medical</h3>
+          <p data-i18n="product.compliance.medical.body">IEC 62304 compliance: Software safety classes, usability engineering, risk management for FDA/CE Mark compliance.</p>
+          <div class="compliance-status" data-i18n="product.compliance.medical.status">🚧 Coming Soon</div>
+        </div>
+
+        <div class="compliance-card">
+          <div class="compliance-icon">🚂</div>
+          <h3 data-i18n="product.compliance.railway.title">Railway</h3>
+          <p data-i18n="product.compliance.railway.body">EN 50128 compliance: SIL 0-4 software validation, CENELEC integration for railway signaling and control systems.</p>
+          <div class="compliance-status" data-i18n="product.compliance.railway.status">🚧 Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features -->
+  <section class="core-features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.features.heading">Enterprise Features</h2>
+        <p class="section-subtitle" data-i18n="product.features.subtitle">Comprehensive tooling for modern systems engineering workflows</p>
+      </div>
+      
+      <div class="feature-category-grid">
+        <div class="feature-category-card">
+          <div class="category-icon">📊</div>
+          <h3 data-i18n="product.features.visualization.title">Visualization & Diagrams</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.visualization.item1">React Flow diagram editor with 9 node types and 5 edge types</li>
+            <li data-i18n="product.features.visualization.item2">ELK.js auto-layout with 4 algorithms (layered, force, stress, orthogonal)</li>
+            <li data-i18n="product.features.visualization.item3">Layout persistence with undo/redo support</li>
+            <li data-i18n="product.features.visualization.item4">Interactive canvas with drag-and-drop editing</li>
+            <li data-i18n="product.features.visualization.item5">7 diagram types: BDD, IBD, Activity, State Machine, Requirements, Use Case, Package</li>
+          </ul>
+        </div>
+
+        <div class="feature-category-card">
+          <div class="category-icon">📚</div>
+          <h3 data-i18n="product.features.documentation.title">Documentation</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.documentation.item1">Documentation viewer with interactive diagrams</li>
+            <li data-i18n="product.features.documentation.item2">Documentation editor with quality indicators and constraint display</li>
+            <li data-i18n="product.features.documentation.item3">Multi-format export: PDF, HTML, Sphinx, Markdown</li>
+            <li data-i18n="product.features.documentation.item4">ASPICE work products: All 20 work product types (100% complete)</li>
+            <li data-i18n="product.features.documentation.item5">Definition body viewer with inheritance and metadata navigation</li>
+          </ul>
+        </div>
+
+        <div class="feature-category-card">
+          <div class="category-icon">📋</div>
+          <h3 data-i18n="product.features.requirements.title">Requirements & Traceability</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.requirements.item1">Requirements manager with table views, filtering, and search</li>
+            <li data-i18n="product.features.requirements.item2">Traceability matrix with coverage heatmaps and gap analysis</li>
+            <li data-i18n="product.features.requirements.item3">Workflow management: Draft → Review → Approved → Verified</li>
+            <li data-i18n="product.features.requirements.item4">Test management with execution tracking and coverage matrices</li>
+            <li data-i18n="product.features.requirements.item5">Export to Excel, CSV, ReqIF, DOORS</li>
+          </ul>
+        </div>
+
+        <div class="feature-category-card">
+          <div class="category-icon">⚡</div>
+          <h3 data-i18n="product.features.execution.title">Execution & Simulation</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.execution.item1">State machine execution with hierarchical states and parallel regions</li>
+            <li data-i18n="product.features.execution.item2">Action execution with control flow and HIR integration</li>
+            <li data-i18n="product.features.execution.item3">Time-based simulation with checkpoint/resume</li>
+            <li data-i18n="product.features.execution.item4">Debugging support with breakpoints and step-through execution</li>
+            <li data-i18n="product.features.execution.item5">Execution visualization panel with real-time state tracking</li>
+          </ul>
+        </div>
+
+        <div class="feature-category-card">
+          <div class="category-icon">🔒</div>
+          <h3 data-i18n="product.features.constraints.title">Constraints & Validation</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.constraints.item1">Full OCL 2.5 compliance with 27 collection operations</li>
+            <li data-i18n="product.features.constraints.item2">Z3 integration for SMT solver constraint satisfaction</li>
+            <li data-i18n="product.features.constraints.item3">Real-time constraint validation with violation detection</li>
+            <li data-i18n="product.features.constraints.item4">Contract features: pre/post conditions, state machine integration</li>
+            <li data-i18n="product.features.constraints.item5">SMT-LIB2 code generation for external solvers</li>
+          </ul>
+        </div>
+
+        <div class="feature-category-card">
+          <div class="category-icon">📈</div>
+          <h3 data-i18n="product.features.analytics.title">Analytics & Metrics</h3>
+          <ul class="category-features">
+            <li data-i18n="product.features.analytics.item1">Quality metrics dashboard with KPIs and star ratings</li>
+            <li data-i18n="product.features.analytics.item2">Coverage analytics: Requirements, tests, traceability completeness</li>
+            <li data-i18n="product.features.analytics.item3">Complexity analysis: Cyclomatic complexity, nesting depth, relationship counts</li>
+            <li data-i18n="product.features.analytics.item4">Relationship metrics with dependency analysis</li>
+            <li data-i18n="product.features.analytics.item5">Interactive drill-down with export capabilities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Section -->
+  <section class="performance-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.performance.heading">Enterprise Performance</h2>
+        <p class="section-subtitle" data-i18n="product.performance.subtitle">Built for speed and scale—consistently exceeds performance targets</p>
+      </div>
+      <div class="performance-grid">
+        <div class="performance-card">
+          <div class="performance-icon">⚡</div>
+          <div class="performance-metric" data-i18n="product.performance.item1">&lt;50ms</div>
+          <div class="performance-label" data-i18n="product.performance.item1.label">Completion, Hover, Navigation</div>
+          <div class="performance-note" data-i18n="product.performance.item1.note">40x faster workspace symbol search</div>
+        </div>
+        <div class="performance-card">
+          <div class="performance-icon">🔍</div>
+          <div class="performance-metric" data-i18n="product.performance.item2">&lt;150ms</div>
+          <div class="performance-label" data-i18n="product.performance.item2.label">Diagnostics After Edits</div>
+          <div class="performance-note" data-i18n="product.performance.item2.note">25+ diagnostic collectors</div>
+        </div>
+        <div class="performance-card">
+          <div class="performance-icon">🎨</div>
+          <div class="performance-metric" data-i18n="product.performance.item3">&lt;200ms</div>
+          <div class="performance-label" data-i18n="product.performance.item3.label">Formatting</div>
+          <div class="performance-note" data-i18n="product.performance.item3.note">Comment & blank line preservation</div>
+        </div>
+        <div class="performance-card">
+          <div class="performance-icon">💾</div>
+          <div class="performance-metric" data-i18n="product.performance.item4">&lt;150 MB</div>
+          <div class="performance-label" data-i18n="product.performance.item4.label">Typical Memory Usage</div>
+          <div class="performance-note" data-i18n="product.performance.item4.note">Optimized with Arc&lt;str&gt;</div>
+        </div>
+        <div class="performance-card">
+          <div class="performance-icon">🚀</div>
+          <div class="performance-metric" data-i18n="product.performance.item5">10x</div>
+          <div class="performance-label" data-i18n="product.performance.item5.label">Faster Parsing</div>
+          <div class="performance-note" data-i18n="product.performance.item5.note">vs. legacy implementation</div>
+        </div>
+        <div class="performance-card">
+          <div class="performance-icon">✅</div>
+          <div class="performance-metric" data-i18n="product.performance.item6">100%</div>
+          <div class="performance-label" data-i18n="product.performance.item6.label">Parse Success Rate</div>
+          <div class="performance-note" data-i18n="product.performance.item6.note">On standard library (402 files)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Metrics -->
+  <section class="quality-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.quality.heading">Production-Ready Quality</h2>
+        <p class="section-subtitle" data-i18n="product.quality.subtitle">Enterprise-grade reliability with comprehensive testing and validation</p>
+      </div>
+      <div class="quality-grid">
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item1.number">491+</div>
+          <div class="quality-label" data-i18n="product.quality.item1.label">Tests Passing</div>
+          <div class="quality-detail" data-i18n="product.quality.item1.detail">100% pass rate</div>
+        </div>
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item2.number">100%</div>
+          <div class="quality-label" data-i18n="product.quality.item2.label">Compilation Success</div>
+          <div class="quality-detail" data-i18n="product.quality.item2.detail">Zero errors, zero warnings</div>
+        </div>
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item3.number">100%</div>
+          <div class="quality-label" data-i18n="product.quality.item3.label">Parse Success</div>
+          <div class="quality-detail" data-i18n="product.quality.item3.detail">Standard library (402 files)</div>
+        </div>
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item4.number">18/18</div>
+          <div class="quality-label" data-i18n="product.quality.item4.label">LSP Features</div>
+          <div class="quality-detail" data-i18n="product.quality.item4.detail">100% compliance</div>
+        </div>
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item5.number">43</div>
+          <div class="quality-label" data-i18n="product.quality.item5.label">Core Modules</div>
+          <div class="quality-detail" data-i18n="product.quality.item5.detail">~81,150 lines of code</div>
+        </div>
+        <div class="quality-metric">
+          <div class="quality-number" data-i18n="product.quality.item6.number">93%</div>
+          <div class="quality-label" data-i18n="product.quality.item6.label">Production-Ready</div>
+          <div class="quality-detail" data-i18n="product.quality.item6.detail">Core IDE features</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration Section -->
+  <section class="integration-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.integration.heading">Seamless Integrations</h2>
+        <p class="section-subtitle" data-i18n="product.integration.subtitle">Works with the tools you already use across all three platforms</p>
+      </div>
+      <div class="integration-grid">
+        <div class="integration-item">
+          <div class="integration-logo">VS Code</div>
+          <p data-i18n="product.integration.vscode">Native extension with full LSP support</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">Tauri Desktop</div>
+          <p data-i18n="product.integration.standalone">Standalone app with native performance</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">SaaS Cloud</div>
+          <p data-i18n="product.integration.saas">Web-based IDE with real-time collaboration</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">Git</div>
+          <p data-i18n="product.integration.git">Version control, branching, CI/CD workflows</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">GitHub Copilot</div>
+          <p data-i18n="product.integration.copilot">AI-powered code completion</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">Claude Code</div>
+          <p data-i18n="product.integration.claude">AI-assisted MBSE workflows</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">GitHub Actions</div>
+          <p data-i18n="product.integration.actions">Automated validation and testing</p>
+        </div>
+        <div class="integration-item">
+          <div class="integration-logo">DOORS</div>
+          <p data-i18n="product.integration.doors">Requirements import/export</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office Suite Vision Section -->
+  <section class="office-suite-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.office-suite.heading">SysML v2 Made as Easy as Microsoft Office</h2>
+        <p class="section-subtitle" data-i18n="product.office-suite.subtitle">Transform systems modeling into familiar Office Suite interfaces—Word, Excel, Power BI, Visio, OneNote, and Project—where every common task takes 3 clicks or fewer.</p>
+        <blockquote class="vision-quote">
+          <p data-i18n="product.office-suite.vision">"Because systems engineers should focus on systems, not syntax."</p>
+        </blockquote>
+      </div>
+
+      <div class="office-suite-grid">
+        <div class="office-card">
+          <div class="office-icon">📝</div>
+          <h3 data-i18n="product.office-suite.word.title">Word → Documentation Editor</h3>
+          <p data-i18n="product.office-suite.word.body">Click-to-edit descriptions, form-based part creation, drag-and-drop reordering, PDF/HTML export, and ASPICE work product templates. 92% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.word.item1">Word-style inline editing</li>
+            <li data-i18n="product.office-suite.word.item2">Insert → Table style forms</li>
+            <li data-i18n="product.office-suite.word.item3">20/20 ASPICE work products</li>
+            <li data-i18n="product.office-suite.word.item4">Export to PDF/HTML/Word</li>
+          </ul>
+        </div>
+
+        <div class="office-card">
+          <div class="office-icon">📊</div>
+          <h3 data-i18n="product.office-suite.excel.title">Excel → Requirements Manager</h3>
+          <p data-i18n="product.office-suite.excel.body">Codebeamer-level features with table views, traceability matrices, analytics dashboards, workflow management, and Excel/CSV/ReqIF export. 93% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.excel.item1">Excel-like sort, filter, search</li>
+            <li data-i18n="product.office-suite.excel.item2">Pivot table traceability</li>
+            <li data-i18n="product.office-suite.excel.item3">Workflow state management</li>
+            <li data-i18n="product.office-suite.excel.item4">Export to Excel/CSV/ReqIF</li>
+          </ul>
+        </div>
+
+        <div class="office-card">
+          <div class="office-icon">📊</div>
+          <h3 data-i18n="product.office-suite.powerbi.title">Power BI → Analytics Dashboard</h3>
+          <p data-i18n="product.office-suite.powerbi.body">Comprehensive quality metrics, coverage analytics, complexity analysis, and relationship metrics with interactive drill-down. 100% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.powerbi.item1">Quality KPIs and metrics</li>
+            <li data-i18n="product.office-suite.powerbi.item2">Coverage pie/bar charts</li>
+            <li data-i18n="product.office-suite.powerbi.item3">Complexity analysis</li>
+            <li data-i18n="product.office-suite.powerbi.item4">Interactive drill-down</li>
+          </ul>
+        </div>
+
+        <div class="office-card">
+          <div class="office-icon">🎨</div>
+          <h3 data-i18n="product.office-suite.visio.title">Visio → Diagram Editor</h3>
+          <p data-i18n="product.office-suite.visio.body">Professional diagramming with 7 diagram types, interactive canvas, bidirectional sync, ELK.js layouts, and Cameo Modeler-level features. 95% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.visio.item1">7 diagram types (BDD, IBD, Activity, etc.)</li>
+            <li data-i18n="product.office-suite.visio.item2">Drag-and-drop canvas editing</li>
+            <li data-i18n="product.office-suite.visio.item3">Bidirectional code sync</li>
+            <li data-i18n="product.office-suite.visio.item4">Export PNG/SVG/PDF/SysON</li>
+          </ul>
+        </div>
+
+        <div class="office-card">
+          <div class="office-icon">📔</div>
+          <h3 data-i18n="product.office-suite.onenote.title">OneNote → Hub Manager</h3>
+          <p data-i18n="product.office-suite.onenote.body">Browse and organize model elements with tree navigation, quick actions, search, and recent items. 100% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.onenote.item1">Tree navigation (OneNote sections)</li>
+            <li data-i18n="product.office-suite.onenote.item2">Quick actions and shortcuts</li>
+            <li data-i18n="product.office-suite.onenote.item3">Global element search</li>
+            <li data-i18n="product.office-suite.onenote.item4">Recent items quick access</li>
+          </ul>
+        </div>
+
+        <div class="office-card">
+          <div class="office-icon">📋</div>
+          <h3 data-i18n="product.office-suite.project.title">Project → Workflow Management</h3>
+          <p data-i18n="product.office-suite.project.body">Track requirement and test workflows with state machines, transitions, history, and approval workflows. 100% complete.</p>
+          <ul class="office-features">
+            <li data-i18n="product.office-suite.project.item1">Visual workflow states</li>
+            <li data-i18n="product.office-suite.project.item2">State transitions with approvals</li>
+            <li data-i18n="product.office-suite.project.item3">Complete change history</li>
+            <li data-i18n="product.office-suite.project.item4">Draft → Review → Approved → Verified</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.services.heading">Optional Professional Services</h2>
+        <p class="section-subtitle" data-i18n="product.services.subtitle">Our tool is designed to work standalone. We also offer optional services to accelerate adoption and maximize value for teams that need extra support.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🚀</div>
+          <h3 data-i18n="product.services.activation.title">Tooling Activation</h3>
+          <p data-i18n="product.services.activation.body">Guided deployment of the native SysML v2 LSP, Git workflows, and VS Code automation. Perfect for teams transitioning from legacy tools.</p>
+          <div class="service-pricing" data-i18n="product.services.activation.pricing">Starting at €2,500/day</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📚</div>
+          <h3 data-i18n="product.services.methods.title">MBSE Method Accelerators</h3>
+          <p data-i18n="product.services.methods.body">Workshops and coaching that drive SysML v2 adoption from use case capture through architecture. Ideal for automotive and aerospace product teams.</p>
+          <div class="service-pricing" data-i18n="product.services.methods.pricing">Starting at €2,500/day</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🤖</div>
+          <h3 data-i18n="product.services.ai.title">AI × Models Enablement</h3>
+          <p data-i18n="product.services.ai.body">Training and scripts for AI-assisted generation, validation, and model consistency checks. Maximize value from GitHub Copilot and Claude Code integration.</p>
+          <div class="service-pricing" data-i18n="product.services.ai.pricing">Starting at €2,500/day</div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3 data-i18n="product.services.safety.title">Functional Safety Consulting</h3>
+          <p data-i18n="product.services.safety.body">ISO 26262, IEC 61508, DO-178C hazard analysis, traceability, and audit preparation. For compliance variants and mission-critical operations.</p>
+          <div class="service-pricing" data-i18n="product.services.safety.pricing">€200-€350/hour</div>
+        </div>
+      </div>
+
+      <div class="services-note">
+        <p data-i18n="product.services.note"><strong>Note:</strong> All services are optional. The tool is fully functional standalone. Services are available to accelerate time-to-value, especially for regulated industries and complex deployments.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section-product">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="product.about.heading">About Sysnex Labs</h2>
+        <p class="section-subtitle" data-i18n="product.about.intro">Sysnex Labs is a tool vendor specializing in enterprise-grade SysML v2 Language Server technology. We build production-ready tooling that helps organizations adopt modern systems engineering practices—from textual modeling to intelligent analysis, with special focus on functional safety and compliance.</p>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-card">
+          <h3 data-i18n="product.about.product.title">Our Product</h3>
+          <ul>
+            <li data-i18n="product.about.product.item1">Native SysML v2 Language Server (43 modules, 81K+ lines)</li>
+            <li data-i18n="product.about.product.item2">VS Code extension with 18/18 LSP features</li>
+            <li data-i18n="product.about.product.item3">11 build variants from Essential (free) to compliance editions</li>
+            <li data-i18n="product.about.product.item4">AI integration (GitHub Copilot, Claude Code, VS Code AI)</li>
+            <li data-i18n="product.about.product.item5">Git-native workflows and CI/CD support</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <h3 data-i18n="product.about.technology.title">Technology Stack</h3>
+          <ul>
+              <li data-i18n="product.about.technology.item1">Native backend for performance (&lt;50ms LSP response)</li>
+            <li data-i18n="product.about.technology.item2">React frontend with 100+ components</li>
+            <li data-i18n="product.about.technology.item3">Multi-platform: VS Code, Tauri Desktop, SaaS Cloud</li>
+            <li data-i18n="product.about.technology.item4">Full SysML v2 library support (~10K types)</li>
+            <li data-i18n="product.about.technology.item5">ISO 15288 foundation with 60-70% code reuse</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <h3 data-i18n="product.about.market.title">Market Focus</h3>
+          <ul>
+            <li data-i18n="product.about.market.item1">Primary: Automotive software teams (Germany, USA, Japan)</li>
+            <li data-i18n="product.about.market.item2">Secondary: Aerospace & defense, mission-critical systems</li>
+            <li data-i18n="product.about.market.item3">Tertiary: General systems engineering organizations</li>
+            <li data-i18n="product.about.market.item4">Target: 50M+ VS Code users seeking MBSE solutions</li>
+            <li data-i18n="product.about.market.item5">Distribution: VS Code Marketplace + direct enterprise sales</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots/Visual Proof Section -->
+  <section class="screenshots-section" style="display: none;">
+    <div class="container">
+      <h2 data-i18n="product.screenshots.heading">See It In Action</h2>
+      <p class="section-subtitle" data-i18n="product.screenshots.subtitle">Real screenshots and demonstrations of our tools</p>
+      <div class="screenshots-grid">
+        <!-- Placeholder for screenshots -->
+        <div class="screenshot-item">
+          <div class="screenshot-placeholder">
+            <span data-i18n="product.screenshots.placeholder">VS Code Extension Screenshot</span>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-placeholder">
+            <span data-i18n="product.screenshots.placeholder2">LSP Features in Action</span>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <div class="screenshot-placeholder">
+            <span data-i18n="product.screenshots.placeholder3">AI-Assisted Modeling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" style="display: none;">
+    <div class="container">
+      <h2 data-i18n="product.testimonials.heading">What Our Customers Say</h2>
+      <div class="testimonials-grid">
+        <!-- Placeholder for testimonials -->
+        <div class="testimonial-card">
+          <div class="testimonial-placeholder">
+            <p data-i18n="product.testimonials.placeholder">Customer testimonial placeholder</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section-product">
+    <div class="container">
+      <div class="cta-content">
+        <h2 data-i18n="product.cta.heading">Ready to Transform Your Systems Engineering Workflow?</h2>
+        <p data-i18n="product.cta.subtitle">Join teams using enterprise-grade SysML v2 tooling with AI integration, Git workflows, and compliance support.</p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="btn primary large" data-i18n="product.cta.primary">Request Demo</a>
+          <a href="pricing.html" class="btn ghost large" data-i18n="product.cta.secondary">View Pricing</a>
+        </div>
+        <p class="cta-note" data-i18n="product.cta.note">Start with a 30-day free trial. No credit card required.</p>
+      </div>
+    </div>
+  </section>
+
+  <div data-include="partials/footer.html"></div>
+  <script src="include.js" defer></script>
+  <script src="i18n.js" defer></script>
+</body>
+</html>
