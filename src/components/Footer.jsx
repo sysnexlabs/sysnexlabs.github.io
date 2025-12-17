@@ -28,13 +28,14 @@ const Footer = () => {
             <Link to="/try-yourself" className="footer-link">Try Yourself</Link>
             <Link to="/contact" className="footer-link">Contact</Link>
           </div>
-          <div className="footer-column">
+          {/* Consulting pages hidden for now */}
+          {/* <div className="footer-column">
             <h4 className="footer-heading">Consulting</h4>
             <Link to="/methods" className="footer-link">Methods</Link>
             <Link to="/process" className="footer-link">Process</Link>
             <Link to="/tools" className="footer-link">Tools</Link>
             <Link to="/about" className="footer-link">About</Link>
-          </div>
+          </div> */}
           <div className="footer-column">
             <h4 className="footer-heading">Resources</h4>
             <a href="./assets/FEATURES.md" className="footer-link" target="_blank" rel="noopener noreferrer">Features</a>

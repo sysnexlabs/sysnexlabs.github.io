@@ -7,10 +7,11 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import TryYourself from './pages/TryYourself'
 import Product from './pages/Product'
-import About from './pages/About'
-import Methods from './pages/Methods'
-import Process from './pages/Process'
-import Tools from './pages/Tools'
+// Consulting pages hidden for now
+// import About from './pages/About'
+// import Methods from './pages/Methods'
+// import Process from './pages/Process'
+// import Tools from './pages/Tools'
 import './styles/App.css'
 
 function App() {
@@ -45,10 +46,11 @@ function App() {
               <Route path="/product" element={<Product />} />
               <Route path="/product/try-yourself" element={<TryYourself />} />
               <Route path="/try-yourself" element={<TryYourself />} />
-              <Route path="/about" element={<About />} />
+              {/* Consulting pages hidden for now */}
+              {/* <Route path="/about" element={<About />} />
               <Route path="/methods" element={<Methods />} />
               <Route path="/process" element={<Process />} />
-              <Route path="/tools" element={<Tools />} />
+              <Route path="/tools" element={<Tools />} /> */}
               {/* Catch-all route - show home for any unmatched path */}
               <Route path="*" element={<Home />} />
             </Routes>

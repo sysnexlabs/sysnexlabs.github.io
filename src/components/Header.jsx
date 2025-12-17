@@ -238,7 +238,8 @@ const Header = () => {
           </div>
         </div>
         
-        <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
+        {/* Consulting pages hidden for now */}
+        {/* <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
           <div className="nav-dropdown-trigger">
             <Link 
               to="/methods" 
@@ -272,7 +273,7 @@ const Header = () => {
           data-page="about"
         >
           {t('nav.about') || 'About'}
-        </Link>
+        </Link> */}
         
         <Link 
           to="/contact" 
