@@ -541,12 +541,13 @@ export default function DocumentationView({ code }) {
   const { documentation: wasmDocumentation, loading: docLoading } = useSysMLDocumentation(code, 'editor://current', refreshKey)
   
   // Fallback to simple parser if WASM not available
+  // Include refreshKey to force regeneration when refresh button is clicked
   const fallbackDocumentation = useMemo(() => {
     if (!code || code.trim().length === 0) {
       return { chapters: [], file_uri: 'editor://current' }
     }
     return parseSysMLToDocumentation(code)
-  }, [code])
+  }, [code, refreshKey])
   
   // Use WASM documentation if available and WASM is loaded, otherwise fallback
   // WASM documentation should always be preferred when WASM is available, even if empty
@@ -1209,8 +1210,12 @@ export default function DocumentationView({ code }) {
   const fileUri = documentation.file_uri || 'editor://current'
 
   const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1)
-    console.log('🔄 Refreshing documentation view...')
+    console.log('🔄 [DocumentationView] Refresh button clicked, incrementing refreshKey')
+    setRefreshKey(prev => {
+      const newKey = prev + 1
+      console.log('🔄 [DocumentationView] New refreshKey:', newKey)
+      return newKey
+    })
   }
 
   return (

@@ -206,12 +206,13 @@ export function useSysMLParser(code) {
  * Generate documentation from SysML code
  * @param {string} code - The SysML code to generate documentation from
  * @param {string} fileUri - The file URI (default: 'editor://current')
- * @param {number} refreshKey - Optional refresh key to force regeneration
+ * @param {number} refreshKey - Optional refresh key to force regeneration (bypasses debounce when changed)
  */
 export function useSysMLDocumentation(code, fileUri = 'editor://current', refreshKey = 0) {
   const { wasm } = useSysMLWasm()
   const [documentation, setDocumentation] = useState({ chapters: [], file_uri: fileUri })
   const [loading, setLoading] = useState(false)
+  const prevRefreshKeyRef = useRef(refreshKey)
 
   useEffect(() => {
     if (!code || code.trim().length === 0) {
@@ -221,6 +222,7 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
 
     const generateDoc = async () => {
       setLoading(true)
+      console.log('🔄 [useSysMLDocumentation] Generating documentation, refreshKey:', refreshKey)
       
       if (wasm) {
         try {
@@ -297,6 +299,19 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
       
       setLoading(false)
     }
+
+    // If refreshKey changed, bypass debounce and generate immediately
+    const isManualRefresh = prevRefreshKeyRef.current !== refreshKey
+    if (isManualRefresh) {
+      console.log('🔄 [useSysMLDocumentation] Manual refresh detected, generating immediately')
+      prevRefreshKeyRef.current = refreshKey
+      generateDoc()
+      // Return cleanup function (no-op since we're not using setTimeout)
+      return () => {}
+    }
+
+    // Update ref for next comparison
+    prevRefreshKeyRef.current = refreshKey
 
     // Debounce to avoid too many calls (reduced from 300ms to 200ms for better responsiveness)
     const timeoutId = setTimeout(generateDoc, 200)
