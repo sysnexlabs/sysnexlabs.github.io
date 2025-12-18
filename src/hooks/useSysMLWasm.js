@@ -19,45 +19,19 @@ export function useSysMLWasm() {
       try {
         // Try to load WASM module dynamically at runtime
         // Use a template literal to prevent Vite from statically analyzing the path
-        // In production (GitHub Pages), use relative paths since base: './' is set
-        // In development, WASM files are in src/wasm/ relative to src/hooks/
-        let wasmJsPath, wasmBinaryPath
-        if (import.meta.env.VITEST) {
-          // In Vitest, use an alias import so tests can reliably mock the module.
-          wasmJsPath = '@/wasm/sysml_wasm_bridge.js'
-          wasmBinaryPath = undefined
-        } else if (import.meta.env.PROD) {
-          // In production, use Vite's BASE_URL which includes the configured base path
-          // This ensures paths work correctly for subdirectory deployments (e.g., GitHub Pages)
-          const base = import.meta.env.BASE_URL || '/'
-          wasmJsPath = `${base}wasm/sysml_wasm_bridge.js`
-          wasmBinaryPath = `${base}wasm/sysml_wasm_bridge_bg.wasm`
-          console.log('🔍 [WASM] Production paths:', { base, wasmJsPath, wasmBinaryPath })
-        } else {
-          // In development, WASM files are in src/wasm/ relative to src/hooks/
-          wasmJsPath = new URL('../wasm/sysml_wasm_bridge.js', import.meta.url).href
-          wasmBinaryPath = new URL('../wasm/sysml_wasm_bridge_bg.wasm', import.meta.url).href
-        }
+        // In production (GitHub Pages), the path will be relative to the base URL
+        const baseUrl = import.meta.env.BASE_URL || './'
+        const wasmJsPath = import.meta.env.PROD 
+          ? `${baseUrl}wasm/sysml_wasm_bridge.js`
+          : `../wasm/${'sysml_wasm_bridge'}.js`
+        const wasmBinaryPath = import.meta.env.PROD 
+          ? `${baseUrl}wasm/sysml_wasm_bridge_bg.wasm`
+          : undefined // Use default path in development
         
         // Try to load WASM module - catch import errors gracefully
         let wasmModule
         try {
-          console.log('🔍 [WASM] Attempting to load from:', wasmJsPath)
-          if (import.meta.env.VITEST) {
-            const injected = globalThis.__SYSML_WASM_TEST_MODULE__
-            // In tests, never try to import the real WASM bundle (it is large and
-            // can easily OOM the Vitest worker). Tests must inject a mock module.
-            if (injected === undefined) {
-              throw new Error('WASM module not provided in tests')
-            }
-            if (injected === null) {
-              const injectedErr = globalThis.__SYSML_WASM_TEST_MODULE_ERROR__
-              throw injectedErr instanceof Error ? injectedErr : new Error(injectedErr || 'WASM module not found')
-            }
-            wasmModule = injected
-          } else {
-            wasmModule = await import(/* @vite-ignore */ wasmJsPath)
-          }
+          wasmModule = await import(/* @vite-ignore */ wasmJsPath)
         } catch (importErr) {
           // WASM file doesn't exist - this is expected in development
           console.info('WASM module not found, using fallback parser:', importErr.message)
@@ -67,12 +41,12 @@ export function useSysMLWasm() {
         }
         
         // Initialize WASM module
-        // Pass the WASM file path explicitly so wasm-bindgen can find the .wasm file
+        // For GitHub Pages, we need to ensure the WASM file path is correct
         if (wasmModule.default) {
-          if (wasmBinaryPath) {
+          // Pass the WASM file path explicitly for production
+          if (wasmBinaryPath && import.meta.env.PROD) {
             await wasmModule.default({ module_or_path: wasmBinaryPath })
           } else {
-            // Fallback: let wasm-bindgen use default path resolution
             await wasmModule.default()
           }
         }
@@ -176,8 +150,7 @@ export function useSysMLParser(code) {
           const lines = code.split('\n')
           
           lines.forEach((line, index) => {
-            const trimmed = line.trim()
-            if (trimmed.startsWith('package') && !trimmed.includes("'")) {
+            if (line.includes('package') && !line.includes("'")) {
               errors.push({
                 line: index + 1,
                 message: "Package name must be quoted with single quotes",
@@ -185,7 +158,7 @@ export function useSysMLParser(code) {
               })
             }
             
-            if (trimmed.startsWith('attribute') && !trimmed.includes(':>')) {
+            if (line.includes('attribute') && !line.includes(':>')) {
               errors.push({
                 line: index + 1,
                 message: "Attribute must have a type (use ':> Type')",
@@ -202,8 +175,7 @@ export function useSysMLParser(code) {
         const lines = code.split('\n')
         
         lines.forEach((line, index) => {
-          const trimmed = line.trim()
-          if (trimmed.startsWith('package') && !trimmed.includes("'")) {
+          if (line.includes('package') && !line.includes("'")) {
             errors.push({
               line: index + 1,
               message: "Package name must be quoted with single quotes",
@@ -211,7 +183,7 @@ export function useSysMLParser(code) {
             })
           }
           
-          if (trimmed.startsWith('attribute') && !trimmed.includes(':>')) {
+          if (line.includes('attribute') && !line.includes(':>')) {
             errors.push({
               line: index + 1,
               message: "Attribute must have a type (use ':> Type')",
@@ -232,25 +204,23 @@ export function useSysMLParser(code) {
 
 /**
  * Generate documentation from SysML code
+ * @param {string} code - The SysML code to generate documentation from
+ * @param {string} fileUri - The file URI (default: 'editor://current')
+ * @param {number} refreshKey - Optional refresh key to force regeneration
  */
-export function useSysMLDocumentation(code, fileUri = 'editor://current') {
+export function useSysMLDocumentation(code, fileUri = 'editor://current', refreshKey = 0) {
   const { wasm } = useSysMLWasm()
-  const [documentation, setDocumentation] = useState(null) // null indicates not yet generated
+  const [documentation, setDocumentation] = useState({ chapters: [], file_uri: fileUri })
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!code || code.trim().length === 0) {
-      setDocumentation({ chapters: [], file_uri: fileUri, _empty: true })
-      setLoading(false)
+      setDocumentation({ chapters: [], file_uri: fileUri })
       return
     }
 
-    // Mark as loading immediately so consumers/tests don't treat initial false as "done"
-    setLoading(true)
-
     const generateDoc = async () => {
-      // Don't reset documentation to null - keep previous documentation while generating new one
-      // This prevents flickering between WASM and fallback
+      setLoading(true)
       
       if (wasm) {
         try {
@@ -328,10 +298,10 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current') {
       setLoading(false)
     }
 
-    // Debounce to avoid too many calls
-    const timeoutId = setTimeout(generateDoc, 300)
+    // Debounce to avoid too many calls (reduced from 300ms to 200ms for better responsiveness)
+    const timeoutId = setTimeout(generateDoc, 200)
     return () => clearTimeout(timeoutId)
-  }, [code, fileUri, wasm])
+  }, [code, fileUri, wasm, refreshKey])
 
   return { documentation, loading }
 }
@@ -340,101 +310,31 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current') {
 function parseSysMLToDocumentationSimple(code) {
   const chapters = []
   const lines = code.split('\n')
-
+  
   let currentPackage = null
   let currentPart = null
   let inDocComment = false
   let docComment = ''
-  let docDeclarations = [] // Support multiple doc declarations
-  let currentDocName = null // Current doc declaration name
-  let currentDocContent = '' // Current doc declaration content
-  let inDocDeclaration = false // Are we in a doc declaration?
-  let hasSeenFirstElement = false // Have we seen the first element after package?
-
+  
   lines.forEach((line, index) => {
     const trimmed = line.trim()
-
-    // Doc declaration detection: "doc [Name] /* ... */" or "doc /* ... */"
-    const docNamedMatch = trimmed.match(/^\s*doc\s+(\w+)\s*\/\*/) // Named: "doc Tip /*"
-    const docAnonymousMatch = !docNamedMatch && trimmed.match(/^\s*doc\s*\/\*/) // Anonymous: "doc /*"
-
-    if (docNamedMatch || docAnonymousMatch) {
-      // Finalize previous doc declaration if any
-      if (inDocDeclaration && currentDocContent.trim()) {
-        docDeclarations.push([currentDocName, currentDocContent.trim()])
-        currentDocName = null
-        currentDocContent = ''
-      }
-      // Start new doc declaration
-      inDocDeclaration = true
-      inDocComment = false // Disable legacy doc comment tracking
-      currentDocName = docNamedMatch ? docNamedMatch[1] : null
-      currentDocContent = ''
-      // Extract content from same line if comment ends on same line
-      if (trimmed.includes('*/')) {
-        const contentMatch = trimmed.match(/\/\*([^*]|\*(?!\/))*\*\//)
-        if (contentMatch) {
-          currentDocContent = contentMatch[0]
-            .replace(/^\/\*/, '')
-            .replace(/\*\/$/, '')
-            .split('\n')
-            .map(l => l.replace(/^\s*\*\s?/, '').trim())
-            .filter(l => l.length > 0)
-            .join('\n')
-          inDocDeclaration = false
-          docDeclarations.push([currentDocName, currentDocContent.trim()])
-          currentDocName = null
-          currentDocContent = ''
-        }
-      } else {
-        // Multi-line doc declaration - extract first line content if present
-        const startMatch = trimmed.match(/\/\*\s*(.*)/)
-        if (startMatch && startMatch[1]) {
-          currentDocContent = startMatch[1].trim() + '\n'
-        }
-      }
-    } else if (inDocDeclaration) {
-      // Continue collecting doc declaration content
-      if (trimmed.includes('*/')) {
-        // End of doc declaration
-        const endMatch = trimmed.match(/^(.*?)\*\//)
-        if (endMatch) {
-          currentDocContent += endMatch[1].replace(/^\s*\*\s?/, '').trim()
-        } else {
-          currentDocContent += line.replace(/^\s*\*\s?/, '').replace(/\*\/.*$/, '').trim()
-        }
-        inDocDeclaration = false
-        docDeclarations.push([currentDocName, currentDocContent.trim()])
-        currentDocName = null
-        currentDocContent = ''
-      } else {
-        // Middle of doc declaration
-        currentDocContent += line.replace(/^\s*\*\s?/, '').trim() + '\n'
-      }
-    }
-
+    
     if (trimmed.startsWith("package '")) {
       const match = trimmed.match(/package '([^']+)'/)
       if (match) {
         if (currentPackage) {
           chapters.push(currentPackage)
         }
-        // Finalize any pending doc declaration
-        if (inDocDeclaration && currentDocContent.trim()) {
-          docDeclarations.push([currentDocName, currentDocContent.trim()])
-        }
-        // Use doc declarations if available, otherwise fall back to legacy docComment
-        const packageDocs = docDeclarations.length > 0 ? docDeclarations : (docComment.trim() ? [[null, docComment.trim()]] : [])
         currentPackage = {
           title: match[1],
           kind: '[Package]',
-          doc_comment: packageDocs.length === 0 ? (docComment.trim() || undefined) : undefined,
-          doc_declarations: packageDocs.length > 0 ? packageDocs : undefined,
+          doc_comment: docComment.trim() || undefined,
+          doc_declarations: docComment ? [[null, docComment.trim()]] : undefined,
           imports: [],
           subchapters: [],
           metadata: {
             subchapter_count: 0,
-            has_doc: docDeclarations.length > 0 || !!docComment,
+            has_doc: !!docComment,
             import_count: 0,
           },
           range: { start: index, end: index },
@@ -442,96 +342,27 @@ function parseSysMLToDocumentationSimple(code) {
           diagrams: [],
         }
         docComment = ''
-        docDeclarations = []
         inDocComment = false
-        inDocDeclaration = false
-        hasSeenFirstElement = false
       }
     }
     
-    // Import detection: "import Package::*;" or "private import Package::*;" or "public import Package::*;"
-    // Also handles file imports: "import 'file.adl';"
-    if (currentPackage && /^\s*(?:private|public)?\s*import\s+/i.test(trimmed)) {
-      // Match import statement
-      // Pattern: [private|public] import <target> [as alias];
-      const importMatch = trimmed.match(/^\s*(private|public)?\s*import\s+(.+?)(?:\s+as\s+(\w+))?\s*;?$/i)
-      if (importMatch) {
-        const visibility = importMatch[1]?.toLowerCase() || 'private'
-        let target = importMatch[2]?.trim()
-        const alias = importMatch[3] || null
-        
-        // Remove quotes if it's a file import
-        if ((target.startsWith("'") && target.endsWith("'")) || 
-            (target.startsWith('"') && target.endsWith('"'))) {
-          target = target.slice(1, -1)
-        }
-        
-        // Remove trailing semicolon if present
-        target = target.replace(/;+$/, '').trim()
-        
-        // Check if it's a wildcard import (::* or ::**)
-        const isWildcard = target.endsWith('::*') || target.endsWith('::**')
-        
-        // Remove wildcard suffix from target_package for cleaner display
-        // We'll add it back when displaying if is_wildcard is true
-        let targetPackage = target
-        if (isWildcard) {
-          // Remove ::* or ::** from the end
-          targetPackage = target.replace(/::\*+$/, '')
-        }
-        
-        // Determine if it's a standard library import
-        const firstPart = targetPackage.split('::')[0]
-        const isStandard = ['ScalarValues', 'Quantities', 'ISQ', 'SI', 'Shapes', 'Parts', 
-                           'Items', 'Actions', 'States', 'Requirements', 'Analysis', 
-                           'Verification', 'Views', 'Metadata'].includes(firstPart)
-        
-        const importVisibility = isStandard ? 'Standard' : (visibility === 'public' ? 'Public' : 'Private')
-        
-        currentPackage.imports.push({
-          text: trimmed,
-          target_package: targetPackage, // Store without wildcard suffix
-          target_file: isStandard ? `std::${targetPackage}` : null,
-          visibility: importVisibility,
-          is_wildcard: isWildcard,
-          alias: alias || null
-        })
-        currentPackage.metadata.import_count = currentPackage.imports.length
-      }
+    if (trimmed.includes('doc /*')) {
+      inDocComment = true
+      docComment = ''
+    } else if (inDocComment && trimmed.includes('*/')) {
+      inDocComment = false
+    } else if (inDocComment) {
+      docComment += line.replace(/^\s*\*\s?/, '') + '\n'
     }
     
     if (trimmed.startsWith('part def ')) {
       const match = trimmed.match(/part def (\w+)/)
       if (match && currentPackage) {
-        // Finalize any pending doc declaration
-        if (inDocDeclaration && currentDocContent.trim()) {
-          docDeclarations.push([currentDocName, currentDocContent.trim()])
-          currentDocName = null
-          currentDocContent = ''
-          inDocDeclaration = false
-        }
-
-        // If we haven't seen first element yet, remaining docs go to package, not part
-        if (!hasSeenFirstElement && docDeclarations.length > 0) {
-          // Add doc declarations to package
-          if (!currentPackage.doc_declarations) {
-            currentPackage.doc_declarations = []
-          }
-          currentPackage.doc_declarations.push(...docDeclarations)
-          currentPackage.metadata.has_doc = true
-          docDeclarations = []
-          docComment = '' // Clear to prevent bleeding into part
-        }
-
-        // Use doc declarations if available, otherwise fall back to legacy docComment
-        const partDocs = docDeclarations.length > 0 ? docDeclarations : (docComment.trim() ? [[null, docComment.trim()]] : [])
-        hasSeenFirstElement = true
-
         currentPart = {
           title: match[1],
           kind: '[PartDefinition]',
-          doc_comment: partDocs.length === 0 ? (docComment.trim() || undefined) : undefined,
-          doc_declarations: partDocs.length > 0 ? partDocs : undefined,
+          doc_comment: docComment.trim() || undefined,
+          doc_declarations: docComment ? [[null, docComment.trim()]] : undefined,
           stable_id: `def-${match[1].toLowerCase()}`,
           signature: trimmed,
           body: '',
@@ -539,7 +370,7 @@ function parseSysMLToDocumentationSimple(code) {
           diagrams: [],
           nested_elements: [],
           metadata: {
-            has_doc: docDeclarations.length > 0 || !!docComment,
+            has_doc: !!docComment,
             nested_count: 0,
             relationship_count: 0,
           },
@@ -547,9 +378,7 @@ function parseSysMLToDocumentationSimple(code) {
           file_uri: 'editor://current',
         }
         docComment = ''
-        docDeclarations = []
         inDocComment = false
-        inDocDeclaration = false
       }
     }
     

@@ -16,19 +16,19 @@ export const DEFAULT_EXAMPLE = `package 'Vehicle System' {
     part def Vehicle {
         doc /* Here follow Vehicle description ... */
         doc Tip /* you can also write Tips */
-        attribute speed : Real;
-        attribute mass : Real = 1000.0;
+        attribute speed :> Real;
+        attribute mass :> Real = 1000.0;
         
         part engine : Engine;
         part wheels : Wheel[4];
     }
     
     part def Engine {
-        attribute power : Real = 150.0;
+        attribute power :> Real = 150.0;
     }
     
     part def Wheel {
-        attribute diameter : Real = 0.5;
+        attribute diameter :> Real = 0.5;
     }
 }`
 
@@ -41,33 +41,13 @@ const EXAMPLES = [
     private import ScalarValues::*;
     
     part def Greeting {
-        attribute message : String = "Hello, SysML v2!";
+        attribute message :> String = "Hello, SysML v2!";
     }
 }`
   },
   {
     name: 'Vehicle System',
     code: DEFAULT_EXAMPLE
-  },
-  {
-    name: 'Subsetting vs Typing Test',
-    code: `package 'Subsetting Test' {
-    doc /* Test to validate diagnostics distinguish :> (subsetting) vs : (typing) */
-    
-    private import ScalarValues::*;
-    
-    part def BasePart {
-        attribute baseAttr : Real;
-    }
-    
-    part def TestPart {
-        attribute wrong :> Real;        // ERROR: :> used with Definition (should be :)
-        attribute correct : Real;      // OK: : used with Definition (typing)
-        
-        part baseUsage : BasePart;     // OK: : used with Definition (typing)
-        part subsetUsage :> baseUsage; // OK: :> used with Usage (subsetting)
-    }
-}`
   },
   {
     name: 'Requirements',

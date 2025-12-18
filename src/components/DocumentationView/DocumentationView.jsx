@@ -24,92 +24,14 @@ const parseSysMLToDocumentation = (code) => {
   let inDocComment = false
   let docComment = ''
   let docDeclarations = [] // Track multiple doc declarations for current element
-  let packageDocDeclarations = [] // Track doc declarations for the current package (between package and first element)
   let currentDocName = null // Track current doc declaration name
   let currentDocContent = '' // Track current doc declaration content
   let inDocDeclaration = false // Track if we're in a doc declaration
   let braceDepth = 0 // Track brace depth to know when we're inside an element body
   let elementDocDeclarations = [] // Track doc declarations for the current element (inside body)
-  let elementStartDepth = 0 // Track brace depth when element starts
-  let hasSeenFirstElement = false // Track if we've seen the first element in the package
-  
-  // Track elements and imports with their line numbers for proper ordering
-  let pendingImports = [] // Array of {import, lineIndex}
-  let pendingSubchapters = [] // Array of {subchapter, lineIndex}
   
   lines.forEach((line, index) => {
     const trimmed = line.trim()
-    
-    // Track brace depth early (needed for doc declaration detection before packages)
-    const openBraces = (trimmed.match(/\{/g) || []).length
-    const closeBraces = (trimmed.match(/\}/g) || []).length
-    const previousBraceDepth = braceDepth
-    braceDepth += openBraces - closeBraces
-    
-    // Doc declaration detection BEFORE package detection (for doc declarations that appear before packages)
-    // Only process if we're not inside a package body yet (previousBraceDepth === 0 and no currentPackage)
-    let docProcessedBeforePackage = false
-    if (!currentPackage && previousBraceDepth === 0) {
-      const docNamedMatch = trimmed.match(/^\s*doc\s+(\w+)\s*\/\*/) // Named: "doc Tip /*"
-      const docAnonymousMatch = !docNamedMatch && trimmed.match(/^\s*doc\s*\/\*/) // Anonymous: "doc /*"
-      
-      if (docNamedMatch || docAnonymousMatch) {
-        docProcessedBeforePackage = true
-        // Finalize previous doc declaration if any (before starting a new one)
-        if (inDocDeclaration && currentDocContent.trim()) {
-          docDeclarations.push([currentDocName, currentDocContent.trim()])
-          currentDocName = null
-          currentDocContent = ''
-        }
-        // Start new doc declaration (will be assigned to package when package is detected)
-        inDocDeclaration = true
-        inDocComment = false // Disable legacy doc comment tracking
-        currentDocName = docNamedMatch ? docNamedMatch[1] : null
-        currentDocContent = ''
-        // Extract content from same line if comment ends on same line
-        if (trimmed.includes('*/')) {
-          const contentMatch = trimmed.match(/\/\*([^*]|\*(?!\/))*\*\//)
-          if (contentMatch) {
-            currentDocContent = contentMatch[0]
-              .replace(/^\/\*/, '')
-              .replace(/\*\/$/, '')
-              .split('\n')
-              .map(l => l.replace(/^\s*\*\s?/, '').trim())
-              .filter(l => l.length > 0)
-              .join('\n')
-            inDocDeclaration = false
-            docDeclarations.push([currentDocName, currentDocContent.trim()])
-            currentDocName = null
-            currentDocContent = ''
-          }
-        } else {
-          // Multi-line doc declaration - extract first line content if present
-          const startMatch = trimmed.match(/\/\*\s*(.*)/)
-          if (startMatch && startMatch[1]) {
-            currentDocContent = startMatch[1].trim() + '\n'
-          }
-        }
-      } else if (inDocDeclaration && !currentPackage && previousBraceDepth === 0) {
-        docProcessedBeforePackage = true
-        // Continue collecting doc declaration content (before package)
-        if (trimmed.includes('*/')) {
-          // End of doc declaration
-          const endMatch = trimmed.match(/^(.*?)\*\//)
-          if (endMatch) {
-            currentDocContent += endMatch[1].replace(/^\s*\*\s?/, '').trim()
-          } else {
-            currentDocContent += line.replace(/^\s*\*\s?/, '').replace(/\*\/.*$/, '').trim()
-          }
-          inDocDeclaration = false
-          docDeclarations.push([currentDocName, currentDocContent.trim()])
-          currentDocName = null
-          currentDocContent = ''
-        } else {
-          // Middle of doc declaration
-          currentDocContent += line.replace(/^\s*\*\s?/, '').trim() + '\n'
-        }
-      }
-    }
     
     // Package detection
     if (trimmed.startsWith("package '")) {
@@ -122,37 +44,16 @@ const parseSysMLToDocumentation = (code) => {
         if (currentDocContent.trim()) {
           docDeclarations.push([currentDocName, currentDocContent.trim()])
         }
-        // Finalize previous package if exists
-        if (currentPackage) {
-          // Sort imports by line number and add to package
-          pendingImports.sort((a, b) => a.lineIndex - b.lineIndex)
-          currentPackage.imports = pendingImports.map(item => item.import)
-          currentPackage.metadata.import_count = currentPackage.imports.length
-          
-          // Sort subchapters by line number and add to package
-          pendingSubchapters.sort((a, b) => a.lineIndex - b.lineIndex)
-          currentPackage.subchapters = pendingSubchapters.map(item => item.subchapter)
-          currentPackage.metadata.subchapter_count = currentPackage.subchapters.length
-          
-          chapters.push(currentPackage)
-        }
-        
-        // Start new package
-        // Collect doc declarations that appeared before the package
-        const packagePreDocDeclarations = [...docDeclarations]
-        if (docComment.trim() && packagePreDocDeclarations.length === 0) {
-          packagePreDocDeclarations.push([null, docComment.trim()])
-        }
         currentPackage = {
           title: match[1],
           kind: '[Package]',
-          doc_comment: packagePreDocDeclarations.length === 0 ? (docComment.trim() || undefined) : undefined,
-          doc_declarations: packagePreDocDeclarations.length > 0 ? packagePreDocDeclarations : undefined,
+          doc_comment: docComment.trim() || undefined,
+          doc_declarations: docDeclarations.length > 0 ? docDeclarations : (docComment ? [[null, docComment.trim()]] : undefined),
           imports: [],
           subchapters: [],
           metadata: {
             subchapter_count: 0,
-            has_doc: !!docComment || packagePreDocDeclarations.length > 0,
+            has_doc: !!docComment || docDeclarations.length > 0,
             import_count: 0,
           },
           range: { start: index, end: index },
@@ -161,15 +62,10 @@ const parseSysMLToDocumentation = (code) => {
         }
         docComment = ''
         docDeclarations = []
-        packageDocDeclarations = [] // Reset package-level doc declarations
-        hasSeenFirstElement = false // Reset flag for new package
         currentDocName = null
         currentDocContent = ''
         inDocComment = false
         inDocDeclaration = false
-        // Reset pending arrays for new package
-        pendingImports = []
-        pendingSubchapters = []
       }
     }
     
@@ -196,44 +92,33 @@ const parseSysMLToDocumentation = (code) => {
         // Remove trailing semicolon if present
         target = target.replace(/;+$/, '').trim()
         
-        // Check if it's a wildcard import (::* or ::**)
+        // Check if it's a wildcard import
         const isWildcard = target.endsWith('::*') || target.endsWith('::**')
         
-        // Remove wildcard suffix from target_package for cleaner display
-        // We'll add it back when displaying if is_wildcard is true
-        let targetPackage = target
-        if (isWildcard) {
-          // Remove ::* or ::** from the end
-          targetPackage = target.replace(/::\*+$/, '')
-        }
-        
         // Determine if it's a standard library import
-        const firstPart = targetPackage.split('::')[0]
+        const firstPart = target.split('::')[0]
         const isStandard = ['ScalarValues', 'Quantities', 'ISQ', 'SI', 'Shapes', 'Parts', 
                            'Items', 'Actions', 'States', 'Requirements', 'Analysis', 
                            'Verification', 'Views', 'Metadata'].includes(firstPart)
         
         const importVisibility = isStandard ? 'Standard' : (visibility === 'public' ? 'Public' : 'Private')
         
-        // Store import with line number for proper ordering
-        pendingImports.push({
-          import: {
-            text: trimmed,
-            target_package: targetPackage, // Store without wildcard suffix
-            target_file: isStandard ? `std::${targetPackage}` : null,
-            visibility: importVisibility,
-            is_wildcard: isWildcard,
-            alias: alias || null
-          },
-          lineIndex: index
+        currentPackage.imports.push({
+          text: trimmed,
+          target_package: target,
+          target_file: isStandard ? `std::${target}` : null,
+          visibility: importVisibility,
+          is_wildcard: isWildcard,
+          alias: alias || null
         })
+        currentPackage.metadata.import_count = currentPackage.imports.length
       }
     }
     
-    // If we just detected an element and now have an opening brace, track the start depth
-    if (openBraces > 0 && (currentPart || currentRequirement) && elementStartDepth === 0) {
-      elementStartDepth = previousBraceDepth + 1
-    }
+    // Track brace depth (needed for all lines) - do this BEFORE doc declaration detection
+    const openBraces = (trimmed.match(/\{/g) || []).length
+    const closeBraces = (trimmed.match(/\}/g) || []).length
+    braceDepth += openBraces - closeBraces
     
     // When we close an element (braceDepth goes back to previous level), finalize its doc declarations
     if (closeBraces > 0 && (currentPart || currentRequirement)) {
@@ -259,19 +144,14 @@ const parseSysMLToDocumentation = (code) => {
     }
     
     // Doc declaration detection: "doc [Name] /* ... */" or "doc /* ... */"
-    // Skip doc declaration processing for import lines and lines already processed before package detection
-    if (!isImportLine && !docProcessedBeforePackage) {
+    // Skip doc declaration processing for import lines to avoid conflicts
+    if (!isImportLine) {
       const docNamedMatch = trimmed.match(/^\s*doc\s+(\w+)\s*\/\*/) // Named: "doc Tip /*"
       const docAnonymousMatch = !docNamedMatch && trimmed.match(/^\s*doc\s*\/\*/) // Anonymous: "doc /*"
       
       if (docNamedMatch || docAnonymousMatch) {
-        // Determine which array to use:
-        // - elementDocDeclarations if inside element body
-        // - docDeclarations if before first element (will go to package)
-        // - docDeclarations if before a specific element (will go to that element)
-        const targetArray = ((currentPart || currentRequirement) && braceDepth > 0) 
-          ? elementDocDeclarations 
-          : (hasSeenFirstElement ? docDeclarations : packageDocDeclarations)
+        // Determine which array to use: elementDocDeclarations if inside element body, otherwise docDeclarations
+        const targetArray = ((currentPart || currentRequirement) && braceDepth > 0) ? elementDocDeclarations : docDeclarations
         
         // Finalize previous doc declaration if any (before starting a new one)
         if (inDocDeclaration && currentDocContent.trim()) {
@@ -309,9 +189,7 @@ const parseSysMLToDocumentation = (code) => {
       }
     } else if (inDocDeclaration) {
       // Determine which array to use
-      const targetArray = ((currentPart || currentRequirement) && braceDepth > 0) 
-        ? elementDocDeclarations 
-        : (hasSeenFirstElement ? docDeclarations : packageDocDeclarations)
+      const targetArray = ((currentPart || currentRequirement) && braceDepth > 0) ? elementDocDeclarations : docDeclarations
       
       // Continue collecting doc declaration content
       if (trimmed.includes('*/')) {
@@ -350,24 +228,10 @@ const parseSysMLToDocumentation = (code) => {
       if (match && currentPackage) {
         // Finalize any pending doc declarations for the requirement (before the requirement def line)
         if (inDocDeclaration && currentDocContent.trim()) {
-          // Add to appropriate array based on context
-          const targetArray = hasSeenFirstElement ? docDeclarations : packageDocDeclarations
-          targetArray.push([currentDocName, currentDocContent.trim()])
+          docDeclarations.push([currentDocName, currentDocContent.trim()])
           currentDocName = null
           currentDocContent = ''
           inDocDeclaration = false
-        }
-        // Merge package-level and element-level doc declarations
-        // If we haven't seen first element yet, add package doc declarations to package
-        if (!hasSeenFirstElement && packageDocDeclarations.length > 0) {
-          // Add package doc declarations to the package
-          if (!currentPackage.doc_declarations) {
-            currentPackage.doc_declarations = []
-          }
-          currentPackage.doc_declarations.push(...packageDocDeclarations)
-          packageDocDeclarations = []
-          // Clear docComment since it was included in packageDocDeclarations
-          docComment = ''
         }
         // Copy doc declarations that appeared before this requirement definition
         const reqDocDeclarations = [...docDeclarations]
@@ -375,7 +239,6 @@ const parseSysMLToDocumentation = (code) => {
         if (docComment.trim() && reqDocDeclarations.length === 0) {
           reqDocDeclarations.push([null, docComment.trim()])
         }
-        hasSeenFirstElement = true // Mark that we've seen the first element
         const reqId = match[1] || undefined
         const reqName = match[2]
         currentRequirement = {
@@ -397,7 +260,6 @@ const parseSysMLToDocumentation = (code) => {
           range: { start: index, end: index },
           file_uri: 'editor://current',
         }
-        elementStartDepth = braceDepth // Track depth when element starts
         docComment = ''
         docDeclarations = []
         currentDocName = null
@@ -414,24 +276,10 @@ const parseSysMLToDocumentation = (code) => {
       if (match && currentPackage) {
         // Finalize any pending doc declarations for the requirement (before the requirement line)
         if (inDocDeclaration && currentDocContent.trim()) {
-          // Add to appropriate array based on context
-          const targetArray = hasSeenFirstElement ? docDeclarations : packageDocDeclarations
-          targetArray.push([currentDocName, currentDocContent.trim()])
+          docDeclarations.push([currentDocName, currentDocContent.trim()])
           currentDocName = null
           currentDocContent = ''
           inDocDeclaration = false
-        }
-        // Merge package-level and element-level doc declarations
-        // If we haven't seen first element yet, add package doc declarations to package
-        if (!hasSeenFirstElement && packageDocDeclarations.length > 0) {
-          // Add package doc declarations to the package
-          if (!currentPackage.doc_declarations) {
-            currentPackage.doc_declarations = []
-          }
-          currentPackage.doc_declarations.push(...packageDocDeclarations)
-          packageDocDeclarations = []
-          // Clear docComment since it was included in packageDocDeclarations
-          docComment = ''
         }
         // Copy doc declarations that appeared before this requirement usage
         const reqDocDeclarations = [...docDeclarations]
@@ -439,7 +287,6 @@ const parseSysMLToDocumentation = (code) => {
         if (docComment.trim() && reqDocDeclarations.length === 0) {
           reqDocDeclarations.push([null, docComment.trim()])
         }
-        hasSeenFirstElement = true // Mark that we've seen the first element
         const reqId = match[1] || match[2] // Use ID if present, otherwise use name as ID
         const reqName = match[2]
         const reqType = match[3]
@@ -463,7 +310,6 @@ const parseSysMLToDocumentation = (code) => {
           range: { start: index, end: index },
           file_uri: 'editor://current',
         }
-        elementStartDepth = braceDepth // Track depth when element starts
         docComment = ''
         docDeclarations = []
         currentDocName = null
@@ -479,24 +325,10 @@ const parseSysMLToDocumentation = (code) => {
       if (match && currentPackage) {
         // Finalize any pending doc declarations that appeared before this part definition
         if (inDocDeclaration && currentDocContent.trim()) {
-          // Add to appropriate array based on context
-          const targetArray = hasSeenFirstElement ? docDeclarations : packageDocDeclarations
-          targetArray.push([currentDocName, currentDocContent.trim()])
+          docDeclarations.push([currentDocName, currentDocContent.trim()])
           currentDocName = null
           currentDocContent = ''
           inDocDeclaration = false
-        }
-        // Merge package-level and element-level doc declarations
-        // If we haven't seen first element yet, add package doc declarations to package
-        if (!hasSeenFirstElement && packageDocDeclarations.length > 0) {
-          // Add package doc declarations to the package
-          if (!currentPackage.doc_declarations) {
-            currentPackage.doc_declarations = []
-          }
-          currentPackage.doc_declarations.push(...packageDocDeclarations)
-          packageDocDeclarations = []
-          // Clear docComment since it was included in packageDocDeclarations
-          docComment = ''
         }
         // Copy doc declarations that appeared before this part definition
         const partDocDeclarations = [...docDeclarations]
@@ -504,7 +336,6 @@ const parseSysMLToDocumentation = (code) => {
         if (docComment.trim() && partDocDeclarations.length === 0) {
           partDocDeclarations.push([null, docComment.trim()])
         }
-        hasSeenFirstElement = true // Mark that we've seen the first element
         currentPart = {
           title: match[1],
           kind: '[PartDefinition]',
@@ -524,7 +355,6 @@ const parseSysMLToDocumentation = (code) => {
           range: { start: index, end: index },
           file_uri: 'editor://current',
         }
-        elementStartDepth = braceDepth // Track depth when element starts
         // Reset for collecting doc declarations inside this part body
         docComment = ''
         docDeclarations = []
@@ -615,50 +445,22 @@ const parseSysMLToDocumentation = (code) => {
       }
     }
     
-    // Close requirement definition (check if we're closing back to element start depth)
-    if (closeBraces > 0 && currentRequirement && currentPackage && braceDepth <= elementStartDepth) {
-      // Store requirement with line number for proper ordering
-      pendingSubchapters.push({
-        subchapter: currentRequirement,
-        lineIndex: currentRequirement.range.start
-      })
+    // Close requirement definition
+    if (trimmed === '}' && currentRequirement && currentPackage) {
+      currentPackage.subchapters.push(currentRequirement)
+      currentPackage.metadata.subchapter_count++
       currentRequirement = null
-      elementStartDepth = 0
     }
     
-    // Close part definition (check if we're closing back to element start depth)
-    if (closeBraces > 0 && currentPart && currentPackage && !currentRequirement && braceDepth <= elementStartDepth) {
-      // Store part with line number for proper ordering
-      pendingSubchapters.push({
-        subchapter: currentPart,
-        lineIndex: currentPart.range.start
-      })
+    // Close part definition
+    if (trimmed === '}' && currentPart && currentPackage && !currentRequirement) {
+      currentPackage.subchapters.push(currentPart)
+      currentPackage.metadata.subchapter_count++
       currentPart = null
-      elementStartDepth = 0
     }
   })
   
-  // Finalize current package: sort imports and subchapters by line number
   if (currentPackage) {
-    // Add any remaining package-level doc declarations
-    if (packageDocDeclarations.length > 0) {
-      if (!currentPackage.doc_declarations) {
-        currentPackage.doc_declarations = []
-      }
-      currentPackage.doc_declarations.push(...packageDocDeclarations)
-      currentPackage.metadata.has_doc = true
-    }
-    
-    // Sort imports by line number and add to package
-    pendingImports.sort((a, b) => a.lineIndex - b.lineIndex)
-    currentPackage.imports = pendingImports.map(item => item.import)
-    currentPackage.metadata.import_count = currentPackage.imports.length
-    
-    // Sort subchapters by line number and add to package
-    pendingSubchapters.sort((a, b) => a.lineIndex - b.lineIndex)
-    currentPackage.subchapters = pendingSubchapters.map(item => item.subchapter)
-    currentPackage.metadata.subchapter_count = currentPackage.subchapters.length
-    
     chapters.push(currentPackage)
   }
   
@@ -731,103 +533,59 @@ export default function DocumentationView({ code }) {
   const [expandedChapters, setExpandedChapters] = useState(new Set())
   const [expandedElements, setExpandedElements] = useState(new Set())
   const [selectedElement, setSelectedElement] = useState(null)
+  const [refreshKey, setRefreshKey] = useState(0)
   const { wasm, loading: wasmLoading } = useSysMLWasm()
   
   // Use WASM documentation generator (with fallback)
-  const { documentation: wasmDocumentation, loading: docLoading } = useSysMLDocumentation(code)
+  // Add refreshKey to force regeneration when refresh button is clicked
+  const { documentation: wasmDocumentation, loading: docLoading } = useSysMLDocumentation(code, 'editor://current', refreshKey)
   
   // Fallback to simple parser if WASM not available
   const fallbackDocumentation = useMemo(() => {
     if (!code || code.trim().length === 0) {
       return { chapters: [], file_uri: 'editor://current' }
     }
-    const result = parseSysMLToDocumentation(code)
-    console.log('🔍 [DocumentationView] Fallback parser result:', {
-      chaptersCount: result.chapters.length,
-      chapters: result.chapters.map(c => ({
-        title: c.title,
-        subchaptersCount: c.subchapters?.length || 0
-      }))
-    })
-    return result
+    return parseSysMLToDocumentation(code)
   }, [code])
   
-  // HIR-based documentation extraction via WASM (single source of truth)
-  // Priority: WASM HIR extraction > Loading state > Fallback parser
-  //
-  // The WASM module uses sysml-ide-documentation which extracts:
-  // - doc_comment: Documentation comments before elements
-  // - doc_declarations: DocDeclaration nodes (doc [name] /* ... */)
-  // - comment_text: Comment annotations (comment /* ... */)
-  //
-  // All extraction is done from HIR, ensuring robustness and consistency.
+  // Use WASM documentation if available and WASM is loaded, otherwise fallback
+  // WASM documentation should always be preferred when WASM is available, even if empty
+  // (empty might mean parsing errors, but we still want to show WASM structure)
+  // Only use fallback if WASM is not loaded or still loading
+  // Priority: WASM > Loading state > Fallback (only as last resort)
   const documentation = React.useMemo(() => {
-    // If WASM module is still loading, show loading state (don't use fallback yet)
+    // If WASM is loaded and we have documentation, use it (even if empty - indicates parse errors)
+    if (wasm && !wasmLoading && wasmDocumentation && wasmDocumentation.chapters !== undefined) {
+      return wasmDocumentation
+    }
+    // If WASM is still loading, show loading state (don't use fallback yet)
     if (wasmLoading) {
       return { chapters: [], file_uri: 'editor://current', _loading: true }
     }
-    // If WASM is loaded and documentation generation is complete, use WASM result
-    // Priority: WASM (if available and finished) > Fallback
-    // Check if wasmDocumentation is not null (was actually generated) and not just the initial empty state
-    // IMPORTANT: Once WASM documentation is available, always use it, even if fallbackDocumentation changes
-    // If docLoading is true but we have previous WASM documentation, keep using it (don't show loading state)
-    if (wasm && wasmDocumentation !== null && wasmDocumentation.chapters !== undefined && !wasmDocumentation._empty) {
-      // ALWAYS use WASM result if it was successfully generated
-      // WASM is the authoritative source - even if it returns empty chapters, that's intentional
-      // (empty chapters from WASM indicate parse errors, but the structure is correct)
-      // Even if docLoading is true, keep using the previous WASM documentation to prevent flickering
-      if (docLoading) {
-        console.log('⏳ [DocumentationView] WASM documentation being regenerated, keeping previous:', wasmDocumentation.chapters.length, 'chapters')
-      } else {
-        console.log('✅ [DocumentationView] Using WASM documentation:', wasmDocumentation.chapters.length, 'chapters')
-      }
-      return {
-        ...wasmDocumentation,
-        chapters: wasmDocumentation.chapters || []
-      }
-    }
-    // If documentation is still being generated by WASM and we don't have previous documentation, show loading state
-    if (docLoading && wasm) {
-      return { chapters: [], file_uri: 'editor://current', _loading: true }
-    }
-    // Only use fallback if WASM is not available or documentation generation failed
-    // Ensure chapters is always an array
-    // Note: fallbackDocumentation is not in dependencies to prevent re-renders when it changes
-    // We only use it when WASM is truly not available
-    console.log('⚠️ [DocumentationView] Using fallback parser (WASM not available or not ready)')
-    // Use fallbackDocumentation directly (it's computed from code, which is stable)
-    const fallback = parseSysMLToDocumentation(code || '')
-    return {
-      ...fallback,
-      chapters: fallback.chapters || []
-    }
-  }, [wasm, wasmLoading, docLoading, wasmDocumentation, code]) // Use code instead of fallbackDocumentation
+    // Only use fallback if WASM failed to load completely
+    return fallbackDocumentation
+  }, [wasm, wasmLoading, wasmDocumentation, fallbackDocumentation])
   
-  // Log documentation extraction source (debug mode only)
+  // Track code changes to trigger updates
+  const prevCodeRef = React.useRef(code)
   React.useEffect(() => {
-    const usingWasm = wasm && !wasmLoading && !docLoading && wasmDocumentation !== null && wasmDocumentation.chapters !== undefined && !wasmDocumentation._empty
-    const usingFallback = !wasm || (wasm && !wasmLoading && !docLoading && (wasmDocumentation === null || wasmDocumentation._empty))
-    
-    console.log('🔍 [DocumentationView] Documentation state:', {
-      wasm: !!wasm,
-      wasmLoading,
-      docLoading,
-      wasmDocumentation: wasmDocumentation ? (wasmDocumentation._empty ? 'empty' : 'generated') : 'null',
-      wasmDocumentationChapters: wasmDocumentation?.chapters?.length || 0,
-      fallbackChapters: fallbackDocumentation?.chapters?.length || 0,
-      finalChapters: documentation?.chapters?.length || 0,
-      usingWasm,
-      usingFallback
-    })
-    if (usingWasm) {
-      console.log('📚 [DocumentationView] Using HIR-based WASM extraction:',
-        wasmDocumentation.chapters.length, 'chapter(s)')
-    } else if (!wasm && !wasmLoading) {
-      console.warn('⚠️ [DocumentationView] Using fallback parser (WASM unavailable)')
-    } else if (usingFallback && wasm) {
-      console.warn('⚠️ [DocumentationView] WASM available but documentation not ready, using fallback parser')
+    if (prevCodeRef.current !== code) {
+      console.log('📝 [DocumentationView] Code changed, documentation will update...')
+      prevCodeRef.current = code
     }
-  }, [wasm, wasmLoading, docLoading, wasmDocumentation, fallbackDocumentation, documentation])
+  }, [code])
+
+  // Debug: Log which documentation source is being used
+  React.useEffect(() => {
+    if (wasm && !wasmLoading) {
+      console.log('🔍 [DocumentationView] Using WASM documentation:', wasmDocumentation?.chapters?.length || 0, 'chapters')
+    } else if (wasmLoading) {
+      console.log('⏳ [DocumentationView] WASM loading, showing loading state...')
+    } else {
+      console.warn('⚠️ [DocumentationView] Using fallback parser (WASM not available)')
+      console.warn('   This is less accurate. Consider fixing WASM loading issues.')
+    }
+  }, [wasm, wasmLoading, wasmDocumentation])
   
   // Only show enhanced features if WASM is available
   const hasWasm = wasm && !wasmLoading
@@ -840,12 +598,10 @@ export default function DocumentationView({ code }) {
   React.useEffect(() => {
     const chapterIds = new Set()
     const elementIds = new Set()
-    const chapters = documentation?.chapters || []
     
-    chapters.forEach((_, chapterIndex) => {
+    documentation.chapters.forEach((_, chapterIndex) => {
       chapterIds.add(`chapter-${chapterIndex}`)
-      const subchapters = chapters[chapterIndex]?.subchapters || []
-      subchapters.forEach((_, subIndex) => {
+      documentation.chapters[chapterIndex].subchapters.forEach((_, subIndex) => {
         elementIds.add(`chapter-${chapterIndex}-sub-${subIndex}`)
       })
     })
@@ -897,26 +653,27 @@ export default function DocumentationView({ code }) {
           )}
         </div>
         
-        {/* Doc Declarations (from HIR DocDeclaration nodes) */}
+        {/* Doc Declarations */}
         {element.doc_declarations && element.doc_declarations.length > 0 && (
           <div className="doc-element-doc">
-            <DocDeclarations
+            {console.log('🔍 [DocumentationView] Rendering doc_declarations for element:', element.title, 'count:', element.doc_declarations.length, 'declarations:', element.doc_declarations.map(([name, content]) => ({ name, contentPreview: content?.substring(0, 50) })))}
+            <DocDeclarations 
               docDeclarations={element.doc_declarations}
               isChapter={false}
             />
           </div>
         )}
         
-        {/* Doc Comment (fallback for legacy HIR without DocDeclaration nodes) */}
+        {/* Doc Comment (fallback) */}
         {!element.doc_declarations && element.doc_comment && (
           <div className="doc-element-doc">
             <div className="doc-comment">{element.doc_comment}</div>
           </div>
         )}
-
-        {/* Comment Annotations (from HIR CommentDeclaration nodes or comment_text field) */}
+        
+        {/* Comment Annotation */}
         {element.comment_text && (
-          <CommentAnnotation
+          <CommentAnnotation 
             commentText={element.comment_text}
             isChapter={false}
           />
@@ -972,25 +729,15 @@ export default function DocumentationView({ code }) {
     )
   }
   
-  // Ensure documentation has chapters array
-  const safeChapters = documentation?.chapters || []
-  
-  if (safeChapters.length === 0) {
+  if (documentation.chapters.length === 0) {
     return (
       <div className="documentation-view">
         <div className="doc-header">
           <h3>Documentation</h3>
-          {(wasmLoading || documentation?._loading) && <span className="doc-loading">Loading...</span>}
-          {!wasmLoading && !documentation?._loading && code && code.trim().length > 0 && (
-            <span className="doc-loading">No documentation found. Check your code syntax.</span>
-          )}
+          {wasmLoading && <span className="doc-loading">Loading...</span>}
         </div>
         <div className="doc-empty">
-          {!code || code.trim().length === 0 ? (
-            <p>Start typing SysML v2 code in the editor to see documentation here.</p>
-          ) : (
-            <p>No documentation could be extracted from the code. Make sure your code is valid SysML v2.</p>
-          )}
+          <p>Start typing SysML v2 code in the editor to see documentation here.</p>
         </div>
       </div>
     )
@@ -1461,12 +1208,40 @@ export default function DocumentationView({ code }) {
 
   const fileUri = documentation.file_uri || 'editor://current'
 
+  const handleRefresh = () => {
+    setRefreshKey(prev => prev + 1)
+    console.log('🔄 Refreshing documentation view...')
+  }
+
   return (
     <div className="documentation-view">
       <div className="doc-header">
         <div className="flex items-center justify-between">
           <h3>Documentation</h3>
           <div className="flex items-center gap-2">
+            {(docLoading || wasmLoading) && (
+              <span className="doc-loading-indicator">
+                <span className="spinner" style={{
+                  display: 'inline-block',
+                  width: '12px',
+                  height: '12px',
+                  border: '2px solid #f3f3f3',
+                  borderTop: '2px solid #00ccff',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite'
+                }}></span>
+                Updating...
+              </span>
+            )}
+            <button
+              onClick={handleRefresh}
+              className="doc-refresh-button"
+              title="Refresh documentation view"
+              disabled={docLoading || wasmLoading}
+            >
+              <span style={{ fontSize: '1rem' }}>🔄</span>
+              {docLoading ? 'Loading...' : 'Refresh'}
+            </button>
             <ExportMenu onExport={handleExport} />
           </div>
         </div>
@@ -1511,12 +1286,12 @@ export default function DocumentationView({ code }) {
           )}
 
           {/* Import Management Panel - show imports for all chapters */}
-          {safeChapters.length > 0 && safeChapters.some(ch => ch.imports && ch.imports.length > 0) && (
+          {documentation.chapters.length > 0 && documentation.chapters.some(ch => ch.imports && ch.imports.length > 0) && (
             <div className="doc-toc-section mt-4 pt-4 border-t border-gray-300">
-              {safeChapters.map((chapter, idx) => 
+              {documentation.chapters.map((chapter, idx) => 
                 chapter.imports && chapter.imports.length > 0 ? (
                   <div key={idx} className={idx > 0 ? "mt-4" : ""}>
-                    {safeChapters.length > 1 && (
+                    {documentation.chapters.length > 1 && (
                       <div className="text-xs text-gray-500 mb-2 px-2">
                         {chapter.title}
                       </div>
@@ -1541,7 +1316,7 @@ export default function DocumentationView({ code }) {
             </div>
           )}
 
-          {safeChapters.map((chapter, chapterIndex) => (
+          {documentation.chapters.map((chapter, chapterIndex) => (
             <div key={chapterIndex} className="doc-chapter">
               <div className="flex items-center justify-between mb-2">
                 <h2 className="doc-chapter-title">
@@ -1555,26 +1330,26 @@ export default function DocumentationView({ code }) {
                 )}
               </div>
               
-              {/* Chapter Doc Declarations (from HIR DocDeclaration nodes) */}
+              {/* Chapter Doc Declarations */}
               {chapter.doc_declarations && chapter.doc_declarations.length > 0 && (
                 <div className="doc-chapter-doc">
-                  <DocDeclarations
+                  <DocDeclarations 
                     docDeclarations={chapter.doc_declarations}
                     isChapter={true}
                   />
                 </div>
               )}
-
-              {/* Chapter Doc Comment (fallback for legacy HIR without DocDeclaration nodes) */}
+              
+              {/* Chapter Doc Comment (fallback) */}
               {!chapter.doc_declarations && chapter.doc_comment && (
                 <div className="doc-chapter-doc">
                   <div className="doc-comment">{chapter.doc_comment}</div>
                 </div>
               )}
-
-              {/* Chapter Comment Annotations (from HIR CommentDeclaration nodes or comment_text field) */}
+              
+              {/* Chapter Comment Annotation */}
               {chapter.comment_text && (
-                <CommentAnnotation
+                <CommentAnnotation 
                   commentText={chapter.comment_text}
                   isChapter={true}
                 />

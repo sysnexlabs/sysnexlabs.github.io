@@ -2,22 +2,20 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import TryYourselfEditor, { DEFAULT_EXAMPLE } from '../components/TryYourselfEditor/TryYourselfEditor'
 import DocumentationTabs from '../components/DocumentationTabs/DocumentationTabs'
-import UvlSection from '../components/UvlSection/UvlSection'
-import { useTranslation } from '../utils/i18n'
 import './Page.css'
 import './TryYourself.css'
 
 export default function TryYourself() {
   const [editorCode, setEditorCode] = useState(DEFAULT_EXAMPLE)
-  const { t } = useTranslation()
 
   return (
     <div className="page">
       <section className="page-hero-section">
         <div className="container">
-          <h1>{t('try-yourself.title')}</h1>
+          <h1>Try SysML v2 Yourself</h1>
           <p className="page-hero-description">
-            {t('try-yourself.description')}
+            Experience SysML v2 directly in your browser. Write code in the editor and see 
+            the live documentation view update in real-time.
           </p>
         </div>
       </section>
@@ -35,15 +33,13 @@ export default function TryYourself() {
 
           <div className="try-yourself-footer">
             <p className="try-yourself-note">
-              <strong>{t('try-yourself.note').split(':')[0]}:</strong> {t('try-yourself.note').split(':')[1]?.trim()}{' '}
-              <Link to="/contact">{t('try-yourself.note.link')}</Link>.
+              <strong>Note:</strong> This is a proof of concept. Full WASM-based parsing and 
+              advanced features are coming soon. For production use, check out our{' '}
+              <Link to="/contact">VS Code Extension</Link>.
             </p>
           </div>
         </div>
       </section>
-
-      {/* UVL Section */}
-      <UvlSection />
     </div>
   )
 }

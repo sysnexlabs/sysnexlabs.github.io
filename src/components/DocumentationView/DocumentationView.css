@@ -42,6 +42,44 @@
   transition: color 0.3s ease;
 }
 
+.doc-refresh-button {
+  padding: 0.5rem 1rem;
+  background-color: #00ccff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.doc-refresh-button:hover:not(:disabled) {
+  background-color: #00b8e6;
+  opacity: 0.9;
+}
+
+.doc-refresh-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.doc-loading-indicator {
+  font-size: 0.875rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="light"] .doc-loading-indicator {
+  color: #999;
+}
+
 .doc-empty {
   flex: 1;
   display: flex;
