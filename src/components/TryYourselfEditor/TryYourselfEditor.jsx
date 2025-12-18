@@ -17,18 +17,19 @@ export const DEFAULT_EXAMPLE = `package 'Vehicle System' {
         doc /* Here follow Vehicle description ... */
         doc Tip /* you can also write Tips */
         attribute speed :> Real;
-        attribute mass :> Real = 1000.0;
+        attribute mass : Real = 1000.0;
         
         part engine : Engine;
         part wheels : Wheel[4];
+        part transmission;
     }
     
     part def Engine {
-        attribute power :> Real = 150.0;
+        attribute power : Real = 150.0;
     }
     
     part def Wheel {
-        attribute diameter :> Real = 0.5;
+        attribute diameter : Real = 0.5;
     }
 }`
 
