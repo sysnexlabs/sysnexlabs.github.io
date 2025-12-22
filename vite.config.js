@@ -159,23 +159,41 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    cssCodeSplit: true, // Split CSS per route for better caching
     rollupOptions: {
       // Allow dynamic imports that might not exist at build time
       external: [],
       output: {
-        // Ensure WASM files are copied correctly
+        // Manual chunks for better caching - split vendor libraries
+        manualChunks: (id) => {
+          // React and core dependencies
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) {
+            return 'react-vendor'
+          }
+          // Editor dependencies
+          if (id.includes('node_modules/@monaco-editor') || id.includes('node_modules/monaco-editor')) {
+            return 'editor-vendor'
+          }
+          // Animation library
+          if (id.includes('node_modules/framer-motion')) {
+            return 'animation-vendor'
+          }
+          // Other node_modules go into vendor chunk
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
+        },
+        // Ensure WASM files are copied correctly with hash for cache busting
         assetFileNames: (assetInfo) => {
           // Keep WASM files in wasm/ directory, not assets/
           if (assetInfo.name && (assetInfo.name.endsWith('.wasm') || assetInfo.name.includes('wasm'))) {
-            return 'wasm/[name][extname]'
+            return 'wasm/[name]-[hash][extname]'
           }
           return 'assets/[name]-[hash][extname]'
         },
         // Ensure chunk files don't interfere with WASM paths
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
-        // Prevent Vite from rewriting dynamic imports for WASM files
-        manualChunks: undefined
       },
       // Suppress warnings about missing WASM imports
       onwarn(warning, warn) {
@@ -184,6 +202,12 @@ export default defineConfig({
           return
         }
         warn(warning)
+      },
+      // Enhanced tree shaking
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+        tryCatchDeoptimization: false
       }
     }
   },

@@ -74,6 +74,24 @@
 .editor-container {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Monaco Editor wrapper */
+.editor-container > div {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Monaco Editor iframe/content */
+.editor-container > div > div {
+  flex: 1;
+  min-height: 0;
 }
 
 .diagnostics-panel {

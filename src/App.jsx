@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Contact from './pages/Contact'
-import TryYourself from './pages/TryYourself'
-import Product from './pages/Product'
+// Lazy load heavy components for better code splitting
+const TryYourself = lazy(() => import('./pages/TryYourself'))
+const Product = lazy(() => import('./pages/Product'))
 // Consulting pages hidden for now
 // import About from './pages/About'
 // import Methods from './pages/Methods'
@@ -39,21 +40,23 @@ function App() {
         <div className="app">
           <Header />
           <main>
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/product" element={<Product />} />
-              <Route path="/product/try-yourself" element={<TryYourself />} />
-              <Route path="/try-yourself" element={<TryYourself />} />
+            <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/product" element={<Product />} />
+                <Route path="/product/try-yourself" element={<TryYourself />} />
+                <Route path="/try-yourself" element={<TryYourself />} />
               {/* Consulting pages hidden for now */}
               {/* <Route path="/about" element={<About />} />
               <Route path="/methods" element={<Methods />} />
               <Route path="/process" element={<Process />} />
               <Route path="/tools" element={<Tools />} /> */}
-              {/* Catch-all route - show home for any unmatched path */}
-              <Route path="*" element={<Home />} />
-            </Routes>
+                {/* Catch-all route - show home for any unmatched path */}
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </Suspense>
           </main>
           <Footer />
         </div>

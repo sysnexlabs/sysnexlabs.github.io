@@ -84,12 +84,47 @@ const EXAMPLES = [
 export default function TryYourselfEditor({ onCodeChange }) {
   const [code, setCode] = useState(DEFAULT_EXAMPLE)
   const [selectedExample, setSelectedExample] = useState('Vehicle System')
+  const [editorHeight, setEditorHeight] = useState(500)
   const editorRef = useRef(null)
+  const containerRef = useRef(null)
   const { wasm } = useSysMLWasm()
   const { theme } = useTheme()
   
   // Use WASM parser (with fallback)
   const diagnostics = useSysMLParser(code)
+  
+  // Calculate and update editor height based on container
+  useEffect(() => {
+    const updateEditorHeight = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
+        if (rect.height > 0) {
+          setEditorHeight(rect.height)
+        }
+      }
+    }
+    
+    // Initial calculation
+    const timeoutId = setTimeout(updateEditorHeight, 100)
+    
+    // Update on resize
+    window.addEventListener('resize', updateEditorHeight)
+    
+    // Use ResizeObserver for better performance
+    let resizeObserver = null
+    if (containerRef.current && window.ResizeObserver) {
+      resizeObserver = new ResizeObserver(updateEditorHeight)
+      resizeObserver.observe(containerRef.current)
+    }
+    
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', updateEditorHeight)
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+      }
+    }
+  }, [])
   
   // Debug: Log diagnostics changes
   useEffect(() => {
@@ -631,9 +666,9 @@ export default function TryYourselfEditor({ onCodeChange }) {
         </div>
       </div>
       
-      <div className="editor-container">
+      <div className="editor-container" ref={containerRef}>
         <Editor
-          height="500px"
+          height={editorHeight}
           language="sysml"
           value={code}
           onChange={handleEditorChange}
