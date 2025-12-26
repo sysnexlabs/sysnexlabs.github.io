@@ -1,0 +1,177 @@
+.uvl-diagram-tab {
+  padding: 1.5rem;
+  font-family: 'Lexend Exa', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border-radius: 8px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.uvl-diagram-container {
+  flex: 1;
+  overflow: auto;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.uvl-diagram-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  background: var(--bg-primary);
+  border-radius: 4px;
+}
+
+.uvl-diagram-node {
+  fill: var(--bg-secondary);
+  stroke: var(--turquoise);
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+.uvl-diagram-node-mandatory {
+  fill: rgba(0, 180, 216, 0.1);
+  stroke: var(--turquoise);
+}
+
+.uvl-diagram-node-optional {
+  fill: rgba(251, 191, 36, 0.1);
+  stroke: var(--amber);
+}
+
+.uvl-diagram-node-alternative {
+  fill: rgba(200, 0, 100, 0.1);
+  stroke: var(--aubergine);
+}
+
+.uvl-diagram-node-or {
+  fill: rgba(255, 102, 0, 0.1);
+  stroke: var(--coral);
+}
+
+.uvl-diagram-node:hover {
+  stroke-width: 3;
+  filter: brightness(1.1);
+}
+
+.uvl-diagram-node-name {
+  fill: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Lexend Exa', sans-serif;
+}
+
+.uvl-diagram-node-type {
+  fill: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'Lexend Exa', sans-serif;
+  opacity: 0.8;
+}
+
+.uvl-diagram-legend {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.uvl-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.uvl-legend-box {
+  width: 24px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid;
+}
+
+.uvl-legend-box.uvl-diagram-node-mandatory {
+  background: rgba(0, 180, 216, 0.1);
+  border-color: var(--turquoise);
+}
+
+.uvl-legend-box.uvl-diagram-node-optional {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: var(--amber);
+}
+
+.uvl-legend-box.uvl-diagram-node-alternative {
+  background: rgba(200, 0, 100, 0.1);
+  border-color: var(--aubergine);
+}
+
+.uvl-legend-box.uvl-diagram-node-or {
+  background: rgba(255, 102, 0, 0.1);
+  border-color: var(--coral);
+}
+
+.uvl-diagram-error,
+.uvl-diagram-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.uvl-diagram-error {
+  color: var(--coral);
+}
+
+.uvl-diagram-error pre {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: left;
+  overflow-x: auto;
+}
+
+.uvl-diagram-hint {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.uvl-diagram-hint code {
+  background: var(--bg-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+/* Light Theme Adjustments */
+[data-theme="light"] .uvl-diagram-container {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .uvl-diagram-svg {
+  background: var(--bg-primary);
+}
+
+[data-theme="light"] .uvl-diagram-legend {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .uvl-diagram-error pre {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .uvl-diagram-hint code {
+  background: var(--bg-tertiary);
+}
+

@@ -1,46 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useSysMLWasm } from '../../hooks/useSysMLWasm'
-import { safeWasmCall, formatWasmError } from '../../utils/wasmErrorHandler'
+import React from 'react'
+import { useSysMLAnalytics } from '../../hooks/useSysMLAnalytics'
+import { formatWasmError } from '../../utils/wasmErrorHandler'
 import ErrorDisplay from './ErrorDisplay'
 import './StatsTab.css'
 
 export default function StatsTab({ code }) {
-  const { wasm } = useSysMLWasm()
-  const [analytics, setAnalytics] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    if (!code || code.trim().length === 0) {
-      setAnalytics(null)
-      return
-    }
-
-    const generateAnalytics = async () => {
-      setLoading(true)
-      setError(null)
-
-      if (wasm) {
-        try {
-          const stats = await safeWasmCall(wasm.generate_analytics.bind(wasm), code, 'editor://current')
-          setAnalytics(stats)
-        } catch (err) {
-          const errorMsg = formatWasmError(err, { 
-            code, 
-            functionName: 'generate_analytics' 
-          })
-          setError(errorMsg)
-        }
-      } else {
-        setError('WASM module is not available. Some features may be limited. The documentation view will still work with basic parsing.')
-      }
-
-      setLoading(false)
-    }
-
-    const timeoutId = setTimeout(generateAnalytics, 300)
-    return () => clearTimeout(timeoutId)
-  }, [code, wasm])
+  const { analytics, loading, error } = useSysMLAnalytics(code, 'editor://current')
 
   if (loading) {
     return (
@@ -51,10 +16,14 @@ export default function StatsTab({ code }) {
   }
 
   if (error) {
+    const errorMsg = formatWasmError(error, { 
+      code, 
+      functionName: 'generate_analytics' 
+    })
     return (
       <div className="stats-tab">
         <ErrorDisplay 
-          error={error} 
+          error={errorMsg} 
           code={code} 
           functionName="generate_analytics"
         />
@@ -89,18 +58,42 @@ export default function StatsTab({ code }) {
               <div className="stat-card">
                 <div className="stat-label">Total Elements</div>
                 <div className="stat-value">{analytics.metrics.total_elements || 0}</div>
+                <div className="stat-progress">
+                  <div 
+                    className="stat-progress-bar" 
+                    style={{ width: `${Math.min(100, ((analytics.metrics.total_elements || 0) / 50) * 100)}%` }}
+                  />
+                </div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Packages</div>
                 <div className="stat-value">{analytics.metrics.total_packages || 0}</div>
+                <div className="stat-progress">
+                  <div 
+                    className="stat-progress-bar" 
+                    style={{ width: `${Math.min(100, ((analytics.metrics.total_packages || 0) / 10) * 100)}%` }}
+                  />
+                </div>
               </div>
               <div className="stat-card">
                 <div className="stat-label">Definitions</div>
                 <div className="stat-value">{analytics.metrics.total_definitions || 0}</div>
+                <div className="stat-progress">
+                  <div 
+                    className="stat-progress-bar" 
+                    style={{ width: `${Math.min(100, ((analytics.metrics.total_definitions || 0) / 30) * 100)}%` }}
+                  />
+                </div>
               </div>
-              <div className="stat-card">
+              <div className="stat-card stat-card-highlight">
                 <div className="stat-label">Doc Coverage</div>
-                <div className="stat-value">{analytics.metrics.doc_coverage?.toFixed(1) || 0}%</div>
+                <div className="stat-value stat-value-large">{analytics.metrics.doc_coverage?.toFixed(1) || 0}%</div>
+                <div className="stat-progress">
+                  <div 
+                    className="stat-progress-bar stat-progress-bar-coverage" 
+                    style={{ width: `${analytics.metrics.doc_coverage || 0}%` }}
+                  />
+                </div>
               </div>
             </div>
           </div>

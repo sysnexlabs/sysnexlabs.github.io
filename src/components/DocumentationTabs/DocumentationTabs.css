@@ -9,13 +9,13 @@
   gap: 0.5rem;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.1);
 }
 
 .doc-tab-button {
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 1px solid rgba(0, 204, 255, 0.2);
+  border: 1px solid rgba(0, 180, 216, 0.2);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
@@ -24,15 +24,15 @@
 }
 
 .doc-tab-button:hover {
-  background: rgba(0, 204, 255, 0.1);
-  border-color: rgba(0, 204, 255, 0.4);
+  background: rgba(0, 180, 216, 0.1);
+  border-color: rgba(0, 180, 216, 0.4);
   color: rgba(255, 255, 255, 0.9);
 }
 
 .doc-tab-button.active {
-  background: rgba(0, 204, 255, 0.15);
-  border-color: var(--turquoise, #00ccff);
-  color: var(--turquoise, #00ccff);
+  background: rgba(0, 180, 216, 0.15);
+  border-color: var(--turquoise, #00B4D8);
+  color: var(--turquoise, #00B4D8);
 }
 
 .doc-tabs-content {

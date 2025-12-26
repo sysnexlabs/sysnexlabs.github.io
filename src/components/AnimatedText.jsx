@@ -5,10 +5,11 @@ import './AnimatedText.css'
 const AnimatedText = ({ children, variant = 'gradient', className = '' }) => {
   const variants = {
     gradient: {
-      background: 'linear-gradient(135deg, var(--turquoise) 0%, var(--aubergine) 50%, var(--coral) 100%)',
+      background: 'linear-gradient(135deg, var(--turquoise) 0%, var(--amber) 60%, var(--turquoise) 100%)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
+      backgroundSize: '200% auto',
     },
     shiny: {
       background: 'linear-gradient(90deg, var(--light-text) 0%, var(--turquoise) 50%, var(--light-text) 100%)',

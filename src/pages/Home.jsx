@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
+import SyscribeProduct from '../components/SyscribeProduct'
+import CustomerSuccess from '../components/CustomerSuccess'
+import IndustrySolutions from '../components/IndustrySolutions'
 import Card from '../components/Card'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
@@ -145,6 +148,135 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
+      <SyscribeProduct />
+
+      {/* Integrations Section */}
+      <section className="integrations-section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">{t('home.integrations.heading')}</h2>
+            <p className="section-subtitle">
+              {t('home.integrations.subtitle')}
+            </p>
+          </motion.div>
+          <div className="integrations-grid">
+            {[
+              {
+                name: t('home.integrations.vscode.name'),
+                description: t('home.integrations.vscode.description'),
+                icon: '💻',
+                badge: '50M+ Users'
+              },
+              {
+                name: t('home.integrations.git.name'),
+                description: t('home.integrations.git.description'),
+                icon: '🔀',
+                badge: 'Native'
+              },
+              {
+                name: t('home.integrations.copilot.name'),
+                description: t('home.integrations.copilot.description'),
+                icon: '🤖',
+                badge: 'AI-First'
+              },
+              {
+                name: t('home.integrations.claude.name'),
+                description: t('home.integrations.claude.description'),
+                icon: '🧠',
+                badge: 'Advanced'
+              }
+            ].map((integration, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <SpotlightCard>
+                  <div className="integration-header">
+                    <div className="integration-icon">{integration.icon}</div>
+                    <span className="integration-badge">{integration.badge}</span>
+                  </div>
+                  <h3 className="integration-name">{integration.name}</h3>
+                  <p className="integration-description">{integration.description}</p>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof Section */}
+      <section className="social-proof-section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">{t('home.socialproof.heading')}</h2>
+            <p className="section-subtitle">
+              {t('home.socialproof.subtitle')}
+            </p>
+          </motion.div>
+          <div className="proof-grid">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="proof-stat"
+            >
+              <div className="stat-number">50M+</div>
+              <div className="stat-label">VS Code Users</div>
+              <div className="stat-description">Largest developer platform</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="proof-stat"
+            >
+              <div className="stat-number">&lt;50ms</div>
+              <div className="stat-label">LSP Response</div>
+              <div className="stat-description">10x faster than legacy tools</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="proof-stat"
+            >
+              <div className="stat-number">18/18</div>
+              <div className="stat-label">LSP Features</div>
+              <div className="stat-description">100% protocol compliance</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="proof-stat"
+            >
+              <div className="stat-number">11</div>
+              <div className="stat-label">Compliance Variants</div>
+              <div className="stat-description">From Essential to Automotive</div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       <section className="benefits-section">
         <div className="container">
@@ -218,11 +350,11 @@ const Home = () => {
       <section className="cta-section-home">
         <div className="container">
           <div className="cta-content">
-            <h2>Ready to Transform Your Systems Engineering?</h2>
-            <p>Join teams using enterprise-grade SysML v2 tooling. Start with a 30-day free trial.</p>
+            <h2>{t('home.cta.heading')}</h2>
+            <p>{t('home.cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">Request Demo</Link>
-              <Link to="/try-yourself" className="btn ghost large">Try Yourself</Link>
+              <Link to="/contact" className="btn primary large">{t('home.cta.primary')}</Link>
+              <Link to="/try-yourself" className="btn ghost large">{t('home.cta.secondary')}</Link>
             </div>
           </div>
         </div>

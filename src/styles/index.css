@@ -5,16 +5,18 @@
 }
 
 :root {
-  --turquoise: #00ccff;  /* Primary - cyan blue from logo left curve */
-  --aubergine: #C80064;  /* Secondary - aubergine/magenta from logo right curve */
-  --coral: #ff6600;      /* Tertiary - coral orange for highlights */
-  --dark-bg: #0d0d0d;
+  --turquoise: #00B4D8;  /* Primary - cyan blue from logo (left curve) */
+  --amber: #FBBF24;      /* Secondary - amber/yellow from logo (center accent) */
+  --navy: #0F2747;       /* Tertiary - navy blue from logo (base element) */
+  --aubergine: #C80064;  /* Alternative - aubergine/magenta for special contexts */
+  --coral: #ff6600;      /* Alternative - coral orange for highlights */
+  --dark-bg: #0A1628;  /* Matches header background base color */
   --light-text: #e6fdf8;
 }
 
 /* Dark theme (default) */
 [data-theme="dark"] {
-  --bg-primary: #0d0d0d;
+  --bg-primary: #0A1628;  /* Matches header background base color */
   --bg-secondary: #1a1a1a;
   --bg-tertiary: #262626;
   --text-primary: #e6fdf8;
@@ -26,7 +28,7 @@
 
 /* Light theme */
 [data-theme="light"] {
-  --bg-primary: #ffffff;
+  --bg-primary: #FFFFFF;  /* Matches header background base color */
   --bg-secondary: #f8fafc;
   --bg-tertiary: #f1f5f9;
   --text-primary: #0f172a;

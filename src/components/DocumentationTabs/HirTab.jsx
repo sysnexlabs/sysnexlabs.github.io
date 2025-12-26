@@ -1,49 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useSysMLWasm } from '../../hooks/useSysMLWasm'
-import { safeWasmCall, formatWasmError } from '../../utils/wasmErrorHandler'
+import React, { useState } from 'react'
+import { useSysMLHir } from '../../hooks/useSysMLHir'
+import { formatWasmError } from '../../utils/wasmErrorHandler'
 import ErrorDisplay from './ErrorDisplay'
+import TreeView from './TreeView'
 import './HirTab.css'
 
 export default function HirTab({ code }) {
-  const { wasm } = useSysMLWasm()
-  const [hirData, setHirData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    if (!code || code.trim().length === 0) {
-      setHirData(null)
-      return
-    }
-
-    const generateHir = async () => {
-      setLoading(true)
-      setError(null)
-
-      if (wasm) {
-        try {
-          const hir = await safeWasmCall(wasm.generate_hir.bind(wasm), code, 'editor://current')
-          setHirData(hir)
-        } catch (err) {
-          let errorMsg = formatWasmError(err, { 
-            code, 
-            functionName: 'generate_hir' 
-          })
-          if (errorMsg.includes('NoHirData') || errorMsg.includes('HIR')) {
-            errorMsg = `HIR generation failed: ${errorMsg}. The code may need to be parsed first.`
-          }
-          setError(errorMsg)
-        }
-      } else {
-        setError('WASM module is not available. Some features may be limited. The documentation view will still work with basic parsing.')
-      }
-
-      setLoading(false)
-    }
-
-    const timeoutId = setTimeout(generateHir, 300)
-    return () => clearTimeout(timeoutId)
-  }, [code, wasm])
+  const { hirData, loading, error } = useSysMLHir(code, 'editor://current')
+  const [viewMode, setViewMode] = useState('tree')
 
   if (loading) {
     return (
@@ -54,10 +18,17 @@ export default function HirTab({ code }) {
   }
 
   if (error) {
+    let errorMsg = formatWasmError(error, { 
+      code, 
+      functionName: 'generate_hir' 
+    })
+    if (errorMsg.includes('NoHirData') || errorMsg.includes('HIR')) {
+      errorMsg = `HIR generation failed: ${errorMsg}. The code may need to be parsed first.`
+    }
     return (
       <div className="hir-tab">
         <ErrorDisplay 
-          error={error} 
+          error={errorMsg} 
           code={code} 
           functionName="generate_hir"
         />
@@ -91,9 +62,29 @@ export default function HirTab({ code }) {
         )}
       </div>
       <div className="hir-content">
-        <pre className="hir-tree">
-          {JSON.stringify(hirData, null, 2)}
-        </pre>
+        <div className="hir-view-toggle">
+          <button 
+            className={`hir-view-btn ${viewMode === 'tree' ? 'active' : ''}`}
+            onClick={() => setViewMode('tree')}
+          >
+            Tree View
+          </button>
+          <button 
+            className={`hir-view-btn ${viewMode === 'json' ? 'active' : ''}`}
+            onClick={() => setViewMode('json')}
+          >
+            JSON View
+          </button>
+        </div>
+        {viewMode === 'tree' ? (
+          <div className="hir-tree-view">
+            <TreeView data={hirData} rootKey="hir" maxDepth={8} />
+          </div>
+        ) : (
+          <pre className="hir-json-view">
+            {JSON.stringify(hirData, null, 2)}
+          </pre>
+        )}
       </div>
     </div>
   )

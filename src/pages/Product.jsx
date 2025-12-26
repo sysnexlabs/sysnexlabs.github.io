@@ -2,9 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
+import { useTranslation } from '../utils/i18n'
 import './Page.css'
 
 const Product = () => {
+  const { t } = useTranslation()
   const differentiators = [
     {
       icon: '🚀',
@@ -44,49 +46,79 @@ const Product = () => {
     }
   ]
 
-  const platforms = [
+  const variants = [
+    {
+      icon: '👁️',
+      title: 'Syscribe Viewer',
+      badge: 'Free',
+      description: 'Free read-only web-based viewer for SysML v2 models. Browse, navigate, and explore systems models without editing capabilities.',
+      features: [
+        'Read-only model viewing with syntax highlighting',
+        'Navigation (go-to-definition, find references)',
+        'Documentation panel (view-only)',
+        'Model statistics display',
+        'Zero installation—access from any browser',
+        'Fast WASM-based performance'
+      ],
+      status: '✅ Available Now',
+      featured: false,
+      cta: 'Try Viewer',
+      link: '/try-yourself'
+    },
     {
       icon: '💻',
-      title: 'VS Code Extension',
-      description: 'Native VS Code extension with full LSP integration. Seamlessly integrates into your existing development workflow.',
+      title: 'SysMLv2 CodeFlow IDE',
+      badge: 'VS Code Extension',
+      description: 'Production-ready VS Code extension with full editing capabilities, complete LSP implementation, and professional features.',
       features: [
-        'Install from VS Code Marketplace',
-        'Zero configuration required',
-        'Works with 50M+ VS Code users',
-        'Full Git integration',
+        'Complete LSP (18/18 features, 100% compliance)',
+        '<50ms LSP response (10x faster than legacy)',
         'AI integration (Copilot, Claude, VS Code AI)',
-        'Cross-platform (Windows, macOS, Linux)'
+        'Diagram editor with bidirectional sync',
+        'Requirements manager & analytics dashboard',
+        'Git-native workflows & CI/CD support'
       ],
       status: '✅ Production-Ready',
-      featured: true
+      featured: true,
+      cta: 'Get Extension',
+      link: '/contact'
     },
     {
-      icon: '🖥️',
-      title: 'Tauri App',
-      description: 'Native desktop application built with Tauri for maximum performance and offline capability.',
+      icon: '⚙️',
+      title: 'SysMLv2 CodeFlow CLI + Compliance',
+      badge: 'Enterprise',
+      description: 'CLI tool for CI/CD validation and compliance packs (ASPICE, ISO 26262) for regulated domain engineering.',
       features: [
-        'Native desktop performance',
-        'Fully offline capable',
-        'No VS Code installation required',
-        'Smaller footprint than Electron',
-        'Same LSP backend as VS Code extension',
-        'Cross-platform (Windows, macOS, Linux)'
+        'CLI validation for CI/CD pipelines',
+        'ASPICE compliance pack (20 work products)',
+        'ISO 26262 validation rules',
+        'Automated compliance reporting',
+        'Batch processing & export capabilities',
+        'Enterprise license management'
       ],
-      status: '🚧 Coming Soon'
+      status: '🚧 Coming Soon',
+      featured: false,
+      cta: 'Contact Sales',
+      link: '/contact'
     },
     {
-      icon: '☁️',
-      title: 'SaaS by SysNex Systems',
-      description: 'Web-based IDE accessible from any browser. Real-time collaboration, cloud storage, and zero-install deployment.',
+      icon: '🛡️',
+      title: 'SysMLv2 CodeFlow Automotive/Safety',
+      badge: 'Enterprise',
+      description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation.',
       features: [
-        'Access from any browser',
-        'Real-time collaboration',
-        'Cloud-based model storage',
-        'Zero installation required',
-        'Same features as desktop versions',
-        'Enterprise SSO integration'
+        'Everything in Platform',
+        'ASPICE Work Products (5/20 types)',
+        'ISO 26262 ASIL Validation',
+        'ISO 15288 Foundation (80%)',
+        'Requirements & Traceability',
+        'ASIL Decomposition Validator',
+        'Change Impact Analysis'
       ],
-      status: '🚧 Coming Soon'
+      status: '🚧 Coming Soon',
+      featured: false,
+      cta: 'Contact Sales',
+      link: '/contact'
     }
   ]
 
@@ -105,7 +137,7 @@ const Product = () => {
     { icon: '🌳', title: 'Call & Type Hierarchy', description: 'Relationship navigation and tree views', metric: '95%' }
   ]
 
-  const variants = [
+  const editions = [
     {
       badge: 'Free',
       title: '🔹 Essential',
@@ -180,11 +212,11 @@ const Product = () => {
             transition={{ duration: 0.8 }}
             className="product-hero-content"
           >
-            <div className="hero-badge">Enterprise MBSE Tooling</div>
-            <h1>SysML v2 Language Server</h1>
+            <div className="hero-badge">Enterprise SysML v2 Tooling</div>
+            <h1>SysMLv2 CodeFlow</h1>
             <p className="page-hero-description">
-              First enterprise-grade SysML v2 Language Server available as VS Code Extension, Tauri App, and SaaS by SysNex Systems. 
-              Production-ready LSP with AI integration, Git workflows, and multi-industry compliance variants.
+              SysMLv2 CodeFlow delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. 
+              Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.
             </p>
             <div className="hero-cta">
               <Link to="/contact" className="btn primary">Get Started</Link>
@@ -193,7 +225,7 @@ const Product = () => {
             <div className="hero-stats">
               <div className="stat-item">
                 <div className="stat-number">50M+</div>
-                <div className="stat-label">VSCode Users</div>
+                <div className="stat-label">VS Code Users</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">&lt;50ms</div>
@@ -204,8 +236,8 @@ const Product = () => {
                 <div className="stat-label">LSP Features</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">11</div>
-                <div className="stat-label">Build Variants</div>
+                <div className="stat-number">3</div>
+                <div className="stat-label">Platform Variants</div>
               </div>
             </div>
           </motion.div>
@@ -216,9 +248,9 @@ const Product = () => {
       <section className="page-content-section">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose Our Language Server</h2>
+            <h2>Why Choose SysMLv2 CodeFlow</h2>
             <p className="section-subtitle">
-              Built for modern systems engineering teams who demand performance, reliability, and compliance
+              Built for OEM/Tier-1 systems engineering teams who demand performance, reliability, and regulatory compliance
             </p>
           </div>
           <div className="differentiators-grid">
@@ -245,34 +277,37 @@ const Product = () => {
         </div>
       </section>
 
-      {/* Platforms */}
+      {/* Syscribe Variants */}
       <section className="page-section-alt">
         <div className="container">
           <div className="section-header">
-            <h2>Available on Three Platforms</h2>
+            <h2>SysMLv2 CodeFlow Platform</h2>
             <p className="section-subtitle">
-              Choose the deployment option that fits your workflow. All platforms share the same powerful native LSP backend.
+              From free viewer (Syscribe) to enterprise compliance—choose the variant that fits your needs. All built from a single codebase with IP-protected feature gating.
             </p>
           </div>
           <div className="platforms-grid">
-            {platforms.map((platform, index) => (
+            {variants.map((variant, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`platform-card ${platform.featured ? 'featured' : ''}`}
+                className={`platform-card ${variant.featured ? 'featured' : ''}`}
               >
-                {platform.featured && <div className="platform-badge">Primary</div>}
-                <div className="platform-icon">{platform.icon}</div>
-                <h3>{platform.title}</h3>
-                <p className="platform-description">{platform.description}</p>
+                {variant.badge && <div className="platform-badge">{variant.badge}</div>}
+                <div className="platform-icon">{variant.icon}</div>
+                <h3>{variant.title}</h3>
+                <p className="platform-description">{variant.description}</p>
                 <ul className="platform-features">
-                  {platform.features.map((feature, i) => (
+                  {variant.features.map((feature, i) => (
                     <li key={i}>✅ {feature}</li>
                   ))}
                 </ul>
-                <div className="platform-status">{platform.status}</div>
+                <div className="platform-status">{variant.status}</div>
+                <Link to={variant.link} className="btn primary platform-cta">
+                  {variant.cta}
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -311,13 +346,13 @@ const Product = () => {
       <section className="page-section-alt">
         <div className="container">
           <div className="section-header">
-            <h2>Choose Your Edition</h2>
+            <h2>IDE Editions</h2>
             <p className="section-subtitle">
-              Multiple variants optimized for different use cases—from lightweight CI/CD to enterprise compliance
+              Multiple IDE variants optimized for different use cases—from lightweight CI/CD to enterprise compliance
             </p>
           </div>
           <div className="variants-grid">
-            {variants.map((variant, index) => (
+            {editions.map((variant, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -354,13 +389,13 @@ const Product = () => {
             animate={{ opacity: 1, y: 0 }}
             className="cta-content"
           >
-            <h2>Ready to Transform Your Systems Engineering Workflow?</h2>
-            <p>Join teams using enterprise-grade SysML v2 tooling with AI integration, Git workflows, and compliance support.</p>
+            <h2>{t('home.cta.heading')}</h2>
+            <p>{t('home.cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">Request Demo</Link>
-              <Link to="/try-yourself" className="btn ghost large">Try Yourself</Link>
+              <Link to="/contact" className="btn primary large">{t('home.cta.primary')}</Link>
+              <Link to="/try-yourself" className="btn ghost large">{t('home.cta.secondary')}</Link>
             </div>
-            <p className="cta-note">Start with a 30-day free trial. No credit card required.</p>
+            <p className="cta-note">{t('pricing.trial.subtitle') || 'Start with a 30-day free trial. No credit card required.'}</p>
           </motion.div>
         </div>
       </section>

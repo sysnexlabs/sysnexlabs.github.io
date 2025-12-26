@@ -78,12 +78,35 @@ const EXAMPLES = [
         port output : PowerInterface;
     }
 }`
+  },
+  {
+    name: 'UVL Variability',
+    code: `namespace Vehicle
+
+features
+    Vehicle
+        mandatory
+            Engine
+                alternative
+                    GasEngine
+                    ElectricMotor
+            Transmission
+                alternative
+                    Manual
+                    Automatic
+        optional
+            AirConditioning
+            Navigation
+
+constraints
+    ElectricMotor => Automatic
+    GasEngine => !ElectricMotor`
   }
 ]
 
-export default function TryYourselfEditor({ onCodeChange }) {
-  const [code, setCode] = useState(DEFAULT_EXAMPLE)
-  const [selectedExample, setSelectedExample] = useState('Vehicle System')
+export default function TryYourselfEditor({ onCodeChange, defaultCode, defaultExample = 'Vehicle System' }) {
+  const [code, setCode] = useState(defaultCode || DEFAULT_EXAMPLE)
+  const [selectedExample, setSelectedExample] = useState(defaultExample)
   const [editorHeight, setEditorHeight] = useState(500)
   const editorRef = useRef(null)
   const containerRef = useRef(null)
@@ -133,6 +156,14 @@ export default function TryYourselfEditor({ onCodeChange }) {
     }
   }, [diagnostics])
   
+  // Initialize code from defaultCode prop if provided (only on mount or when defaultCode changes)
+  useEffect(() => {
+    if (defaultCode) {
+      setCode(defaultCode)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Only run on mount
+
   // Notify parent of code changes (including initial code)
   useEffect(() => {
     if (onCodeChange) {
@@ -528,11 +559,11 @@ export default function TryYourselfEditor({ onCodeChange }) {
         { token: 'delimiter', foreground: 'd4d4d4' },
       ],
       colors: {
-        'editor.background': '#0d0d0d',
+        'editor.background': '#0A1628',
         'editor.foreground': '#d4d4d4',
         'editor.lineHighlightBackground': '#1a1a1a',
         'editor.selectionBackground': '#264f78',
-        'editorCursor.foreground': '#00ccff',
+        'editorCursor.foreground': '#00B4D8',
       }
     })
     
@@ -554,7 +585,7 @@ export default function TryYourselfEditor({ onCodeChange }) {
         'editor.foreground': '#000000',
         'editor.lineHighlightBackground': '#f5f5f5',
         'editor.selectionBackground': '#add6ff',
-        'editorCursor.foreground': '#00ccff',
+        'editorCursor.foreground': '#00B4D8',
       }
     })
     

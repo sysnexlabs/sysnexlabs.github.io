@@ -40,7 +40,7 @@ const SpotlightCard = ({ children, className = '' }) => {
         className="spotlight"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 204, 255, 0.15), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 180, 216, 0.15), transparent 40%)`,
         }}
       />
       <div className="spotlight-content">

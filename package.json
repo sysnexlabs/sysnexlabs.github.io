@@ -1,7 +1,7 @@
 {
   "name": "sysnex-labs-website",
   "version": "1.0.0",
-  "description": "Sysnex Labs - Model-Based Systems Engineering with SysML v2",
+  "description": "Sysnex Systems - Model-Based Systems Engineering with SysML v2",
   "private": true,
   "scripts": {
     "dev": "vite",

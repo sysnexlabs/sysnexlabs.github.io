@@ -1,0 +1,63 @@
+/* Button Styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--turquoise);
+  outline-offset: 4px;
+}
+
+.btn.primary {
+  background: var(--aubergine);
+  color: #fff;
+  border: 1px solid var(--aubergine);
+}
+
+.btn.primary:hover {
+  background: #E0337A;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(200, 0, 100, 0.3);
+}
+
+.btn.primary:active {
+  transform: translateY(0);
+}
+
+.btn.ghost {
+  border: 1px solid var(--turquoise);
+  color: var(--turquoise);
+  background: transparent;
+}
+
+.btn.ghost:hover {
+  background: rgba(0, 180, 216, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
+}
+
+.btn.ghost:active {
+  transform: translateY(0);
+}
+
+.btn.large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.btn.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+

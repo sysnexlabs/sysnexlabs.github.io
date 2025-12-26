@@ -15,7 +15,7 @@
   font-weight: 700;
   color: var(--turquoise);
   margin: 0 0 1rem 0;
-  text-shadow: 0 2px 12px rgba(0, 204, 255, 0.3);
+  text-shadow: 0 2px 12px rgba(0, 180, 216, 0.3);
 }
 
 .try-yourself-header .section-subtitle {
@@ -59,15 +59,15 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 1rem;
-  background: rgba(0, 204, 255, 0.05);
-  border: 1px solid rgba(0, 204, 255, 0.1);
+  background: rgba(0, 180, 216, 0.05);
+  border: 1px solid rgba(0, 180, 216, 0.1);
   border-radius: 8px;
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 [data-theme="light"] .try-yourself-note {
-  background: rgba(0, 204, 255, 0.08);
-  border: 1px solid rgba(0, 204, 255, 0.15);
+  background: rgba(0, 180, 216, 0.08);
+  border: 1px solid rgba(0, 180, 216, 0.15);
 }
 
 .try-yourself-note strong {

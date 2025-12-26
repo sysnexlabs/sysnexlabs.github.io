@@ -8,7 +8,7 @@ try {
   const rootElement = document.getElementById('root')
   if (!rootElement) {
     console.error('Root element not found!')
-    document.body.innerHTML = '<div style="padding: 2rem; color: #00ccff; font-family: sans-serif;"><h1>Error: Root element not found</h1><p>Please refresh the page.</p></div>'
+    document.body.innerHTML = '<div style="padding: 2rem; color: #00B4D8; font-family: sans-serif;"><h1>Error: Root element not found</h1><p>Please refresh the page.</p></div>'
   } else {
     ReactDOM.createRoot(rootElement).render(
       <React.StrictMode>
@@ -19,7 +19,7 @@ try {
 } catch (error) {
   console.error('Failed to initialize React app:', error)
   document.body.innerHTML = `
-    <div style="padding: 2rem; color: #00ccff; font-family: sans-serif; background: #0d0d0d; min-height: 100vh;">
+    <div style="padding: 2rem; color: #00B4D8; font-family: sans-serif; background: #0A1628; min-height: 100vh;">
       <h1>Error Loading Application</h1>
       <p>${error.message}</p>
       <p>Please refresh the page or contact support if the problem persists.</p>

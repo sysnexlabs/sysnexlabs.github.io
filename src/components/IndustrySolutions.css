@@ -1,0 +1,253 @@
+.industry-solutions-section {
+  padding: 8rem 0;
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    rgba(10, 22, 40, 0.95) 100%
+  );
+  position: relative;
+}
+
+.industry-solutions-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 180, 216, 0.3),
+    transparent
+  );
+}
+
+[data-theme="light"] .industry-solutions-section {
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    rgba(246, 248, 251, 0.95) 100%
+  );
+}
+
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+.industry-card {
+  padding: 3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.industry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--turquoise),
+    var(--amber),
+    var(--turquoise)
+  );
+  opacity: 0.6;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.industry-card:hover::before {
+  transform: scaleX(1);
+}
+
+.industry-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 180, 216, 0.2);
+}
+
+.industry-card--automotive::before {
+  background: linear-gradient(90deg, var(--turquoise), var(--amber));
+}
+
+.industry-card--aerospace::before {
+  background: linear-gradient(90deg, var(--turquoise), #9b59b6);
+}
+
+.industry-card--medical::before {
+  background: linear-gradient(90deg, var(--turquoise), #e74c3c);
+}
+
+.industry-icon {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 180, 216, 0.2));
+}
+
+.industry-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--turquoise);
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.industry-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0;
+}
+
+.industry-benefits {
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.industry-benefits-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem 0;
+}
+
+.industry-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.industry-benefits-list li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.industry-benefits-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--turquoise);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.industry-standards {
+  margin-bottom: 2rem;
+}
+
+.industry-standards-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem 0;
+}
+
+.industry-standards-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.industry-standard-tag {
+  padding: 0.5rem 1rem;
+  background: rgba(0, 180, 216, 0.1);
+  color: var(--turquoise);
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.industry-standard-tag:hover {
+  background: rgba(0, 180, 216, 0.2);
+  border-color: var(--turquoise);
+}
+
+.industry-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--turquoise), var(--amber));
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.industry-cta:hover {
+  transform: translateX(4px);
+  box-shadow: 0 8px 20px rgba(0, 180, 216, 0.3);
+}
+
+[data-theme="light"] .industry-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .industry-description {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .industry-benefits-list li {
+  color: var(--text-primary);
+}
+
+@media (max-width: 968px) {
+  .industry-solutions-section {
+    padding: 6rem 0;
+  }
+
+  .industries-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .industry-card {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .industry-solutions-section {
+    padding: 4rem 0;
+  }
+
+  .industry-icon {
+    font-size: 3rem;
+  }
+
+  .industry-title {
+    font-size: 1.5rem;
+  }
+
+  .industry-card {
+    padding: 2rem;
+  }
+}
+

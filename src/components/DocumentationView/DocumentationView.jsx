@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { useSysMLDocumentation, useSysMLWasm } from '../../hooks/useSysMLWasm'
+import { useScrollSpy } from '../../hooks/useScrollSpy'
 import QualityIndicator from './QualityIndicator'
 import ConstraintDisplay from './ConstraintDisplay'
 import ExportMenu from './ExportMenu'
@@ -595,6 +596,31 @@ export default function DocumentationView({ code }) {
   
   const tocNodes = useMemo(() => generateTOC(documentation), [documentation])
   
+  // Generate section IDs for scroll spy
+  const sectionIds = useMemo(() => {
+    const ids = []
+    documentation.chapters.forEach((_, chapterIndex) => {
+      ids.push(`chapter-${chapterIndex}`)
+      documentation.chapters[chapterIndex].subchapters.forEach((_, subIndex) => {
+        ids.push(`chapter-${chapterIndex}-sub-${subIndex}`)
+      })
+    })
+    return ids
+  }, [documentation])
+  
+  // Use scroll spy to track active section
+  const activeSectionId = useScrollSpy(sectionIds, {
+    rootMargin: '-20% 0px -80% 0px',
+    offset: 0
+  })
+  
+  // Update selected TOC ID when scroll spy detects new section
+  useEffect(() => {
+    if (activeSectionId) {
+      setSelectedTocId(activeSectionId)
+    }
+  }, [activeSectionId])
+  
   // Auto-expand all chapters
   React.useEffect(() => {
     const chapterIds = new Set()
@@ -613,10 +639,11 @@ export default function DocumentationView({ code }) {
   
   const handleTocSelect = (node) => {
     setSelectedTocId(node.id)
-    // Scroll to element (simplified)
-    const element = document.querySelector(`[data-element-id="${node.id}"]`)
+    // Scroll to element with smooth behavior
+    const element = document.querySelector(`[data-section-id="${node.id}"]`) || 
+                    document.querySelector(`[data-element-id="${node.id}"]`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
   
@@ -628,10 +655,14 @@ export default function DocumentationView({ code }) {
     const attributes = element.nested_elements?.filter(el => el.kind?.includes('Attribute')) || []
     const otherNested = element.nested_elements?.filter(el => !el.kind?.includes('Attribute')) || []
     
+    // Generate section ID for scroll spy
+    const sectionId = `element-${element.title}-${level}`
+    
     return (
       <div
         key={elementId}
         data-element-id={elementId}
+        data-section-id={sectionId}
         className={`doc-element doc-element-level-${level}`}
       >
         <div
@@ -944,19 +975,19 @@ export default function DocumentationView({ code }) {
       padding: 2rem;
     }
     .header {
-      border-bottom: 3px solid #00ccff;
+      border-bottom: 3px solid #00B4D8;
       padding-bottom: 1rem;
       margin-bottom: 2rem;
     }
-    h1 { color: #00ccff; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    h2 { color: #00ccff; font-size: 2rem; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0e0e0; }
+    h1 { color: #00B4D8; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    h2 { color: #00B4D8; font-size: 2rem; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0e0e0; }
     h3 { color: #555; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
     h4 { color: #777; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
     .meta { color: #666; font-size: 0.9rem; font-style: italic; }
     .element-card {
       background: #f9f9f9;
       border: 1px solid #e0e0e0;
-      border-left: 4px solid #00ccff;
+      border-left: 4px solid #00B4D8;
       border-radius: 8px;
       padding: 1.5rem;
       margin: 1.5rem 0;
@@ -968,7 +999,7 @@ export default function DocumentationView({ code }) {
       margin-bottom: 1rem;
     }
     .element-kind {
-      background: #00ccff;
+      background: #00B4D8;
       color: white;
       padding: 0.25rem 0.75rem;
       border-radius: 4px;
@@ -977,7 +1008,7 @@ export default function DocumentationView({ code }) {
     }
     .doc-comment {
       background: #f0f8ff;
-      border-left: 3px solid #00ccff;
+      border-left: 3px solid #00B4D8;
       padding: 1rem;
       margin: 1rem 0;
       border-radius: 4px;
@@ -1011,7 +1042,7 @@ export default function DocumentationView({ code }) {
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     th {
-      background: #00ccff;
+      background: #00B4D8;
       color: white;
       padding: 0.75rem;
       text-align: left;
@@ -1032,12 +1063,12 @@ export default function DocumentationView({ code }) {
       padding: 0.5rem;
       margin: 0.5rem 0;
       background: #f9f9f9;
-      border-left: 3px solid #00ccff;
+      border-left: 3px solid #00B4D8;
       border-radius: 4px;
     }
     .relationship-symbol {
       font-weight: bold;
-      color: #00ccff;
+      color: #00B4D8;
       margin-right: 0.5rem;
     }
     .footer {
@@ -1231,7 +1262,7 @@ export default function DocumentationView({ code }) {
                   width: '12px',
                   height: '12px',
                   border: '2px solid #f3f3f3',
-                  borderTop: '2px solid #00ccff',
+                  borderTop: '2px solid #00B4D8',
                   borderRadius: '50%',
                   animation: 'spin 1s linear infinite'
                 }}></span>
@@ -1322,7 +1353,11 @@ export default function DocumentationView({ code }) {
           )}
 
           {documentation.chapters.map((chapter, chapterIndex) => (
-            <div key={chapterIndex} className="doc-chapter">
+            <div 
+              key={chapterIndex} 
+              className="doc-chapter"
+              data-section-id={`chapter-${chapterIndex}`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <h2 className="doc-chapter-title">
                   <span className="doc-chapter-icon">{getElementSymbol(chapter.kind)}</span>

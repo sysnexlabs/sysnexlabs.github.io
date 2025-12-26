@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   background: rgba(13, 13, 13, 0.95);
-  border: 1px solid rgba(0, 204, 255, 0.18);
+  border: 1px solid rgba(0, 180, 216, 0.18);
   border-radius: 12px;
   overflow: hidden;
   transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -11,7 +11,7 @@
 
 [data-theme="light"] .try-yourself-editor {
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 204, 255, 0.2);
+  border: 1px solid rgba(0, 180, 216, 0.2);
 }
 
 .editor-header {
@@ -20,20 +20,20 @@
   align-items: center;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.1);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 [data-theme="light"] .editor-header {
   background: rgba(248, 250, 252, 0.5);
-  border-bottom: 1px solid rgba(0, 204, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.15);
 }
 
 .editor-header h3 {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }
 
 .example-selector {
@@ -51,24 +51,24 @@
 
 .example-select {
   padding: 0.5rem 1rem;
-  background: rgba(0, 204, 255, 0.1);
-  border: 1px solid rgba(0, 204, 255, 0.3);
+  background: rgba(0, 180, 216, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.3);
   border-radius: 6px;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
   font-size: 0.9375rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .example-select:hover {
-  background: rgba(0, 204, 255, 0.15);
-  border-color: rgba(0, 204, 255, 0.5);
+  background: rgba(0, 180, 216, 0.15);
+  border-color: rgba(0, 180, 216, 0.5);
 }
 
 .example-select:focus {
   outline: none;
-  border-color: var(--turquoise, #00ccff);
-  box-shadow: 0 0 0 2px rgba(0, 204, 255, 0.2);
+  border-color: var(--turquoise, #00B4D8);
+  box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
 }
 
 .editor-container {

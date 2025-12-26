@@ -11,9 +11,9 @@ const translations = {
     'nav.tools': 'Tools',
     'nav.about': 'About',
     'nav.contact': 'Contact',
-    'hero.kicker': 'SysML v2 in Production',
-    'hero.headline': 'Model-Based Systems Engineering, reimagined',
-    'hero.paragraph': 'Make Systems Engineering as Simple as Office. Our intuitive tools and workflows transform complex MBSE into an everyday task. Just like creating a document or spreadsheet, you can now model systems, track requirements, and ensure compliance—all with the same ease and familiarity you expect from modern office software.',
+    'hero.kicker': 'We are the SysMLv2 CodeFlow Platform',
+    'hero.headline': 'Virtual Systems for Real Innovation™',
+    'hero.paragraph': 'SysMLv2 CodeFlow makes Systems Engineering as Simple as Office. Our intuitive tools and workflows transform complex MBSE into an everyday task. Just like creating a document or spreadsheet, you can now model systems, track requirements, and ensure compliance—all with the same ease and familiarity you expect from modern office software.',
     'hero.cta.primary': 'Get in touch',
     'hero.cta.secondary': 'Learn more',
     'hero.caption.primary': 'Multi-domain autonomy',
@@ -69,19 +69,58 @@ const translations = {
     'footer.contact': 'sysnex.labs.github@gmail.com',
     'footer.privacy': 'Privacy',
     'footer.imprint': 'Imprint',
+    'footer.tagline': 'SysMLv2 CodeFlow: Model-Based Systems Engineering with SysML v2',
+    'footer.product.heading': 'Product',
+    'footer.resources.heading': 'Resources',
+    'footer.enterprise.heading': 'Enterprise',
+    'footer.enterprise.sales': 'Enterprise Sales',
+    'footer.enterprise.compliance': 'Compliance Variants',
+    'footer.enterprise.partnerships': 'Partnerships',
+    'footer.legal.heading': 'Legal',
+    'footer.legal.privacy': 'Privacy Policy',
+    'footer.legal.terms': 'Terms of Service',
+    'footer.legal.license': 'License',
+    'about.hero.title': 'About SysNex Systems',
+    'about.hero.description': 'SysNex Systems unites software engineering excellence with model‑based systems engineering. We design lightweight tooling and practical methods that help organizations adopt SysML v2 – from textual modeling to intelligent analysis, with special focus on functional safety and compliance.',
     'about.title': 'About SysNex Systems',
     'about.intro': 'SysNex Systems unites software engineering excellence with model-based systems engineering. We design lightweight tooling and practical methods that help organizations adopt SysML v2 – from textual modeling to intelligent analysis, with special focus on functional safety and compliance.',
+    'about.capabilities.heading': 'Core Capabilities',
+    'about.capabilities.subtitle': 'SysNex Systems delivers comprehensive SysML v2 solutions across the entire systems engineering lifecycle.',
+    'about.capabilities.item1.title': 'SysML v2 Language Server',
+    'about.capabilities.item1.description': 'Native LSP implementation with 18/18 features, <50ms response time, and production-ready reliability.',
+    'about.capabilities.item2.title': 'VS Code Integration & Git Workflows',
+    'about.capabilities.item2.description': 'Seamless VS Code extension with native Git support, branching, and CI/CD integration.',
+    'about.capabilities.item3.title': 'Methodology & Migration',
+    'about.capabilities.item3.description': 'Structured approaches for transitioning from SysML v1 to v2 with proven transformation patterns.',
+    'about.capabilities.item4.title': 'AI-Assisted Analysis',
+    'about.capabilities.item4.description': 'Intelligent traceability, automated requirements extraction, and consistency validation powered by AI.',
+    'about.capabilities.item5.title': 'Functional Safety Workflows',
+    'about.capabilities.item5.description': 'ISO 26262, IEC 61508, and DO-178C compliance with integrated safety analysis and documentation.',
     'about.list.language-server': 'Native SysML v2 Language Server',
     'about.list.vscode': 'VS Code integration & Git workflows',
     'about.list.migration': 'Methodology & transformation from SysML v1 to v2',
     'about.list.ai': 'AI-assisted model analysis & traceability',
     'about.list.safety': 'Functional safety workflows for ISO 26262, IEC 61508, and DO-178C',
+    'about.competencies.heading': 'Core Competencies',
+    'about.competencies.subtitle': 'Deep expertise across systems engineering domains, from requirements to implementation.',
     'about.core-competencies.heading': 'Core Competencies',
     'about.core-competencies.mbse': 'Model-based systems engineering across safety-critical domains',
     'about.core-competencies.requirements': 'Requirements, process, and tool harmonization (PMT)',
     'about.core-competencies.toolchains': 'End-to-end toolchains, automation, and traceability',
     'about.core-competencies.standards': 'ISO 15288, ISO 26262, and ASPICE-aligned delivery',
     'about.core-competencies.simulation': 'Simulation-led architecture and control integration',
+    'about.toolchain.heading': 'Toolchain Expertise',
+    'about.toolchain.subtitle': 'Integration with leading MBSE tools and platforms across the systems engineering ecosystem.',
+    'about.toolchain.item1.title': 'SysML v2 Authoring',
+    'about.toolchain.item1.description': 'SysML v2 authoring in SysIDE with custom automation',
+    'about.toolchain.item2.title': 'CAMEO Systems Modeler',
+    'about.toolchain.item2.description': 'CAMEO Systems Modeler profiles and metamodels',
+    'about.toolchain.item3.title': 'JetBrains MPS / ArchE',
+    'about.toolchain.item3.description': 'JetBrains MPS / ArchE platform workflows',
+    'about.toolchain.item4.title': 'Enterprise Architect',
+    'about.toolchain.item4.description': 'Enterprise Architect integrations for safety and systems teams',
+    'about.toolchain.item5.title': 'ALM Orchestration',
+    'about.toolchain.item5.description': 'ALM orchestration with PTC Integrity, AVW, and Codebeamer',
     'about.tool-expertise.heading': 'Toolchain Expertise',
     'about.tool-expertise.sysmlv2': 'SysML v2 authoring in SysIDE with custom automation',
     'about.tool-expertise.cameo': 'CAMEO Systems Modeler profiles and metamodels',
@@ -89,11 +128,36 @@ const translations = {
     'about.tool-expertise.enterprise-architect': 'Enterprise Architect integrations for safety and systems teams',
     'about.tool-expertise.almb': 'ALM orchestration with PTC Integrity, AVW, and Codebeamer',
     'about.programming.heading': 'Programming & Automation',
+    'about.programming.subtitle': 'Full-stack development capabilities from low-level systems to high-level automation.',
+    'about.programming.item1.title': 'Python Automation',
+    'about.programming.item1.description': 'Python-first automation for modeling and verification pipelines',
+    'about.programming.item2.title': 'Domain-Specific Languages',
+    'about.programming.item2.description': 'Domain-specific language development with JetBrains MPS',
+    'about.programming.item3.title': 'Enterprise Java',
+    'about.programming.item3.description': 'Enterprise-grade tooling and integration in Java',
+    'about.programming.item4.title': 'High-Performance Services',
+    'about.programming.item4.description': 'High-performance services and language tooling',
+    'about.programming.item5.title': 'C++ Integration',
+    'about.programming.item5.description': 'Model-to-code bridges and simulation scaffolding in C++',
     'about.programming.python': 'Python-first automation for modeling and verification pipelines',
     'about.programming.mps': 'Domain-specific language development with JetBrains MPS',
     'about.programming.java': 'Enterprise-grade tooling and integration in Java',
     'about.programming.rust': 'High-performance services and native language tooling',
     'about.programming.cpp': 'Model-to-code bridges and simulation scaffolding in C++',
+    'about.competencies.item1.title': 'Model-Based Systems Engineering',
+    'about.competencies.item1.description': 'Model-based systems engineering across safety-critical domains',
+    'about.competencies.item2.title': 'Requirements & Process',
+    'about.competencies.item2.description': 'Requirements, process, and tool harmonization (PMT)',
+    'about.competencies.item3.title': 'End-to-End Toolchains',
+    'about.competencies.item3.description': 'End-to-end toolchains, automation, and traceability',
+    'about.competencies.item4.title': 'Standards Compliance',
+    'about.competencies.item4.description': 'ISO 15288, ISO 26262, and ASPICE-aligned delivery',
+    'about.competencies.item5.title': 'Simulation & Architecture',
+    'about.competencies.item5.description': 'Simulation-led architecture and control integration',
+    'about.cta.heading': 'Ready to Transform Your Systems Engineering?',
+    'about.cta.subtitle': 'Discover how SysNex Systems can help your organization adopt modern MBSE practices with SysML v2.',
+    'about.cta.primary': 'Get in Touch',
+    'about.cta.secondary': 'View Products',
     'methods.title': 'MBSE Methodology',
     'methods.intro': 'SysNex Systems provides practical, proven methods for adopting Model-Based Systems Engineering with SysML v2. Our methodology bridges the gap between traditional systems engineering and modern software development practices.',
     'methods.highlights.heading': 'Our Approach',
@@ -1016,9 +1080,104 @@ const translations = {
     'process.cta.link': 'Contact us',
     'process.cta.after': ' to discuss how we can help you achieve ISO 15288 and ISO 26262 compliance through model-based systems engineering.',
     'contact.title': 'Contact',
-    'contact.intro': 'Interested in collaboration, research partnerships, or pilot projects?',
-    'contact.email.label': 'Email: ',
+    'contact.heading': 'Get in Touch',
+    'contact.intro': 'Ready to transform your systems engineering workflow? Contact us for demos, partnerships, or enterprise inquiries.',
+    'contact.form.title': 'Send us a Message',
+    'contact.form.name': 'Name',
+    'contact.form.email': 'Email',
+    'contact.form.company': 'Company',
+    'contact.form.role': 'Role',
+    'contact.form.interest': 'I\'m interested in',
+    'contact.form.interest.general': 'General Inquiry',
+    'contact.form.interest.demo': 'Product Demo',
+    'contact.form.interest.enterprise': 'Enterprise License',
+    'contact.form.interest.partnership': 'Partnership',
+    'contact.form.interest.support': 'Technical Support',
+    'contact.form.interest.compliance': 'Compliance Variants',
+    'contact.form.message': 'Message',
+    'contact.form.submit': 'Send Message',
+    'contact.form.success': 'Thank you! Your message has been sent. We\'ll get back to you soon.',
+    'contact.form.error.name': 'Name is required',
+    'contact.form.error.email.required': 'Email is required',
+    'contact.form.error.email.invalid': 'Please enter a valid email address',
+    'contact.form.error.message': 'Message is required',
+    'contact.form.role.placeholder': 'e.g., Systems Engineer, CTO',
+    'contact.email.label': 'Email',
     'contact.email.address': 'sysnex.labs.github@gmail.com',
+    'contact.enterprise.title': 'Enterprise Sales',
+    'contact.enterprise.body': 'For enterprise licenses, compliance variants, and custom solutions, please use the contact form or email directly.',
+    'contact.partnership.title': 'Partnerships',
+    'contact.partnership.body': 'Interested in reseller partnerships, OEM agreements, or integration partnerships? Let\'s discuss how we can work together.',
+    'contact.response.title': 'Response Time',
+    'contact.response.body': 'We typically respond within 24-48 hours. For urgent enterprise inquiries, please mention it in your message.',
+    'home.integrations.heading': 'Seamless Integration',
+    'home.integrations.subtitle': 'Works with the tools you already use. No learning curve, no disruption.',
+    'home.integrations.vscode.name': 'VS Code',
+    'home.integrations.vscode.description': 'Native VS Code extension with 50M+ users. Full LSP integration, AI assistance, and Git workflows.',
+    'home.integrations.git.name': 'Git & CI/CD',
+    'home.integrations.git.description': 'Native Git support with branching, pull requests, and CI/CD integration. Treat models like code.',
+    'home.integrations.copilot.name': 'GitHub Copilot',
+    'home.integrations.copilot.description': 'AI-powered code completion for SysML v2. 40-60% faster model creation with intelligent suggestions.',
+    'home.integrations.claude.name': 'Claude Code',
+    'home.integrations.claude.description': 'Advanced AI assistance for refactoring, documentation, and compliance checking. Custom MBSE workflows.',
+    'home.socialproof.heading': 'Trusted by Engineering Teams',
+    'home.socialproof.subtitle': 'Enterprise-grade SysML v2 tooling for OEMs, Tier-1 suppliers, and systems engineering teams worldwide.',
+    'home.cta.heading': 'Ready to Transform Your Systems Engineering?',
+    'home.cta.subtitle': 'Join teams using enterprise-grade SysML v2 tooling. Start with a 30-day free trial.',
+    'home.cta.primary': 'Request Demo',
+    'home.cta.secondary': 'Try Yourself',
+    'customers.heading': 'Trusted by Leading Companies',
+    'customers.subtitle': 'See how organizations are transforming their systems engineering with SysMLv2 CodeFlow. Thousands of companies trust our solutions.',
+    'customers.challenge.label': 'Challenge',
+    'customers.solution.label': 'Solution',
+    'customers.outcome.label': 'Outcome',
+    'customers.case1.company': 'Automotive OEM',
+    'customers.case1.industry': 'Automotive',
+    'customers.case1.challenge': 'Needed to accelerate ISO 26262 compliance while maintaining design flexibility for autonomous vehicle platforms.',
+    'customers.case1.solution': 'Implemented SysMLv2 CodeFlow Automotive variant with ASPICE-aligned workflows and integrated safety analysis.',
+    'customers.case1.outcome': 'Reduced certification cycles by 40% and improved requirement traceability across 200+ system components.',
+    'customers.case2.company': 'Aerospace Manufacturer',
+    'customers.case2.industry': 'Aerospace',
+    'customers.case2.challenge': 'Required DO-178C compliant modeling workflows with seamless integration to existing toolchains.',
+    'customers.case2.solution': 'Deployed SysMLv2 CodeFlow Platform with custom extensions for flight software architecture and verification.',
+    'customers.case2.outcome': 'Achieved full DO-178C Level A compliance with 60% faster model-to-code validation cycles.',
+    'customers.case3.company': 'Medical Device Company',
+    'customers.case3.industry': 'Medical',
+    'customers.case3.challenge': 'Needed IEC 62304 compliant systems engineering for next-generation patient monitoring devices.',
+    'customers.case3.solution': 'Adopted SysMLv2 CodeFlow with integrated risk management and validation workflows.',
+    'customers.case3.outcome': 'Streamlined FDA submission process with complete traceability from requirements to test evidence.',
+    'industries.heading': 'Industry-Focused Solutions',
+    'industries.subtitle': 'SysMLv2 CodeFlow adapts to your industry needs. From automotive safety to aerospace certification, we provide tailored solutions.',
+    'industries.benefits.label': 'Key Benefits',
+    'industries.standards.label': 'Standards Compliance',
+    'industries.cta': 'Learn More',
+    'industries.automotive.title': 'Automotive & Safety',
+    'industries.automotive.description': 'Complete SysML v2 tooling for automotive systems engineering with ISO 26262, ASPICE, and cybersecurity compliance.',
+    'industries.automotive.benefit1': 'ISO 26262 functional safety workflows',
+    'industries.automotive.benefit2': 'ASPICE-aligned development processes',
+    'industries.automotive.benefit3': 'ISO/SAE 21434 cybersecurity integration',
+    'industries.aerospace.title': 'Aerospace & Defense',
+    'industries.aerospace.description': 'DO-178C compliant modeling and verification for critical aerospace systems with full certification support.',
+    'industries.aerospace.benefit1': 'DO-178C Level A-D compliance',
+    'industries.aerospace.benefit2': 'ARP4754 system development',
+    'industries.aerospace.benefit3': 'Model-based verification workflows',
+    'industries.medical.title': 'Medical Devices',
+    'industries.medical.description': 'IEC 62304 and ISO 14971 compliant systems engineering for medical device development and regulatory submission.',
+    'industries.medical.benefit1': 'IEC 62304 software lifecycle',
+    'industries.medical.benefit2': 'ISO 14971 risk management',
+    'industries.medical.benefit3': 'FDA 21 CFR Part 820 alignment',
+    'syscribe.hero.kicker': 'Freeware • No Limits',
+    'syscribe.hero.title': 'Syscribe: Free SysML v2 Viewer',
+    'syscribe.hero.description': 'Complete read-only IDE features for SysML v2—code completion, diagnostics, navigation, documentation viewer, and model explorer. All free, forever. Perfect for model review, documentation, and learning SysML v2 without any restrictions.',
+    'syscribe.cta.try': 'Try Free Now',
+    'syscribe.cta.download': 'Download Free',
+    'syscribe.metrics.vscode': 'VS Code Users',
+    'syscribe.metrics.lsp': 'LSP Response',
+    'syscribe.metrics.features': 'LSP Features',
+    'syscribe.metrics.variants': 'Platform Variants',
+    'syscribe.commercial.heading': 'Commercial Extensions',
+    'syscribe.commercial.subtitle': 'Extend your SysMLv2 CodeFlow platform with professional features and enterprise capabilities for production systems engineering. Complete IDE experience with advanced tools for requirements, diagrams, analytics, and domain integrations.',
+    'syscribe.commercial.hero.kicker': 'Enterprise • Professional • Production-Ready',
     'try-yourself.title': 'Try SysML v2 Yourself',
     'try-yourself.description': 'Experience SysML v2 directly in your browser. Write code in the editor and see the live documentation view update in real-time.',
     'try-yourself.note': 'Note: This is a proof of concept. Full WASM-based parsing and advanced features are coming soon. For production use, check out our',
@@ -1038,7 +1197,7 @@ const translations = {
     'nav.contact': 'Kontakt',
     'hero.kicker': 'Integrierte Mobilitätssysteme',
     'hero.headline': 'Model-Based Systems Engineering, neu gedacht',
-    'hero.paragraph': 'Systems Engineering so einfach wie Office. Unsere intuitiven Tools und Workflows verwandeln komplexes MBSE in eine alltägliche Aufgabe. Genau wie beim Erstellen eines Dokuments oder einer Tabelle können Sie jetzt Systeme modellieren, Anforderungen nachverfolgen und Compliance sicherstellen—mit derselben Leichtigkeit und Vertrautheit, die Sie von moderner Bürosoftware erwarten.',
+    'hero.paragraph': 'SysMLv2 CodeFlow macht Systems Engineering so einfach wie Office. Unsere intuitiven Tools und Workflows verwandeln komplexes MBSE in eine alltägliche Aufgabe. Genau wie beim Erstellen eines Dokuments oder einer Tabelle können Sie jetzt Systeme modellieren, Anforderungen nachverfolgen und Compliance sicherstellen—mit derselben Leichtigkeit und Vertrautheit, die Sie von moderner Bürosoftware erwarten.',
     'hero.cta.primary': 'Kontakt aufnehmen',
     'hero.cta.secondary': 'Mehr erfahren',
     'hero.caption.primary': 'Multidomänen-Autonomie',
@@ -1079,6 +1238,17 @@ const translations = {
     'footer.contact': 'sysnex.labs.github@gmail.com',
     'footer.privacy': 'Datenschutz',
     'footer.imprint': 'Impressum',
+    'footer.tagline': 'SysMLv2 CodeFlow: Model-Based Systems Engineering mit SysML v2',
+    'footer.product.heading': 'Produkt',
+    'footer.resources.heading': 'Ressourcen',
+    'footer.enterprise.heading': 'Enterprise',
+    'footer.enterprise.sales': 'Enterprise-Vertrieb',
+    'footer.enterprise.compliance': 'Compliance-Varianten',
+    'footer.enterprise.partnerships': 'Partnerschaften',
+    'footer.legal.heading': 'Rechtliches',
+    'footer.legal.privacy': 'Datenschutzerklärung',
+    'footer.legal.terms': 'Nutzungsbedingungen',
+    'footer.legal.license': 'Lizenz',
     'about.title': 'Über SysNex Systems',
     'about.intro': 'SysNex Systems vereint erstklassige Softwareentwicklung mit modellbasierter Systementwicklung. Wir entwickeln schlanke Werkzeuge und praxistaugliche Methoden, die Organisationen bei der Einführung von SysML v2 unterstützen – von textueller Modellierung bis hin zu intelligenter Analyse, mit besonderem Fokus auf funktionale Sicherheit und Compliance.',
     'about.list.language-server': 'Native SysML v2 Language Server',
@@ -1929,9 +2099,29 @@ const translations = {
     'process.cta.link': 'Kontakt aufnehmen',
     'process.cta.after': ' und erfahren, wie wir Sie auf dem Weg zu ISO-15288- und ISO-26262-Konformität unterstützen.',
     'contact.title': 'Kontakt',
-    'contact.intro': 'Interesse an Zusammenarbeit, Forschungspartnerschaften oder Pilotprojekten?',
+    'contact.heading': 'Kontaktieren Sie uns',
+    'contact.intro': 'Bereit, Ihren Systems Engineering Workflow zu transformieren? Kontaktieren Sie uns für Demos, Partnerschaften oder Enterprise-Anfragen.',
+    'contact.form.title': 'Senden Sie uns eine Nachricht',
+    'contact.form.name': 'Name',
+    'contact.form.email': 'E-Mail',
+    'contact.form.company': 'Unternehmen',
+    'contact.form.role': 'Rolle',
+    'contact.form.interest': 'Ich interessiere mich für',
+    'contact.form.interest.general': 'Allgemeine Anfrage',
+    'contact.form.interest.demo': 'Produkt-Demo',
+    'contact.form.interest.enterprise': 'Enterprise-Lizenz',
+    'contact.form.interest.partnership': 'Partnerschaft',
+    'contact.form.interest.support': 'Technischer Support',
+    'contact.form.interest.compliance': 'Compliance-Varianten',
+    'contact.form.message': 'Nachricht',
     'contact.email.label': 'E-Mail: ',
     'contact.email.address': 'sysnex.labs.github@gmail.com',
+    'contact.enterprise.title': 'Enterprise-Vertrieb',
+    'contact.enterprise.body': 'Für Enterprise-Lizenzen, Compliance-Varianten und maßgeschneiderte Lösungen verwenden Sie bitte das Kontaktformular oder senden Sie eine E-Mail direkt.',
+    'contact.partnership.title': 'Partnerschaften',
+    'contact.partnership.body': 'Interessiert an Wiederverkäufer-Partnerschaften, OEM-Vereinbarungen oder Integrations-Partnerschaften? Lassen Sie uns besprechen, wie wir zusammenarbeiten können.',
+    'contact.response.title': 'Antwortzeit',
+    'contact.response.body': 'Wir antworten normalerweise innerhalb von 24-48 Stunden. Für dringende Enterprise-Anfragen geben Sie dies bitte in Ihrer Nachricht an.',
     'try-yourself.title': 'SysML v2 selbst ausprobieren',
     'try-yourself.description': 'Erleben Sie SysML v2 direkt in Ihrem Browser. Schreiben Sie Code im Editor und sehen Sie, wie sich die Live-Dokumentationsansicht in Echtzeit aktualisiert.',
     'try-yourself.note': 'Hinweis: Dies ist ein Proof of Concept. Vollständiges WASM-basiertes Parsing und erweiterte Funktionen kommen bald. Für den Produktionseinsatz schauen Sie sich unsere',
@@ -1957,6 +2147,18 @@ const translations = {
     'about.core-competencies.toolchains': 'End-to-End-Toolchains, Automatisierung und Traceability',
     'about.core-competencies.standards': 'ISO 15288, ISO 26262 und ASPICE-konforme Lieferung',
     'about.core-competencies.simulation': 'Simulationsgesteuerte Architektur und Steuerungsintegration',
+    'about.toolchain.heading': 'Toolchain-Expertise',
+    'about.toolchain.subtitle': 'Integration mit führenden MBSE-Tools und Plattformen im Systems-Engineering-Ökosystem.',
+    'about.toolchain.item1.title': 'SysML v2 Authoring',
+    'about.toolchain.item1.description': 'SysML v2 Authoring in SysIDE mit benutzerdefinierter Automatisierung',
+    'about.toolchain.item2.title': 'CAMEO Systems Modeler',
+    'about.toolchain.item2.description': 'CAMEO Systems Modeler Profile und Metamodelle',
+    'about.toolchain.item3.title': 'JetBrains MPS / ArchE',
+    'about.toolchain.item3.description': 'JetBrains MPS / ArchE Platform Workflows',
+    'about.toolchain.item4.title': 'Enterprise Architect',
+    'about.toolchain.item4.description': 'Enterprise Architect Integrationen für Safety- und Systems-Teams',
+    'about.toolchain.item5.title': 'ALM Orchestrierung',
+    'about.toolchain.item5.description': 'ALM-Orchestrierung mit PTC Integrity, AVW und Codebeamer',
     'about.tool-expertise.heading': 'Toolchain-Expertise',
     'about.tool-expertise.sysmlv2': 'SysML v2 Authoring in SysIDE mit benutzerdefinierter Automatisierung',
     'about.tool-expertise.cameo': 'CAMEO Systems Modeler Profile und Metamodelle',
@@ -1964,6 +2166,17 @@ const translations = {
     'about.tool-expertise.enterprise-architect': 'Enterprise Architect Integrationen für Safety- und Systems-Teams',
     'about.tool-expertise.almb': 'ALM-Orchestrierung mit PTC Integrity, AVW und Codebeamer',
     'about.programming.heading': 'Programmierung & Automatisierung',
+    'about.programming.subtitle': 'Full-Stack-Entwicklungskapazitäten von Low-Level-Systemen bis hin zu High-Level-Automatisierung.',
+    'about.programming.item1.title': 'Python-Automatisierung',
+    'about.programming.item1.description': 'Python-First-Automatisierung für Modellierungs- und Verifikations-Pipelines',
+    'about.programming.item2.title': 'Domain-Specific Languages',
+    'about.programming.item2.description': 'Domain-Specific Language Entwicklung mit JetBrains MPS',
+    'about.programming.item3.title': 'Enterprise Java',
+    'about.programming.item3.description': 'Enterprise-Grade-Tooling und Integration in Java',
+    'about.programming.item4.title': 'Hochperformante Services',
+    'about.programming.item4.description': 'Hochperformante Services und natives Language-Tooling',
+    'about.programming.item5.title': 'C++ Integration',
+    'about.programming.item5.description': 'Model-to-Code-Brücken und Simulations-Scaffolding in C++',
     'about.programming.python': 'Python-First-Automatisierung für Modellierungs- und Verifikations-Pipelines',
     'about.programming.mps': 'Domain-Specific Language Entwicklung mit JetBrains MPS',
     'about.programming.java': 'Enterprise-Grade-Tooling und Integration in Java',
@@ -2054,6 +2267,112 @@ const translations = {
     'product.cta.primary': 'Demo anfordern',
     'product.cta.secondary': 'Preise ansehen',
     'product.cta.note': 'Starten Sie mit einer 30-tägigen kostenlosen Testversion. Keine Kreditkarte erforderlich.',
+    'customers.heading': 'Vertrauen führender Unternehmen',
+    'customers.subtitle': 'Erfahren Sie, wie Organisationen ihr Systems Engineering mit SysMLv2 CodeFlow transformieren. Tausende von Unternehmen vertrauen auf unsere Lösungen.',
+    'customers.challenge.label': 'Herausforderung',
+    'customers.solution.label': 'Lösung',
+    'customers.outcome.label': 'Ergebnis',
+    'customers.case1.company': 'Automobil-OEM',
+    'customers.case1.industry': 'Automobil',
+    'customers.case1.challenge': 'Beschleunigung der ISO 26262 Compliance bei gleichzeitiger Wahrung der Designflexibilität für autonome Fahrzeugplattformen.',
+    'customers.case1.solution': 'Implementierung von SysMLv2 CodeFlow Automotive-Variante mit ASPICE-konformen Workflows und integrierter Sicherheitsanalyse.',
+    'customers.case1.outcome': 'Reduzierung der Zertifizierungszyklen um 40% und verbesserte Anforderungsnachverfolgbarkeit über 200+ Systemkomponenten.',
+    'customers.case2.company': 'Luftfahrtunternehmen',
+    'customers.case2.industry': 'Luftfahrt',
+    'customers.case2.challenge': 'DO-178C-konforme Modellierungs-Workflows mit nahtloser Integration in bestehende Toolchains erforderlich.',
+    'customers.case2.solution': 'Bereitstellung von SysMLv2 CodeFlow Platform mit benutzerdefinierten Erweiterungen für Flugsoftware-Architektur und Verifikation.',
+    'customers.case2.outcome': 'Vollständige DO-178C Level A Compliance erreicht mit 60% schnelleren Modell-zu-Code-Validierungszyklen.',
+    'customers.case3.company': 'Medizintechnikunternehmen',
+    'customers.case3.industry': 'Medizin',
+    'customers.case3.challenge': 'IEC 62304-konformes Systems Engineering für Patientenmonitoring-Geräte der nächsten Generation erforderlich.',
+    'customers.case3.solution': 'Einführung von SysMLv2 CodeFlow mit integrierten Risikomanagement- und Validierungs-Workflows.',
+    'customers.case3.outcome': 'Optimierter FDA-Einreichungsprozess mit vollständiger Nachverfolgbarkeit von Anforderungen bis Testnachweisen.',
+    'industries.heading': 'Branchenspezifische Lösungen',
+    'industries.subtitle': 'SysMLv2 CodeFlow passt sich Ihren Branchenanforderungen an. Von Automotive-Sicherheit bis zur Luftfahrt-Zertifizierung bieten wir maßgeschneiderte Lösungen.',
+    'industries.benefits.label': 'Wichtige Vorteile',
+    'industries.standards.label': 'Standards-Compliance',
+    'industries.cta': 'Mehr erfahren',
+    'industries.automotive.title': 'Automotive & Sicherheit',
+    'industries.automotive.description': 'Vollständiges SysML v2 Tooling für Automotive Systems Engineering mit ISO 26262, ASPICE und Cybersecurity-Compliance.',
+    'industries.automotive.benefit1': 'ISO 26262 Funktionssicherheits-Workflows',
+    'industries.automotive.benefit2': 'ASPICE-konforme Entwicklungsprozesse',
+    'industries.automotive.benefit3': 'ISO/SAE 21434 Cybersecurity-Integration',
+    'industries.aerospace.title': 'Luftfahrt & Verteidigung',
+    'industries.aerospace.description': 'DO-178C-konforme Modellierung und Verifikation für kritische Luftfahrtsysteme mit vollständiger Zertifizierungsunterstützung.',
+    'industries.aerospace.benefit1': 'DO-178C Level A-D Compliance',
+    'industries.aerospace.benefit2': 'ARP4754 Systementwicklung',
+    'industries.aerospace.benefit3': 'Modellbasierte Verifikations-Workflows',
+    'industries.medical.title': 'Medizinprodukte',
+    'industries.medical.description': 'IEC 62304 und ISO 14971-konformes Systems Engineering für die Entwicklung medizinischer Geräte und regulatorische Einreichungen.',
+    'industries.medical.benefit1': 'IEC 62304 Software-Lebenszyklus',
+    'industries.medical.benefit2': 'ISO 14971 Risikomanagement',
+    'industries.medical.benefit3': 'FDA 21 CFR Part 820 Ausrichtung',
+    'contact.hero.title': 'Kontaktieren Sie uns',
+    'contact.hero.description': 'Wir freuen uns, von Ihnen zu hören. Senden Sie uns eine Nachricht und wir werden uns so schnell wie möglich bei Ihnen melden.',
+    'contact.form.heading': 'Kontaktformular',
+    'contact.form.name.label': 'Name',
+    'contact.form.name.required': 'Name ist erforderlich',
+    'contact.form.email.label': 'E-Mail',
+    'contact.form.email.required': 'E-Mail ist erforderlich',
+    'contact.form.email.invalid': 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    'contact.form.company.label': 'Unternehmen',
+    'contact.form.role.label': 'Rolle',
+    'contact.form.role.placeholder': 'z.B. Systems Engineer, CTO',
+    'contact.form.interest.label': 'Interesse',
+    'contact.form.interest.option.select': 'Bitte wählen',
+    'contact.form.interest.option.general': 'Allgemeine Anfrage',
+    'contact.form.interest.option.sales': 'Verkauf & Demo',
+    'contact.form.interest.option.partnership': 'Partnerschaft',
+    'contact.form.interest.option.support': 'Support',
+    'contact.form.interest.option.research': 'Forschung & Entwicklung',
+    'contact.form.message.label': 'Nachricht',
+    'contact.form.message.required': 'Nachricht ist erforderlich',
+    'contact.form.submit': 'Nachricht senden',
+    'contact.form.success': 'Vielen Dank für Ihre Nachricht! Wir werden uns so schnell wie möglich bei Ihnen melden.',
+    'contact.form.error.name': 'Name ist erforderlich',
+    'contact.form.error.email.required': 'E-Mail ist erforderlich',
+    'contact.form.error.email.invalid': 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    'contact.form.error.message': 'Nachricht ist erforderlich',
+    'contact.info.email.title': 'E-Mail',
+    'contact.info.email.content': 'Für allgemeine Anfragen können Sie uns per E-Mail kontaktieren:',
+    'contact.info.sales.title': 'Enterprise-Vertrieb',
+    'contact.info.sales.content': 'Für Enterprise-Lizenzen, Compliance-Varianten und maßgeschneiderte Lösungen kontaktieren Sie bitte unser Vertriebsteam:',
+    'contact.info.partnerships.title': 'Partnerschaften',
+    'contact.info.partnerships.content': 'Interessiert an Wiederverkäufer-Partnerschaften, OEM-Vereinbarungen oder Integrations-Partnerschaften? Lassen Sie uns besprechen, wie wir zusammenarbeiten können:',
+    'contact.info.response.title': 'Antwortzeit',
+    'contact.info.response.content': 'Wir antworten normalerweise innerhalb von 24-48 Stunden. Für dringende Enterprise-Anfragen geben Sie dies bitte in Ihrer Nachricht an.',
+    'home.integrations.heading': 'Nahtlose Integration',
+    'home.integrations.subtitle': 'Funktioniert mit den Tools, die Sie bereits verwenden. Keine Lernkurve, keine Unterbrechung.',
+    'home.integrations.vscode.name': 'VS Code',
+    'home.integrations.vscode.description': 'Native VS Code Extension mit über 50M Nutzern. Vollständige LSP-Integration, KI-Unterstützung und Git-Workflows.',
+    'home.integrations.git.name': 'Git & CI/CD',
+    'home.integrations.git.description': 'Native Git-Unterstützung mit Branching, Pull Requests und CI/CD-Integration. Behandeln Sie Modelle wie Code.',
+    'home.integrations.copilot.name': 'GitHub Copilot',
+    'home.integrations.copilot.description': 'KI-gestützte Code-Vervollständigung für SysML v2. 40-60% schnellere Modellerstellung mit intelligenten Vorschlägen.',
+    'home.integrations.claude.name': 'Claude Code',
+    'home.integrations.claude.description': 'Erweiterte KI-Unterstützung für Refactoring, Dokumentation und Compliance-Prüfung. Benutzerdefinierte MBSE-Workflows.',
+    'home.socialproof.heading': 'Vertrauen von Engineering-Teams',
+    'home.socialproof.subtitle': 'Enterprise-Grade SysML v2 Tooling für OEMs, Tier-1-Zulieferer und Systems Engineering-Teams weltweit.',
+    'home.cta.heading': 'Bereit, Ihr Systems Engineering zu transformieren?',
+    'home.cta.subtitle': 'Schließen Sie sich Teams an, die Enterprise-Grade SysML v2 Tooling verwenden. Starten Sie mit einer 30-tägigen kostenlosen Testversion.',
+    'home.cta.primary': 'Demo anfordern',
+    'home.cta.secondary': 'Jetzt ausprobieren',
+    'syscribe.hero.kicker': 'Freeware • Keine Limits',
+    'syscribe.hero.title': 'Syscribe: Kostenloser SysML v2 Viewer',
+    'syscribe.hero.description': 'Vollständige Read-Only IDE-Funktionen für SysML v2—Code-Vervollständigung, Diagnostik, Navigation, Dokumentations-Viewer und Model Explorer. Alles kostenlos, für immer. Perfekt für Modellüberprüfung, Dokumentation und zum Erlernen von SysML v2 ohne Einschränkungen.',
+    'syscribe.cta.try': 'Jetzt kostenlos testen',
+    'syscribe.cta.download': 'Kostenlos herunterladen',
+    'syscribe.metrics.vscode': 'VS Code Nutzer',
+    'syscribe.metrics.lsp': 'LSP Antwortzeit',
+    'syscribe.metrics.features': 'LSP Features',
+    'syscribe.metrics.variants': 'Plattform-Varianten',
+    'syscribe.commercial.heading': 'Kommerzielle Erweiterungen',
+    'syscribe.commercial.subtitle': 'Erweitern Sie Ihre SysMLv2 CodeFlow-Plattform mit professionellen Features und Enterprise-Funktionen für produktives Systems Engineering. Vollständige IDE-Erfahrung mit erweiterten Tools für Anforderungen, Diagramme, Analytics und Domain-Integrationen.',
+    'syscribe.commercial.hero.kicker': 'Enterprise • Professionell • Produktionsreif',
+    'try-yourself.title': 'SysML v2 selbst ausprobieren',
+    'try-yourself.description': 'Erleben Sie SysML v2 direkt in Ihrem Browser. Schreiben Sie Code im Editor und sehen Sie, wie sich die Live-Dokumentationsansicht in Echtzeit aktualisiert.',
+    'try-yourself.note': 'Hinweis: Dies ist ein Proof of Concept. Vollständiges WASM-basiertes Parsing und erweiterte Features kommen bald. Für den produktiven Einsatz schauen Sie sich unsere',
+    'try-yourself.note.link': 'VS Code Extension'
   }
 };
 
@@ -2089,34 +2408,86 @@ const applyLanguage = (lang) => {
       }
     }
   });
-  const toggle = document.getElementById('langToggle');
-  if (toggle) {
+  // Update lang toggle button text (for static HTML pages and React components)
+  const toggles = document.querySelectorAll('#langToggle, .lang-toggle');
+  toggles.forEach((toggle) => {
     toggle.textContent = lang === 'en' ? 'DE' : 'EN';
     toggle.setAttribute('aria-label', lang === 'en' ? 'Sprache auf Deutsch umschalten' : 'Switch language to English');
-  }
+  });
+  
+  // Also update any React component lang toggles (they listen to languagechange event)
   localStorage.setItem('sysnex-lang', lang);
 };
 
 const initI18n = () => {
   currentLang = getStoredLanguage();
   
-  // Always try to attach click handler (in case header was loaded dynamically)
-  const toggle = document.getElementById('langToggle');
-  if (toggle && !toggle.dataset.listenerAttached) {
-    toggle.dataset.listenerAttached = 'true';
-    toggle.addEventListener('click', () => {
-      currentLang = currentLang === 'en' ? 'de' : 'en';
-      applyLanguage(currentLang);
-      // Dispatch event for React components
-      window.dispatchEvent(new CustomEvent('languagechange'));
-    });
-  }
-  
-  // Apply language if not already initialized, or if toggle was just added
-  if (!initialized || toggle) {
+  // Apply language immediately if not already initialized
+  if (!initialized) {
     applyLanguage(currentLang);
     initialized = true;
   }
+  
+  // Always try to attach click handler (in case header was loaded dynamically)
+  const attachToggleHandler = () => {
+    // Find all language toggle buttons (both static and React)
+    const toggles = document.querySelectorAll('#langToggle, .lang-toggle');
+    
+    toggles.forEach((toggle) => {
+      if (!toggle.dataset.listenerAttached) {
+        toggle.dataset.listenerAttached = 'true';
+        
+        // Remove any existing listeners by cloning the element
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+        
+        newToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const newLang = currentLang === 'en' ? 'de' : 'en';
+          currentLang = newLang;
+          
+          // Update localStorage first
+          try {
+            localStorage.setItem('sysnex-lang', newLang);
+          } catch (err) {
+            console.warn('Could not save language to localStorage:', err);
+          }
+          
+          // Apply language to static HTML
+          applyLanguage(newLang);
+          
+          // Dispatch event for React components
+          window.dispatchEvent(new CustomEvent('languagechange'));
+        });
+      }
+    });
+    
+    return toggles.length > 0;
+  };
+  
+  // Try to attach handler immediately
+  attachToggleHandler();
+  
+  // If toggle not found, try again after a short delay (for dynamic includes)
+  setTimeout(() => {
+    attachToggleHandler();
+    if (!initialized) {
+      applyLanguage(currentLang);
+      initialized = true;
+    }
+  }, 100);
+  
+  // Also try after a longer delay for React components
+  setTimeout(() => {
+    attachToggleHandler();
+  }, 300);
+  
+  // Final attempt after React might have loaded
+  setTimeout(() => {
+    attachToggleHandler();
+  }, 600);
 };
 
 // Expose translations and functions to window for React components
@@ -2138,20 +2509,40 @@ if (typeof window !== 'undefined') {
 // Initialize when partials are loaded (for pages with includes)
 document.addEventListener('partials:loaded', () => {
   // Small delay to ensure header is fully in DOM
-  setTimeout(initI18n, 50);
+  setTimeout(() => {
+    initI18n();
+  }, 50);
+  
+  // Also try again after React might have loaded
+  setTimeout(() => {
+    initI18n();
+  }, 300);
 });
 
 // Initialize on DOMContentLoaded (for pages without includes or as fallback)
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!document.querySelector('[data-include]')) {
+      // no partials, initialize immediately
+      initI18n();
+    } else {
+      // Has partials, but if partials:loaded already fired, initialize anyway
+      setTimeout(() => {
+        initI18n();
+      }, 200);
+    }
+  });
+} else {
+  // DOM already loaded, initialize immediately
   if (!document.querySelector('[data-include]')) {
-    // no partials, initialize immediately
     initI18n();
   } else {
-    // Has partials, but if partials:loaded already fired, initialize anyway
+    // Has partials, wait a bit for them to load
     setTimeout(() => {
-      if (!initialized) {
-        initI18n();
-      }
-    }, 500);
+      initI18n();
+    }, 100);
   }
-});
+}
+
+// Also initialize immediately if script loads after DOM (for React pages)
+initI18n();

@@ -20,11 +20,11 @@ const fallbackTranslations = {
     'nav.about': 'About',
     'nav.contact': 'Contact',
     'nav.try-yourself': 'Try Yourself',
-    'hero.kicker': 'SysML v2 in Production',
-    'hero.headline': 'MBSE Platform for Engineering Teams',
-    'hero.paragraph': 'Deliver production-ready SysML v2 language tooling, ISO 15288-aligned workflows, and AI-assisted automation. Compliance extensions advance along a transparent roadmap you can track.',
-    'hero.cta.primary': 'Get in touch',
-    'hero.cta.secondary': 'Learn more',
+    'hero.kicker': 'Enterprise SysML v2 Tooling',
+    'hero.headline': 'Syscribe: SysML v2 Platform for Modern Systems Engineering',
+    'hero.paragraph': 'Syscribe delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.',
+    'hero.cta.primary': 'Get Started',
+    'hero.cta.secondary': 'View Features',
   },
   de: {
     'nav.home': 'Startseite',
@@ -38,11 +38,11 @@ const fallbackTranslations = {
     'nav.about': 'Über uns',
     'nav.contact': 'Kontakt',
     'nav.try-yourself': 'Selbst testen',
-    'hero.kicker': 'SysML v2 in Produktion',
-    'hero.headline': 'MBSE-Plattform für Ingenieurteams',
-    'hero.paragraph': 'Liefern Sie produktionsreife SysML v2-Sprachtools, ISO-15288-konforme Workflows und KI-gestützte Automatisierung. Compliance-Erweiterungen entwickeln sich entlang einer transparenten Roadmap, die Sie verfolgen können.',
-    'hero.cta.primary': 'Kontakt aufnehmen',
-    'hero.cta.secondary': 'Mehr erfahren',
+    'hero.kicker': 'Enterprise SysML v2 Tooling',
+    'hero.headline': 'Syscribe: SysML v2 Plattform für moderne Systems Engineering',
+    'hero.paragraph': 'Syscribe bietet produktionsreife SysML v2 Language Server Technologie mit VS Code Integration, KI-Unterstützung und Compliance-Varianten. Entwickelt für OEM/Tier-1 Teams, die Performance, Zuverlässigkeit und regulatorische Compliance fordern.',
+    'hero.cta.primary': 'Kostenlos starten',
+    'hero.cta.secondary': 'Features ansehen',
   }
 }
 
@@ -71,6 +71,8 @@ export const getLanguage = () => {
   return currentLang
 }
 
+// Note: This standalone t function is kept for backwards compatibility
+// but components should use useTranslation hook to get reactive translations
 export const t = (key) => {
   const translations = getTranslations()
   if (translations && translations[key]) {
@@ -91,7 +93,9 @@ export const useTranslation = () => {
   const [lang, setLang] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
-        return localStorage.getItem('sysnex-lang') || 'en'
+        const savedLang = localStorage.getItem('sysnex-lang') || 'en'
+        currentLang = savedLang
+        return savedLang
       } catch (e) {
         return 'en'
       }
@@ -99,18 +103,34 @@ export const useTranslation = () => {
     return 'en'
   })
 
+  // Create a memoized t function that depends on lang
+  const t = (key) => {
+    const translations = getTranslations()
+    if (translations && translations[key]) {
+      return translations[key]
+    }
+    // Try fallback translations
+    const fallback = fallbackTranslations[currentLang] || fallbackTranslations.en
+    if (fallback && fallback[key]) {
+      return fallback[key]
+    }
+    // Final fallback - return key or a readable version
+    const parts = key.split('.')
+    return parts[parts.length - 1] || key
+  }
+
   useEffect(() => {
-    // Update currentLang
+    // Update currentLang to match state
     currentLang = lang
     
-    // Listen for language changes
+    // Listen for language changes from localStorage or events
     const handleLanguageChange = () => {
       if (typeof window !== 'undefined') {
         try {
           const newLang = localStorage.getItem('sysnex-lang') || 'en'
           if (newLang !== lang) {
-            setLang(newLang)
             currentLang = newLang
+            setLang(newLang)
           }
         } catch (e) {
           // Ignore
@@ -118,20 +138,34 @@ export const useTranslation = () => {
       }
     }
     
-    // Add listener
+    // Add listener for programmatic changes
     const listener = (newLang) => {
       if (newLang !== lang) {
+        currentLang = newLang
         setLang(newLang)
       }
     }
     listeners.push(listener)
     
-    // Listen to custom events
+    // Listen to custom events (from static i18n or Header)
     window.addEventListener('languagechange', handleLanguageChange)
+    
+    // Also listen to storage events (for cross-tab sync)
+    const handleStorageChange = (e) => {
+      if (e.key === 'sysnex-lang') {
+        const newLang = e.newValue || 'en'
+        if (newLang !== lang) {
+          currentLang = newLang
+          setLang(newLang)
+        }
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
     
     return () => {
       listeners = listeners.filter(l => l !== listener)
       window.removeEventListener('languagechange', handleLanguageChange)
+      window.removeEventListener('storage', handleStorageChange)
     }
   }, [lang])
 

@@ -2,9 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
+import { useTranslation } from '../utils/i18n'
 import './Page.css'
 
 const Methods = () => {
+  const { t } = useTranslation()
   const highlights = [
     {
       title: 'From Vision to Reality',
@@ -97,11 +99,9 @@ const Methods = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1>MBSE Methodology</h1>
+            <h1>{t('methods.title')}</h1>
             <p className="page-hero-description">
-              SysNex Systems provides practical, proven methods for adopting Model-Based Systems Engineering 
-              with SysML v2. Our methodology bridges the gap between traditional systems engineering and 
-              modern software development practices.
+              {t('methods.intro')}
             </p>
           </motion.div>
         </div>
@@ -109,7 +109,9 @@ const Methods = () => {
 
       <section className="page-content-section">
         <div className="container">
-          <h2 className="section-title">Our Approach</h2>
+          <div className="section-header">
+            <h2 className="section-title">{t('methods.highlights.heading')}</h2>
+          </div>
           <div className="features-grid">
             {highlights.map((highlight, index) => (
               <motion.div
@@ -131,7 +133,9 @@ const Methods = () => {
 
       <section className="page-section-alt">
         <div className="container">
-          <h2 className="section-title">Core Methodological Approaches</h2>
+          <div className="section-header">
+            <h2 className="section-title">{t('methods.core.heading')}</h2>
+          </div>
           <div className="methods-grid">
             {approaches.map((approach, index) => (
               <motion.div
@@ -158,34 +162,54 @@ const Methods = () => {
 
       <section className="page-content-section">
         <div className="container">
-          <h2 className="section-title">Implementation Approach</h2>
+          <div className="section-header">
+            <h2 className="section-title">{t('methods.implementation.heading')}</h2>
+            <p className="section-subtitle">{t('methods.implementation.intro')}</p>
+          </div>
           <div className="benefits-grid">
             <div className="benefit-item">
-              <h3 className="benefit-title">Incremental adoption</h3>
-              <p className="benefit-description">Start small, scale gradually with proven patterns</p>
+              <h3 className="benefit-title">{t('methods.implementation.item1.lead')}</h3>
+              <p className="benefit-description">{t('methods.implementation.item1.body')}</p>
             </div>
             <div className="benefit-item">
-              <h3 className="benefit-title">Developer-friendly</h3>
-              <p className="benefit-description">Textual modeling, Git workflows, and IDE integration</p>
+              <h3 className="benefit-title">{t('methods.implementation.item2.lead')}</h3>
+              <p className="benefit-description">{t('methods.implementation.item2.body')}</p>
             </div>
             <div className="benefit-item">
-              <h3 className="benefit-title">Standards-aligned</h3>
-              <p className="benefit-description">Compatible with industry standards and best practices</p>
+              <h3 className="benefit-title">{t('methods.implementation.item3.lead')}</h3>
+              <p className="benefit-description">{t('methods.implementation.item3.body')}</p>
             </div>
             <div className="benefit-item">
-              <h3 className="benefit-title">Tool-agnostic</h3>
-              <p className="benefit-description">Methods that work across different toolchains</p>
+              <h3 className="benefit-title">{t('methods.implementation.item4.lead')}</h3>
+              <p className="benefit-description">{t('methods.implementation.item4.body')}</p>
             </div>
             <div className="benefit-item">
-              <h3 className="benefit-title">Practical focus</h3>
-              <p className="benefit-description">Real-world applicability over theoretical perfection</p>
+              <h3 className="benefit-title">{t('methods.implementation.item5.lead')}</h3>
+              <p className="benefit-description">{t('methods.implementation.item5.body')}</p>
             </div>
           </div>
-          <p className="page-cta">
-            <span>Interested in learning more about our methodology or discussing how it applies to your organization? </span>
-            <Link to="/contact">Get in touch</Link>
-            <span> to explore collaboration opportunities.</span>
-          </p>
+        </div>
+      </section>
+
+      <section className="page-section-alt">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="cta-content"
+          >
+            <h2>{t('methods.cta.heading') || 'Ready to Transform Your MBSE Workflow?'}</h2>
+            <p>
+              {t('methods.cta.before')}
+              <Link to="/contact" className="btn primary">{t('methods.cta.link')}</Link>
+              {t('methods.cta.after')}
+            </p>
+            <div className="cta-buttons">
+              <Link to="/contact" className="btn primary large">{t('methods.cta.link')}</Link>
+              <Link to="/product" className="btn ghost large">{t('about.cta.secondary')}</Link>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
