@@ -1,92 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useSysMLWasm } from '../../hooks/useSysMLWasm'
-import { safeWasmCall, formatWasmError } from '../../utils/wasmErrorHandler'
+import React, { useState } from 'react'
+import { useSysMLCst } from '../../hooks/useSysMLCst'
+import { formatWasmError } from '../../utils/wasmErrorHandler'
 import ErrorDisplay from './ErrorDisplay'
+import TreeView from './TreeView'
 import './CstTab.css'
 
 export default function CstTab({ code }) {
-  const { wasm } = useSysMLWasm()
-  const [cstData, setCstData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    if (!code || code.trim().length === 0) {
-      setCstData(null)
-      setError(null)
-      return
-    }
-
-    const generateCst = async () => {
-      setLoading(true)
-      setError(null)
-
-      if (!wasm) {
-        // More user-friendly error message
-        setError('WASM module is not available. Some features may be limited. The documentation view will still work with basic parsing.')
-        setLoading(false)
-        return
-      }
-
-      try {
-        // Validate code before calling WASM
-        if (!code || code.trim().length === 0) {
-          setError('Please enter some SysML v2 code to generate CST')
-          setLoading(false)
-          return
-        }
-
-        // Log the code being processed for debugging
-        console.group('🔍 CST Generation Debug')
-        console.log('Code length:', code.length)
-        console.log('Line count:', code.split('\n').length)
-        console.log('First line:', code.split('\n')[0])
-        console.log('Full code:', code)
-        console.groupEnd()
-
-        // Call WASM with additional error handling
-        let cst
-        try {
-          cst = await safeWasmCall(wasm.generate_cst.bind(wasm), code, 'editor://current')
-        } catch (wasmErr) {
-          // Log detailed error information
-          console.error('🔴 CST Generation Failed:', {
-            error: wasmErr,
-            codeLength: code.length,
-            codePreview: code.substring(0, 200),
-            errorType: wasmErr?.constructor?.name,
-            errorMessage: wasmErr?.message
-          })
-          throw wasmErr
-        }
-
-        // Validate the result
-        if (!cst) {
-          throw new Error('CST generation returned null or undefined')
-        }
-
-        setCstData(cst)
-      } catch (err) {
-        console.error('🔴 CST Error Details:', {
-          error: err,
-          code: code?.substring(0, 500),
-          stack: err?.stack
-        })
-        
-        const errorMsg = formatWasmError(err, { 
-          code, 
-          functionName: 'generate_cst' 
-        })
-        setError(errorMsg)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    // Debounce to avoid too many calls
-    const timeoutId = setTimeout(generateCst, 300)
-    return () => clearTimeout(timeoutId)
-  }, [code, wasm])
+  const { cstData, loading, error } = useSysMLCst(code, 'editor://current')
+  const [viewMode, setViewMode] = useState('tree')
 
   if (loading) {
     return (
@@ -97,10 +18,14 @@ export default function CstTab({ code }) {
   }
 
   if (error) {
+    const errorMsg = formatWasmError(error, { 
+      code, 
+      functionName: 'generate_cst' 
+    })
     return (
       <div className="cst-tab">
         <ErrorDisplay 
-          error={error} 
+          error={errorMsg} 
           code={code} 
           functionName="generate_cst"
         />
@@ -135,9 +60,29 @@ export default function CstTab({ code }) {
         )}
       </div>
       <div className="cst-content">
-        <pre className="cst-tree">
-          {JSON.stringify(cstData.root, null, 2)}
-        </pre>
+        <div className="cst-view-toggle">
+          <button 
+            className={`cst-view-btn ${viewMode === 'tree' ? 'active' : ''}`}
+            onClick={() => setViewMode('tree')}
+          >
+            Tree View
+          </button>
+          <button 
+            className={`cst-view-btn ${viewMode === 'json' ? 'active' : ''}`}
+            onClick={() => setViewMode('json')}
+          >
+            JSON View
+          </button>
+        </div>
+        {viewMode === 'tree' ? (
+          <div className="cst-tree-view">
+            <TreeView data={cstData.root || cstData} rootKey="root" maxDepth={8} />
+          </div>
+        ) : (
+          <pre className="cst-json-view">
+            {JSON.stringify(cstData.root || cstData, null, 2)}
+          </pre>
+        )}
       </div>
     </div>
   )

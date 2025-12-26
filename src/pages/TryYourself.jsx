@@ -5,8 +5,30 @@ import DocumentationTabs from '../components/DocumentationTabs/DocumentationTabs
 import './Page.css'
 import './TryYourself.css'
 
+const DEFAULT_UVL_EXAMPLE = `namespace Vehicle
+
+features
+    Vehicle
+        mandatory
+            Engine
+                alternative
+                    GasEngine
+                    ElectricMotor
+            Transmission
+                alternative
+                    Manual
+                    Automatic
+        optional
+            AirConditioning
+            Navigation
+
+constraints
+    ElectricMotor => Automatic
+    GasEngine => !ElectricMotor`
+
 export default function TryYourself() {
   const [editorCode, setEditorCode] = useState(DEFAULT_EXAMPLE)
+  const [uvlCode, setUvlCode] = useState(DEFAULT_UVL_EXAMPLE)
 
   return (
     <div className="page">
@@ -28,6 +50,28 @@ export default function TryYourself() {
             </div>
             <div className="documentation-column">
               <DocumentationTabs code={editorCode} />
+            </div>
+          </div>
+
+          {/* UVL Demo Section */}
+          <div className="try-yourself-uvl-section">
+            <div className="try-yourself-uvl-header">
+              <h2>UVL Variability Demo</h2>
+              <p className="try-yourself-uvl-description">
+                Try the Universal Variability Language (UVL) for feature modeling and variability management.
+              </p>
+            </div>
+            <div className="try-yourself-uvl-grid">
+              <div className="editor-column">
+                <TryYourselfEditor 
+                  defaultCode={DEFAULT_UVL_EXAMPLE}
+                  defaultExample="UVL Variability"
+                  onCodeChange={setUvlCode}
+                />
+              </div>
+              <div className="documentation-column">
+                <DocumentationTabs code={uvlCode} />
+              </div>
             </div>
           </div>
 

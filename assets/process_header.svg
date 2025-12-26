@@ -37,19 +37,19 @@
        y2="0%">
       <stop
          offset="0%"
-         style="stop-color:#00ccff;stop-opacity:0.5"
+         style="stop-color:#00B4D8;stop-opacity:0.5"
          id="stop1" />
       <stop
          offset="25%"
-         style="stop-color:#00ccff;stop-opacity:0.8"
+         style="stop-color:#00B4D8;stop-opacity:0.8"
          id="stop2" />
       <stop
          offset="50%"
-         style="stop-color:#00ccff;stop-opacity:0.5"
+         style="stop-color:#00B4D8;stop-opacity:0.5"
          id="stop3" />
       <stop
          offset="100%"
-         style="stop-color:#00ccff;stop-opacity:0.2"
+         style="stop-color:#00B4D8;stop-opacity:0.2"
          id="stop4" />
     </linearGradient>
     <linearGradient
@@ -124,7 +124,7 @@
      y="32"
      font-family="Lexend Exa, sans-serif"
      font-size="32"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="700"
      text-anchor="middle"
      id="text10">Shift Left: Quality &amp; Effort </text>
@@ -133,7 +133,7 @@
      y="60"
      font-family="Lexend Exa, sans-serif"
      font-size="16"
-     fill="#ff6600"
+     fill="#FBBF24"
      text-anchor="middle"
      opacity="0.95"
      id="text12">Early MBSE investment delivers superior product quality</text>
@@ -145,7 +145,7 @@
      height="280"
      rx="12"
      fill="rgba(0,204,255,0.03)"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2"
      opacity="0.3"
      id="rect12" />
@@ -155,7 +155,7 @@
      y1="340"
      x2="1100"
      y2="340"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2.5"
      opacity="0.6"
      id="line12" />
@@ -164,7 +164,7 @@
      y1="340"
      x2="100"
      y2="120"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2.5"
      opacity="0.6"
      id="line13" />
@@ -174,7 +174,7 @@
      y="90.124901"
      font-family="'Lexend Exa', sans-serif"
      font-size="14px"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="600"
      transform="rotate(-90)"
      id="text13">Attention to Quality</text>
@@ -184,7 +184,7 @@
      y="370"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      font-weight="600"
      opacity="0.9"
@@ -194,7 +194,7 @@
      y="370"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      font-weight="600"
      opacity="0.9"
@@ -204,7 +204,7 @@
      y="370"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      font-weight="600"
      opacity="0.9"
@@ -214,7 +214,7 @@
      y="370"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      font-weight="600"
      opacity="0.9"
@@ -224,7 +224,7 @@
      y="370"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      font-weight="600"
      opacity="0.9"
@@ -235,7 +235,7 @@
      y1="120"
      x2="320"
      y2="340"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="1"
      stroke-dasharray="4,4"
      opacity="0.25"
@@ -245,7 +245,7 @@
      y1="120"
      x2="520"
      y2="340"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="1"
      stroke-dasharray="4,4"
      opacity="0.25"
@@ -255,7 +255,7 @@
      y1="120"
      x2="720"
      y2="340"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="1"
      stroke-dasharray="4,4"
      opacity="0.25"
@@ -265,7 +265,7 @@
      y1="120"
      x2="920"
      y2="340"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="1"
      stroke-dasharray="4,4"
      opacity="0.25"
@@ -291,7 +291,7 @@
   <path
      d="m 120,330 c 53.33333,-46.66667 106.66667,-96.66667 160,-150 46.66667,-33.33333 86.66667,-48.33333 120,-45 66.66667,10 117.03378,85.80843 183.79296,98.67053 l 492.15734,94.8211"
      fill="url(#shiftLeftGrad)"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="5"
      opacity="0.85"
      filter="url(#strongGlow)"
@@ -308,7 +308,7 @@
      cx="387.04468"
      cy="131.15764"
      r="12"
-     fill="#00ccff"
+     fill="#00B4D8"
      opacity="1"
      filter="url(#strongGlow)"
      id="circle22">
@@ -325,7 +325,7 @@
      height="35.843609"
      rx="5.984405"
      fill="rgba(0,204,255,0.15)"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2.25991"
      id="rect22" />
   <text
@@ -333,7 +333,7 @@
      y="102.54878"
      font-family="'Lexend Exa', sans-serif"
      font-size="11px"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="700"
      text-anchor="middle"
      id="text22">Peak Quality</text>
@@ -342,7 +342,7 @@
      y="91.548782"
      font-family="'Lexend Exa', sans-serif"
      font-size="10px"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="600"
      text-anchor="middle"
      id="text23">Early Phase</text>
@@ -364,7 +364,7 @@
   <!-- Shift Left arrow (from traditional peak to early peak) -->
   <path
      d="M 863.4062,131.17541 417.12606,129.99879"
-     stroke="#ff6600"
+     stroke="#FBBF24"
      stroke-width="2.87172"
      fill="none"
      stroke-dasharray="8, 4"
@@ -383,14 +383,14 @@
      y="122.45921"
      font-family="'Lexend Exa', sans-serif"
      font-size="14px"
-     fill="#ff6600"
+     fill="#FBBF24"
      font-weight="700"
      text-anchor="middle"
      id="text24">Shift Left</text>
   <!-- Animated flow particles along Shift Left curve - using exact curve path -->
   <circle
      r="4"
-     fill="#00ccff"
+     fill="#00B4D8"
      opacity="0.9"
      id="circle24">
     <animateMotion
@@ -405,7 +405,7 @@
   </circle>
   <circle
      r="4"
-     fill="#00ccff"
+     fill="#00B4D8"
      opacity="0.9"
      id="circle25">
     <animateMotion
@@ -422,7 +422,7 @@
   </circle>
   <circle
      r="4"
-     fill="#00ccff"
+     fill="#00B4D8"
      opacity="0.9"
      id="circle26">
     <animateMotion
@@ -495,7 +495,7 @@
      height="48"
      rx="8"
      fill="rgba(0,204,255,0.12)"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2"
      filter="url(#glow)"
      id="rect26"
@@ -505,7 +505,7 @@
      y="161"
      font-family="Lexend Exa, sans-serif"
      font-size="12"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="700"
      text-anchor="middle"
      id="text26">Early MBSE</text>
@@ -514,7 +514,7 @@
      y="176"
      font-family="Lexend Exa, sans-serif"
      font-size="12"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="700"
      text-anchor="middle"
      id="text27">Investment</text>
@@ -523,13 +523,13 @@
      y="190"
      font-family="Lexend Exa, sans-serif"
      font-size="10"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      opacity="0.9"
      id="text28">SysML v2 Modeling</text>
   <path
      d="m 125.99678,309.94054 51.90436,-48.1138"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="2"
      fill="none"
      marker-end="url(#arrowCallout)"
@@ -542,7 +542,7 @@
      height="85"
      rx="10"
      fill="rgba(0,204,255,0.15)"
-     stroke="#00ccff"
+     stroke="#00B4D8"
      stroke-width="3"
      filter="url(#strongGlow)"
      id="rect28"
@@ -552,7 +552,7 @@
      y="128"
      font-family="Lexend Exa, sans-serif"
      font-size="15"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="700"
      text-anchor="middle"
      id="text29">Result</text>
@@ -561,7 +561,7 @@
      y="148"
      font-family="Lexend Exa, sans-serif"
      font-size="13"
-     fill="#00ccff"
+     fill="#00B4D8"
      font-weight="600"
      text-anchor="middle"
      id="text30">Superior Quality</text>
@@ -570,7 +570,7 @@
      y="166"
      font-family="Lexend Exa, sans-serif"
      font-size="12"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      opacity="0.9"
      id="text31">Higher Quality</text>
@@ -579,7 +579,7 @@
      y="182"
      font-family="Lexend Exa, sans-serif"
      font-size="12"
-     fill="#00ccff"
+     fill="#00B4D8"
      text-anchor="middle"
      opacity="0.9"
      id="text32">Better Outcomes</text>
@@ -593,7 +593,7 @@
        width="18"
        height="18"
        rx="3"
-       fill="#00ccff"
+       fill="#00B4D8"
        opacity="0.7"
        id="rect32" />
     <text
@@ -601,7 +601,7 @@
        y="14"
        font-family="Lexend Exa, sans-serif"
        font-size="13"
-       fill="#00ccff"
+       fill="#00B4D8"
        font-weight="600"
        id="text33">Shift Left Model (MBSE)</text>
     <rect
@@ -634,7 +634,7 @@
        orient="auto">
       <polygon
          points="0 0, 10 5, 0 10"
-         fill="#00ccff"
+         fill="#00B4D8"
          id="polygon34" />
     </marker>
     <marker
@@ -646,7 +646,7 @@
        orient="auto">
       <polygon
          points="0 0, 12 6, 0 12"
-         fill="#ff6600"
+         fill="#FBBF24"
          id="polygon35" />
     </marker>
   </defs>

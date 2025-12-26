@@ -104,15 +104,40 @@ export function useSysMLParser(code) {
           console.log('🔍 Calling WASM parse with code length:', code.length)
           console.log('🔍 Code preview:', code.substring(0, 200))
           
-          // Test with invalid syntax to see if parser finds errors
-          const testInvalidCode = "package UnquotedPackage { part def Test { attribute name; } }"
-          console.log('🧪 Testing with invalid code:', testInvalidCode)
-          const testDiags = wasm.parse(testInvalidCode)
-          console.log('🧪 Test diagnostics:', testDiags, 'length:', testDiags?.length)
+          // Detect UVL code (starts with 'namespace' instead of 'package')
+          const isUvlCode = code.trim().startsWith('namespace') || code.trim().startsWith('features')
           
-          // Use WASM parser - parse is synchronous and returns Result directly
-          // wasm-bindgen converts Result<T, E> to throw on Err, return value on Ok
-          const diags = wasm.parse(code)
+          let diags
+          if (isUvlCode && wasm.parse_uvl) {
+            // Use UVL parser for UVL code
+            console.log('🌳 Detected UVL code, using parse_uvl()')
+            try {
+              const uvlResult = wasm.parse_uvl(code)
+              // UVL parser returns a different structure, convert to diagnostics format if needed
+              // For now, return empty diagnostics for UVL (parsing succeeds if no error thrown)
+              console.log('✅ UVL parsed successfully:', uvlResult)
+              diags = []
+            } catch (uvlErr) {
+              // Convert UVL parse error to diagnostics format
+              console.warn('⚠️ UVL parse error:', uvlErr)
+              diags = [{
+                line: 1,
+                message: uvlErr.message || 'UVL parsing error',
+                severity: 'error'
+              }]
+            }
+          } else {
+            // Use SysML parser for SysML code
+            // Test with invalid syntax to see if parser finds errors
+            const testInvalidCode = "package UnquotedPackage { part def Test { attribute name; } }"
+            console.log('🧪 Testing with invalid code:', testInvalidCode)
+            const testDiags = wasm.parse(testInvalidCode)
+            console.log('🧪 Test diagnostics:', testDiags, 'length:', testDiags?.length)
+            
+            // Use WASM parser - parse is synchronous and returns Result directly
+            // wasm-bindgen converts Result<T, E> to throw on Err, return value on Ok
+            diags = wasm.parse(code)
+          }
           
           console.log('📦 WASM parse returned:', diags, 'type:', typeof diags, 'isArray:', Array.isArray(diags))
           console.log('📦 Diagnostics details:', JSON.stringify(diags, null, 2))
@@ -202,6 +227,17 @@ export function useSysMLParser(code) {
   return diagnostics
 }
 
+// Cache for WASM results to avoid redundant calls
+const documentationCache = new Map()
+const analyticsCache = new Map()
+const cstCache = new Map()
+const hirCache = new Map()
+
+// Cache key generator
+function getCacheKey(code, fileUri) {
+  return `${fileUri}:${code.length}:${code.substring(0, 100).replace(/\s/g, '')}`
+}
+
 /**
  * Generate documentation from SysML code
  * @param {string} code - The SysML code to generate documentation from
@@ -213,6 +249,7 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
   const [documentation, setDocumentation] = useState({ chapters: [], file_uri: fileUri })
   const [loading, setLoading] = useState(false)
   const prevRefreshKeyRef = useRef(refreshKey)
+  const cacheKeyRef = useRef(null)
 
   useEffect(() => {
     if (!code || code.trim().length === 0) {
@@ -221,6 +258,17 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
     }
 
     const generateDoc = async () => {
+      const cacheKey = getCacheKey(code, fileUri)
+      
+      // Check cache first (unless manual refresh)
+      const isManualRefresh = prevRefreshKeyRef.current !== refreshKey
+      if (!isManualRefresh && cacheKeyRef.current === cacheKey && documentationCache.has(cacheKey)) {
+        console.log('📦 [useSysMLDocumentation] Using cached documentation')
+        setDocumentation(documentationCache.get(cacheKey))
+        setLoading(false)
+        return
+      }
+      
       setLoading(true)
       console.log('🔄 [useSysMLDocumentation] Generating documentation, refreshKey:', refreshKey)
       
@@ -276,6 +324,14 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
               console.warn('  Code preview:', code.substring(0, 200))
             }
             setDocumentation(doc)
+            // Cache the result
+            documentationCache.set(cacheKey, doc)
+            cacheKeyRef.current = cacheKey
+            // Limit cache size to prevent memory issues
+            if (documentationCache.size > 10) {
+              const firstKey = documentationCache.keys().next().value
+              documentationCache.delete(firstKey)
+            }
           } else {
             console.error('❌ WASM returned invalid documentation structure:', doc)
             setDocumentation({ chapters: [], file_uri: fileUri })
@@ -313,8 +369,8 @@ export function useSysMLDocumentation(code, fileUri = 'editor://current', refres
     // Update ref for next comparison
     prevRefreshKeyRef.current = refreshKey
 
-    // Debounce to avoid too many calls (reduced from 300ms to 200ms for better responsiveness)
-    const timeoutId = setTimeout(generateDoc, 200)
+    // Debounce to avoid too many calls (optimized: 150ms for better responsiveness)
+    const timeoutId = setTimeout(generateDoc, 150)
     return () => clearTimeout(timeoutId)
   }, [code, fileUri, wasm, refreshKey])
 

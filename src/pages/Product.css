@@ -1,0 +1,130 @@
+/* Standards Section */
+.standards-section {
+  padding: 6rem 0;
+  background: var(--bg-primary);
+  transition: background-color 0.3s ease;
+}
+
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.standards-item {
+  padding: 2.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.standards-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.standards-item h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.standards-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.standards-item li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.standards-item li:last-child {
+  border-bottom: none;
+}
+
+.standards-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Security Section */
+.security-section {
+  padding: 6rem 0;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.security-item {
+  padding: 2.5rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.security-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.security-item h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.security-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.security-item li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.security-item li:last-child {
+  border-bottom: none;
+}
+
+.security-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .standards-section,
+  .security-section {
+    padding: 4rem 0;
+  }
+  
+  .standards-grid,
+  .security-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .standards-item,
+  .security-item {
+    padding: 2rem;
+  }
+}
+

@@ -36,8 +36,8 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 204, 255, 0.15);
-  border-color: rgba(0, 204, 255, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 180, 216, 0.15);
+  border-color: rgba(0, 180, 216, 0.2);
 }
 
 .card:hover::before {

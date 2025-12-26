@@ -8,7 +8,7 @@
 .cst-header {
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,7 +18,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }
 
 .cst-stats {
@@ -34,17 +34,55 @@
   padding: 1.5rem;
 }
 
-.cst-tree {
+.cst-view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+.cst-view-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  border-radius: 6px;
+  color: var(--text-primary, #d4d4d4);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.cst-view-btn:hover {
+  background: rgba(0, 180, 216, 0.1);
+  border-color: var(--turquoise, #00B4D8);
+}
+
+.cst-view-btn.active {
+  background: var(--turquoise, #00B4D8);
+  border-color: var(--turquoise, #00B4D8);
+  color: white;
+}
+
+.cst-tree-view {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.cst-tree,
+.cst-json-view {
   margin: 0;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 204, 255, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.1);
   border-radius: 6px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .cst-loading,
@@ -86,5 +124,5 @@
   border-radius: 4px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.8125rem;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }

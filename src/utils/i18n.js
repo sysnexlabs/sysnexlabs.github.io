@@ -1,35 +1,29 @@
 // Simple i18n utility for React components
-// Uses the same translations as the static i18n.js file
+// Integrates with the global i18n.js translations file
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 let currentLang = 'en'
 let listeners = []
 
-// Fallback translations for critical navigation items and hero content
+// Minimal fallback translations for critical navigation items
+// These are used only if the global translations fail to load
 const fallbackTranslations = {
   en: {
     'nav.home': 'Home',
     'nav.product': 'Product',
-    'nav.product.overview': 'Overview',
     'nav.pricing': 'Pricing',
-    'nav.consulting': 'Consulting',
+    'nav.consulting': 'Competences',
     'nav.methods': 'Methods',
     'nav.process': 'Process',
     'nav.tools': 'Tools',
     'nav.about': 'About',
     'nav.contact': 'Contact',
     'nav.try-yourself': 'Try Yourself',
-    'hero.kicker': 'SysML v2 in Production',
-    'hero.headline': 'MBSE Platform for Engineering Teams',
-    'hero.paragraph': 'Deliver production-ready SysML v2 language tooling, ISO 15288-aligned workflows, and AI-assisted automation. Compliance extensions advance along a transparent roadmap you can track.',
-    'hero.cta.primary': 'Get in touch',
-    'hero.cta.secondary': 'Learn more',
   },
   de: {
     'nav.home': 'Startseite',
     'nav.product': 'Produkt',
-    'nav.product.overview': 'Übersicht',
     'nav.pricing': 'Preise',
     'nav.consulting': 'Beratung',
     'nav.methods': 'Methoden',
@@ -38,30 +32,49 @@ const fallbackTranslations = {
     'nav.about': 'Über uns',
     'nav.contact': 'Kontakt',
     'nav.try-yourself': 'Selbst testen',
-    'hero.kicker': 'SysML v2 in Produktion',
-    'hero.headline': 'MBSE-Plattform für Ingenieurteams',
-    'hero.paragraph': 'Liefern Sie produktionsreife SysML v2-Sprachtools, ISO-15288-konforme Workflows und KI-gestützte Automatisierung. Compliance-Erweiterungen entwickeln sich entlang einer transparenten Roadmap, die Sie verfolgen können.',
-    'hero.cta.primary': 'Kontakt aufnehmen',
-    'hero.cta.secondary': 'Mehr erfahren',
   }
 }
 
 // Load translations from the global i18n.js file
 const getTranslations = () => {
-  if (typeof window !== 'undefined' && window.translations) {
-    return window.translations[currentLang] || window.translations.en || {}
+  if (typeof window !== 'undefined') {
+    // Check if global translations are available
+    if (window.translations && window.translations[currentLang]) {
+      return window.translations[currentLang]
+    }
+    // Fallback to English global translations
+    if (window.translations && window.translations.en) {
+      return window.translations.en
+    }
   }
-  // Use fallback translations if window.translations not loaded yet
+  // Use fallback translations only as last resort
   return fallbackTranslations[currentLang] || fallbackTranslations.en || {}
 }
 
 export const setLanguage = (lang) => {
   currentLang = lang
+
+  // Save to localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('sysnex-lang', lang)
+    } catch (e) {
+      console.warn('Failed to save language preference:', e)
+    }
+  }
+
+  // Update global i18n if available
   if (typeof window !== 'undefined' && window.setLanguage) {
     window.setLanguage(lang)
   }
+
   // Notify all listeners
   listeners.forEach(listener => listener(lang))
+
+  // Dispatch custom event for cross-component communication
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('languagechange', { detail: { lang } }))
+  }
 }
 
 export const getLanguage = () => {
@@ -71,90 +84,155 @@ export const getLanguage = () => {
   return currentLang
 }
 
+// Standalone translation function (for non-React contexts)
 export const t = (key) => {
   const translations = getTranslations()
+
   if (translations && translations[key]) {
     return translations[key]
   }
+
   // Try fallback translations
   const fallback = fallbackTranslations[currentLang] || fallbackTranslations.en
   if (fallback && fallback[key]) {
     return fallback[key]
   }
-  // Final fallback - return key or a readable version
-  const parts = key.split('.')
-  return parts[parts.length - 1] || key
+
+  // Final fallback - return full key to help debugging
+  // In development, this makes it obvious what's missing
+  console.warn(`[i18n] Missing translation for key: ${key}`)
+  return key
 }
 
-// React hook for translations
+// React hook for translations with reactive updates
 export const useTranslation = () => {
   const [lang, setLang] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
-        return localStorage.getItem('sysnex-lang') || 'en'
+        // Try to get from localStorage first
+        const savedLang = localStorage.getItem('sysnex-lang')
+        if (savedLang && (savedLang === 'en' || savedLang === 'de')) {
+          currentLang = savedLang
+          return savedLang
+        }
+
+        // Try to get from global i18n
+        if (window.getLanguage) {
+          const globalLang = window.getLanguage()
+          currentLang = globalLang
+          return globalLang
+        }
       } catch (e) {
-        return 'en'
+        console.warn('Failed to load language preference:', e)
       }
     }
     return 'en'
   })
 
-  useEffect(() => {
-    // Update currentLang
-    currentLang = lang
-    
-    // Listen for language changes
-    const handleLanguageChange = () => {
-      if (typeof window !== 'undefined') {
-        try {
-          const newLang = localStorage.getItem('sysnex-lang') || 'en'
-          if (newLang !== lang) {
-            setLang(newLang)
-            currentLang = newLang
-          }
-        } catch (e) {
-          // Ignore
-        }
+  // Add a render counter to force re-renders when translations load
+  const [, forceUpdate] = useState(0)
+
+  // Memoized translation function that updates when lang changes
+  const t = useMemo(() => {
+    return (key) => {
+      const translations = getTranslations()
+
+      if (translations && translations[key]) {
+        return translations[key]
       }
-    }
-    
-    // Add listener
-    const listener = (newLang) => {
-      if (newLang !== lang) {
-        setLang(newLang)
+
+      // Try fallback translations
+      const fallback = fallbackTranslations[lang] || fallbackTranslations.en
+      if (fallback && fallback[key]) {
+        return fallback[key]
       }
-    }
-    listeners.push(listener)
-    
-    // Listen to custom events
-    window.addEventListener('languagechange', handleLanguageChange)
-    
-    return () => {
-      listeners = listeners.filter(l => l !== listener)
-      window.removeEventListener('languagechange', handleLanguageChange)
+
+      // Final fallback - return full key to help debugging
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(`[i18n] Missing translation for key: ${key}`)
+      }
+      return key
     }
   }, [lang])
 
-  return { t, lang }
+  useEffect(() => {
+    // Sync currentLang with component state
+    currentLang = lang
+
+    // Force re-render when global translations become available
+    const checkTranslationsLoaded = () => {
+      if (window.translations && Object.keys(window.translations).length > 0) {
+        const translationCount = Object.keys(window.translations[lang] || {}).length
+        if (translationCount > 0) {
+          console.log(`[i18n] Loaded ${translationCount} translations for language: ${lang}`)
+          // Force re-render by updating the counter
+          forceUpdate(n => n + 1)
+        }
+      }
+    }
+
+    // Check immediately
+    checkTranslationsLoaded()
+
+    // Also check after short delays in case translations load async
+    const timeoutId1 = setTimeout(checkTranslationsLoaded, 50)
+    const timeoutId2 = setTimeout(checkTranslationsLoaded, 150)
+
+    // Listen for language changes from various sources
+    const handleLanguageChange = (event) => {
+      const newLang = event?.detail?.lang || localStorage.getItem('sysnex-lang') || 'en'
+      if (newLang !== lang && (newLang === 'en' || newLang === 'de')) {
+        setLang(newLang)
+        currentLang = newLang
+      }
+    }
+
+    // Add internal listener for programmatic changes
+    const internalListener = (newLang) => {
+      if (newLang !== lang && (newLang === 'en' || newLang === 'de')) {
+        setLang(newLang)
+      }
+    }
+    listeners.push(internalListener)
+
+    // Listen to custom languagechange events
+    window.addEventListener('languagechange', handleLanguageChange)
+
+    // Listen to storage events for cross-tab synchronization
+    const handleStorageChange = (e) => {
+      if (e.key === 'sysnex-lang' && e.newValue) {
+        const newLang = e.newValue
+        if (newLang !== lang && (newLang === 'en' || newLang === 'de')) {
+          setLang(newLang)
+          currentLang = newLang
+        }
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
+
+    // Cleanup
+    return () => {
+      clearTimeout(timeoutId1)
+      clearTimeout(timeoutId2)
+      listeners = listeners.filter(l => l !== internalListener)
+      window.removeEventListener('languagechange', handleLanguageChange)
+      window.removeEventListener('storage', handleStorageChange)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang])
+
+  return { t, lang, setLanguage }
 }
 
-// Initialize from localStorage or default to 'en'
+// Initialize from localStorage on module load
 if (typeof window !== 'undefined') {
   try {
-    const savedLang = localStorage.getItem('sysnex-lang') || 'en'
-    currentLang = savedLang
-    
-    // Listen for language changes from static i18n
-    window.addEventListener('languagechange', () => {
-      const newLang = localStorage.getItem('sysnex-lang') || 'en'
-      if (newLang !== currentLang) {
-        currentLang = newLang
-        listeners.forEach(listener => listener(newLang))
-      }
-    })
+    const savedLang = localStorage.getItem('sysnex-lang')
+    if (savedLang && (savedLang === 'en' || savedLang === 'de')) {
+      currentLang = savedLang
+    }
   } catch (e) {
-    // localStorage might not be available
+    console.warn('Failed to initialize language:', e)
     currentLang = 'en'
   }
 }
-

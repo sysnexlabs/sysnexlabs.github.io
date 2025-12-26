@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { t } from '../utils/i18n'
+import { useTranslation } from '../utils/i18n'
+import { useTheme } from '../contexts/ThemeContext'
 import ThemeToggle from './ThemeToggle'
 import './Header.css'
 
 const Header = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { theme } = useTheme()
+  const { t, lang } = useTranslation()
   const [activePage, setActivePage] = useState('home')
-  const [lang, setLang] = useState('en')
   const [menuOpen, setMenuOpen] = useState(false)
   const [productOpen, setProductOpen] = useState(false)
   const [consultingOpen, setConsultingOpen] = useState(false)
@@ -22,9 +24,11 @@ const Header = () => {
       page = 'home'
     } else if (path === '/contact' || path === '/contact.html') {
       page = 'contact'
+    } else if (path === '/pricing' || path === '/pricing.html') {
+      page = 'pricing'
     } else if (path === '/product' || path.includes('/try-yourself')) {
       page = 'product'
-    } else if (path === '/methods' || path === '/process' || path === '/tools') {
+    } else if (path === '/competences' || path === '/methods' || path === '/process' || path === '/tools') {
       page = 'consulting'
     } else if (path === '/about' || path === '/about.html') {
       page = 'about'
@@ -52,31 +56,34 @@ const Header = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  // Close dropdowns when clicking outside
   useEffect(() => {
-    // Sync with static i18n if available
-    if (typeof window !== 'undefined') {
-      try {
-        const savedLang = localStorage.getItem('sysnex-lang') || 'en'
-        setLang(savedLang)
-        
-        // Listen for language changes from static i18n
-        const handleLangChange = () => {
-          try {
-            const current = localStorage.getItem('sysnex-lang') || 'en'
-            setLang(current)
-          } catch (e) {
-            // Ignore localStorage errors
-          }
-        }
-        
-        window.addEventListener('languagechange', handleLangChange)
-        return () => window.removeEventListener('languagechange', handleLangChange)
-      } catch (e) {
-        // localStorage might not be available
-        setLang('en')
+    const handleClickOutside = (e) => {
+      // Close dropdowns if clicking outside of them
+      if (!e.target.closest('.nav-dropdown')) {
+        setProductOpen(false)
+        setConsultingOpen(false)
       }
     }
-  }, [])
+
+    // Only add listener if a dropdown is open
+    if (productOpen || consultingOpen) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [productOpen, consultingOpen])
+
+  // Sync button text when lang changes (from useTranslation hook)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Update all language toggle buttons (for both React and static HTML)
+      const buttons = document.querySelectorAll('#langToggle, .lang-toggle')
+      buttons.forEach((button) => {
+        button.textContent = lang === 'en' ? 'DE' : 'EN'
+        button.setAttribute('aria-label', lang === 'en' ? 'Sprache auf Deutsch umschalten' : 'Switch language to English')
+      })
+    }
+  }, [lang])
 
   const isActive = (page) => {
     if (activePage === page) return true
@@ -89,7 +96,8 @@ const Header = () => {
   const isSubmenuActive = (subPage) => {
     const path = location.pathname
     if (subPage === 'try-yourself' && path.includes('/try-yourself')) return true
-    if (subPage === 'pricing' && path === '/contact') return true
+    if (subPage === 'pricing' && (path === '/pricing' || path === '/contact')) return true
+    if (subPage === 'competences' && path === '/competences') return true
     if (subPage === 'methods' && path === '/methods') return true
     if (subPage === 'process' && path === '/process') return true
     if (subPage === 'tools' && path === '/tools') return true
@@ -105,28 +113,35 @@ const Header = () => {
     }
     
     const newLang = lang === 'en' ? 'de' : 'en'
-    setLang(newLang)
     
     try {
+      // Save to localStorage first
       localStorage.setItem('sysnex-lang', newLang)
+      
+      // Update ALL language toggle buttons immediately (for both React and static HTML)
+      const buttons = document.querySelectorAll('#langToggle, .lang-toggle')
+      buttons.forEach((button) => {
+        button.textContent = newLang === 'en' ? 'DE' : 'EN'
+        button.setAttribute('aria-label', newLang === 'en' ? 'Sprache auf Deutsch umschalten' : 'Switch language to English')
+      })
+      
+      // Trigger static i18n if available (this will update static HTML pages)
+      if (typeof window !== 'undefined' && window.setLanguage) {
+        try {
+          window.setLanguage(newLang)
+        } catch (err) {
+          console.warn('Could not set language via window.setLanguage:', err)
+        }
+      }
+      
+      // Dispatch event for other React components (useTranslation hook will pick this up)
+      try {
+        window.dispatchEvent(new CustomEvent('languagechange'))
+      } catch (err) {
+        console.warn('Could not dispatch languagechange event:', err)
+      }
     } catch (err) {
       console.warn('Could not save language to localStorage:', err)
-    }
-    
-    // Trigger static i18n if available
-    if (typeof window !== 'undefined' && window.setLanguage) {
-      try {
-        window.setLanguage(newLang)
-      } catch (err) {
-        console.warn('Could not set language via window.setLanguage:', err)
-      }
-    }
-    
-    // Dispatch event for other components
-    try {
-      window.dispatchEvent(new CustomEvent('languagechange'))
-    } catch (err) {
-      console.warn('Could not dispatch languagechange event:', err)
     }
   }
 
@@ -162,7 +177,7 @@ const Header = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
           onClick={handleHomeClick}
         >
-          <img src="./assets/logo_S_black2.svg" alt="SysNex Systems" className="logo" />
+          <img src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_new_dark.svg"} alt="SysNex Systems" className="logo" />
           <span className="brand-text">
             <span className="brand-text-primary">SYSNEX</span>
             <span className="brand-text-secondary">Systems</span>
@@ -187,7 +202,7 @@ const Header = () => {
             className="lang-toggle" 
             id="langToggle" 
             type="button" 
-            aria-label="Switch language"
+            aria-label={lang === 'en' ? 'Sprache auf Deutsch umschalten' : 'Switch language to English'}
             onClick={toggleLanguage}
             onTouchStart={(e) => {
               // Ensure touch events work on mobile
@@ -234,24 +249,24 @@ const Header = () => {
           <div className="dropdown-menu">
             <Link to="/product" className={location.pathname === '/product' ? 'active' : ''} data-page="product">{t('nav.product') || 'Overview'}</Link>
             <Link to="/try-yourself" className={location.pathname.includes('try-yourself') ? 'active' : ''} data-page="try-yourself">{t('nav.try-yourself')}</Link>
-            <Link to="/contact" className={isSubmenuActive('pricing') ? 'active' : ''} data-page="pricing">{t('nav.pricing')}</Link>
+            <Link to="/pricing" className={isSubmenuActive('pricing') ? 'active' : ''} data-page="pricing">{t('nav.pricing')}</Link>
           </div>
         </div>
         
-        {/* Consulting pages hidden for now */}
-        {/* <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
+        {/* Competences pages */}
+        <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
           <div className="nav-dropdown-trigger">
             <Link 
               to="/methods" 
               className={`nav-link-dropdown ${isActive('consulting') ? 'active' : ''}`}
               data-page="consulting"
             >
-              {t('nav.consulting') || 'Consulting'}
+              {t('nav.consulting') || 'Competences'}
             </Link>
             <button
               className="dropdown-toggle"
               type="button"
-              aria-label="Toggle Consulting submenu"
+              aria-label="Toggle Competences submenu"
               aria-expanded={consultingOpen}
               onClick={(e) => {
                 e.preventDefault()
@@ -261,6 +276,7 @@ const Header = () => {
             />
           </div>
           <div className="dropdown-menu">
+            <Link to="/competences" className={location.pathname === '/competences' ? 'active' : ''} data-page="competences">{t('nav.competences') || 'Competences'}</Link>
             <Link to="/methods" className={location.pathname === '/methods' ? 'active' : ''} data-page="methods">{t('nav.methods') || 'Methods'}</Link>
             <Link to="/process" className={location.pathname === '/process' ? 'active' : ''} data-page="process">{t('nav.process') || 'Process'}</Link>
             <Link to="/tools" className={location.pathname === '/tools' ? 'active' : ''} data-page="tools">{t('nav.tools') || 'Tools'}</Link>
@@ -273,7 +289,7 @@ const Header = () => {
           data-page="about"
         >
           {t('nav.about') || 'About'}
-        </Link> */}
+        </Link>
         
         <Link 
           to="/contact" 

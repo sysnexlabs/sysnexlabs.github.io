@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
-import Card from '../components/Card'
+import SyscribeProduct from '../components/SyscribeProduct'
+import RoleBasedMessaging from '../components/RoleBasedMessaging'
+import MissionCriticalIndustries from '../components/MissionCriticalIndustries'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './Home.css'
@@ -17,112 +19,37 @@ const Home = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [location.state])
-  
+
   const insights = [
     {
-      eyebrow: t('hero.insights.aerial.eyebrow'),
-      title: t('hero.insights.aerial.title'),
-      description: t('hero.insights.aerial.body'),
-      variant: 'available'
+      eyebrow: 'Enterprise Ready',
+      title: 'Production-Grade LSP',
+      description: 'Full-featured Language Server Protocol implementation with 90%+ test coverage and real-time diagnostics.',
+      variant: 'primary'
     },
     {
-      eyebrow: t('hero.insights.mobility.eyebrow'),
-      title: t('hero.insights.mobility.title'),
-      description: t('hero.insights.mobility.body'),
-      variant: 'progress'
+      eyebrow: 'Model-Driven',
+      title: 'Advanced Tooling',
+      description: 'Comprehensive documentation generation, traceability matrices, and diagram visualization.',
+      variant: 'secondary'
     },
     {
-      eyebrow: t('hero.insights.infrastructure.eyebrow'),
-      title: t('hero.insights.infrastructure.title'),
-      description: t('hero.insights.infrastructure.body'),
-      variant: 'roadmap'
-    }
-  ]
-
-  const benefits = [
-    {
-      title: t('benefits.item1.title'),
-      description: t('benefits.item1.body')
-    },
-    {
-      title: t('benefits.item2.title'),
-      description: t('benefits.item2.body')
-    },
-    {
-      title: t('benefits.item3.title'),
-      description: t('benefits.item3.body')
-    },
-    {
-      title: t('benefits.item4.title'),
-      description: t('benefits.item4.body')
-    },
-    {
-      title: t('benefits.item5.title'),
-      description: t('benefits.item5.body')
-    },
-    {
-      title: t('benefits.item6.title'),
-      description: t('benefits.item6.body')
-    },
-    {
-      title: t('benefits.item7.title'),
-      description: t('benefits.item7.body')
-    }
-  ]
-
-  const features = [
-    {
-      icon: '⚙️',
-      title: t('features.item1.title'),
-      description: t('features.item1.body')
-    },
-    {
-      icon: '📐',
-      title: t('features.item2.title'),
-      description: t('features.item2.body')
-    },
-    {
-      icon: '🤖',
-      title: t('features.item3.title'),
-      description: t('features.item3.body')
-    },
-    {
-      icon: '🛡️',
-      title: t('features.item4.title'),
-      description: t('features.item4.body')
-    }
-  ]
-
-  const roadmapItems = [
-    {
-      title: t('roadmap.now.title'),
-      items: [
-        t('roadmap.now.item1'),
-        t('roadmap.now.item2'),
-        t('roadmap.now.item3')
-      ]
-    },
-    {
-      title: t('roadmap.inflight.title'),
-      items: [
-        t('roadmap.inflight.item1'),
-        t('roadmap.inflight.item2'),
-        t('roadmap.inflight.item3')
-      ]
-    },
-    {
-      title: t('roadmap.future.title'),
-      items: [
-        t('roadmap.future.item1'),
-        t('roadmap.future.item2'),
-        t('roadmap.future.item3')
-      ]
+      eyebrow: 'Standards Compliant',
+      title: 'ISO & ASPICE Ready',
+      description: 'Built for automotive and aerospace with ISO 26262, ASPICE, and ISO 15288 support.',
+      variant: 'accent'
     }
   ]
 
   return (
     <div className="home" style={{ minHeight: '100vh', width: '100%' }}>
       <Hero />
+
+      {/* Role-Based Messaging Section */}
+      <RoleBasedMessaging />
+
+      {/* Mission-Critical Industries Section */}
+      <MissionCriticalIndustries />
 
       <section className="insights-section">
         <div className="container">
@@ -145,30 +72,51 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
+      <SyscribeProduct />
 
-      <section className="benefits-section">
+      {/* Integrations Section */}
+      <section className="integrations-section">
         <div className="container">
-          <h2 className="section-title">{t('benefits.heading')}</h2>
-          <div className="benefits-grid">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="benefit-item">
-                <h3 className="benefit-title">{benefit.title}</h3>
-                <p className="benefit-description">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-          <div className="benefits-cta">
-            <Link to="/contact" className="btn primary">Request Demo</Link>
-            <Link to="/try-yourself" className="btn ghost">Try Yourself</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="features-section">
-        <div className="container">
-          <h2 className="section-title sr-only">Our Core Offerings</h2>
-          <div className="features-grid">
-            {features.map((feature, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">{t('home.integrations.heading')}</h2>
+            <p className="section-subtitle">
+              {t('home.integrations.subtitle')}
+            </p>
+          </motion.div>
+          <div className="integrations-grid">
+            {[
+              {
+                name: t('home.integrations.vscode.name'),
+                description: t('home.integrations.vscode.description'),
+                icon: '💻',
+                badge: 'Native'
+              },
+              {
+                name: t('home.integrations.git.name'),
+                description: t('home.integrations.git.description'),
+                icon: '🔀',
+                badge: 'Native'
+              },
+              {
+                name: t('home.integrations.copilot.name'),
+                description: t('home.integrations.copilot.description'),
+                icon: '🤖',
+                badge: 'AI-First'
+              },
+              {
+                name: t('home.integrations.claude.name'),
+                description: t('home.integrations.claude.description'),
+                icon: '🧠',
+                badge: 'Advanced'
+              }
+            ].map((integration, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -177,9 +125,12 @@ const Home = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{feature.icon}</div>
-                  <h3 className="card-title">{feature.title}</h3>
-                  <p className="card-description">{feature.description}</p>
+                  <div className="integration-header">
+                    <div className="integration-icon">{integration.icon}</div>
+                    <span className="integration-badge">{integration.badge}</span>
+                  </div>
+                  <h3 className="integration-name">{integration.name}</h3>
+                  <p className="integration-description">{integration.description}</p>
                 </SpotlightCard>
               </motion.div>
             ))}
@@ -187,42 +138,133 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="roadmap-section">
+      {/* Honest About What We're NOT Section */}
+      <section className="honesty-section" style={{ padding: '4rem 0', background: 'var(--bg-secondary)' }}>
         <div className="container">
-          <h2 className="section-title">{t('roadmap.heading')}</h2>
-          <p className="section-subtitle">
-            {t('roadmap.subtitle')}
-          </p>
-          <div className="roadmap-grid">
-            {roadmapItems.map((item, index) => (
-              <div key={index} className="roadmap-card">
-                <h3 className="roadmap-card-title">{item.title}</h3>
-                <ul className="roadmap-list">
-                  {item.items.map((listItem, itemIndex) => (
-                    <li key={itemIndex}>{listItem}</li>
-                  ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">Honest About What We're NOT</h2>
+            <p className="section-subtitle">
+              We're building in the open. You get to influence the direction. But you need to be comfortable with early-stage tooling.
+            </p>
+          </motion.div>
+          <div className="pricing-info-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>✅ What We ARE</h3>
+                <ul className="about-list">
+                  <li>✅ Production-ready VS Code extension (18 LSP features)</li>
+                  <li>✅ Extensively tested and actively developed</li>
+                  <li>✅ Substantial codebase with proven reliability</li>
+                  <li>✅ Open source core (MIT license - fork anytime)</li>
+                  <li>✅ Early access for innovators shaping the future</li>
                 </ul>
-              </div>
-            ))}
-          </div>
-          <p className="roadmap-note">
-            {t('roadmap.note')}
-          </p>
-          <div className="roadmap-cta">
-            <Link to="/contact" className="btn primary">Schedule Consultation</Link>
-            <Link to="/contact" className="btn ghost">Get in Touch</Link>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>❌ What We're NOT</h3>
+                <ul className="about-list no-bullets">
+                  <li>❌ Not certified for safety-critical production (yet)</li>
+                  <li>❌ Not a 100-person team (solo founder, for now)</li>
+                  <li>❌ Not production-validated in automotive OEM workflows</li>
+                  <li>❌ Not offering 24/7 enterprise support (community-first)</li>
+                  <li>❌ Not claiming ROI metrics without real deployments</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
           </div>
         </div>
       </section>
 
+      {/* Early Adopter Program Section */}
+      <section className="early-adopter-section" style={{ padding: '4rem 0', background: 'var(--bg-primary)' }}>
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">Early Adopter Program</h2>
+            <p className="section-subtitle">
+              We're looking for 10-20 innovators to help shape the future of SysML v2 tooling
+            </p>
+          </motion.div>
+          <div className="pricing-info-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ marginBottom: '1rem' }}>What You Get</h3>
+                <ul className="about-list">
+                  <li>Free 6-month access to all beta features</li>
+                  <li>Direct influence on roadmap priorities</li>
+                  <li>Early access to compliance tooling</li>
+                  <li>Co-marketing opportunities (if you want)</li>
+                  <li>Priority support during beta period</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ marginBottom: '1rem' }}>Ideal Partners</h3>
+                <ul className="about-list">
+                  <li>Automotive systems engineers tired of slow tools</li>
+                  <li>Academic research groups needing modern MBSE</li>
+                  <li>Toolchain innovators building SysML v2 workflows</li>
+                  <li>Early-stage companies with flexible processes</li>
+                  <li>Anyone passionate about open-source tooling</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ marginTop: '2rem', textAlign: 'center' }}
+          >
+            <Link to="/contact" className="btn primary large">Apply for Early Access</Link>
+          </motion.div>
+        </div>
+      </section>
+
+
+
       <section className="cta-section-home">
         <div className="container">
           <div className="cta-content">
-            <h2>Ready to Transform Your Systems Engineering?</h2>
-            <p>Join teams using enterprise-grade SysML v2 tooling. Start with a 30-day free trial.</p>
+            <h2>Ready to Get Started?</h2>
+            <p>Free tier is production-ready. Beta programs open for Standard & Platform tiers.</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">Request Demo</Link>
-              <Link to="/try-yourself" className="btn ghost large">Try Yourself</Link>
+              <Link to="/try-yourself" className="btn primary large">Try Free Version</Link>
+              <Link to="/contact" className="btn ghost large">Apply for Beta</Link>
             </div>
           </div>
         </div>

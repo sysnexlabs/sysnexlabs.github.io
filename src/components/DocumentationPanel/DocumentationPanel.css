@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   background: rgba(13, 13, 13, 0.95);
-  border: 1px solid rgba(0, 204, 255, 0.18);
+  border: 1px solid rgba(0, 180, 216, 0.18);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -11,14 +11,14 @@
 .doc-header {
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 204, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 180, 216, 0.1);
 }
 
 .doc-header h3 {
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }
 
 .doc-tabs {
@@ -29,7 +29,7 @@
 .doc-tab {
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 1px solid rgba(0, 204, 255, 0.2);
+  border: 1px solid rgba(0, 180, 216, 0.2);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
@@ -38,15 +38,15 @@
 }
 
 .doc-tab:hover {
-  background: rgba(0, 204, 255, 0.1);
-  border-color: rgba(0, 204, 255, 0.4);
+  background: rgba(0, 180, 216, 0.1);
+  border-color: rgba(0, 180, 216, 0.4);
   color: rgba(255, 255, 255, 0.9);
 }
 
 .doc-tab.active {
-  background: rgba(0, 204, 255, 0.15);
-  border-color: var(--turquoise, #00ccff);
-  color: var(--turquoise, #00ccff);
+  background: rgba(0, 180, 216, 0.15);
+  border-color: var(--turquoise, #00B4D8);
+  color: var(--turquoise, #00B4D8);
 }
 
 .doc-content {
@@ -59,7 +59,7 @@
   margin: 0 0 1rem 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }
 
 .syntax-reference,
@@ -74,8 +74,8 @@
 .tip-item,
 .example-item {
   padding: 1rem;
-  background: rgba(0, 204, 255, 0.05);
-  border: 1px solid rgba(0, 204, 255, 0.1);
+  background: rgba(0, 180, 216, 0.05);
+  border: 1px solid rgba(0, 180, 216, 0.1);
   border-radius: 8px;
 }
 
@@ -100,7 +100,7 @@
   margin: 0;
   padding: 0.75rem;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 204, 255, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.1);
   border-radius: 6px;
   overflow-x: auto;
 }
@@ -124,8 +124,8 @@
 .context-info {
   margin-top: 2rem;
   padding: 1rem;
-  background: rgba(0, 204, 255, 0.1);
-  border: 1px solid rgba(0, 204, 255, 0.2);
+  background: rgba(0, 180, 216, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.2);
   border-radius: 8px;
 }
 
@@ -139,7 +139,7 @@
   border-radius: 4px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.875rem;
-  color: var(--turquoise, #00ccff);
+  color: var(--turquoise, #00B4D8);
 }
 
 /* Scrollbar Styling */
@@ -152,12 +152,12 @@
 }
 
 .doc-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 204, 255, 0.3);
+  background: rgba(0, 180, 216, 0.3);
   border-radius: 4px;
 }
 
 .doc-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 204, 255, 0.5);
+  background: rgba(0, 180, 216, 0.5);
 }
 
 /* Responsive */
