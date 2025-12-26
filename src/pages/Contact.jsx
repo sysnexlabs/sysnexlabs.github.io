@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
@@ -86,6 +87,9 @@ const Contact = () => {
             <p className="page-hero-description">
               {t('contact.intro')}
             </p>
+            <div className="contact-hero-cta">
+              <Link to="/try-yourself" className="btn primary large">Try Yourself First</Link>
+            </div>
           </motion.div>
         </div>
       </section>

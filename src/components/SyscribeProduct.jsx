@@ -92,14 +92,25 @@ const SyscribeProduct = () => {
             </motion.p>
           </motion.div>
 
-          {/* Metrics Section */}
-          <div className="commercial-metrics-grid">
+          {/* Single Metric Above Fold - Moved to expandable section */}
+          <div className="commercial-metrics-section" style={{ display: 'none' }}>
+            <details className="metrics-details">
+              <summary className="metrics-summary">Performance Metrics</summary>
+              <div className="commercial-metrics-grid">
+                {/* Metrics content would go here */}
+              </div>
+            </details>
+          </div>
+
+          {/* Commercial Products Grid */}
+          <div className="commercial-products-grid">
             {[
               {
                 badge: 'Recommended',
                 badgeClass: 'badge-featured',
                 title: '🔷 Standard',
                 size: '~35-40 MB',
+                bestFor: 'Best for: Professional systems engineering teams requiring full IDE capabilities',
                 description: 'Complete professional IDE: all LSP features, documentation viewer, model explorer, requirements tracking, diagram visualization, trade study analysis, and quality analytics.',
                 features: [
                   'All Essential features',
@@ -118,6 +129,7 @@ const SyscribeProduct = () => {
                 badgeClass: 'badge-enterprise',
                 title: '🔶 Platform',
                 size: '~50-60 MB',
+                bestFor: 'Best for: Enterprise teams requiring domain-specific integrations and automation',
                 description: 'Enterprise platform with domain extensions: VSS (Vehicle Signal Specification), YAML Architecture (ADL/SUDL), UVL variability management with Z3 solver, and Python bindings.',
                 features: [
                   'Everything in Standard',
@@ -136,12 +148,13 @@ const SyscribeProduct = () => {
                 badgeClass: 'badge-automotive',
                 title: '🛡️ Automotive/Safety',
                 size: '~80-90 MB',
+                bestFor: 'Best for: Automotive OEM/Tier-1 teams requiring ASPICE and ISO 26262 compliance',
                 description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation. Direct sales only.',
                 features: [
                   'Everything in Platform',
-                  'ASPICE Work Products (5/20 types)',
+                  'ASPICE audit-ready scope',
                   'ISO 26262 ASIL Validation',
-                  'ISO 15288 Foundation (80%)',
+                  'ISO 15288 Foundation',
                   'Requirements & Traceability',
                   'ASIL Decomposition Validator',
                   'Change Impact Analysis'
@@ -178,6 +191,9 @@ const SyscribeProduct = () => {
                 <div className="product-card-body">
                   <h3 className="product-title">{product.title}</h3>
                   <p className="product-size">{product.size}</p>
+                  {product.bestFor && (
+                    <p className="product-best-for">{product.bestFor}</p>
+                  )}
                   <p className="product-description">{product.description}</p>
                   <ul className="product-features">
                     {product.features.map((feature, idx) => (

@@ -188,16 +188,43 @@ function convertWasmResultToUvlData(wasmResult, code) {
 
   // Convert WASM root feature tree to our format
   if (wasmResult.root) {
-    const convertFeature = (wasmFeature) => {
+    const convertFeature = (wasmFeature, depth = 0) => {
+      // Debug: log the raw WASM feature to understand its structure
+      if (depth < 3) {
+        console.log(`[UVL] Feature at depth ${depth}:`, {
+          name: wasmFeature.name,
+          type: wasmFeature.type,
+          is_optional: wasmFeature.is_optional,
+          optional: wasmFeature.optional,
+          group_type: wasmFeature.group_type,
+          groupType: wasmFeature.groupType,
+          allKeys: Object.keys(wasmFeature)
+        })
+      }
+
+      // Determine feature type (mandatory/optional/alternative/or)
+      // Check multiple possible field names from WASM
+      let featureType = 'mandatory'
+
+      if (wasmFeature.is_optional === true || wasmFeature.optional === true) {
+        featureType = 'optional'
+      } else if (wasmFeature.group_type === 'alternative' || wasmFeature.groupType === 'alternative') {
+        featureType = 'alternative'
+      } else if (wasmFeature.group_type === 'or' || wasmFeature.groupType === 'or') {
+        featureType = 'or'
+      } else if (wasmFeature.type && ['mandatory', 'optional', 'alternative', 'or'].includes(wasmFeature.type)) {
+        featureType = wasmFeature.type
+      }
+
       const feature = {
         name: wasmFeature.name || wasmFeature.id || 'Unknown',
-        type: wasmFeature.type || wasmFeature.group_type || 'mandatory',
+        type: featureType,
         children: []
       }
 
       // Handle children array
       if (wasmFeature.children && Array.isArray(wasmFeature.children)) {
-        feature.children = wasmFeature.children.map(convertFeature)
+        feature.children = wasmFeature.children.map(child => convertFeature(child, depth + 1))
       }
 
       return feature

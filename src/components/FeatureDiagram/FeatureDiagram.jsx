@@ -54,18 +54,19 @@ export default function FeatureDiagram({ featureTree, currentConfiguration = {},
     const children = node.children || []
     const hasChildren = Array.isArray(children) && children.length > 0
 
-    // Determine connector type (mandatory/optional) based on groupType
+    // Determine connector type (mandatory/optional) based on node's optional flag
     const nodeGroupType = node.groupType || node.group_type || 'and'
     const nodeGroupLower = nodeGroupType.toLowerCase()
     const parentGroupLower = parentGroupType?.toLowerCase() || 'and'
-    
+
+    // Check if the node itself is marked as optional
     let childConnectorType = 'mandatory'
-    if (nodeGroupLower === 'optional') {
+    if (node.is_optional === true || node.optional === true) {
       childConnectorType = 'optional'
-    } else if (parentGroupLower === 'optional') {
-      childConnectorType = 'optional'
+      console.log(`[FeatureDiagram] Node "${node.name}" is OPTIONAL (is_optional: ${node.is_optional}, optional: ${node.optional})`)
     } else {
       childConnectorType = 'mandatory'
+      console.log(`[FeatureDiagram] Node "${node.name}" is MANDATORY (is_optional: ${node.is_optional}, optional: ${node.optional})`)
     }
 
     // Helper to calculate subtree width recursively
@@ -825,4 +826,5 @@ export default function FeatureDiagram({ featureTree, currentConfiguration = {},
     </div>
   )
 }
+
 

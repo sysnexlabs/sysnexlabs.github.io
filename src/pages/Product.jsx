@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './Page.css'
+import './Product.css'
 
 const Product = () => {
   const { t } = useTranslation()
@@ -36,7 +37,7 @@ const Product = () => {
       icon: '🛡️',
       title: 'Multi-Industry Compliance',
       description: '11 variants from Essential (free) to Automotive/Aviation/Medical/Railway. ISO 15288, ASPICE, ISO 26262, DO-178C support.',
-      tags: ['ISO 15288', 'ASPICE 100%', 'ISO 26262']
+      tags: ['ISO 15288', 'ASPICE', 'ISO 26262']
     },
     {
       icon: '📊',
@@ -71,7 +72,7 @@ const Product = () => {
       badge: 'VS Code Extension',
       description: 'Production-ready VS Code extension with full editing capabilities, complete LSP implementation, and professional features.',
       features: [
-        'Complete LSP (18/18 features, 100% compliance)',
+        'Complete LSP implementation',
         '<50ms LSP response (10x faster than legacy)',
         'AI integration (Copilot, Claude, VS Code AI)',
         'Diagram editor with bidirectional sync',
@@ -108,9 +109,9 @@ const Product = () => {
       description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation.',
       features: [
         'Everything in Platform',
-        'ASPICE Work Products (5/20 types)',
+        'ASPICE audit-ready scope',
         'ISO 26262 ASIL Validation',
-        'ISO 15288 Foundation (80%)',
+        'ISO 15288 Foundation',
         'Requirements & Traceability',
         'ASIL Decomposition Validator',
         'Change Impact Analysis'
@@ -219,27 +220,24 @@ const Product = () => {
               Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.
             </p>
             <div className="hero-cta">
-              <Link to="/contact" className="btn primary">Get Started</Link>
-              <Link to="#features" className="btn ghost">View Features</Link>
+              <Link to="/try-yourself" className="btn primary">Try Yourself</Link>
+              <Link to="/contact" className="btn ghost">Contact Sales</Link>
             </div>
-            <div className="hero-stats">
-              <div className="stat-item">
-                <div className="stat-number">50M+</div>
-                <div className="stat-label">VS Code Users</div>
+            <details className="hero-stats-details">
+              <summary className="hero-stats-summary">Performance Metrics</summary>
+              <div className="hero-stats">
+                <div className="stat-item">
+                  <div className="stat-number">&lt;50ms</div>
+                  <div className="stat-label">LSP Response Time</div>
+                  <div className="stat-explanation">Measured in internal benchmarks with typical SysML v2 models (100-500 elements). Response time measured from request to first diagnostic result.</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-number">18/18</div>
+                  <div className="stat-label">LSP Features</div>
+                  <div className="stat-explanation">All Language Server Protocol features implemented and tested against LSP specification v3.17. Verified with VS Code, Neovim, and other LSP clients.</div>
+                </div>
               </div>
-              <div className="stat-item">
-                <div className="stat-number">&lt;50ms</div>
-                <div className="stat-label">LSP Response</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">18/18</div>
-                <div className="stat-label">LSP Features</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">3</div>
-                <div className="stat-label">Platform Variants</div>
-              </div>
-            </div>
+            </details>
           </motion.div>
         </div>
       </section>
@@ -320,7 +318,7 @@ const Product = () => {
           <div className="section-header">
             <h2>Complete LSP Implementation</h2>
             <p className="section-subtitle">
-              18/18 Language Server Protocol features (100% compliance) with production-ready performance
+              Complete Language Server Protocol implementation with production-ready performance
             </p>
           </div>
           <div className="lsp-features-grid">

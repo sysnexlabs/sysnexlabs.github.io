@@ -8,12 +8,15 @@ import Contact from './pages/Contact'
 // Lazy load heavy components for better code splitting
 const TryYourself = lazy(() => import('./pages/TryYourself'))
 const Product = lazy(() => import('./pages/Product'))
+const Pricing = lazy(() => import('./pages/Pricing'))
+const Legal = lazy(() => import('./pages/Legal'))
 const HeroAlternative = lazy(() => import('./pages/HeroAlternative'))
-// Consulting pages hidden for now
-// import About from './pages/About'
-// import Methods from './pages/Methods'
-// import Process from './pages/Process'
-// import Tools from './pages/Tools'
+// Competences pages
+const About = lazy(() => import('./pages/About'))
+const Methods = lazy(() => import('./pages/Methods'))
+const Process = lazy(() => import('./pages/Process'))
+const Tools = lazy(() => import('./pages/Tools'))
+const Competences = lazy(() => import('./pages/Competences'))
 import './styles/App.css'
 
 function AppContent() {
@@ -43,15 +46,20 @@ function AppContent() {
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/legal/privacy" element={<Legal type="privacy" />} />
+            <Route path="/legal/terms" element={<Legal type="terms" />} />
+            <Route path="/legal/license" element={<Legal type="license" />} />
             <Route path="/product" element={<Product />} />
             <Route path="/product/try-yourself" element={<TryYourself />} />
             <Route path="/try-yourself" element={<TryYourself />} />
             <Route path="/hero-alternative" element={<HeroAlternative />} />
-          {/* Consulting pages hidden for now */}
-          {/* <Route path="/about" element={<About />} />
-          <Route path="/methods" element={<Methods />} />
-          <Route path="/process" element={<Process />} />
-          <Route path="/tools" element={<Tools />} /> */}
+            {/* Competences pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/methods" element={<Methods />} />
+            <Route path="/process" element={<Process />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/competences" element={<Competences />} />
             {/* Catch-all route - show home for any unmatched path */}
             <Route path="*" element={<Home />} />
           </Routes>

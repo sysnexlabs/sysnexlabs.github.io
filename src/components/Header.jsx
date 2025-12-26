@@ -24,9 +24,11 @@ const Header = () => {
       page = 'home'
     } else if (path === '/contact' || path === '/contact.html') {
       page = 'contact'
+    } else if (path === '/pricing' || path === '/pricing.html') {
+      page = 'pricing'
     } else if (path === '/product' || path.includes('/try-yourself')) {
       page = 'product'
-    } else if (path === '/methods' || path === '/process' || path === '/tools') {
+    } else if (path === '/competences' || path === '/methods' || path === '/process' || path === '/tools') {
       page = 'consulting'
     } else if (path === '/about' || path === '/about.html') {
       page = 'about'
@@ -77,7 +79,8 @@ const Header = () => {
   const isSubmenuActive = (subPage) => {
     const path = location.pathname
     if (subPage === 'try-yourself' && path.includes('/try-yourself')) return true
-    if (subPage === 'pricing' && path === '/contact') return true
+    if (subPage === 'pricing' && (path === '/pricing' || path === '/contact')) return true
+    if (subPage === 'competences' && path === '/competences') return true
     if (subPage === 'methods' && path === '/methods') return true
     if (subPage === 'process' && path === '/process') return true
     if (subPage === 'tools' && path === '/tools') return true
@@ -229,24 +232,24 @@ const Header = () => {
           <div className="dropdown-menu">
             <Link to="/product" className={location.pathname === '/product' ? 'active' : ''} data-page="product">{t('nav.product') || 'Overview'}</Link>
             <Link to="/try-yourself" className={location.pathname.includes('try-yourself') ? 'active' : ''} data-page="try-yourself">{t('nav.try-yourself')}</Link>
-            <Link to="/contact" className={isSubmenuActive('pricing') ? 'active' : ''} data-page="pricing">{t('nav.pricing')}</Link>
+            <Link to="/pricing" className={isSubmenuActive('pricing') ? 'active' : ''} data-page="pricing">{t('nav.pricing')}</Link>
           </div>
         </div>
         
-        {/* Consulting pages hidden for now */}
-        {/* <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
+        {/* Competences pages */}
+        <div className={`nav-dropdown ${consultingOpen ? 'is-open' : ''}`}>
           <div className="nav-dropdown-trigger">
             <Link 
               to="/methods" 
               className={`nav-link-dropdown ${isActive('consulting') ? 'active' : ''}`}
               data-page="consulting"
             >
-              {t('nav.consulting') || 'Consulting'}
+              {t('nav.consulting') || 'Competences'}
             </Link>
             <button
               className="dropdown-toggle"
               type="button"
-              aria-label="Toggle Consulting submenu"
+              aria-label="Toggle Competences submenu"
               aria-expanded={consultingOpen}
               onClick={(e) => {
                 e.preventDefault()
@@ -256,6 +259,7 @@ const Header = () => {
             />
           </div>
           <div className="dropdown-menu">
+            <Link to="/competences" className={location.pathname === '/competences' ? 'active' : ''} data-page="competences">{t('nav.competences') || 'Competences'}</Link>
             <Link to="/methods" className={location.pathname === '/methods' ? 'active' : ''} data-page="methods">{t('nav.methods') || 'Methods'}</Link>
             <Link to="/process" className={location.pathname === '/process' ? 'active' : ''} data-page="process">{t('nav.process') || 'Process'}</Link>
             <Link to="/tools" className={location.pathname === '/tools' ? 'active' : ''} data-page="tools">{t('nav.tools') || 'Tools'}</Link>
@@ -268,7 +272,7 @@ const Header = () => {
           data-page="about"
         >
           {t('nav.about') || 'About'}
-        </Link> */}
+        </Link>
         
         <Link 
           to="/contact" 

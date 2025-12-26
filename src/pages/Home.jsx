@@ -3,9 +3,9 @@ import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
 import SyscribeProduct from '../components/SyscribeProduct'
-import CustomerSuccess from '../components/CustomerSuccess'
-import IndustrySolutions from '../components/IndustrySolutions'
-import Card from '../components/Card'
+import RoleBasedMessaging from '../components/RoleBasedMessaging'
+import MissionCriticalIndustries from '../components/MissionCriticalIndustries'
+import EnterpriseReadiness from '../components/EnterpriseReadiness'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './Home.css'
@@ -20,112 +20,138 @@ const Home = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [location.state])
-  
+
   const insights = [
     {
-      eyebrow: t('hero.insights.aerial.eyebrow'),
-      title: t('hero.insights.aerial.title'),
-      description: t('hero.insights.aerial.body'),
-      variant: 'available'
+      eyebrow: 'Enterprise Ready',
+      title: 'Production-Grade LSP',
+      description: 'Full-featured Language Server Protocol implementation with 90%+ test coverage and real-time diagnostics.',
+      variant: 'primary'
     },
     {
-      eyebrow: t('hero.insights.mobility.eyebrow'),
-      title: t('hero.insights.mobility.title'),
-      description: t('hero.insights.mobility.body'),
-      variant: 'progress'
+      eyebrow: 'Model-Driven',
+      title: 'Advanced Tooling',
+      description: 'Comprehensive documentation generation, traceability matrices, and diagram visualization.',
+      variant: 'secondary'
     },
     {
-      eyebrow: t('hero.insights.infrastructure.eyebrow'),
-      title: t('hero.insights.infrastructure.title'),
-      description: t('hero.insights.infrastructure.body'),
-      variant: 'roadmap'
-    }
-  ]
-
-  const benefits = [
-    {
-      title: t('benefits.item1.title'),
-      description: t('benefits.item1.body')
-    },
-    {
-      title: t('benefits.item2.title'),
-      description: t('benefits.item2.body')
-    },
-    {
-      title: t('benefits.item3.title'),
-      description: t('benefits.item3.body')
-    },
-    {
-      title: t('benefits.item4.title'),
-      description: t('benefits.item4.body')
-    },
-    {
-      title: t('benefits.item5.title'),
-      description: t('benefits.item5.body')
-    },
-    {
-      title: t('benefits.item6.title'),
-      description: t('benefits.item6.body')
-    },
-    {
-      title: t('benefits.item7.title'),
-      description: t('benefits.item7.body')
-    }
-  ]
-
-  const features = [
-    {
-      icon: '⚙️',
-      title: t('features.item1.title'),
-      description: t('features.item1.body')
-    },
-    {
-      icon: '📐',
-      title: t('features.item2.title'),
-      description: t('features.item2.body')
-    },
-    {
-      icon: '🤖',
-      title: t('features.item3.title'),
-      description: t('features.item3.body')
-    },
-    {
-      icon: '🛡️',
-      title: t('features.item4.title'),
-      description: t('features.item4.body')
-    }
-  ]
-
-  const roadmapItems = [
-    {
-      title: t('roadmap.now.title'),
-      items: [
-        t('roadmap.now.item1'),
-        t('roadmap.now.item2'),
-        t('roadmap.now.item3')
-      ]
-    },
-    {
-      title: t('roadmap.inflight.title'),
-      items: [
-        t('roadmap.inflight.item1'),
-        t('roadmap.inflight.item2'),
-        t('roadmap.inflight.item3')
-      ]
-    },
-    {
-      title: t('roadmap.future.title'),
-      items: [
-        t('roadmap.future.item1'),
-        t('roadmap.future.item2'),
-        t('roadmap.future.item3')
-      ]
+      eyebrow: 'Standards Compliant',
+      title: 'ISO & ASPICE Ready',
+      description: 'Built for automotive and aerospace with ISO 26262, ASPICE, and ISO 15288 support.',
+      variant: 'accent'
     }
   ]
 
   return (
     <div className="home" style={{ minHeight: '100vh', width: '100%' }}>
       <Hero />
+
+      {/* Role-Based Messaging Section */}
+      <RoleBasedMessaging />
+
+      {/* Mission-Critical Industries Section */}
+      <MissionCriticalIndustries />
+
+      {/* Enterprise Readiness Section */}
+      <EnterpriseReadiness />
+
+      {/* See It In Action Section */}
+      <section className="see-it-in-action-section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">See It In Action</h2>
+            <p className="section-subtitle">
+              Experience production-ready SysML v2 Language Server with real-time diagnostics, navigation, and traceability
+            </p>
+          </motion.div>
+          
+          <div className="action-demo-grid">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="action-demo-visual"
+            >
+              <div className="demo-screenshot-wrapper">
+                <div className="demo-screenshot">
+                  <div className="screenshot-header">
+                    <div className="screenshot-dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <div className="screenshot-label">VS Code Extension</div>
+                  </div>
+                  <div className="screenshot-content">
+                    <div className="code-preview">
+                      <div className="code-line"><span className="code-keyword">package</span> <span className="code-type">SysML</span>;</div>
+                      <div className="code-line"><span className="code-keyword">part</span> <span className="code-variable">engine</span> : <span className="code-type">Engine</span>;</div>
+                      <div className="code-line"><span className="code-keyword">part</span> <span className="code-variable">transmission</span> : <span className="code-type">Transmission</span>;</div>
+                      <div className="code-line highlight-line"><span className="code-keyword">part</span> <span className="code-variable">control</span> : <span className="code-type">ControlUnit</span>;</div>
+                      <div className="code-line"><span className="code-comment">// Real-time diagnostics active</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="action-demo-content"
+            >
+              <div className="demo-features">
+                <h3 className="demo-features-title">Key Capabilities</h3>
+                <ul className="demo-features-list">
+                  <li className="demo-feature-item">
+                    <span className="feature-icon">✏️</span>
+                    <div className="feature-content">
+                      <strong>Text-based modeling</strong>
+                      <span>Native SysML v2 syntax with real-time validation</span>
+                    </div>
+                  </li>
+                  <li className="demo-feature-item">
+                    <span className="feature-icon">⚡</span>
+                    <div className="feature-content">
+                      <strong>Real-time diagnostics</strong>
+                      <span>Instant error detection and intelligent suggestions</span>
+                    </div>
+                  </li>
+                  <li className="demo-feature-item">
+                    <span className="feature-icon">🧭</span>
+                    <div className="feature-content">
+                      <strong>Advanced navigation</strong>
+                      <span>Go-to-definition, find references, symbol search</span>
+                    </div>
+                  </li>
+                  <li className="demo-feature-item">
+                    <span className="feature-icon">🔗</span>
+                    <div className="feature-content">
+                      <strong>Traceability</strong>
+                      <span>Requirements linking and bidirectional traceability</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="demo-cta">
+                <Link to="/try-yourself" className="btn primary large">
+                  Try Live Demo
+                </Link>
+                <p className="demo-cta-note">No installation required • Works in your browser</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       <section className="insights-section">
         <div className="container">
@@ -172,7 +198,7 @@ const Home = () => {
                 name: t('home.integrations.vscode.name'),
                 description: t('home.integrations.vscode.description'),
                 icon: '💻',
-                badge: '50M+ Users'
+                badge: 'Native'
               },
               {
                 name: t('home.integrations.git.name'),
@@ -214,8 +240,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Social Proof Section */}
-      <section className="social-proof-section">
+      {/* External Validation Section */}
+      <section className="external-validation-section">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -229,123 +255,36 @@ const Home = () => {
               {t('home.socialproof.subtitle')}
             </p>
           </motion.div>
-          <div className="proof-grid">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="proof-stat"
-            >
-              <div className="stat-number">50M+</div>
-              <div className="stat-label">VS Code Users</div>
-              <div className="stat-description">Largest developer platform</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="proof-stat"
-            >
-              <div className="stat-number">&lt;50ms</div>
-              <div className="stat-label">LSP Response</div>
-              <div className="stat-description">10x faster than legacy tools</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="proof-stat"
-            >
-              <div className="stat-number">18/18</div>
-              <div className="stat-label">LSP Features</div>
-              <div className="stat-description">100% protocol compliance</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="proof-stat"
-            >
-              <div className="stat-number">11</div>
-              <div className="stat-label">Compliance Variants</div>
-              <div className="stat-description">From Essential to Automotive</div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="benefits-section">
-        <div className="container">
-          <h2 className="section-title">{t('benefits.heading')}</h2>
-          <div className="benefits-grid">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="benefit-item">
-                <h3 className="benefit-title">{benefit.title}</h3>
-                <p className="benefit-description">{benefit.description}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="validation-content"
+          >
+            <div className="validation-item">
+              <div className="validation-label">Research Partnership</div>
+              <div className="validation-text">
+                Validated in pilot programs with research institutions. Infrastructure verified for production use.
               </div>
-            ))}
-          </div>
-          <div className="benefits-cta">
-            <Link to="/contact" className="btn primary">Request Demo</Link>
-            <Link to="/try-yourself" className="btn ghost">Try Yourself</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="features-section">
-        <div className="container">
-          <h2 className="section-title sr-only">Our Core Offerings</h2>
-          <div className="features-grid">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{feature.icon}</div>
-                  <h3 className="card-title">{feature.title}</h3>
-                  <p className="card-description">{feature.description}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="roadmap-section">
-        <div className="container">
-          <h2 className="section-title">{t('roadmap.heading')}</h2>
-          <p className="section-subtitle">
-            {t('roadmap.subtitle')}
-          </p>
-          <div className="roadmap-grid">
-            {roadmapItems.map((item, index) => (
-              <div key={index} className="roadmap-card">
-                <h3 className="roadmap-card-title">{item.title}</h3>
-                <ul className="roadmap-list">
-                  {item.items.map((listItem, itemIndex) => (
-                    <li key={itemIndex}>{listItem}</li>
-                  ))}
-                </ul>
+            </div>
+            <div className="validation-item">
+              <div className="validation-label">Industry Validation</div>
+              <div className="validation-text">
+                German automotive OEM programs evaluating infrastructure for ISO 26262 and ASPICE compliance workflows.
               </div>
-            ))}
-          </div>
-          <p className="roadmap-note">
-            {t('roadmap.note')}
-          </p>
-          <div className="roadmap-cta">
-            <Link to="/contact" className="btn primary">Schedule Consultation</Link>
-            <Link to="/contact" className="btn ghost">Get in Touch</Link>
-          </div>
+            </div>
+            <div className="validation-item">
+              <div className="validation-label">Milestone-Based Updates</div>
+              <div className="validation-text">
+                Progress published as validation milestones are reached. No marketing claims without evidence.
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
+
+
 
       <section className="cta-section-home">
         <div className="container">
@@ -353,8 +292,7 @@ const Home = () => {
             <h2>{t('home.cta.heading')}</h2>
             <p>{t('home.cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">{t('home.cta.primary')}</Link>
-              <Link to="/try-yourself" className="btn ghost large">{t('home.cta.secondary')}</Link>
+              <Link to="/contact" className="btn primary large">Schedule Consultation</Link>
             </div>
           </div>
         </div>

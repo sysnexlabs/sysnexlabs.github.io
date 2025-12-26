@@ -75,15 +75,15 @@
 
 .hero-title {
   font-size: clamp(2.5rem, 7vw, 4.5rem);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0;
   text-shadow: none;
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .hero-description {
@@ -91,12 +91,21 @@
   color: var(--text-primary);
   opacity: 0.92;
   line-height: 1.7;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
   max-width: 100%;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
   transition: color 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+.hero-metric {
+  font-size: 0.9375rem;
+  color: var(--turquoise, #00B4D8);
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  opacity: 0.9;
+  letter-spacing: 0.05em;
 }
 
 [data-theme="light"] .hero-description {

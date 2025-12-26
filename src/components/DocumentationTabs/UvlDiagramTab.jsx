@@ -80,14 +80,21 @@ export default function UvlDiagramTab({ code }) {
 // Convert parsed UVL data to FeatureDiagram format
 function convertToFeatureTree(parsed) {
   const convertFeature = (feature, parentGroupType = null) => {
-    // Determine group type from feature type
-    let groupType = 'and'
+    // Separate feature type (mandatory/optional) from group type (and/or/alternative)
+    let groupType = 'and'  // Default group type for children
+    let isOptional = false
+
+    // Check if this feature is optional
     if (feature.type === 'optional') {
-      groupType = 'optional'
+      isOptional = true
+      groupType = 'and'  // Optional features can still have 'and' group for their children
     } else if (feature.type === 'alternative') {
-      groupType = 'alternative'
+      groupType = 'alternative'  // This is a group type, not a feature type
     } else if (feature.type === 'or') {
-      groupType = 'or'
+      groupType = 'or'  // This is a group type, not a feature type
+    } else if (feature.type === 'mandatory') {
+      isOptional = false
+      groupType = 'and'
     }
 
     const node = {
@@ -95,6 +102,8 @@ function convertToFeatureTree(parsed) {
       name: feature.name,
       groupType: groupType,
       group_type: groupType,
+      is_optional: isOptional,
+      optional: isOptional,
       children: []
     }
 

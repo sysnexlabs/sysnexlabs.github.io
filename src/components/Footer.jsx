@@ -31,6 +31,7 @@ const Footer = () => {
             <h4 className="footer-heading">{t('footer.product.heading')}</h4>
             <Link to="/product" className="footer-link">{t('nav.product.overview')}</Link>
             <Link to="/try-yourself" className="footer-link">{t('nav.try-yourself')}</Link>
+            <Link to="/pricing" className="footer-link">{t('nav.pricing')}</Link>
             <Link to="/contact" className="footer-link">{t('nav.contact')}</Link>
           </div>
           <div className="footer-column">
@@ -47,9 +48,9 @@ const Footer = () => {
           </div>
           <div className="footer-column">
             <h4 className="footer-heading">{t('footer.legal.heading')}</h4>
-            <a href="/contact" className="footer-link">{t('footer.legal.privacy')}</a>
-            <a href="/contact" className="footer-link">{t('footer.legal.terms')}</a>
-            <a href="/contact" className="footer-link">{t('footer.legal.license')}</a>
+            <a href="/legal/privacy" className="footer-link">{t('footer.legal.privacy')}</a>
+            <a href="/legal/terms" className="footer-link">{t('footer.legal.terms')}</a>
+            <a href="/legal/license" className="footer-link">{t('footer.legal.license')}</a>
           </div>
         </div>
       </div>

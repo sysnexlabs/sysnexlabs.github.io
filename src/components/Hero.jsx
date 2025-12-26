@@ -42,15 +42,23 @@ const Hero = () => {
                 {t('hero.paragraph')}
               </motion.p>
               <motion.div 
+                className="hero-metric"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
+                {t('hero.metric')}
+              </motion.div>
+              <motion.div 
                 className="hero-actions"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <Link to="/contact" className="btn-primary-large">
+                <Link to="/try-yourself" className="btn-primary-large">
                   {t('hero.cta.primary')}
                 </Link>
-                <Link to="/try-yourself" className="btn-secondary-large">
+                <Link to="/contact" className="btn-secondary-large">
                   {t('hero.cta.secondary')}
                 </Link>
               </motion.div>

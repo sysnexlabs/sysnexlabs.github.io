@@ -8,95 +8,26 @@ import './Page.css'
 const About = () => {
   const { t } = useTranslation()
 
-  const competencies = [
+  const founders = [
     {
-      title: t('about.competencies.item1.title'),
-      description: t('about.competencies.item1.description')
+      name: t('about.founders.alex.name'),
+      role: t('about.founders.alex.role'),
+      background: t('about.founders.alex.background')
     },
     {
-      title: t('about.competencies.item2.title'),
-      description: t('about.competencies.item2.description')
+      name: t('about.founders.priya.name'),
+      role: t('about.founders.priya.role'),
+      background: t('about.founders.priya.background')
     },
     {
-      title: t('about.competencies.item3.title'),
-      description: t('about.competencies.item3.description')
+      name: t('about.founders.lars.name'),
+      role: t('about.founders.lars.role'),
+      background: t('about.founders.lars.background')
     },
     {
-      title: t('about.competencies.item4.title'),
-      description: t('about.competencies.item4.description')
-    },
-    {
-      title: t('about.competencies.item5.title'),
-      description: t('about.competencies.item5.description')
-    }
-  ]
-
-  const toolchain = [
-    {
-      title: t('about.toolchain.item1.title'),
-      description: t('about.toolchain.item1.description')
-    },
-    {
-      title: t('about.toolchain.item2.title'),
-      description: t('about.toolchain.item2.description')
-    },
-    {
-      title: t('about.toolchain.item3.title'),
-      description: t('about.toolchain.item3.description')
-    },
-    {
-      title: t('about.toolchain.item4.title'),
-      description: t('about.toolchain.item4.description')
-    },
-    {
-      title: t('about.toolchain.item5.title'),
-      description: t('about.toolchain.item5.description')
-    }
-  ]
-
-  const programming = [
-    {
-      title: t('about.programming.item1.title'),
-      description: t('about.programming.item1.description')
-    },
-    {
-      title: t('about.programming.item2.title'),
-      description: t('about.programming.item2.description')
-    },
-    {
-      title: t('about.programming.item3.title'),
-      description: t('about.programming.item3.description')
-    },
-    {
-      title: t('about.programming.item4.title'),
-      description: t('about.programming.item4.description')
-    },
-    {
-      title: t('about.programming.item5.title'),
-      description: t('about.programming.item5.description')
-    }
-  ]
-
-  const capabilities = [
-    {
-      title: t('about.capabilities.item1.title'),
-      description: t('about.capabilities.item1.description')
-    },
-    {
-      title: t('about.capabilities.item2.title'),
-      description: t('about.capabilities.item2.description')
-    },
-    {
-      title: t('about.capabilities.item3.title'),
-      description: t('about.capabilities.item3.description')
-    },
-    {
-      title: t('about.capabilities.item4.title'),
-      description: t('about.capabilities.item4.description')
-    },
-    {
-      title: t('about.capabilities.item5.title'),
-      description: t('about.capabilities.item5.description')
+      name: t('about.founders.sofia.name'),
+      role: t('about.founders.sofia.role'),
+      background: t('about.founders.sofia.background')
     }
   ]
 
@@ -120,11 +51,11 @@ const About = () => {
       <section className="page-content-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">{t('about.capabilities.heading')}</h2>
-            <p className="section-subtitle">{t('about.capabilities.subtitle')}</p>
+            <h2 className="section-title">{t('about.founders.heading')}</h2>
+            <p className="section-subtitle">{t('about.founders.subtitle')}</p>
           </div>
-          <div className="features-grid">
-            {capabilities.map((item, index) => (
+          <div className="founders-grid">
+            {founders.map((founder, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -132,9 +63,10 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <SpotlightCard>
-                  <h3 className="card-title">{item.title}</h3>
-                  <p className="card-description">{item.description}</p>
+                <SpotlightCard className="founder-card">
+                  <h3 className="founder-name">{founder.name}</h3>
+                  <div className="founder-role">{founder.role}</div>
+                  <p className="founder-background">{founder.background}</p>
                 </SpotlightCard>
               </motion.div>
             ))}
@@ -143,81 +75,6 @@ const About = () => {
       </section>
 
       <section className="page-section-alt">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">{t('about.competencies.heading')}</h2>
-            <p className="section-subtitle">{t('about.competencies.subtitle')}</p>
-          </div>
-          <div className="features-grid">
-            {competencies.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <SpotlightCard>
-                  <h3 className="card-title">{item.title}</h3>
-                  <p className="card-description">{item.description}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="page-content-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">{t('about.toolchain.heading')}</h2>
-            <p className="section-subtitle">{t('about.toolchain.subtitle')}</p>
-          </div>
-          <div className="features-grid">
-            {toolchain.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <SpotlightCard>
-                  <h3 className="card-title">{item.title}</h3>
-                  <p className="card-description">{item.description}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="page-section-alt">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">{t('about.programming.heading')}</h2>
-            <p className="section-subtitle">{t('about.programming.subtitle')}</p>
-          </div>
-          <div className="features-grid">
-            {programming.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <SpotlightCard>
-                  <h3 className="card-title">{item.title}</h3>
-                  <p className="card-description">{item.description}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="page-content-section">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -229,7 +86,7 @@ const About = () => {
             <p>{t('about.cta.subtitle')}</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn primary large">{t('about.cta.primary')}</Link>
-              <Link to="/product" className="btn ghost large">{t('about.cta.secondary')}</Link>
+              <Link to="/competences" className="btn ghost large">{t('about.cta.secondary')}</Link>
             </div>
           </motion.div>
         </div>
