@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url('/assets/laptop.png');
+  background-image: url('/assets/laptop.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,7 +18,7 @@
 
 [data-theme="light"] .syscribe-hero {
   background-color: #F6F8FB;
-  background-image: url('/assets/laptop.png');
+  background-image: url('/assets/laptop.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -433,6 +433,14 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-title-icon {
+  color: var(--brand-cyan);
+  flex-shrink: 0;
 }
 
 .product-size {
@@ -471,6 +479,14 @@
   line-height: 1.8;
   margin: 0.5rem 0;
   padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-features .feature-icon {
+  color: var(--color-success);
+  flex-shrink: 0;
 }
 
 .product-card-footer {

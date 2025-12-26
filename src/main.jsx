@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/index.css'
+import reportWebVitals, { consoleReporter } from './utils/reportWebVitals'
 
 // Ensure DOM is ready and handle errors gracefully
 try {
@@ -26,5 +27,9 @@ try {
     </div>
   `
 }
+
+// Report Web Vitals metrics
+// In production, you can replace consoleReporter with analyticsReporter
+reportWebVitals(consoleReporter)
 
 

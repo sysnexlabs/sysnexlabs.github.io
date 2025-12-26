@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -9,6 +10,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 export default defineConfig({
   plugins: [
     react(),
+    // Bundle analyzer - generates stats.html in dist/
+    visualizer({
+      filename: 'dist/stats.html',
+      open: false, // Set to true to auto-open after build
+      gzipSize: true,
+      brotliSize: true,
+      template: 'treemap' // Options: sunburst, treemap, network
+    }),
     // Plugin to copy WASM files to dist during build
     (() => {
       // Define copy function outside the plugin object

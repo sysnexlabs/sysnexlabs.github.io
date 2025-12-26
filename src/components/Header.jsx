@@ -56,6 +56,23 @@ const Header = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      // Close dropdowns if clicking outside of them
+      if (!e.target.closest('.nav-dropdown')) {
+        setProductOpen(false)
+        setConsultingOpen(false)
+      }
+    }
+
+    // Only add listener if a dropdown is open
+    if (productOpen || consultingOpen) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [productOpen, consultingOpen])
+
   // Sync button text when lang changes (from useTranslation hook)
   useEffect(() => {
     if (typeof window !== 'undefined') {

@@ -9,80 +9,89 @@ const Methods = () => {
   const { t } = useTranslation()
   const highlights = [
     {
-      title: 'From Vision to Reality',
-      description: 'Precision engineering, customer-driven. We transform product requirements into robust physical architectures through structured, traceable workflows.'
+      title: 'Requirements to Architecture (BETA)',
+      description: 'Tool feature: Import requirements from CSV/YAML/DOORS, generate SysML v2 requirement elements, auto-create traceability links. Prototype working, needs UX polish.'
     },
     {
-      title: 'Mastering Complexity',
-      description: 'Seamlessly bridging systems and software. Our methods connect functional architecture, concept design, and physical realization in one cohesive process.'
+      title: 'Git-Native Workflows (PRODUCTION)',
+      description: 'Your models are plain text SysML v2. Commit, branch, merge, rebase - all the workflows you know. Line-by-line diffs in pull requests.'
     },
     {
-      title: 'Architecting the Future',
-      description: 'Rigorous workflows, intelligent solutions. From use cases to hardware capabilities, we ensure every requirement is properly allocated and validated.'
+      title: 'AI Pair Programming (PRODUCTION)',
+      description: 'Works with GitHub Copilot, Claude Code, and VS Code AI. Autocomplete SysML patterns, refactor models, generate documentation with AI assistance.'
     },
     {
-      title: 'Innovation in Motion',
-      description: 'Where functional excellence meets physical realization. Our tool-supported methodology enables rapid iteration from concept to implementation.'
+      title: 'Documentation Generation (BETA)',
+      description: 'Tool feature: Auto-generate MkDocs/Sphinx documentation from model structure. Export traceability matrices. Beta testers refining templates.'
     },
     {
-      title: 'Empowering Development',
-      description: 'Structured, traceable, and tool-supported. Every phase—from requirements refinement to software component allocation—is documented and verifiable.'
+      title: 'ASPICE Work Products (ALPHA)',
+      description: 'Tool feature: Parse SysML v2 models, extract SYS.2/SYS.3 work products, generate Word/PDF docs. 8/20 templates implemented, not audit-tested yet.'
     },
     {
-      title: 'Unlocking Potential',
-      description: 'Transforming requirements into robust architectures. Experience the power of systematic decomposition from product use cases to deployable components.'
+      title: 'ISO 26262 ASIL Validation (EXPERIMENTAL)',
+      description: 'Tool feature: Parse ASIL annotations in constraints, validate decomposition rules, flag inconsistencies. Works on toy examples, not production-tested.'
     }
   ]
 
   const approaches = [
     {
-      title: 'Use Case to Architecture',
-      description: 'Systematic transformation from stakeholder requirements through use cases to architectural models. Our approach ensures traceability at every step, from initial requirements capture to detailed system design.',
+      title: 'Requirements Traceability',
+      status: 'In Progress',
+      description: 'Scope: Import requirements from external sources (CSV, YAML, DOORS), generate SysML v2 requirement elements, create automated traceability links, and export traceability matrices for documentation.',
       items: [
-        'Stakeholder analysis and requirements elicitation',
-        'Use case modeling and scenario development',
-        'Architectural decomposition and allocation',
-        'Interface definition and contract specification'
+        'CSV/YAML requirements import',
+        'DOORS integration for enterprise tools',
+        'Automated traceability link generation',
+        'Matrix export to MkDocs/Sphinx/Excel'
       ]
     },
     {
-      title: 'SysML v2 Migration',
-      description: 'Structured approach for transitioning from SysML v1 to SysML v2, leveraging textual modeling and modern tooling. We provide transformation patterns and best practices for legacy model migration.',
+      title: 'ASPICE Work Product Automation',
+      status: 'In Progress',
+      description: 'Scope: Extract ASPICE-compliant work products from SysML v2 models covering SYS.2 (requirements), SYS.3 (architecture), and SYS.4 (integration) process areas. Generate audit-ready documentation.',
       items: [
-        'Model transformation strategies',
-        'Textual vs. graphical modeling trade-offs',
-        'Version control and collaboration workflows',
-        'Tooling integration and automation'
+        'System Requirements Specification (SYS.2)',
+        'System Architecture Design (SYS.3)',
+        'Interface and Integration specs (SYS.2/SYS.4)',
+        'Verification and validation documentation',
+        'Process evidence generation for audits'
       ]
     },
     {
-      title: 'Functional Safety Integration',
-      description: 'MBSE workflows aligned with safety standards including ISO 26262 (automotive), IEC 61508 (industrial), and DO-178C (aerospace). Our methods integrate hazard analysis, safety requirements, and compliance documentation directly into the modeling process.',
+      title: 'ISO 26262 Safety Validation',
+      status: 'Planned',
+      description: 'Scope: Validate ISO 26262 functional safety requirements through ASIL decomposition analysis, constraint validation, and safety case generation. Not certified for production use.',
       items: [
-        'Hazard Analysis and Risk Assessment (HARA)',
-        'Safety requirements specification and traceability',
-        'Fault tree analysis and FMEA integration',
-        'Safety case development and documentation'
+        'ASIL annotation parsing and validation',
+        'Decomposition rule checking (D=D+D, etc.)',
+        'Safety constraint validation',
+        'FMEA and fault tree integration',
+        'Safety case documentation generation'
       ]
     },
     {
-      title: 'Model-to-Code Workflows',
-      description: 'Practical approaches for generating and maintaining code from SysML models, ensuring consistency between models and implementation throughout the development lifecycle.',
+      title: 'Documentation Generation',
+      status: 'In Progress',
+      description: 'Scope: Auto-generate technical documentation from SysML v2 models in multiple formats (MkDocs, Sphinx, PDF). Includes diagrams, traceability matrices, and customizable templates.',
       items: [
-        'Code generation patterns and templates',
-        'Round-trip engineering strategies',
-        'Model validation and consistency checking',
-        'Continuous integration with model artifacts'
+        'MkDocs/Sphinx export formats',
+        'Automated diagram generation',
+        'Customizable documentation templates',
+        'Multi-format output (HTML, PDF, Markdown)',
+        'Cross-reference and index generation'
       ]
     },
     {
-      title: 'AI-Assisted Modeling',
-      description: 'Leveraging artificial intelligence to enhance model development, validation, and maintenance. Our methods incorporate AI for requirements analysis, consistency checking, and intelligent traceability.',
+      title: 'Git-Native Workflows',
+      status: 'Production Ready',
+      description: 'Scope: Full integration with standard Git workflows for version control, collaboration, and CI/CD. Models are plain text SysML v2 files that work seamlessly with existing developer tools.',
       items: [
-        'Automated requirements extraction and analysis',
-        'Model consistency and completeness validation',
-        'Intelligent traceability link generation',
-        'Pattern recognition and refactoring suggestions'
+        'Line-by-line diffs in pull requests',
+        'Branch-based model development',
+        'Merge conflict resolution in editors',
+        'CI/CD integration (linting, validation, tests)',
+        'GitHub/GitLab/Bitbucket compatibility'
       ]
     }
   ]
@@ -146,11 +155,23 @@ const Methods = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <h3 className="card-title">{approach.title}</h3>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                    <h3 className="card-title" style={{ margin: 0 }}>{approach.title}</h3>
+                    {approach.status && (
+                      <span className={`pricing-badge ${
+                        approach.status === 'Production Ready' ? 'badge-available' :
+                        approach.status === 'In Progress' ? 'badge-beta' :
+                        approach.status === 'Planned' ? 'badge-development' :
+                        'badge-development'
+                      }`} style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}>
+                        {approach.status}
+                      </span>
+                    )}
+                  </div>
                   <p className="card-description">{approach.description}</p>
-                  <ul className="method-list">
+                  <ul className="method-list" style={{ listStyle: 'none', paddingLeft: 0 }}>
                     {approach.items.map((item, itemIndex) => (
-                      <li key={itemIndex}>{item}</li>
+                      <li key={itemIndex} style={{ paddingLeft: 0 }}>{item}</li>
                     ))}
                   </ul>
                 </SpotlightCard>
@@ -191,6 +212,54 @@ const Methods = () => {
         </div>
       </section>
 
+      {/* Honest Disclaimers Section */}
+      <section className="page-section-alt" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">What We're NOT Claiming</h2>
+            <p className="section-subtitle">
+              These workflows are experiments becoming products. Early adopters help us test and refine them.
+            </p>
+          </div>
+          <div className="pricing-info-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>✅ What These ARE</h3>
+                <ul className="about-list">
+                  <li>✅ Tool features we're actively building</li>
+                  <li>✅ Workflows tested on internal projects</li>
+                  <li>✅ Beta programs open for early adopters</li>
+                  <li>✅ Transparent development roadmap</li>
+                  <li>✅ Open source core (fork and extend anytime)</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>❌ NOT Validated</h3>
+                <ul className="about-list no-bullets">
+                  <li>❌ Not proven in production automotive programs</li>
+                  <li>❌ Not validated in ASPICE audits</li>
+                  <li>❌ Not certified by TÜV or ISO authorities</li>
+                  <li>❌ Not offering consulting services (tool only)</li>
+                  <li>❌ Not claiming industry-wide ROI data</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <section className="page-section-alt">
         <div className="container">
           <motion.div
@@ -199,15 +268,13 @@ const Methods = () => {
             viewport={{ once: true }}
             className="cta-content"
           >
-            <h2>{t('methods.cta.heading') || 'Ready to Transform Your MBSE Workflow?'}</h2>
+            <h2>Want to Help Shape These Workflows?</h2>
             <p>
-              {t('methods.cta.before')}
-              <Link to="/contact" className="btn primary">{t('methods.cta.link')}</Link>
-              {t('methods.cta.after')}
+              Join our early adopter program and get free 6-month access to all beta features.
             </p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">{t('methods.cta.link')}</Link>
-              <Link to="/product" className="btn ghost large">{t('about.cta.secondary')}</Link>
+              <Link to="/contact" className="btn primary large">Apply for Beta</Link>
+              <Link to="/product" className="btn ghost large">See Product Tiers</Link>
             </div>
           </motion.div>
         </div>

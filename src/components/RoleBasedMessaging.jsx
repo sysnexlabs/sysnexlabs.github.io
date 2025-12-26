@@ -4,7 +4,7 @@ import SpotlightCard from './SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './RoleBasedMessaging.css'
 
-const RoleBasedMessaging = () => {
+const RoleBasedMessaging = React.memo(() => {
   const { t } = useTranslation()
 
   const roles = [
@@ -75,7 +75,9 @@ const RoleBasedMessaging = () => {
       </div>
     </section>
   )
-}
+})
+
+RoleBasedMessaging.displayName = 'RoleBasedMessaging'
 
 export default RoleBasedMessaging
 

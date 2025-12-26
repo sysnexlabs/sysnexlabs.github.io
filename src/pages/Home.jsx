@@ -5,7 +5,6 @@ import Hero from '../components/Hero'
 import SyscribeProduct from '../components/SyscribeProduct'
 import RoleBasedMessaging from '../components/RoleBasedMessaging'
 import MissionCriticalIndustries from '../components/MissionCriticalIndustries'
-import EnterpriseReadiness from '../components/EnterpriseReadiness'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './Home.css'
@@ -51,107 +50,6 @@ const Home = () => {
 
       {/* Mission-Critical Industries Section */}
       <MissionCriticalIndustries />
-
-      {/* Enterprise Readiness Section */}
-      <EnterpriseReadiness />
-
-      {/* See It In Action Section */}
-      <section className="see-it-in-action-section">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="section-header"
-          >
-            <h2 className="section-title">See It In Action</h2>
-            <p className="section-subtitle">
-              Experience production-ready SysML v2 Language Server with real-time diagnostics, navigation, and traceability
-            </p>
-          </motion.div>
-          
-          <div className="action-demo-grid">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="action-demo-visual"
-            >
-              <div className="demo-screenshot-wrapper">
-                <div className="demo-screenshot">
-                  <div className="screenshot-header">
-                    <div className="screenshot-dots">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="screenshot-label">VS Code Extension</div>
-                  </div>
-                  <div className="screenshot-content">
-                    <div className="code-preview">
-                      <div className="code-line"><span className="code-keyword">package</span> <span className="code-type">SysML</span>;</div>
-                      <div className="code-line"><span className="code-keyword">part</span> <span className="code-variable">engine</span> : <span className="code-type">Engine</span>;</div>
-                      <div className="code-line"><span className="code-keyword">part</span> <span className="code-variable">transmission</span> : <span className="code-type">Transmission</span>;</div>
-                      <div className="code-line highlight-line"><span className="code-keyword">part</span> <span className="code-variable">control</span> : <span className="code-type">ControlUnit</span>;</div>
-                      <div className="code-line"><span className="code-comment">// Real-time diagnostics active</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="action-demo-content"
-            >
-              <div className="demo-features">
-                <h3 className="demo-features-title">Key Capabilities</h3>
-                <ul className="demo-features-list">
-                  <li className="demo-feature-item">
-                    <span className="feature-icon">✏️</span>
-                    <div className="feature-content">
-                      <strong>Text-based modeling</strong>
-                      <span>Native SysML v2 syntax with real-time validation</span>
-                    </div>
-                  </li>
-                  <li className="demo-feature-item">
-                    <span className="feature-icon">⚡</span>
-                    <div className="feature-content">
-                      <strong>Real-time diagnostics</strong>
-                      <span>Instant error detection and intelligent suggestions</span>
-                    </div>
-                  </li>
-                  <li className="demo-feature-item">
-                    <span className="feature-icon">🧭</span>
-                    <div className="feature-content">
-                      <strong>Advanced navigation</strong>
-                      <span>Go-to-definition, find references, symbol search</span>
-                    </div>
-                  </li>
-                  <li className="demo-feature-item">
-                    <span className="feature-icon">🔗</span>
-                    <div className="feature-content">
-                      <strong>Traceability</strong>
-                      <span>Requirements linking and bidirectional traceability</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div className="demo-cta">
-                <Link to="/try-yourself" className="btn primary large">
-                  Try Live Demo
-                </Link>
-                <p className="demo-cta-note">No installation required • Works in your browser</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       <section className="insights-section">
         <div className="container">
@@ -240,8 +138,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* External Validation Section */}
-      <section className="external-validation-section">
+      {/* Honest About What We're NOT Section */}
+      <section className="honesty-section" style={{ padding: '4rem 0', background: 'var(--bg-secondary)' }}>
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -250,36 +148,109 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="section-header"
           >
-            <h2 className="section-title">{t('home.socialproof.heading')}</h2>
+            <h2 className="section-title">Honest About What We're NOT</h2>
             <p className="section-subtitle">
-              {t('home.socialproof.subtitle')}
+              We're building in the open. You get to influence the direction. But you need to be comfortable with early-stage tooling.
             </p>
           </motion.div>
+          <div className="pricing-info-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>✅ What We ARE</h3>
+                <ul className="about-list">
+                  <li>✅ Production-ready VS Code extension (18 LSP features)</li>
+                  <li>✅ Extensively tested and actively developed</li>
+                  <li>✅ Substantial codebase with proven reliability</li>
+                  <li>✅ Open source core (MIT license - fork anytime)</li>
+                  <li>✅ Early access for innovators shaping the future</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>❌ What We're NOT</h3>
+                <ul className="about-list no-bullets">
+                  <li>❌ Not certified for safety-critical production (yet)</li>
+                  <li>❌ Not a 100-person team (solo founder, for now)</li>
+                  <li>❌ Not production-validated in automotive OEM workflows</li>
+                  <li>❌ Not offering 24/7 enterprise support (community-first)</li>
+                  <li>❌ Not claiming ROI metrics without real deployments</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Early Adopter Program Section */}
+      <section className="early-adopter-section" style={{ padding: '4rem 0', background: 'var(--bg-primary)' }}>
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="validation-content"
+            transition={{ duration: 0.6 }}
+            className="section-header"
           >
-            <div className="validation-item">
-              <div className="validation-label">Research Partnership</div>
-              <div className="validation-text">
-                Validated in pilot programs with research institutions. Infrastructure verified for production use.
-              </div>
-            </div>
-            <div className="validation-item">
-              <div className="validation-label">Industry Validation</div>
-              <div className="validation-text">
-                German automotive OEM programs evaluating infrastructure for ISO 26262 and ASPICE compliance workflows.
-              </div>
-            </div>
-            <div className="validation-item">
-              <div className="validation-label">Milestone-Based Updates</div>
-              <div className="validation-text">
-                Progress published as validation milestones are reached. No marketing claims without evidence.
-              </div>
-            </div>
+            <h2 className="section-title">Early Adopter Program</h2>
+            <p className="section-subtitle">
+              We're looking for 10-20 innovators to help shape the future of SysML v2 tooling
+            </p>
+          </motion.div>
+          <div className="pricing-info-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ marginBottom: '1rem' }}>What You Get</h3>
+                <ul className="about-list">
+                  <li>Free 6-month access to all beta features</li>
+                  <li>Direct influence on roadmap priorities</li>
+                  <li>Early access to compliance tooling</li>
+                  <li>Co-marketing opportunities (if you want)</li>
+                  <li>Priority support during beta period</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ marginBottom: '1rem' }}>Ideal Partners</h3>
+                <ul className="about-list">
+                  <li>Automotive systems engineers tired of slow tools</li>
+                  <li>Academic research groups needing modern MBSE</li>
+                  <li>Toolchain innovators building SysML v2 workflows</li>
+                  <li>Early-stage companies with flexible processes</li>
+                  <li>Anyone passionate about open-source tooling</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ marginTop: '2rem', textAlign: 'center' }}
+          >
+            <Link to="/contact" className="btn primary large">Apply for Early Access</Link>
           </motion.div>
         </div>
       </section>
@@ -289,10 +260,11 @@ const Home = () => {
       <section className="cta-section-home">
         <div className="container">
           <div className="cta-content">
-            <h2>{t('home.cta.heading')}</h2>
-            <p>{t('home.cta.subtitle')}</p>
+            <h2>Ready to Get Started?</h2>
+            <p>Free tier is production-ready. Beta programs open for Standard & Platform tiers.</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">Schedule Consultation</Link>
+              <Link to="/try-yourself" className="btn primary large">Try Free Version</Link>
+              <Link to="/contact" className="btn ghost large">Apply for Beta</Link>
             </div>
           </div>
         </div>

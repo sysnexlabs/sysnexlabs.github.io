@@ -1,11 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from './SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './MissionCriticalIndustries.css'
 
-const MissionCriticalIndustries = () => {
+const MissionCriticalIndustries = React.memo(() => {
   const { t } = useTranslation()
 
   const industries = [
@@ -57,23 +56,23 @@ const MissionCriticalIndustries = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link to={industry.link} className="industry-link">
-                <SpotlightCard className="industry-item">
-                  <div className="industry-item-icon">{industry.icon}</div>
-                  <div className="industry-item-content">
-                    <h3 className="industry-item-name">{industry.name}</h3>
-                    <p className="industry-item-description">{industry.description}</p>
-                  </div>
-                  <span className="industry-item-arrow">→</span>
-                </SpotlightCard>
-              </Link>
+              {/* TODO: Add industry pages later - links removed to prevent 404s */}
+              <SpotlightCard className="industry-item">
+                <div className="industry-item-icon">{industry.icon}</div>
+                <div className="industry-item-content">
+                  <h3 className="industry-item-name">{industry.name}</h3>
+                  <p className="industry-item-description">{industry.description}</p>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
   )
-}
+})
+
+MissionCriticalIndustries.displayName = 'MissionCriticalIndustries'
 
 export default MissionCriticalIndustries
 

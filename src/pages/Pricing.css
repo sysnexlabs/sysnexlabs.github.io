@@ -102,6 +102,25 @@
   border: 1px solid rgba(139, 92, 246, 0.3);
 }
 
+/* Honest availability badges */
+.pricing-badge.badge-available {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--color-success);
+  border: 1px solid rgba(63, 185, 80, 0.4);
+}
+
+.pricing-badge.badge-beta {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--brand-amber);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.pricing-badge.badge-development {
+  background: rgba(200, 0, 100, 0.15);
+  color: var(--aubergine);
+  border: 1px solid rgba(200, 0, 100, 0.4);
+}
+
 .pricing-plan-name {
   font-size: 1.75rem;
   font-weight: 700;

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Star, Layers, Shield, CheckCircle } from 'lucide-react'
 import AnimatedText from './AnimatedText'
 import { useTranslation } from '../utils/i18n'
 import './SyscribeProduct.css'
 
-const SyscribeProduct = () => {
+const SyscribeProduct = React.memo(() => {
   const { t } = useTranslation()
   return (
     <>
@@ -106,60 +107,64 @@ const SyscribeProduct = () => {
           <div className="commercial-products-grid">
             {[
               {
-                badge: 'Recommended',
-                badgeClass: 'badge-featured',
-                title: '🔷 Standard',
+                badge: 'In Progress',
+                badgeClass: 'badge-beta',
+                title: 'Standard',
+                icon: Star,
                 size: '~35-40 MB',
-                bestFor: 'Best for: Professional systems engineering teams requiring full IDE capabilities',
-                description: 'Complete professional IDE: all LSP features, documentation viewer, model explorer, requirements tracking, diagram visualization, trade study analysis, and quality analytics.',
+                bestFor: 'Best for: Professional teams needing documentation and traceability',
+                description: 'Scope: Professional IDE extending Essential with automated documentation generation, requirements traceability, and model analytics capabilities.',
+                availability: 'Status: In progress - Beta testing with design partners',
                 features: [
-                  'All Essential features',
-                  'Documentation Viewer (MkDocs/Sphinx)',
-                  'Requirements Manager & Traceability',
-                  'Diagram Editor & Visualization',
-                  'Trade Study Analysis (MCDA)',
-                  'Model Analytics & Metrics',
-                  'Production-Ready'
+                  'All Essential LSP features',
+                  'Documentation generation (MkDocs/Sphinx)',
+                  'Requirements traceability matrix',
+                  'Model analytics and metrics',
+                  'Email support with SLA'
                 ],
-                cta: 'Get License',
+                cta: 'Apply for Beta',
                 featured: true
               },
               {
-                badge: 'Enterprise',
-                badgeClass: 'badge-enterprise',
-                title: '🔶 Platform',
+                badge: 'Planned',
+                badgeClass: 'badge-development',
+                title: 'Platform',
+                icon: Layers,
                 size: '~50-60 MB',
-                bestFor: 'Best for: Enterprise teams requiring domain-specific integrations and automation',
-                description: 'Enterprise platform with domain extensions: VSS (Vehicle Signal Specification), YAML Architecture (ADL/SUDL), UVL variability management with Z3 solver, and Python bindings.',
+                bestFor: 'Best for: Enterprise teams requiring domain-specific integrations',
+                description: 'Scope: Enterprise platform adding domain extensions for automotive (VSS), variability management (UVL), architecture languages (YAML/ADL), constraint solving (Z3), and extensibility (Python API).',
+                availability: 'Status: Planned for Q2 2025 - Pilot partners wanted',
                 features: [
                   'Everything in Standard',
-                  'VSS Integration & Synchronization',
-                  'YAML Architecture (ADL/SUDL)',
-                  'UVL Variability Management',
-                  'Z3 Solver Integration (SMT)',
-                  'Python API & Bindings',
-                  'CST Viewer'
+                  'VSS automotive signal integration',
+                  'UVL variability modeling',
+                  'YAML architecture definitions (ADL/SUDL)',
+                  'Z3 constraint solver integration',
+                  'Python API for custom workflows',
+                  'Advanced CST viewer and debugging'
                 ],
-                cta: 'Contact Sales',
+                cta: 'Join Waitlist',
                 featured: false
               },
               {
-                badge: 'Automotive',
-                badgeClass: 'badge-automotive',
-                title: '🛡️ Automotive/Safety',
-                size: '~80-90 MB',
-                bestFor: 'Best for: Automotive OEM/Tier-1 teams requiring ASPICE and ISO 26262 compliance',
-                description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation. Direct sales only.',
+                badge: 'Planned',
+                badgeClass: 'badge-development',
+                title: 'Automotive/Safety',
+                icon: Shield,
+                size: '~60-70 MB',
+                bestFor: 'Best for: Automotive OEM/Tier-1 requiring safety and process compliance',
+                description: 'Scope: Automotive compliance tooling adding ASPICE work product automation, ISO 26262 safety validation, cybersecurity templates (ISO/SAE 21434), and audit-ready documentation. Not certified for production use.',
+                availability: 'Status: Planned for Q2 2025 - Pilot programs available',
                 features: [
                   'Everything in Platform',
-                  'ASPICE audit-ready scope',
-                  'ISO 26262 ASIL Validation',
-                  'ISO 15288 Foundation',
-                  'Requirements & Traceability',
-                  'ASIL Decomposition Validator',
-                  'Change Impact Analysis'
+                  'ASPICE work product automation (20 templates)',
+                  'ISO 26262 ASIL decomposition validation',
+                  'ISO/SAE 21434 cybersecurity templates',
+                  'Constraint and safety rule validation',
+                  'Audit-ready documentation generation',
+                  'Compliance traceability reporting'
                 ],
-                cta: 'Contact Sales',
+                cta: 'Contact for Pilot',
                 featured: false
               }
             ].map((product, index) => (
@@ -189,12 +194,30 @@ const SyscribeProduct = () => {
                   </motion.div>
                 </div>
                 <div className="product-card-body">
-                  <h3 className="product-title">{product.title}</h3>
+                  <h3 className="product-title">
+                    {product.icon && <product.icon size={20} className="product-title-icon" />}
+                    {product.title}
+                  </h3>
                   <p className="product-size">{product.size}</p>
                   {product.bestFor && (
                     <p className="product-best-for">{product.bestFor}</p>
                   )}
                   <p className="product-description">{product.description}</p>
+                  {product.availability && (
+                    <div className="product-availability" style={{
+                      padding: '0.75rem',
+                      marginTop: '0.75rem',
+                      marginBottom: '0.75rem',
+                      background: 'rgba(0, 180, 216, 0.1)',
+                      borderRadius: '8px',
+                      fontSize: '0.875rem',
+                      fontWeight: '600',
+                      color: 'var(--brand-cyan)',
+                      borderLeft: '3px solid var(--brand-cyan)'
+                    }}>
+                      {product.availability}
+                    </div>
+                  )}
                   <ul className="product-features">
                     {product.features.map((feature, idx) => (
                       <motion.li
@@ -204,7 +227,7 @@ const SyscribeProduct = () => {
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.2 + 0.4 + idx * 0.05 }}
                       >
-                        ✅ {feature}
+                        {feature}
                       </motion.li>
                     ))}
                   </ul>
@@ -226,7 +249,9 @@ const SyscribeProduct = () => {
       </section>
     </>
   )
-}
+})
+
+SyscribeProduct.displayName = 'SyscribeProduct'
 
 export default SyscribeProduct
 

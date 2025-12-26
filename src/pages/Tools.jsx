@@ -8,90 +8,90 @@ const Tools = () => {
   const highlights = [
     {
       icon: '🚀',
-      title: 'Advanced System Modeling',
-      description: 'Native SysML v2 support with syntax highlighting, IntelliSense, and real-time validation. Define complex systems with precise component specifications, interaction points, and bounding boxes—all in textual format.'
+      title: 'SysML v2 Modeling (Production)',
+      description: 'Native SysML v2 support with syntax highlighting, IntelliSense, and real-time validation. Define systems in textual format with LSP features. 18/18 LSP features implemented.'
     },
     {
       icon: '🤖',
-      title: 'AI-Powered Assistant',
-      description: 'Integrated AI copilot for planning, context-aware suggestions, and command generation. Automate workflows, generate code, and get intelligent assistance throughout your development process.'
+      title: 'AI Integration (Works with Copilot)',
+      description: 'Compatible with GitHub Copilot, Claude Code, and VS Code AI. Works with standard AI assistants—no proprietary AI. Leverage existing tooling, not custom solutions.'
     },
     {
       icon: '📦',
-      title: 'Language Server',
-      description: 'Lightning-fast SysML v2 Language Server Protocol (LSP). Get instant autocomplete, error detection, and semantic understanding of your models as you type.'
+      title: 'Language Server (Production)',
+      description: 'Complete SysML v2 Language Server Protocol implementation. Sub-50ms response time in internal benchmarks. Autocomplete, diagnostics, navigation all working.'
     },
     {
       icon: '🔗',
-      title: 'Git Integration',
-      description: 'Full version control for SysML models. Branch-based workflows, pull requests for model reviews, and seamless collaboration. Your models are code—treat them as such.'
+      title: 'Git Integration (Native)',
+      description: 'SysML v2 files are plain text—use Git naturally. Branch, merge, PR review workflows just work. No proprietary SCM required.'
     },
     {
       icon: '⚡',
-      title: 'Real-Time Feedback',
-      description: 'Instant validation, syntax checking, and error detection. See line numbers, encoding info, and warnings in real-time. Know immediately when something needs attention.'
+      title: 'Real-Time Feedback (Production)',
+      description: 'Instant validation, syntax checking, and error detection. 25+ diagnostic collectors. Markers show exactly where issues are.'
     },
     {
       icon: '🎯',
-      title: 'Multi-Language Support',
-      description: 'Support for SysML, Sphinx Docs, Prettier, and more. One environment for modeling, documentation, and code generation—no context switching required.'
+      title: 'Multi-Format Support (Experimental)',
+      description: 'Experimenting with UVL variability, YAML architecture, VSS signals. SysML v2 is production-ready, domain extensions are beta.'
     }
   ]
 
   const features = [
     {
-      title: 'VS Code Integration',
-      description: 'Our tools are built as first-class VS Code extensions, providing a seamless development experience. The familiar interface you know, enhanced with systems engineering superpowers.',
+      title: 'VS Code Integration (Production)',
+      description: 'Built as a VS Code extension. No custom IDE—just extends the editor you already use. Works wherever VS Code works.',
       items: [
-        'Native VS Code extension with full LSP support',
+        'Native VS Code extension with full LSP support (18/18 features)',
         'Syntax highlighting and code formatting for SysML v2',
-        'Integrated file explorer for project navigation',
-        'Multi-panel layout for code, AI assistant, and documentation',
-        'Status bar integration showing language, encoding, and Git status'
+        'Standard VS Code file explorer, search, Git integration',
+        'Multi-panel layout using VS Code webviews',
+        'Status bar shows diagnostics, language mode, encoding'
       ]
     },
     {
-      title: 'AI Assistant &amp; Copilot',
-      description: 'Intelligent assistance that understands your SysML models and helps you build better systems faster. Plan, generate, and iterate with AI-powered suggestions.',
+      title: 'AI Assistant Compatibility (Works with Standard Tools)',
+      description: 'No proprietary AI. Works with GitHub Copilot, Claude Code, VS Code AI extensions. Just a language server—AI works naturally.',
       items: [
-        'Context-aware code generation and suggestions',
-        'Command generation for common workflows',
-        'Planning assistance for system architecture',
-        'Chat interface for interactive development',
-        'Past chat history for workflow continuity'
+        'GitHub Copilot autocomplete for SysML v2 (if you have Copilot)',
+        'Claude Code integration (if you use Claude)',
+        'Standard LSP means any AI tool can use it',
+        'No vendor lock-in to our AI—bring your own',
+        'Completions work with or without AI assistance'
       ]
     },
     {
-      title: 'SysML v2 Language Server',
-      description: 'Our LSP provides lightning-fast language support for SysML v2, bringing modern IDE features to systems modeling.',
+      title: 'SysML v2 Language Server (Production)',
+      description: 'Complete LSP implementation. Sub-50ms response in internal benchmarks. All 18 LSP features working.',
       items: [
-        'Real-time syntax validation and error detection',
-        'IntelliSense autocomplete for SysML v2 keywords and types',
-        'Go-to-definition and find-references navigation',
-        'Semantic understanding of models and relationships',
-        'Quick fixes and refactoring suggestions'
+        'Real-time syntax validation (25+ diagnostic collectors)',
+        'IntelliSense autocomplete with ~10K library types',
+        'Go-to-definition, find-references, type hierarchy',
+        'Semantic highlighting (43 token types, HIR-based)',
+        'Hover, rename, folding, inlay hints, signature help'
       ]
     },
     {
-      title: 'Git-Based Workflows',
-      description: "Version control isn't just for code—it's essential for models too. Our tools make Git workflows natural for SysML v2 development.",
+      title: 'Git-Based Workflows (Native Support)',
+      description: "SysML v2 files are plain text. Git just works—no special tooling needed. Use standard Git workflows.",
       items: [
-        'Branch-based development for model features',
-        'Pull request workflows for model reviews',
-        'Merge conflict resolution for textual models',
-        'Commit history and blame for traceability',
-        'Integration with GitHub, GitLab, and other platforms'
+        'Branch-based development (files are .sysml text)',
+        'Pull request reviews show line-by-line diffs',
+        'Merge conflicts are text-based (resolve in editor)',
+        'Commit history and blame work naturally',
+        'Use GitHub/GitLab/Bitbucket—no special integration'
       ]
     },
     {
-      title: 'Code Generation &amp; Round-Trip',
-      description: 'Generate code from models and maintain consistency. Our tools support model-to-code workflows with validation and synchronization.',
+      title: 'Code Generation (Experimental)',
+      description: 'Early prototypes for model-to-code generation. Not production-ready. Experimenting with templates and validation.',
       items: [
-        'Automated code generation from SysML models',
-        'Round-trip engineering support',
-        'Template-based code generation',
-        'Validation of generated code against models',
-        'CI/CD integration for automated builds'
+        'Prototype code generation from SysML models',
+        'Template-based approach (alpha)',
+        'Validation of generated code (experimental)',
+        'CI/CD integration (planned)',
+        'Round-trip engineering (research stage)'
       ]
     }
   ]
@@ -137,9 +137,9 @@ const Tools = () => {
           >
             <h1>Development Tools &amp; Environment</h1>
             <p className="page-hero-description">
-              SysNex Systems provides a complete, AI-augmented development environment for SysML v2 modeling. 
-              Our tooling integrates seamlessly with VS Code, Git, and modern development workflows, bringing 
-              systems engineering into the 21st century.
+              SysNex Systems builds AI-augmented SysML v2 tooling for VS Code.
+              Our extension integrates with Git and modern development workflows, bringing
+              systems engineering into the developer experience. Early-stage product, not enterprise-validated.
             </p>
           </motion.div>
         </div>
@@ -218,10 +218,60 @@ const Tools = () => {
             ))}
           </div>
           <p className="page-cta">
-            <span>Ready to experience modern MBSE tooling? </span>
-            <Link to="/contact">Get in touch</Link>
-            <span> to learn more about our tools and how they can transform your systems engineering workflow.</span>
+            <span>Ready to try it? </span>
+            <Link to="/try-yourself">Try the demo</Link>
+            <span> or </span>
+            <Link to="/contact">apply for beta access</Link>
+            <span> to advanced features.</span>
           </p>
+        </div>
+      </section>
+
+      {/* Honest Disclaimers Section */}
+      <section className="page-section-alt" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">What We ARE vs What We're NOT</h2>
+            <p className="section-subtitle">
+              We're building a VS Code extension, not an enterprise platform. Here's the reality:
+            </p>
+          </div>
+          <div className="methods-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>✅ What We ARE</h3>
+                <ul className="method-list">
+                  <li>✅ VS Code extension for SysML v2 (production-ready LSP)</li>
+                  <li>✅ Compatible with standard AI tools (Copilot, Claude)</li>
+                  <li>✅ Plain text files that work with Git naturally</li>
+                  <li>✅ Early-stage product with beta features</li>
+                  <li>✅ Open source core (fork and extend anytime)</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>❌ What We're NOT</h3>
+                <ul className="method-list no-bullets">
+                  <li>❌ Not claiming 50M+ users (that's VS Code, not us)</li>
+                  <li>❌ Not enterprise-validated or production-tested</li>
+                  <li>❌ Not offering proprietary AI or custom IDE</li>
+                  <li>❌ Not replacing CATIA/Cameo/Rhapsody (yet)</li>
+                  <li>❌ Not certified for safety-critical use</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

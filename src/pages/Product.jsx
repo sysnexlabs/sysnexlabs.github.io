@@ -85,6 +85,42 @@ const Product = () => {
       link: '/contact'
     },
     {
+      icon: '🖥️',
+      title: 'SysMLv2 CodeFlow Desktop',
+      badge: 'Tauri App',
+      description: 'Native desktop application built with Tauri. Standalone app with full LSP features, no VS Code required. Fast, secure, and offline-capable.',
+      features: [
+        'Same LSP backend as VS Code extension',
+        'Native desktop performance',
+        'Smaller footprint than Electron',
+        'Fully offline capable',
+        'No VS Code installation required',
+        'Cross-platform (Windows, macOS, Linux)'
+      ],
+      status: '✅ Production-Ready',
+      featured: false,
+      cta: 'Download Desktop',
+      link: '/contact'
+    },
+    {
+      icon: '☁️',
+      title: 'SysMLv2 CodeFlow Cloud',
+      badge: 'SaaS Solution',
+      description: 'Cloud-based SysML v2 IDE accessible from any browser. Real-time collaboration, cloud storage, and zero installation required.',
+      features: [
+        'Access from any browser',
+        'Real-time collaboration',
+        'Cloud-based model storage',
+        'Zero installation required',
+        'Same features as desktop versions',
+        'Enterprise SSO integration'
+      ],
+      status: '🚧 Coming Soon',
+      featured: false,
+      cta: 'Join Waitlist',
+      link: '/contact'
+    },
+    {
       icon: '⚙️',
       title: 'SysMLv2 CodeFlow CLI + Compliance',
       badge: 'Enterprise',

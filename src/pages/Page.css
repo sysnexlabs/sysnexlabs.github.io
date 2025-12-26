@@ -565,6 +565,15 @@
   line-height: 1;
 }
 
+/* Remove bullet from "What We're NOT" method lists */
+.method-list.no-bullets li::before {
+  content: none;
+}
+
+.method-list.no-bullets li {
+  padding-left: 0;
+}
+
 .roadmap-note {
   text-align: center;
   color: var(--text-primary);
@@ -1383,5 +1392,53 @@
 
   .section-subtitle {
     padding: 0 1rem;
+  }
+}
+
+/* About Page - Honest Solo Founder Layout */
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-list li {
+  padding: 0.75rem 0 0.75rem 1.5rem;
+  position: relative;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.about-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-success);
+  font-weight: bold;
+}
+
+/* Remove checkmark from "What We're NOT" lists */
+.about-list.no-bullets li::before {
+  content: none;
+}
+
+.about-list.no-bullets li {
+  padding-left: 0;
+}
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .two-column-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-list li {
+    font-size: 0.95rem;
   }
 }

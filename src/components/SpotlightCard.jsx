@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import './SpotlightCard.css'
 
-const SpotlightCard = ({ children, className = '' }) => {
+const SpotlightCard = React.memo(({ children, className = '' }) => {
   const cardRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
@@ -48,7 +48,9 @@ const SpotlightCard = ({ children, className = '' }) => {
       </div>
     </motion.div>
   )
-}
+})
+
+SpotlightCard.displayName = 'SpotlightCard'
 
 export default SpotlightCard
 

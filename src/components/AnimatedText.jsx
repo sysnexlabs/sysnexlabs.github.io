@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import './AnimatedText.css'
 
-const AnimatedText = ({ children, variant = 'gradient', className = '' }) => {
+const AnimatedText = React.memo(({ children, variant = 'gradient', className = '' }) => {
   const variants = {
     gradient: {
       background: 'linear-gradient(135deg, var(--turquoise) 0%, var(--turquoise) 100%)',
@@ -31,7 +31,9 @@ const AnimatedText = ({ children, variant = 'gradient', className = '' }) => {
       {children}
     </motion.span>
   )
-}
+})
+
+AnimatedText.displayName = 'AnimatedText'
 
 export default AnimatedText
 

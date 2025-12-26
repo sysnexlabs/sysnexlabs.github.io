@@ -141,14 +141,14 @@ const Competences = () => {
             transition={{ duration: 0.8 }}
             className="competences-hero-content"
           >
-            <div className="hero-badge">{t('competences.hero.badge')}</div>
-            <h1>{t('competences.hero.title')}</h1>
+            <div className="hero-badge">Tool Capabilities, Not Consulting</div>
+            <h1>What Our Tools Can Do</h1>
             <p className="page-hero-description">
-              {t('competences.hero.description')}
+              These are capabilities of our SysML v2 tooling, not claims about consulting expertise. We're building IDE features to support systems engineering—not offering services or training.
             </p>
             <div className="hero-cta">
-              <Link to="/contact" className="btn primary">{t('competences.hero.cta.primary')}</Link>
-              <Link to="/methods" className="btn ghost">{t('competences.hero.cta.secondary')}</Link>
+              <Link to="/try-yourself" className="btn primary">Try the Tools</Link>
+              <Link to="/product" className="btn ghost">See Product Tiers</Link>
             </div>
           </motion.div>
         </div>
@@ -158,9 +158,9 @@ const Competences = () => {
       <section className="page-content-section">
         <div className="container">
           <div className="section-header">
-            <h2>{t('competences.core.heading')}</h2>
+            <h2>Core Tool Capabilities</h2>
             <p className="section-subtitle">
-              {t('competences.core.subtitle')}
+              What our SysML v2 IDE can help you do (tool features, not consulting services):
             </p>
           </div>
           <div className="competences-grid">
@@ -192,9 +192,9 @@ const Competences = () => {
       <section className="page-section-alt">
         <div className="container">
           <div className="section-header">
-            <h2>{t('competences.standards.heading')}</h2>
+            <h2>Standards Awareness (Not Certification)</h2>
             <p className="section-subtitle">
-              {t('competences.standards.subtitle')}
+              Our tools are designed with these standards in mind. We're not certified, just building tooling that helps:
             </p>
           </div>
           <div className="standards-grid">
@@ -212,10 +212,6 @@ const Competences = () => {
                   <span className="standard-level">{standard.level}</span>
                 </div>
                 <p className="standard-description">{standard.description}</p>
-                <div className="standard-coverage">
-                  <strong>{t('competences.standards.coverage.label')}:</strong>
-                  <span>{standard.coverage}</span>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -226,9 +222,9 @@ const Competences = () => {
       <section className="page-content-section">
         <div className="container">
           <div className="section-header">
-            <h2>{t('competences.industries.heading')}</h2>
+            <h2>Target Industries (Aspirational)</h2>
             <p className="section-subtitle">
-              {t('competences.industries.subtitle')}
+              Industries we're building for. Automotive has some validation, others are future aims:
             </p>
           </div>
           <div className="industries-grid">
@@ -263,6 +259,54 @@ const Competences = () => {
         </div>
       </section>
 
+      {/* Honest Disclaimers Section */}
+      <section className="page-section-alt" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">What We ARE vs What We're NOT</h2>
+            <p className="section-subtitle">
+              These "competences" are tool capabilities, not team expertise. Here's the distinction:
+            </p>
+          </div>
+          <div className="methods-grid" style={{ marginTop: '2rem' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-success)', marginBottom: '1rem' }}>✅ What We ARE</h3>
+                <ul className="method-list">
+                  <li>✅ Building SysML v2 tools with standards awareness</li>
+                  <li>✅ Researching industry needs to build better features</li>
+                  <li>✅ Creating self-service tooling, not consulting packages</li>
+                  <li>✅ Targeting automotive (some traction) + aspirational industries</li>
+                  <li>✅ Solo founder with tool-building focus</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <SpotlightCard>
+                <h3 style={{ color: 'var(--color-error)', marginBottom: '1rem' }}>❌ What We're NOT</h3>
+                <ul className="method-list no-bullets">
+                  <li>❌ Not a consulting firm with industry experts</li>
+                  <li>❌ Not offering training or certification services</li>
+                  <li>❌ Not claiming deep domain expertise in aerospace/rail/energy</li>
+                  <li>❌ Not validated in production programs (yet)</li>
+                  <li>❌ Not staffed with systems engineers—solo founder</li>
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="page-section-alt">
         <div className="container">
@@ -273,11 +317,11 @@ const Competences = () => {
             transition={{ duration: 0.6 }}
             className="cta-content"
           >
-            <h2>{t('competences.cta.heading')}</h2>
-            <p>{t('competences.cta.subtitle')}</p>
+            <h2>Want to Try the Tools?</h2>
+            <p>See what our SysML v2 IDE can do for your systems engineering workflows.</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn primary large">{t('competences.cta.primary')}</Link>
-              <Link to="/methods" className="btn ghost large">{t('competences.cta.secondary')}</Link>
+              <Link to="/try-yourself" className="btn primary large">Try Yourself</Link>
+              <Link to="/product" className="btn ghost large">See Product Tiers</Link>
             </div>
           </motion.div>
         </div>

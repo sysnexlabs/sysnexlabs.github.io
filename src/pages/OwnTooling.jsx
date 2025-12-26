@@ -131,9 +131,9 @@ const OwnTooling = () => {
     {
       title: 'Backend Infrastructure',
       items: [
-        '43 production-ready crates (271K lines)',
+        'Production-ready language server',
         'LSP protocol integration',
-        'Salsa incremental computation',
+        'Incremental computation for performance',
         'Full SysML v2 library support (~10K types)'
       ]
     },

@@ -4,7 +4,7 @@ import SpotlightCard from './SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import './EnterpriseReadiness.css'
 
-const EnterpriseReadiness = () => {
+const EnterpriseReadiness = React.memo(() => {
   const { t } = useTranslation()
 
   const readinessItems = [
@@ -63,7 +63,9 @@ const EnterpriseReadiness = () => {
       </div>
     </section>
   )
-}
+})
+
+EnterpriseReadiness.displayName = 'EnterpriseReadiness'
 
 export default EnterpriseReadiness
 
