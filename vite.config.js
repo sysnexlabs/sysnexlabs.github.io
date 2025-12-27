@@ -175,17 +175,21 @@ export default defineConfig({
       output: {
         // Manual chunks for better caching - split vendor libraries
         manualChunks: (id) => {
-          // React and core dependencies
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) {
+          // React and all React-dependent libraries must be in the same chunk
+          // to ensure React is available when these libraries need it (e.g., forwardRef)
+          if (
+            id.includes('node_modules/react') || 
+            id.includes('node_modules/react-dom') || 
+            id.includes('node_modules/react-router') ||
+            id.includes('node_modules/@monaco-editor/react') ||
+            id.includes('node_modules/framer-motion') ||
+            id.includes('node_modules/lucide-react')
+          ) {
             return 'react-vendor'
           }
-          // Editor dependencies
+          // Editor core (non-React wrapper)
           if (id.includes('node_modules/@monaco-editor') || id.includes('node_modules/monaco-editor')) {
             return 'editor-vendor'
-          }
-          // Animation library
-          if (id.includes('node_modules/framer-motion')) {
-            return 'animation-vendor'
           }
           // Other node_modules go into vendor chunk
           if (id.includes('node_modules')) {
