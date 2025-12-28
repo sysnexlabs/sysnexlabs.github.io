@@ -177,7 +177,7 @@ const Header = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
           onClick={handleHomeClick}
         >
-          <img src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_new_dark.svg"} alt="SysNex Systems" className="logo" />
+          <img src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} alt="SysNex" className="logo" />
           <span className="brand-text">
             <span className="brand-text-primary">SYSNEX</span>
             <span className="brand-text-secondary">Systems</span>

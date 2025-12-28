@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2441a5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#051146;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#16335b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="779.89" height="768.87" x="122.06" y="127.56" rx="127.78" fill="url(#bgGradient)"/>
+  <!-- Balance scale icon -->
+  <path d="M 300 550 L 724 550" stroke="#ffffff" stroke-width="20" stroke-linecap="round"/>
+  <path d="M 512 350 L 512 550" stroke="#ffffff" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="300" cy="550" r="80" fill="#3b82f6" stroke="#ffffff" stroke-width="15"/>
+  <circle cx="724" cy="550" r="80" fill="#3b82f6" stroke="#ffffff" stroke-width="15"/>
+  <path d="M 280 450 L 320 450 L 320 550 L 280 550 Z" fill="#ffffff"/>
+  <path d="M 704 450 L 744 450 L 744 550 L 704 550 Z" fill="#ffffff"/>
+  <!-- Text labels -->
+  <text x="241" y="770" font-family="Inter, sans-serif" font-size="133" font-weight="bold" fill="#f19e12">Nex</text>
+  <text x="481" y="770" font-family="Inter, sans-serif" font-size="133" font-weight="bold" fill="url(#textGradient)">Trade</text>
+</svg>
+

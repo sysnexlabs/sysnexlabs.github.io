@@ -12,7 +12,7 @@ const Legal = ({ type = 'privacy' }) => {
       sections: [
         {
           heading: 'Data Collection',
-          text: 'Syscribe collects minimal data necessary for service operation. Model data processed by the Language Server remains local to your environment. No model content is transmitted to external servers unless explicitly configured (e.g., optional AI integrations).'
+          text: 'NexSuite collects minimal data necessary for service operation. Model data processed by the Language Server remains local to your environment. No model content is transmitted to external servers unless explicitly configured (e.g., optional AI integrations).'
         },
         {
           heading: 'AI Data Boundaries',
@@ -38,7 +38,7 @@ const Legal = ({ type = 'privacy' }) => {
       sections: [
         {
           heading: 'License Type',
-          text: 'Syscribe is licensed under proprietary terms. Essential variant is free for evaluation and non-commercial use. Standard, Platform, and Automotive variants require commercial licenses.'
+          text: 'NexSuite is licensed under proprietary terms. Essential variant is free for evaluation and non-commercial use. Standard, Platform, and Automotive variants require commercial licenses.'
         },
         {
           heading: 'Evaluation Period',
@@ -76,7 +76,7 @@ const Legal = ({ type = 'privacy' }) => {
         },
         {
           heading: 'Intellectual Property',
-          text: 'All Syscribe code, documentation, and trademarks are proprietary to SysNex Systems. License grants usage rights only, not ownership.'
+          text: 'All Syscribe code, documentation, and trademarks are proprietary to SysNex. License grants usage rights only, not ownership.'
         },
         {
           heading: 'Contact',
@@ -108,5 +108,7 @@ const Legal = ({ type = 'privacy' }) => {
 }
 
 export default Legal
+
+
 
 

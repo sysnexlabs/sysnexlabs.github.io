@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
+import { useTheme } from '../contexts/ThemeContext'
 import './Page.css'
 import './Product.css'
 
 const Product = () => {
   const { t } = useTranslation()
+  const { theme } = useTheme()
   const differentiators = [
     {
       icon: '🚀',
       title: 'Multi-Platform Delivery',
-      description: 'Available as VS Code Extension (50M+ users), Tauri App, and SaaS by SysNex Systems. Choose the deployment that fits your workflow.',
+      description: 'Available as VS Code Extension (50M+ users), Tauri App, and SaaS by SysNex. Choose the deployment that fits your workflow.',
       tags: ['50M+ Users', 'Zero Learning Curve', 'Cross-Platform']
     },
     {
@@ -50,7 +52,7 @@ const Product = () => {
   const variants = [
     {
       icon: '👁️',
-      title: 'Syscribe Viewer',
+      title: 'NexDocs Viewer',
       badge: 'Free',
       description: 'Free read-only web-based viewer for SysML v2 models. Browse, navigate, and explore systems models without editing capabilities.',
       features: [
@@ -68,7 +70,7 @@ const Product = () => {
     },
     {
       icon: '💻',
-      title: 'SysMLv2 CodeFlow IDE',
+      title: 'NexSuite IDE',
       badge: 'VS Code Extension',
       description: 'Production-ready VS Code extension with full editing capabilities, complete LSP implementation, and professional features.',
       features: [
@@ -86,7 +88,7 @@ const Product = () => {
     },
     {
       icon: '🖥️',
-      title: 'SysMLv2 CodeFlow Desktop',
+      title: 'NexSuite Desktop',
       badge: 'Tauri App',
       description: 'Native desktop application built with Tauri. Standalone app with full LSP features, no VS Code required. Fast, secure, and offline-capable.',
       features: [
@@ -104,7 +106,7 @@ const Product = () => {
     },
     {
       icon: '☁️',
-      title: 'SysMLv2 CodeFlow Cloud',
+      title: 'NexSuite Cloud',
       badge: 'SaaS Solution',
       description: 'Cloud-based SysML v2 IDE accessible from any browser. Real-time collaboration, cloud storage, and zero installation required.',
       features: [
@@ -122,7 +124,7 @@ const Product = () => {
     },
     {
       icon: '⚙️',
-      title: 'SysMLv2 CodeFlow CLI + Compliance',
+      title: 'NexSuite CLI + Compliance',
       badge: 'Enterprise',
       description: 'CLI tool for CI/CD validation and compliance packs (ASPICE, ISO 26262) for regulated domain engineering.',
       features: [
@@ -140,7 +142,7 @@ const Product = () => {
     },
     {
       icon: '🛡️',
-      title: 'SysMLv2 CodeFlow Automotive/Safety',
+      title: 'NexSuite Automotive/Safety',
       badge: 'Enterprise',
       description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation.',
       features: [
@@ -250,9 +252,9 @@ const Product = () => {
             className="product-hero-content"
           >
             <div className="hero-badge">Enterprise SysML v2 Tooling</div>
-            <h1>SysMLv2 CodeFlow</h1>
+            <h1>NexSuite</h1>
             <p className="page-hero-description">
-              SysMLv2 CodeFlow delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. 
+              NexSuite delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. 
               Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.
             </p>
             <div className="hero-cta">
@@ -282,7 +284,7 @@ const Product = () => {
       <section className="page-content-section">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose SysMLv2 CodeFlow</h2>
+            <h2>Why Choose NexSuite</h2>
             <p className="section-subtitle">
               Built for OEM/Tier-1 systems engineering teams who demand performance, reliability, and regulatory compliance
             </p>
@@ -311,13 +313,162 @@ const Product = () => {
         </div>
       </section>
 
-      {/* Syscribe Variants */}
+      {/* Architecture Diagram Section */}
+      <section className="architecture-section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="architecture-diagram"
+          >
+            {/* Top: SysNex */}
+            <div className="architecture-top">
+              <div className="architecture-header-card">
+                <div className="architecture-logo">
+                  <img 
+                    src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} 
+                    alt="SysNex" 
+                    className="architecture-logo-img"
+                  />
+                </div>
+                <h2 className="architecture-title">SysNex</h2>
+                <p className="architecture-subtitle">AI-native, open SysML v2 Engineering Platform</p>
+              </div>
+            </div>
+
+            {/* Middle: Application Modules */}
+            <div className="architecture-modules">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-doc">📄</div>
+                <h3>NexDocs</h3>
+                <p>Model-driven Documentation</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-req">📋</div>
+                <h3>NexReq</h3>
+                <p>Model-native Requirements</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-test">🛡️</div>
+                <h3>NexTest</h3>
+                <p>Model-driven Verification</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-viz">📊</div>
+                <h3>NexViz</h3>
+                <p>Interactive Visualization</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-analytics">📈</div>
+                <h3>NexAnalytics</h3>
+                <p>Model Analysis</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-trade">⚖️</div>
+                <h3>NexTrade</h3>
+                <p>Trade Study Analysis</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-var">🔀</div>
+                <h3>NexVar</h3>
+                <p>Variability Management</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-sim">▶️</div>
+                <h3>NexSim</h3>
+                <p>State Machine Simulation</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="architecture-module architecture-module-suite"
+              >
+                <div className="module-icon module-icon-suite">🚀</div>
+                <h3>NexSuite</h3>
+                <p>Engineering Workflow Layer</p>
+                <span className="module-badge">Integrates all Nex features</span>
+              </motion.div>
+            </div>
+
+            {/* Bottom: SysNex Platform */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="architecture-platform"
+            >
+              <div className="architecture-platform-card">
+                <div className="platform-logo">
+                  <img 
+                    src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} 
+                    alt="SysNex Platform" 
+                    className="platform-logo-img"
+                  />
+                </div>
+                <h3 className="platform-title">SysNex Platform</h3>
+                <ul className="platform-features-list">
+                  <li>SysML v2 Core Engine</li>
+                  <li>LSP (Rust, &lt;50ms)</li>
+                  <li>AI / Copilot Integration</li>
+                  <li>WASM Runtime (Browser / Docs)</li>
+                  <li>Permission &amp; Licensing Layer</li>
+                  <li>Compliance Modules (ASPICE, ISO, UNECE)</li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Platform Variants */}
       <section className="page-section-alt">
         <div className="container">
           <div className="section-header">
-            <h2>SysMLv2 CodeFlow Platform</h2>
+            <h2>NexSuite Platform</h2>
             <p className="section-subtitle">
-              From free viewer (Syscribe) to enterprise compliance—choose the variant that fits your needs. All built from a single codebase with IP-protected feature gating.
+              From free viewer (NexDocs Viewer) to enterprise compliance—choose the variant that fits your needs. All built from a single codebase with IP-protected feature gating.
             </p>
           </div>
           <div className="platforms-grid">
@@ -412,6 +563,462 @@ const Product = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Product Sections: Based on actual FEATURES.md capabilities */}
+      <section className="page-content-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Product Suite</h2>
+            <p className="section-subtitle">
+              Comprehensive SysML v2 tooling for documentation, requirements, verification, visualization, analytics, and integrated workflows
+            </p>
+          </div>
+
+          {/* NexDocs Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">📄</div>
+              <h3>NexDocs - Model-driven Documentation</h3>
+              <p className="product-suite-description">Generate, edit, and publish comprehensive documentation from your SysML v2 models</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Viewer</div>
+                <h4>NexDocs Viewer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Read-only documentation viewer with interactive diagrams and rich content display</p>
+                <ul className="variant-features">
+                  <li>✅ MkDocs-style documentation viewer</li>
+                  <li>✅ Interactive diagrams with VizGraph+ELK</li>
+                  <li>✅ Chapter navigation and nested elements</li>
+                  <li>✅ Definition body viewer with inheritance</li>
+                  <li>✅ Metadata navigation</li>
+                  <li>✅ Zero installation—browser-based</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Editor</div>
+                <h4>NexDocs Editor</h4>
+                <p className="variant-tier">🔶 Platform</p>
+                <p className="variant-description">Full documentation editing with quality indicators, constraint display, and export capabilities</p>
+                <ul className="variant-features">
+                  <li>✅ Everything in Viewer</li>
+                  <li>✅ Quality indicators (coverage, scores, grades)</li>
+                  <li>✅ Constraint display and validation</li>
+                  <li>✅ Export to HTML/MD/PDF/Word</li>
+                  <li>✅ Import management panel</li>
+                  <li>✅ Element creation and editing</li>
+                  <li>✅ Documentation editor (85% complete)</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-publisher">Generator</div>
+                <h4>NexDocs Generator</h4>
+                <p className="variant-tier">🔶 Platform</p>
+                <p className="variant-description">Automated documentation publishing with Sphinx integration and workspace generation</p>
+                <ul className="variant-features">
+                  <li>✅ Everything in Editor</li>
+                  <li>✅ MkDocs workspace generation</li>
+                  <li>✅ Sphinx pipeline with type info</li>
+                  <li>✅ Continuous documentation on merge</li>
+                  <li>✅ Automated doc generation</li>
+                  <li>✅ CI/CD integration</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexReq Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">📋</div>
+              <h3>NexReq - Model-native Requirements</h3>
+              <p className="product-suite-description">Manage requirements with full traceability, ASIL tracking, and change impact analysis</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Manager</div>
+                <h4>NexReq Manager</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Full requirements management with traceability, verification, and satisfaction tracking</p>
+                <ul className="variant-features">
+                  <li>✅ Bidirectional traceability (verify/satisfy/refine)</li>
+                  <li>✅ ASIL tracking and validation</li>
+                  <li>✅ Change impact analysis</li>
+                  <li>✅ Requirement quality checking</li>
+                  <li>✅ Requirement templates</li>
+                  <li>✅ Traceability visualization</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready (93%)</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Validator</div>
+                <h4>NexReq Validator</h4>
+                <p className="variant-tier">🛡️ Automotive/Safety</p>
+                <p className="variant-description">ISO 26262 ASIL decomposition validation with independence checks</p>
+                <ul className="variant-features">
+                  <li>✅ ISO 26262-9 Part 9 compliance</li>
+                  <li>✅ All 12 valid decomposition schemes</li>
+                  <li>✅ Real-time LSP diagnostics</li>
+                  <li>✅ Independence analysis</li>
+                  <li>✅ Comprehensive validation</li>
+                  <li>✅ 25/25 tests passing</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-publisher">Generator</div>
+                <h4>NexReq Generator</h4>
+                <p className="variant-tier">🛡️ Automotive/Safety</p>
+                <p className="variant-description">Enterprise requirements publishing with ASPICE work products and compliance reporting</p>
+                <ul className="variant-features">
+                  <li>✅ ASPICE work products (20/20 types)</li>
+                  <li>✅ Requirements traceability matrix</li>
+                  <li>✅ Assessment engine with gap analysis</li>
+                  <li>✅ Multi-format export (HTML/MD/PDF/Word)</li>
+                  <li>✅ Automated requirement extraction</li>
+                  <li>✅ Compliance reporting</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexTest Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">🛡️</div>
+              <h3>NexTest - Model-driven Verification</h3>
+              <p className="product-suite-description">Comprehensive test management, verification planning, and validation workflows</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Manager</div>
+                <h4>NexTest Manager</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Enhanced test management with test case creation, editing, and tracking</p>
+                <ul className="variant-features">
+                  <li>✅ Test case creation and editing</li>
+                  <li>✅ Test specification management</li>
+                  <li>✅ Test execution tracking</li>
+                  <li>✅ Enhanced test management UI</li>
+                  <li>✅ Test status updates</li>
+                  <li>✅ Test coverage visualization</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Planner</div>
+                <h4>NexTest Planner</h4>
+                <p className="variant-tier">🛡️ Automotive/Safety</p>
+                <p className="variant-description">Verification planning with multiple methods and test generation strategies</p>
+                <ul className="variant-features">
+                  <li>✅ Verification planning (4 methods)</li>
+                  <li>✅ Test generation (5 strategies)</li>
+                  <li>✅ Verification status tracking</li>
+                  <li>✅ Test coverage reports</li>
+                  <li>✅ Implementation tracking</li>
+                  <li>✅ Compliance test documentation</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-publisher">Generator</div>
+                <h4>NexTest Generator</h4>
+                <p className="variant-tier">🛡️ Automotive/Safety</p>
+                <p className="variant-description">Automated test documentation and verification reports for compliance</p>
+                <ul className="variant-features">
+                  <li>✅ Everything in Planner</li>
+                  <li>✅ Automated test documentation</li>
+                  <li>✅ Verification reports</li>
+                  <li>✅ Test coverage analysis</li>
+                  <li>✅ Compliance documentation</li>
+                  <li>✅ CI/CD integration</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexViz Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">📊</div>
+              <h3>NexViz - Interactive Visualization</h3>
+              <p className="product-suite-description">Modern diagram editing and visualization with React Flow and interactive diagrams</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Viewer</div>
+                <h4>NexViz Viewer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Interactive diagram viewing with zoom, pan, and navigation</p>
+                <ul className="variant-features">
+                  <li>✅ Interactive diagrams (6 types)</li>
+                  <li>✅ Graph visualization</li>
+                  <li>✅ Tree diagrams</li>
+                  <li>✅ Relationship diagrams</li>
+                  <li>✅ Click-to-navigate model</li>
+                  <li>✅ ELK.js auto-layout</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Editor</div>
+                <h4>NexViz Editor</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Modern interactive diagram editor with React Flow and bidirectional sync</p>
+                <ul className="variant-features">
+                  <li>✅ Everything in Viewer</li>
+                  <li>✅ React Flow diagram editor (90% complete)</li>
+                  <li>✅ 9 node types, 5 edge types</li>
+                  <li>✅ Visual relationship creation</li>
+                  <li>✅ Undo/redo support</li>
+                  <li>✅ Layout persistence</li>
+                  <li>✅ Bidirectional text-diagram sync</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready (90%)</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexAnalytics Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">📈</div>
+              <h3>NexAnalytics - Model Analysis</h3>
+              <p className="product-suite-description">Comprehensive model quality metrics, complexity analysis, and relationship analytics</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Viewer</div>
+                <h4>NexAnalytics Viewer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">View model quality metrics, complexity scores, and analytics dashboards</p>
+                <ul className="variant-features">
+                  <li>✅ Complexity metrics display</li>
+                  <li>✅ Code metrics visualization</li>
+                  <li>✅ Relationship analysis</li>
+                  <li>✅ Quality dashboards</li>
+                  <li>✅ Real-time metrics</li>
+                  <li>✅ Interactive drill-down</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Analyzer</div>
+                <h4>NexAnalytics Analyzer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Advanced model analysis with complexity calculation and dependency analysis</p>
+                <ul className="variant-features">
+                  <li>✅ Everything in Viewer</li>
+                  <li>✅ Cyclomatic complexity calculation</li>
+                  <li>✅ Nesting depth analysis</li>
+                  <li>✅ Lines of code metrics</li>
+                  <li>✅ Element count analysis</li>
+                  <li>✅ Dependency relationship analysis</li>
+                  <li>✅ LSP-integrated analytics (100% complete)</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexTrade Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">⚖️</div>
+              <h3>NexTrade - Trade Study Analysis</h3>
+              <p className="product-suite-description">ISO 15288 compliant decision management with MCDA trade studies and UVL integration</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Analyzer</div>
+                <h4>NexTrade Analyzer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Multi-Criteria Decision Analysis with AHP weighting and sensitivity analysis</p>
+                <ul className="variant-features">
+                  <li>✅ MCDA trade studies</li>
+                  <li>✅ AHP weight calculation</li>
+                  <li>✅ Sensitivity analysis</li>
+                  <li>✅ Interactive visualization</li>
+                  <li>✅ Alternative comparison</li>
+                  <li>✅ Ranking visualization</li>
+                  <li>✅ UVL integration (automatic alternatives)</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready (95%)</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexVar Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">🔀</div>
+              <h3>NexVar - Variability Management</h3>
+              <p className="product-suite-description">UVL feature model management with Z3 solver integration and product derivation</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Manager</div>
+                <h4>NexVar Manager</h4>
+                <p className="variant-tier">🔶 Platform</p>
+                <p className="variant-description">Universal Variability Language support with feature model extraction and import</p>
+                <ul className="variant-features">
+                  <li>✅ UVL parser and generator</li>
+                  <li>✅ Feature model extraction/import</li>
+                  <li>✅ SAT-based validation</li>
+                  <li>✅ Z3 solver integration (SMT solving)</li>
+                  <li>✅ Configuration propagation</li>
+                  <li>✅ 150% → 100% derivation</li>
+                  <li>✅ Live preview decorations</li>
+                  <li>✅ Trade study integration</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready (97%)</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexSim Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="product-suite-section"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">▶️</div>
+              <h3>NexSim - State Machine Simulation</h3>
+              <p className="product-suite-description">Execute and simulate state machines with debugging support and checkpoint/resume</p>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Simulator</div>
+                <h4>NexSim Simulator</h4>
+                <p className="variant-tier">🟣 Platform-Full</p>
+                <p className="variant-description">State machine execution engine with hierarchical states and parallel regions</p>
+                <ul className="variant-features">
+                  <li>✅ State machine runtime</li>
+                  <li>✅ Hierarchical states support</li>
+                  <li>✅ Parallel regions execution</li>
+                  <li>✅ Action execution (entry/do/exit)</li>
+                  <li>✅ HIR integration</li>
+                  <li>✅ Checkpoint/resume</li>
+                  <li>✅ Debugging support (breakpoints)</li>
+                  <li>✅ Time-based simulation (90% complete)</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready (95%)</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NexSuite Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="product-suite-section product-suite-featured"
+          >
+            <div className="product-suite-header">
+              <div className="product-suite-icon">🚀</div>
+              <h3>NexSuite - Engineering Workflow Layer</h3>
+              <p className="product-suite-description">Integrated platform combining all Nex products (NexDocs, NexReq, NexTest, NexViz, NexAnalytics, NexTrade, NexVar, NexSim) with advanced workflow capabilities</p>
+              <span className="suite-badge">Integrates all Nex features</span>
+            </div>
+            <div className="product-variants-grid">
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-viewer">Viewer</div>
+                <h4>NexSuite Viewer</h4>
+                <p className="variant-tier">🔷 Standard</p>
+                <p className="variant-description">Unified viewer combining all viewing capabilities across the Nex product suite</p>
+                <ul className="variant-features">
+                  <li>✅ All NexDocs Viewer features</li>
+                  <li>✅ All NexViz Viewer features</li>
+                  <li>✅ All NexAnalytics Viewer features</li>
+                  <li>✅ Unified navigation</li>
+                  <li>✅ Cross-product traceability</li>
+                  <li>✅ Integrated analytics dashboard</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card">
+                <div className="variant-badge variant-badge-editor">Editor</div>
+                <h4>NexSuite Editor</h4>
+                <p className="variant-tier">🔶 Platform</p>
+                <p className="variant-description">Complete editing suite with all documentation, requirements, test, visualization, and analysis features</p>
+                <ul className="variant-features">
+                  <li>✅ All NexDocs Editor features</li>
+                  <li>✅ All NexReq Manager features</li>
+                  <li>✅ All NexTest Manager features</li>
+                  <li>✅ All NexViz Editor features</li>
+                  <li>✅ All NexAnalytics Analyzer features</li>
+                  <li>✅ All NexTrade Analyzer features</li>
+                  <li>✅ All NexVar Manager features</li>
+                  <li>✅ Workflow orchestration</li>
+                  <li>✅ Change impact across products</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+              <div className="product-variant-card product-variant-featured">
+                <div className="variant-badge variant-badge-publisher">Publisher</div>
+                <h4>NexSuite Publisher</h4>
+                <p className="variant-tier">🛡️ Enterprise</p>
+                <p className="variant-description">Enterprise publishing platform with full compliance, ASPICE work products, automated workflows, and simulation</p>
+                <ul className="variant-features">
+                  <li>✅ All NexDocs Generator features</li>
+                  <li>✅ All NexReq Generator features</li>
+                  <li>✅ All NexTest Generator features</li>
+                  <li>✅ All NexSim Simulator features</li>
+                  <li>✅ ASPICE work products (20/20)</li>
+                  <li>✅ ISO 15288 compliance frameworks</li>
+                  <li>✅ Automated compliance reporting</li>
+                  <li>✅ CI/CD integration</li>
+                  <li>✅ Multi-industry compliance (Automotive, Aviation, Medical, Railway)</li>
+                </ul>
+                <div className="variant-status">✅ Production-Ready</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

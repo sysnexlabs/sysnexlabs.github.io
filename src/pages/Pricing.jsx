@@ -274,3 +274,5 @@ const Pricing = React.memo(() => {
 Pricing.displayName = 'Pricing'
 
 export default Pricing
+
+

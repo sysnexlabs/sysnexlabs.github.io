@@ -45,12 +45,12 @@
 
 **Before** (enterprise-focused):
 ```html
-<meta name="description" content="SysNex Systems builds enterprise-grade SysML v2 tooling and MBSE methodology for model-to-code integration, functional safety, and intelligent traceability." />
+<meta name="description" content="SysNex builds enterprise-grade SysML v2 tooling and MBSE methodology for model-to-code integration, functional safety, and intelligent traceability." />
 ```
 
 **After** (honest positioning):
 ```html
-<meta name="description" content="SysNex Systems builds SysML v2 tooling for VS Code with AI integration, Git workflows, and standards awareness. Production-ready LSP with beta compliance features." />
+<meta name="description" content="SysNex builds SysML v2 tooling for VS Code with AI integration, Git workflows, and standards awareness. Production-ready LSP with beta compliance features." />
 ```
 
 **Changes**:

@@ -137,7 +137,7 @@ const Tools = () => {
           >
             <h1>Development Tools &amp; Environment</h1>
             <p className="page-hero-description">
-              SysNex Systems builds AI-augmented SysML v2 tooling for VS Code.
+              SysNex builds AI-augmented SysML v2 tooling for VS Code.
               Our extension integrates with Git and modern development workflows, bringing
               systems engineering into the developer experience. Early-stage product, not enterprise-validated.
             </p>

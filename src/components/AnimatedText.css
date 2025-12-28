@@ -19,6 +19,18 @@
   }
 }
 
+@keyframes gradient-move {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
 .animated-text {
   display: inline-block;
 }
@@ -28,8 +40,10 @@
 }
 
 .animated-text--gradient {
-  animation: gradient-shift 4s ease infinite;
+  animation: gradient-move 4s ease infinite;
 }
+
+
 
 
 

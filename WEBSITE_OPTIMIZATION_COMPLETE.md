@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Transformed the SysNex Systems website from presenting as an established enterprise vendor to honest solo founder positioning with verifiable technical claims and transparent product status. All deceptive content removed, replaced with authentic early-adopter focused messaging.
+Transformed the SysNex website from presenting as an established enterprise vendor to honest solo founder positioning with verifiable technical claims and transparent product status. All deceptive content removed, replaced with authentic early-adopter focused messaging.
 
 **Total Transformation**:
 - **Before**: Fictional 4-person team, vaporware product claims, unverified ROI metrics, enterprise-scale positioning

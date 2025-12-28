@@ -80,7 +80,7 @@ const Process = () => {
           >
             <h1>Standards-Aware Tooling</h1>
             <p className="page-hero-description">
-              <span>SysNex Systems builds SysML v2 tooling designed with </span>
+              <span>SysNex builds SysML v2 tooling designed with </span>
               <strong>ISO 15288</strong>
               <span> (Systems and Software Engineering) and </span>
               <strong>ISO 26262</strong>

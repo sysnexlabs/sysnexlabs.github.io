@@ -144,7 +144,7 @@ export default defineConfig({
               // Fallback: try copying key files only
               try {
                 mkdirSync(assetsDest, { recursive: true })
-                const keyFiles = ['logo_new.svg', 'logo_new_dark.svg', 'logo_S_black2.svg', 'logo_S_comp.svg', 'favicon.svg']
+                const keyFiles = ['logo_new.svg', 'logo_white.svg', 'logo_S_black2.svg', 'logo_S_comp.svg', 'favicon.svg']
                 keyFiles.forEach(file => {
                   const src = join(assetsSource, file)
                   const dest = join(assetsDest, file)

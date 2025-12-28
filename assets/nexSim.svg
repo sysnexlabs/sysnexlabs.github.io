@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2441a5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#051146;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#16335b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fb923c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="779.89" height="768.87" x="122.06" y="127.56" rx="127.78" fill="url(#bgGradient)"/>
+  <!-- Play button / state machine icon -->
+  <circle cx="512" cy="450" r="150" fill="#fb923c" stroke="#ffffff" stroke-width="20"/>
+  <path d="M 460 400 L 460 500 L 580 450 Z" fill="#ffffff"/>
+  <path d="M 350 650 L 400 650 L 400 600 L 450 600 L 450 550 L 500 550" stroke="#ffffff" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <circle cx="500" cy="550" r="30" fill="#fb923c"/>
+  <!-- Text labels -->
+  <text x="241" y="770" font-family="Inter, sans-serif" font-size="133" font-weight="bold" fill="#f19e12">Nex</text>
+  <text x="481" y="770" font-family="Inter, sans-serif" font-size="133" font-weight="bold" fill="url(#textGradient)">Sim</text>
+</svg>
+

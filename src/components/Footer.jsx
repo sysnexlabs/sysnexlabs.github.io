@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="footer-brand">
           <div className="brand">
             <div className="brand-logo">
-              <img src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_new_dark.svg"} alt="SysNex Systems" className="logo" />
+              <img src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} alt="SysNex" className="logo" />
             </div>
             <span className="brand-text">
               <span className="brand-text-primary">SYSNEX</span>
@@ -22,7 +22,7 @@ const Footer = () => {
             </span>
           </div>
           <p className="footer-tagline">
-            {t('footer.tagline') || 'SysMLv2 CodeFlow: Model-Based Systems Engineering with SysML v2'}
+            {t('footer.tagline') || 'NexSuite: Model-Based Systems Engineering with SysML v2'}
           </p>
         </div>
 
@@ -57,7 +57,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p className="footer-copyright">
-          © {new Date().getFullYear()} SysNex Systems. All rights reserved.
+          © {new Date().getFullYear()} SysNex. All rights reserved.
         </p>
       </div>
     </footer>

@@ -1273,7 +1273,7 @@ It's early. Help me make it better."
 
 ### Übersicht der visuellen Analyse
 
-Im Rahmen der Untersuchung wurden die Startseite und die Produktunterseite von SysNex Systems hinsichtlich Präsentation, Bildern und Animationen durchleuchtet. Diese Evaluation ergänzt die Content-Strategie mit konkreten visuellen und UX-Verbesserungen.
+Im Rahmen der Untersuchung wurden die Startseite und die Produktunterseite von SysNex hinsichtlich Präsentation, Bildern und Animationen durchleuchtet. Diese Evaluation ergänzt die Content-Strategie mit konkreten visuellen und UX-Verbesserungen.
 
 **Bewertungsmethodik**:
 - ✅ Screenshot-basierte Analyse der aktuellen Website
@@ -3106,7 +3106,7 @@ All three logo colors (`logo_new.svg`) are present in the website:
 
 #### Official Product Name (VS Code Marketplace)
 - **Name**: "SysML v2 Viewer"
-- **Publisher**: SYSNEX Systems
+- **Publisher**: SysNex
 - **Extension ID**: `sysmlv2-viewer`
 - **Version**: 0.31.0
 - **License**: Freeware (MIT)

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 
 /**
- * SysNex Systems – Hero Page Mock (React + CSS)
+ * SysNex – Hero Page Mock (React + CSS)
  * - Single-file component you can drop into any React app.
  * - Includes a built-in light/dark toggle.
  * - Replace placeholder images with your assets.

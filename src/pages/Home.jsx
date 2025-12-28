@@ -7,11 +7,14 @@ import RoleBasedMessaging from '../components/RoleBasedMessaging'
 import MissionCriticalIndustries from '../components/MissionCriticalIndustries'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
+import { useTheme } from '../contexts/ThemeContext'
 import './Home.css'
+import './Product.css'
 
 const Home = () => {
   const location = useLocation()
   const { t } = useTranslation()
+  const { theme } = useTheme()
 
   // Scroll to top when navigating to home (including when already on home)
   useEffect(() => {
@@ -24,19 +27,19 @@ const Home = () => {
     {
       eyebrow: 'Enterprise Ready',
       title: 'Production-Grade LSP',
-      description: 'Full-featured Language Server Protocol implementation with 90%+ test coverage and real-time diagnostics.',
+      description: 'Full-featured Language Server Protocol implementation with 18/18 LSP features (100% compliance), 491+ passing tests, and real-time diagnostics with <50ms response time.',
       variant: 'primary'
     },
     {
       eyebrow: 'Model-Driven',
       title: 'Advanced Tooling',
-      description: 'Comprehensive documentation generation, traceability matrices, and diagram visualization.',
+      description: 'Comprehensive documentation generation (MkDocs/Sphinx), bidirectional traceability matrices, interactive React Flow diagram visualization, and model analytics.',
       variant: 'secondary'
     },
     {
       eyebrow: 'Standards Compliant',
       title: 'ISO & ASPICE Ready',
-      description: 'Built for automotive and aerospace with ISO 26262, ASPICE, and ISO 15288 support.',
+      description: 'Built for automotive and aerospace with ISO 26262 ASIL decomposition validator, ASPICE work products (20/20 complete), and ISO 15288 foundation (83% complete, targeting 95% by Q1 2026).',
       variant: 'accent'
     }
   ]
@@ -44,6 +47,184 @@ const Home = () => {
   return (
     <div className="home" style={{ minHeight: '100vh', width: '100%' }}>
       <Hero />
+
+      {/* Architecture Diagram Section */}
+      <section className="architecture-section">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="architecture-diagram"
+          >
+            {/* Top: SysNex */}
+            <div className="architecture-top">
+              <div className="architecture-header-card">
+                <div className="architecture-logo">
+                  <img 
+                    src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} 
+                    alt="SysNex" 
+                    className="architecture-logo-img"
+                  />
+                </div>
+                <h2 className="architecture-title">SysNex</h2>
+                <p className="architecture-subtitle">AI-native, open SysML v2 Engineering Platform</p>
+              </div>
+            </div>
+
+            {/* Middle: Application Modules */}
+            <div className="architecture-modules">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-doc">
+                  <img src="./assets/nexdocs.svg" alt="NexDocs" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexDocs</h3>
+                <p>Model-driven Documentation</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-req">
+                  <img src="./assets/nexReq.svg" alt="NexReq" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexReq</h3>
+                <p>Model-native Requirements</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-test">
+                  <img src="./assets/nexTest.svg" alt="NexTest" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexTest</h3>
+                <p>Model-driven Verification</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-viz">
+                  <img src="./assets/nexViz.svg" alt="NexViz" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexViz</h3>
+                <p>Interactive Visualization</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-analytics">
+                  <img src="./assets/nexAnalytics.svg" alt="NexAnalytics" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexAnalytics</h3>
+                <p>Model Analysis</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.45 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-trade">
+                  <img src="./assets/nexTrade.svg" alt="NexTrade" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexTrade</h3>
+                <p>Trade Study Analysis</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-var">
+                  <img src="./assets/nexVar.svg" alt="NexVar" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexVar</h3>
+                <p>Variability Management</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.55 }}
+                className="architecture-module"
+              >
+                <div className="module-icon module-icon-sim">
+                  <img src="./assets/nexSim.svg" alt="NexSim" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexSim</h3>
+                <p>State Machine Simulation</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+                className="architecture-module architecture-module-suite"
+              >
+                <div className="module-icon module-icon-suite">
+                  <img src="./assets/nexSuite.svg" alt="NexSuite" style={{ width: '80px', height: '80px' }} />
+                </div>
+                <h3>NexSuite</h3>
+                <p>Engineering Workflow Layer</p>
+                <span className="module-badge">Integrates all Nex features</span>
+              </motion.div>
+            </div>
+
+            {/* Bottom: SysNex Platform */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="architecture-platform"
+            >
+              <div className="architecture-platform-card">
+                <div className="platform-logo">
+                  <img 
+                    src={theme === 'light' ? "./assets/logo_new.svg" : "./assets/logo_white.svg"} 
+                    alt="SysNex Platform" 
+                    className="platform-logo-img"
+                  />
+                </div>
+                <h3 className="platform-title">SysNex Platform</h3>
+                <ul className="platform-features-list">
+                  <li>SysML v2 Core Engine</li>
+                  <li>LSP (Rust, &lt;50ms)</li>
+                  <li>AI / Copilot Integration</li>
+                  <li>WASM Runtime (Browser / Docs)</li>
+                  <li>Permission &amp; Licensing Layer</li>
+                  <li>Compliance Modules (ASPICE, ISO, UNECE)</li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Role-Based Messaging Section */}
       <RoleBasedMessaging />
@@ -53,6 +234,18 @@ const Home = () => {
 
       <section className="insights-section">
         <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="section-header"
+          >
+            <h2 className="section-title">Enterprise Ready</h2>
+            <p className="section-subtitle">
+              Production-grade SysML v2 tooling built for mission-critical systems engineering
+            </p>
+          </motion.div>
           <div className="insights-grid">
             {insights.map((insight, index) => (
               <motion.div

@@ -1,5 +1,5 @@
 # Syscribe Go-To-Market Plan
-## SysML v2 VS Code Platform (SysNex Systems)
+## SysML v2 VS Code Platform (SysNex)
 
 ---
 

@@ -3,15 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SysML v2 Language Server – Enterprise MBSE Tooling | Sysnex Systems</title>
+  <title>NexSuite – Enterprise MBSE Tooling | SysNex</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <meta name="description" content="Enterprise-grade SysML v2 Language Server for Visual Studio Code. Production-ready LSP with AI integration, Git workflows, and compliance variants." />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <meta name="description" content="NexSuite delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants." />
+  <script>
+    // Redirect to React Router route
+    // This ensures we always use the React component (Product.jsx) instead of this static HTML
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      // Redirect to React Router /product route
+      var newPath = path.replace(/product\.html$/, '/product');
+      if (newPath !== path || search || hash) {
+        window.location.replace(newPath + search + hash);
+      }
+    })();
+  </script>
 </head>
-<body data-page="product">
+<body>
+  <div id="root"></div>
+  <script src="./i18n.js"></script>
+  <script type="module" src="./src/main.jsx"></script>
+</body>
+</html>
   <div data-include="partials/header.html"></div>
 
   <!-- Hero Section -->
@@ -19,8 +37,8 @@
     <div class="hero-container">
       <div class="hero-content">
         <div class="hero-badge" data-i18n="product.hero.badge">Enterprise SysML v2 Tooling</div>
-        <h1 class="hero-title" data-i18n="product.hero.title">Syscribe: SysML v2 Platform</h1>
-        <p class="hero-subtitle" data-i18n="product.hero.subtitle">Syscribe delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.</p>
+        <h1 class="hero-title" data-i18n="product.hero.title">NexSuite: SysML v2 Platform</h1>
+        <p class="hero-subtitle" data-i18n="product.hero.subtitle">NexSuite delivers production-ready SysML v2 Language Server technology with VS Code integration, AI assistance, and compliance variants. Built for OEM/Tier-1 teams who demand performance, reliability, and regulatory compliance.</p>
         <div class="hero-cta">
           <a href="contact.html" class="btn primary" data-i18n="product.hero.cta.primary">Get Started</a>
           <a href="#features" class="btn ghost" data-i18n="product.hero.cta.secondary">View Features</a>
@@ -71,7 +89,7 @@
   <section class="differentiators-section">
     <div class="container">
       <div class="section-header">
-        <h2 data-i18n="product.differentiators.heading">Why Choose Syscribe</h2>
+        <h2 data-i18n="product.differentiators.heading">Why Choose NexSuite</h2>
         <p class="section-subtitle" data-i18n="product.differentiators.subtitle">Built for OEM/Tier-1 systems engineering teams who demand performance, reliability, and regulatory compliance</p>
       </div>
       <div class="differentiators-grid">
@@ -255,18 +273,18 @@
     </div>
   </section>
 
-  <!-- Syscribe Variants Section -->
+  <!-- Platform Variants Section -->
   <section class="platforms-section">
     <div class="container">
       <div class="section-header">
-        <h2 data-i18n="product.platforms.heading">Three-Tier Syscribe Platform</h2>
-        <p class="section-subtitle" data-i18n="product.platforms.subtitle">From free viewer to enterprise compliance—choose the Syscribe variant that fits your needs. All built from a single codebase with IP-protected feature gating.</p>
+        <h2 data-i18n="product.platforms.heading">NexSuite Platform</h2>
+        <p class="section-subtitle" data-i18n="product.platforms.subtitle">From free viewer (NexDocs Viewer) to enterprise compliance—choose the variant that fits your needs. All built from a single codebase with IP-protected feature gating.</p>
       </div>
       <div class="platforms-grid">
         <div class="platform-card">
           <div class="platform-badge">Free</div>
           <div class="platform-icon">👁️</div>
-          <h3>Syscribe Viewer</h3>
+          <h3>NexDocs Viewer</h3>
           <p class="platform-description">Free read-only web-based viewer for SysML v2 models. Browse, navigate, and explore systems models without editing capabilities.</p>
           <ul class="platform-features">
             <li>✅ Read-only model viewing with syntax highlighting</li>
@@ -283,7 +301,7 @@
         <div class="platform-card featured">
           <div class="platform-badge">VS Code Extension</div>
           <div class="platform-icon">💻</div>
-          <h3>Syscribe IDE</h3>
+          <h3>NexSuite IDE</h3>
           <p class="platform-description">Production-ready VS Code extension with full editing capabilities, complete LSP implementation, and professional features.</p>
           <ul class="platform-features">
             <li>✅ Complete LSP (18/18 features, 100% compliance)</li>
@@ -300,7 +318,7 @@
         <div class="platform-card">
           <div class="platform-badge">Enterprise</div>
           <div class="platform-icon">⚙️</div>
-          <h3>Syscribe CLI + Compliance</h3>
+          <h3>NexSuite CLI + Compliance</h3>
           <p class="platform-description">CLI tool for CI/CD validation and compliance packs (ASPICE, ISO 26262) for regulated domain engineering.</p>
           <ul class="platform-features">
             <li>✅ CLI validation for CI/CD pipelines</li>
@@ -881,8 +899,8 @@
   <section class="about-section-product">
     <div class="container">
       <div class="section-header">
-        <h2 data-i18n="product.about.heading">About Sysnex Systems</h2>
-        <p class="section-subtitle" data-i18n="product.about.intro">Sysnex Systems is a tool vendor specializing in enterprise-grade SysML v2 Language Server technology. We build production-ready tooling that helps organizations adopt modern systems engineering practices—from textual modeling to intelligent analysis, with special focus on functional safety and compliance.</p>
+        <h2 data-i18n="product.about.heading">About SysNex</h2>
+        <p class="section-subtitle" data-i18n="product.about.intro">SysNex is a tool vendor specializing in enterprise-grade SysML v2 Language Server technology. We build production-ready tooling that helps organizations adopt modern systems engineering practices—from textual modeling to intelligent analysis, with special focus on functional safety and compliance.</p>
       </div>
       
       <div class="about-grid">
@@ -968,7 +986,7 @@
     <div class="container">
       <div class="cta-content">
         <h2 data-i18n="product.cta.heading">Ready to Transform Your Systems Engineering Workflow?</h2>
-        <p data-i18n="product.cta.subtitle">Join OEM/Tier-1 teams using Syscribe—enterprise-grade SysML v2 tooling with AI integration, Git workflows, and compliance support.</p>
+        <p data-i18n="product.cta.subtitle">Join OEM/Tier-1 teams using NexSuite—enterprise-grade SysML v2 tooling with AI integration, Git workflows, and compliance support.</p>
         <div class="cta-buttons">
           <a href="contact.html" class="btn primary large" data-i18n="product.cta.primary">Request Demo</a>
           <a href="pricing.html" class="btn ghost large" data-i18n="product.cta.secondary">View Pricing</a>

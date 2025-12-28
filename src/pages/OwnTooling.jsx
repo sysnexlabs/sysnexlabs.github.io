@@ -151,7 +151,7 @@ const OwnTooling = () => {
       items: [
         'VS Code Extension (85% complete)',
         'Tauri Desktop App (75% parity)',
-        'SaaS by SysNex Systems (40% foundation)'
+        'SaaS by SysNex (40% foundation)'
       ]
     }
   ]
