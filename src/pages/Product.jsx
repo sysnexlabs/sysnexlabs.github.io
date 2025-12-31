@@ -593,14 +593,16 @@ const Product = () => {
                 <div className="variant-badge variant-badge-viewer">Viewer</div>
                 <h4>NexDocs Viewer</h4>
                 <p className="variant-tier">🔷 Standard</p>
-                <p className="variant-description">Read-only documentation viewer with interactive diagrams and rich content display</p>
+                <p className="variant-description">Advanced documentation viewer with cross-file navigation, smart import resolution, and automatic diagram generation</p>
                 <ul className="variant-features">
-                  <li>✅ MkDocs-style documentation viewer</li>
-                  <li>✅ Interactive diagrams with VizGraph+ELK</li>
-                  <li>✅ Chapter navigation and nested elements</li>
-                  <li>✅ Definition body viewer with inheritance</li>
-                  <li>✅ Metadata navigation</li>
-                  <li>✅ Zero installation—browser-based</li>
+                  <li>✅ MkDocs-style hierarchical documentation</li>
+                  <li>✅ Cross-file navigation with clickable imports</li>
+                  <li>✅ Smart import resolution (standard library detection)</li>
+                  <li>✅ Automatic diagram generation (BDD, IBD, Activity, StateMachine, Requirement)</li>
+                  <li>✅ Relationship extraction (specialization, typing, satisfaction, constraints)</li>
+                  <li>✅ HIR-based extraction (single source of truth)</li>
+                  <li>✅ Theme integration with smooth animations</li>
+                  <li>✅ Zero installation—browser-based WASM</li>
                 </ul>
                 <div className="variant-status">✅ Production-Ready</div>
               </div>

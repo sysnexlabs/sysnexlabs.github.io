@@ -47,36 +47,7 @@ const Home = () => {
       <Hero />
 
       {/* NexDocs Viewer Section - Second Section */}
-      <section className="nexdocs-hero-section">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="nexdocs-hero-content"
-          >
-            <motion.span
-              className="nexdocs-hero-kicker"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              {t('syscribe.hero.kicker')}
-            </motion.span>
-            <motion.h2
-              className="nexdocs-hero-title"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              {t('syscribe.hero.title')}
-            </motion.h2>
-          </motion.div>
-        </div>
-      </section>
+      <SyscribeProduct />
 
       {/* Role-Based Messaging Section */}
       <RoleBasedMessaging />
@@ -168,8 +139,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
-      <SyscribeProduct />
 
       {/* Integrations Section */}
       <section className="integrations-section">

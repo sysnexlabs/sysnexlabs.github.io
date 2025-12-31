@@ -160,22 +160,6 @@ export class SysMLWasm {
         return takeFromExternrefTable0(ret[0]);
     }
     /**
-     * Provide hover information
-     * @param {string} source
-     * @param {number} line
-     * @param {number} character
-     * @returns {any}
-     */
-    provide_hover(source, line, character) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_hover(this.__wbg_ptr, ptr0, len0, line, character);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
      * Generate analytics and statistics
      * @param {string} source
      * @param {string} file_uri
@@ -187,72 +171,6 @@ export class SysMLWasm {
         const ptr1 = passStringToWasm0(file_uri, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
         const len1 = WASM_VECTOR_LEN;
         const ret = wasm.sysmlwasm_generate_analytics(this.__wbg_ptr, ptr0, len0, ptr1, len1);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide code completion at a given position
-     * Returns completion items for Monaco editor
-     * @param {string} source
-     * @param {number} line
-     * @param {number} character
-     * @returns {any}
-     */
-    provide_completion(source, line, character) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_completion(this.__wbg_ptr, ptr0, len0, line, character);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide definition location for go-to-definition
-     * @param {string} source
-     * @param {number} line
-     * @param {number} character
-     * @returns {any}
-     */
-    provide_definition(source, line, character) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_definition(this.__wbg_ptr, ptr0, len0, line, character);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Find all references to a symbol
-     * @param {string} source
-     * @param {number} line
-     * @param {number} character
-     * @param {boolean} include_declaration
-     * @returns {any}
-     */
-    provide_references(source, line, character, include_declaration) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_references(this.__wbg_ptr, ptr0, len0, line, character, include_declaration);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide inlay hints for type annotations
-     * @param {string} source
-     * @param {number} start_line
-     * @param {number} end_line
-     * @returns {any}
-     */
-    provide_inlay_hints(source, start_line, end_line) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_inlay_hints(this.__wbg_ptr, ptr0, len0, start_line, end_line);
         if (ret[2]) {
             throw takeFromExternrefTable0(ret[1]);
         }
@@ -277,65 +195,6 @@ export class SysMLWasm {
         return takeFromExternrefTable0(ret[0]);
     }
     /**
-     * Provide folding ranges for code folding
-     * @param {string} source
-     * @returns {any}
-     */
-    provide_folding_ranges(source) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_folding_ranges(this.__wbg_ptr, ptr0, len0);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide signature help for function calls
-     * @param {string} source
-     * @param {number} line
-     * @param {number} character
-     * @returns {any}
-     */
-    provide_signature_help(source, line, character) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_signature_help(this.__wbg_ptr, ptr0, len0, line, character);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide semantic tokens for syntax highlighting
-     * Returns array of semantic tokens in LSP format
-     * @param {string} source
-     * @returns {any}
-     */
-    provide_semantic_tokens(source) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_semantic_tokens(this.__wbg_ptr, ptr0, len0);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Provide document symbols for outline view
-     * @param {string} source
-     * @returns {any}
-     */
-    provide_document_symbols(source) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_provide_document_symbols(this.__wbg_ptr, ptr0, len0);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
      * Create a new SysML WASM instance
      */
     constructor() {
@@ -354,21 +213,6 @@ export class SysMLWasm {
         const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
         const len0 = WASM_VECTOR_LEN;
         const ret = wasm.sysmlwasm_parse(this.__wbg_ptr, ptr0, len0);
-        if (ret[2]) {
-            throw takeFromExternrefTable0(ret[1]);
-        }
-        return takeFromExternrefTable0(ret[0]);
-    }
-    /**
-     * Parse UVL code and return feature model as JSON
-     * Returns a JSON representation of the feature tree compatible with the React FeatureDiagram component
-     * @param {string} source
-     * @returns {any}
-     */
-    parse_uvl(source) {
-        const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc_command_export, wasm.__wbindgen_realloc_command_export);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.sysmlwasm_parse_uvl(this.__wbg_ptr, ptr0, len0);
         if (ret[2]) {
             throw takeFromExternrefTable0(ret[1]);
         }
