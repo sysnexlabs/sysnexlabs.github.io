@@ -144,7 +144,7 @@ const Competences = () => {
             <div className="hero-badge">Tool Capabilities, Not Consulting</div>
             <h1>What Our Tools Can Do</h1>
             <p className="page-hero-description">
-              These are capabilities of our SysML v2 tooling, not claims about consulting expertise. We're building IDE features to support systems engineering—not offering services or training.
+              These are capabilities of our SysML v2 tooling, not claims about consulting expertise.
             </p>
             <div className="hero-cta">
               <Link to="/try-yourself" className="btn primary">Try the Tools</Link>

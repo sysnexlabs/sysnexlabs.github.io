@@ -177,28 +177,59 @@ function parseUvlCode(code) {
       const leadingSpaces = originalLine.match(/^\s*/)?.[0].length || 0
       const currentIndent = Math.floor(leadingSpaces / 4)
 
-      const featureMatch = line.match(/^(\w+)(?:\s+(mandatory|optional|alternative|or))?$/)
-      if (featureMatch) {
-        const featureName = featureMatch[1]
-        const featureType = featureMatch[2] || 'mandatory'
-
-        const feature = {
-          name: featureName,
-          type: featureType,
-          children: []
-        }
-
+      // Check if this is a group keyword (mandatory, optional, alternative, or)
+      const groupKeywords = ['mandatory', 'optional', 'alternative', 'or']
+      const isGroupKeyword = groupKeywords.includes(line.trim())
+      
+      if (isGroupKeyword) {
+        // This is a group keyword - set the current group type for children
+        // Adjust stack to find the parent feature
         while (featureStack.length > 0 && featureStack[featureStack.length - 1].indent >= currentIndent) {
           featureStack.pop()
         }
-
-        if (featureStack.length === 0) {
-          result.features.push(feature)
-          featureStack.push({ feature, indent: currentIndent })
-        } else {
+        
+        if (featureStack.length > 0) {
+          // Set the group type on the parent feature
           const parent = featureStack[featureStack.length - 1].feature
-          parent.children.push(feature)
-          featureStack.push({ feature, indent: currentIndent })
+          parent.currentGroupType = line.trim()
+        }
+      } else {
+        // Parse feature line
+        const featureMatch = line.match(/^(\w+)(?:\s+(mandatory|optional|alternative|or))?$/)
+        if (featureMatch) {
+          const featureName = featureMatch[1]
+          
+          // Determine feature type based on parent's current group type
+          let featureType = 'mandatory' // default
+          
+          // Adjust stack based on indent level
+          while (featureStack.length > 0 && featureStack[featureStack.length - 1].indent >= currentIndent) {
+            featureStack.pop()
+          }
+          
+          // Check parent's current group type
+          if (featureStack.length > 0) {
+            const parent = featureStack[featureStack.length - 1].feature
+            if (parent.currentGroupType) {
+              featureType = parent.currentGroupType
+            }
+          }
+
+          const feature = {
+            name: featureName,
+            type: featureType,
+            children: [],
+            currentGroupType: null // Will be set if this feature has group children
+          }
+
+          if (featureStack.length === 0) {
+            result.features.push(feature)
+            featureStack.push({ feature, indent: currentIndent })
+          } else {
+            const parent = featureStack[featureStack.length - 1].feature
+            parent.children.push(feature)
+            featureStack.push({ feature, indent: currentIndent })
+          }
         }
       }
     }

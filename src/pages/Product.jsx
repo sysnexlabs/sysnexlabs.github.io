@@ -448,14 +448,6 @@ const Product = () => {
                   />
                 </div>
                 <h3 className="platform-title">SysNex Platform</h3>
-                <ul className="platform-features-list">
-                  <li>SysML v2 Core Engine</li>
-                  <li>LSP (Rust, &lt;50ms)</li>
-                  <li>AI / Copilot Integration</li>
-                  <li>WASM Runtime (Browser / Docs)</li>
-                  <li>Permission &amp; Licensing Layer</li>
-                  <li>Compliance Modules (ASPICE, ISO, UNECE)</li>
-                </ul>
               </div>
             </motion.div>
           </motion.div>

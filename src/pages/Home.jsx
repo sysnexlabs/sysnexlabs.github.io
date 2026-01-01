@@ -58,66 +58,6 @@ const Home = () => {
       {/* Enterprise Readiness Section */}
       <EnterpriseReadiness />
 
-      {/* Product Reality Proof Section */}
-      <section className="product-proof-section">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="section-header"
-          >
-            <h2 className="section-title">See It In Action</h2>
-            <p className="section-subtitle">
-              Production-ready SysML v2 Language Server with real-time diagnostics, navigation, and traceability
-            </p>
-          </motion.div>
-          <div className="product-proof-content">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="product-screenshot-container"
-            >
-              <div className="product-screenshot">
-                <div className="screenshot-placeholder">
-                  <div className="screenshot-label">VS Code Extension</div>
-                  <p className="screenshot-note">Real screenshot of SysML v2 LSP in VS Code showing syntax highlighting, diagnostics, and go-to-definition</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="product-proof-features"
-            >
-              <h3>Key Capabilities Demonstrated</h3>
-              <ul className="proof-features-list">
-                <li>
-                  <strong>Text-based modeling:</strong> Native SysML v2 syntax with real-time validation
-                </li>
-                <li>
-                  <strong>Diagnostics:</strong> Instant error detection and suggestions
-                </li>
-                <li>
-                  <strong>Navigation:</strong> Go-to-definition, find references, symbol search
-                </li>
-                <li>
-                  <strong>Traceability:</strong> Requirements linking and bidirectional traceability
-                </li>
-              </ul>
-              <div className="proof-cta">
-                <Link to="/try-yourself" className="btn primary">Try Live Demo</Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       <section className="insights-section">
         <div className="container">
           <div className="insights-grid">
