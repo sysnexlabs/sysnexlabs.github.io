@@ -26,7 +26,7 @@ const Header = () => {
       page = 'contact'
     } else if (path === '/pricing' || path === '/pricing.html') {
       page = 'pricing'
-    } else if (path === '/product' || path === '/overview' || path === '/platforms' || path === '/products' || path === '/editions' || path.includes('/try-yourself')) {
+    } else if (path === '/product' || path === '/overview' || path === '/platforms' || path === '/products' || path === '/editions' || path === '/compliance' || path.includes('/try-yourself')) {
       page = 'product'
     } else if (path === '/competences' || path === '/methods' || path === '/process' || path === '/tools') {
       page = 'consulting'
@@ -251,6 +251,7 @@ const Header = () => {
             <Link to="/platforms" className={location.pathname === '/platforms' ? 'active' : ''} data-page="platforms">Platforms</Link>
             <Link to="/products" className={location.pathname === '/products' ? 'active' : ''} data-page="products">Products</Link>
             <Link to="/editions" className={location.pathname === '/editions' ? 'active' : ''} data-page="editions">Editions</Link>
+            <Link to="/compliance" className={location.pathname === '/compliance' ? 'active' : ''} data-page="compliance">Compliance</Link>
             <Link to="/try-yourself" className={location.pathname.includes('try-yourself') ? 'active' : ''} data-page="try-yourself">{t('nav.try-yourself')}</Link>
             <Link to="/pricing" className={isSubmenuActive('pricing') ? 'active' : ''} data-page="pricing">{t('nav.pricing')}</Link>
           </div>

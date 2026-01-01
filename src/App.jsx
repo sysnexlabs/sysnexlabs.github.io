@@ -16,6 +16,7 @@ const Overview = lazy(() => import('./pages/overview/Overview'))
 const Platforms = lazy(() => import('./pages/platforms/Platforms'))
 const Products = lazy(() => import('./pages/products/Products'))
 const Editions = lazy(() => import('./pages/editions/Editions'))
+const Compliance = lazy(() => import('./pages/compliance/Compliance'))
 // Competences pages
 const About = lazy(() => import('./pages/About'))
 const Methods = lazy(() => import('./pages/Methods'))
@@ -60,6 +61,7 @@ function AppContent() {
             <Route path="/platforms" element={<Platforms />} />
             <Route path="/products" element={<Products />} />
             <Route path="/editions" element={<Editions />} />
+            <Route path="/compliance" element={<Compliance />} />
             {/* Legacy product route - keep for backward compatibility */}
             <Route path="/product" element={<Product />} />
             <Route path="/product/try-yourself" element={<TryYourself />} />
