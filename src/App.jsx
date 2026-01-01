@@ -17,6 +17,16 @@ const Platforms = lazy(() => import('./pages/platforms/Platforms'))
 const Products = lazy(() => import('./pages/products/Products'))
 const Editions = lazy(() => import('./pages/editions/Editions'))
 const Compliance = lazy(() => import('./pages/compliance/Compliance'))
+// Product detail pages
+const NexDocs = lazy(() => import('./pages/products/nexdocs/NexDocs'))
+const NexReq = lazy(() => import('./pages/products/nexreq/NexReq'))
+const NexTest = lazy(() => import('./pages/products/nextest/NexTest'))
+const NexViz = lazy(() => import('./pages/products/nexviz/NexViz'))
+const NexAnalytics = lazy(() => import('./pages/products/nexanalytics/NexAnalytics'))
+const NexTrade = lazy(() => import('./pages/products/nextrade/NexTrade'))
+const NexVar = lazy(() => import('./pages/products/nexvar/NexVar'))
+const NexSim = lazy(() => import('./pages/products/nexsim/NexSim'))
+const NexSuite = lazy(() => import('./pages/products/nexsuite/NexSuite'))
 // Competences pages
 const About = lazy(() => import('./pages/About'))
 const Methods = lazy(() => import('./pages/Methods'))
@@ -62,6 +72,16 @@ function AppContent() {
             <Route path="/products" element={<Products />} />
             <Route path="/editions" element={<Editions />} />
             <Route path="/compliance" element={<Compliance />} />
+            {/* Product detail pages */}
+            <Route path="/products/nexdocs" element={<NexDocs />} />
+            <Route path="/products/nexreq" element={<NexReq />} />
+            <Route path="/products/nextest" element={<NexTest />} />
+            <Route path="/products/nexviz" element={<NexViz />} />
+            <Route path="/products/nexanalytics" element={<NexAnalytics />} />
+            <Route path="/products/nextrade" element={<NexTrade />} />
+            <Route path="/products/nexvar" element={<NexVar />} />
+            <Route path="/products/nexsim" element={<NexSim />} />
+            <Route path="/products/nexsuite" element={<NexSuite />} />
             {/* Legacy product route - keep for backward compatibility */}
             <Route path="/product" element={<Product />} />
             <Route path="/product/try-yourself" element={<TryYourself />} />
