@@ -84,13 +84,11 @@ const Workspaces = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => setSelectedWorkspace(workspace.id === selectedWorkspace ? null : workspace.id)}
                 style={{
                   padding: '2rem',
                   background: 'var(--bg-secondary)',
                   borderRadius: '12px',
-                  border: selectedWorkspace === workspace.id ? `2px solid ${workspace.color}` : '2px solid var(--border-color)',
-                  cursor: 'pointer',
+                  border: '2px solid var(--border-color)',
                   transition: 'all 0.3s ease'
                 }}
               >
