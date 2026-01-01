@@ -18,7 +18,7 @@ const Footer = () => {
             </div>
             <span className="brand-text">
               <span className="brand-text-primary">SYSNEX</span>
-              <span className="brand-text-secondary">Systems</span>
+              <span className="brand-text-secondary">Technologies</span>
             </span>
           </div>
           <p className="footer-tagline">

@@ -28,7 +28,7 @@ const Legal = ({ type = 'privacy' }) => {
         },
         {
           heading: 'Contact',
-          text: 'For privacy inquiries, contact: sysnex.labs.github@gmail.com'
+          text: 'For privacy inquiries, contact: contact@sysnex.tech'
         }
       ]
     },
@@ -54,7 +54,7 @@ const Legal = ({ type = 'privacy' }) => {
         },
         {
           heading: 'Contact',
-          text: 'For licensing inquiries, contact: sysnex.labs.github@gmail.com'
+          text: 'For licensing inquiries, contact: contact@sysnex.tech'
         }
       ]
     },
@@ -80,7 +80,7 @@ const Legal = ({ type = 'privacy' }) => {
         },
         {
           heading: 'Contact',
-          text: 'For licensing inquiries: sysnex.labs.github@gmail.com'
+          text: 'For licensing inquiries: contact@sysnex.tech'
         }
       ]
     }

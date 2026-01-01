@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Star, Layers, Shield, CheckCircle } from 'lucide-react'
 import AnimatedText from './AnimatedText'
+import NexDocSlideDeck from './NexDocSlideDeck'
 import { useTranslation } from '../utils/i18n'
 import './SyscribeProduct.css'
 
@@ -10,61 +11,82 @@ const SyscribeProduct = React.memo(() => {
   const { t } = useTranslation()
   return (
     <>
-      {/* Hero Section */}
-      <section className="syscribe-hero" aria-labelledby="syscribe-hero-heading">
-        <div className="syscribe-hero-background-overlay"></div>
-        <div className="syscribe-hero-container">
-          <motion.div 
-            className="syscribe-hero-content"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.span 
-              className="syscribe-hero-kicker"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              {t('syscribe.hero.kicker')}
-            </motion.span>
-            <h1 id="syscribe-hero-heading" className="syscribe-hero-title">
-              <AnimatedText variant="gradient">
-                {t('syscribe.hero.title')}
-              </AnimatedText>
-            </h1>
-            <motion.p 
-              className="syscribe-hero-description"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              {t('syscribe.hero.description')}
-            </motion.p>
+      {/* Hero Section with Slide Deck */}
+      <section className="nexdoc-hero-with-slide" aria-labelledby="nexdoc-hero-heading">
+        <div className="nexdoc-hero-background-overlay"></div>
+        <div className="nexdoc-hero-slide-container">
+          {/* Left Side - Hero Content */}
+          <div className="nexdoc-hero-left">
             <motion.div 
-              className="syscribe-hero-actions"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              className="nexdoc-hero-content"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <Link to="/try-yourself" className="btn-primary-large">
-                {t('syscribe.cta.try')}
-              </Link>
-              <a 
-                href="https://marketplace.visualstudio.com/items?itemName=SYSNEXsystems.sysmlv2-lsp-viewer" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary-large"
+              <motion.span 
+                className="nexdoc-hero-kicker"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
               >
-                {t('syscribe.cta.download')}
-              </a>
+                {t('nexdoc.hero.kicker')}
+              </motion.span>
+              <h1 id="nexdoc-hero-heading" className="nexdoc-hero-title">
+                <AnimatedText variant="gradient">
+                  {t('nexdoc.hero.title')}
+                </AnimatedText>
+              </h1>
+              <motion.div
+                className="nexdoc-hero-description"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <p>{t('nexdoc.hero.description')}</p>
+                <div className="nexdoc-hero-features">
+                  <p className="features-intro">{t('nexdoc.hero.features.lsp.intro')}</p>
+                  <ul className="features-list">
+                    <li>{t('nexdoc.hero.features.lsp.codeCompletion')}</li>
+                    <li>{t('nexdoc.hero.features.lsp.diagnostics')}</li>
+                    <li>{t('nexdoc.hero.features.lsp.navigation')}</li>
+                    <li>{t('nexdoc.hero.features.lsp.hover')}</li>
+                    <li>{t('nexdoc.hero.features.lsp.formatting')}</li>
+                    <li>{t('nexdoc.hero.features.lsp.symbolRename')}</li>
+                    <li>{t('nexdoc.hero.features.documentation')}</li>
+                    <li>{t('nexdoc.hero.features.explorer')}</li>
+                  </ul>
+                </div>
+              </motion.div>
+              <motion.div 
+                className="nexdoc-hero-actions"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <Link to="/try-yourself" className="btn-primary-large">
+                  {t('nexdoc.cta.try')}
+                </Link>
+                <a 
+                  href="https://marketplace.visualstudio.com/items?itemName=SYSNEXsystems.sysmlv2-lsp-viewer" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary-large"
+                >
+                  {t('nexdoc.cta.download')}
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
+
+          {/* Right Side - Slide Deck */}
+          <div className="nexdoc-slide-right">
+            <NexDocSlideDeck />
+          </div>
         </div>
       </section>
 
       {/* Commercial Products Section */}
-      <section className="syscribe-commercial-section">
+      <section className="nexdoc-commercial-section">
         <div className="container">
           {/* Section Header */}
           <motion.div
@@ -80,7 +102,7 @@ const SyscribeProduct = React.memo(() => {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              {t('syscribe.commercial.heading')}
+              {t('nexdoc.commercial.heading')}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
@@ -89,7 +111,7 @@ const SyscribeProduct = React.memo(() => {
               transition={{ delay: 0.5 }}
               className="commercial-section-subtitle"
             >
-              {t('syscribe.commercial.subtitle')}
+              {t('nexdoc.commercial.subtitle')}
             </motion.p>
           </motion.div>
 

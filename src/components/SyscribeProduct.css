@@ -1,5 +1,5 @@
-/* Syscribe Hero Section */
-.syscribe-hero {
+/* NexDoc Hero Section with Slide Deck */
+.nexdoc-hero-with-slide {
   padding: 6rem 2rem;
   background: #0A1628;
   position: relative;
@@ -8,23 +8,37 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url('/assets/laptop.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-color 0.3s ease, background-image 0.3s ease;
-  filter: none;
+  transition: background-color 0.3s ease;
 }
 
-[data-theme="light"] .syscribe-hero {
+[data-theme="light"] .nexdoc-hero-with-slide {
   background-color: #F6F8FB;
-  background-image: url('/assets/laptop.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
-.syscribe-hero-background-overlay {
+.nexdoc-hero-slide-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.nexdoc-hero-left {
+  display: flex;
+  align-items: center;
+}
+
+.nexdoc-slide-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nexdoc-hero-background-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -39,34 +53,22 @@
   transition: background-color 0.3s ease;
 }
 
-[data-theme="light"] .syscribe-hero-background-overlay {
+[data-theme="light"] .nexdoc-hero-background-overlay {
   background: 
     radial-gradient(900px 420px at 18% 18%, rgba(0, 180, 216, 0.10), transparent 60%),
     radial-gradient(820px 360px at 86% 20%, rgba(251, 191, 36, 0.10), transparent 58%),
     linear-gradient(90deg, rgba(246, 248, 251, 0.8) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(246, 248, 251, 0.7) 100%);
 }
 
-.syscribe-hero-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.syscribe-hero-content {
+.nexdoc-hero-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   text-align: left;
-  max-width: 600px;
+  width: 100%;
 }
 
-.syscribe-hero-kicker {
+.nexdoc-hero-kicker {
   font-size: 0.85rem;
   font-weight: 600;
   color: rgba(0, 180, 216, 0.8);
@@ -74,7 +76,7 @@
   letter-spacing: 0.2em;
 }
 
-.syscribe-hero-title {
+.nexdoc-hero-title {
   font-size: clamp(2.75rem, 6vw, 4rem);
   font-weight: 700;
   color: var(--turquoise);
@@ -86,24 +88,78 @@
   overflow-wrap: break-word;
 }
 
-.syscribe-hero-description {
+.nexdoc-hero-description {
   font-size: 1.125rem;
   color: var(--text-primary);
   opacity: 0.92;
   line-height: 1.7;
   margin: 0;
   max-width: 100%;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
-  transition: color 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-[data-theme="light"] .syscribe-hero-description {
+.nexdoc-hero-description p {
+  margin: 0 0 1.5rem 0;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+  transition: color 0.3s ease;
+}
+
+[data-theme="light"] .nexdoc-hero-description p {
   text-shadow: 0 2px 16px rgba(255, 255, 255, 0.3);
 }
 
-.syscribe-hero-actions {
+.nexdoc-hero-features {
+  margin-top: 1rem;
+}
+
+.features-intro {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  opacity: 0.95;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1.5rem;
+}
+
+.features-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.features-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--turquoise);
+  font-weight: bold;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+[data-theme="light"] .features-list li {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .features-list {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.nexdoc-hero-actions {
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
@@ -112,62 +168,58 @@
   align-items: center;
 }
 
-@media (max-width: 968px) {
-  .syscribe-hero {
-    padding: 4rem 1.5rem;
-    min-height: 80vh;
+@media (max-width: 1200px) {
+  .nexdoc-hero-slide-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
-  .syscribe-hero-container {
-    padding: 0 1rem;
-    justify-content: center;
-  }
-
-  .syscribe-hero-content {
+  .nexdoc-hero-content {
     text-align: center;
-    max-width: 100%;
   }
 
-  .syscribe-hero-actions {
+  .nexdoc-hero-actions {
     justify-content: center;
-    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 968px) {
+  .nexdoc-hero-with-slide {
+    padding: 4rem 1.5rem;
+    min-height: auto;
+  }
+
+  .nexdoc-hero-slide-container {
+    gap: 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .syscribe-hero {
+  .nexdoc-hero-with-slide {
     padding: 3rem 1rem;
-    min-height: 70vh;
   }
 
-  .syscribe-hero-container {
-    padding: 0 0.5rem;
-    justify-content: center;
-  }
-
-  .syscribe-hero-content {
+  .nexdoc-hero-content {
     padding: 0;
-    max-width: 100%;
-    text-align: center;
   }
 
-  .syscribe-hero-title {
+  .nexdoc-hero-title {
     font-size: clamp(2rem, 8vw, 2.75rem);
     line-height: 1.2;
     max-width: 100%;
   }
 
-  .syscribe-hero-description {
+  .nexdoc-hero-description {
     font-size: 1rem;
     line-height: 1.65;
     max-width: 100%;
   }
 
-  .syscribe-hero-kicker {
+  .nexdoc-hero-kicker {
     font-size: 0.75rem;
   }
 
-  .syscribe-hero-actions {
+  .nexdoc-hero-actions {
     justify-content: center;
   }
 }
@@ -299,13 +351,13 @@
 }
 
 /* Commercial Products Section */
-.syscribe-commercial-section {
+.nexdoc-commercial-section {
   padding: 4rem 2rem;
   background: var(--bg-secondary);
   position: relative;
 }
 
-.syscribe-commercial-section .container {
+.nexdoc-commercial-section .container {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -519,7 +571,7 @@
 }
 
 @media (max-width: 768px) {
-  .syscribe-commercial-section {
+  .nexdoc-commercial-section {
     padding: 4rem 1.5rem;
   }
 
@@ -533,7 +585,7 @@
   }
 }
 
-.syscribe-product {
+.nexdoc-product {
   padding: 6rem 2rem;
   width: 100%;
   position: relative;
@@ -571,7 +623,7 @@
     cover;
 }
 
-.syscribe-product::before {
+.nexdoc-product::before {
   content: '';
   position: absolute;
   top: 0;
@@ -602,7 +654,7 @@
   animation: fadeInGradient 1.5s ease-out 0.5s forwards;
 }
 
-.syscribe-product::after {
+.nexdoc-product::after {
   content: '';
   position: absolute;
   top: 15%;
@@ -636,7 +688,7 @@
     0 0 80px rgba(0, 180, 216, 0.15);
 }
 
-[data-theme="light"] .syscribe-product {
+[data-theme="light"] .nexdoc-product {
   background: 
     linear-gradient(135deg, rgba(246, 248, 251, 0.95) 0%, rgba(246, 248, 251, 0.85) 35%, rgba(246, 248, 251, 0.6) 50%, transparent 70%),
     repeating-linear-gradient(
@@ -650,7 +702,7 @@
     linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 100%);
 }
 
-[data-theme="light"] .syscribe-product::before {
+[data-theme="light"] .nexdoc-product::before {
   background: 
     linear-gradient(90deg, 
       rgba(246, 248, 251, 0.4) 0px,
@@ -668,7 +720,7 @@
     radial-gradient(ellipse 300px 150px at 150px 60%, rgba(251, 191, 36, 0.08), transparent 50%);
 }
 
-[data-theme="light"] .syscribe-product::after {
+[data-theme="light"] .nexdoc-product::after {
   background: 
     linear-gradient(90deg,
       rgba(0, 180, 216, 0.08) 0px,
@@ -695,20 +747,20 @@
   }
 }
 
-.syscribe-product .container {
+.nexdoc-product .container {
   max-width: 1280px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-.syscribe-intro {
+.nexdoc-intro {
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
 
-.syscribe-header {
+.nexdoc-header {
   text-align: right;
   max-width: 800px;
   margin-left: auto;
@@ -716,7 +768,7 @@
   padding-left: 2rem;
 }
 
-.syscribe-title {
+.nexdoc-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   margin: 0 0 1rem 0;
@@ -740,7 +792,7 @@
   }
 }
 
-.syscribe-kicker {
+.nexdoc-kicker {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -757,7 +809,7 @@
   margin-right: 0;
 }
 
-[data-theme="light"] .syscribe-kicker {
+[data-theme="light"] .nexdoc-kicker {
   border-color: rgba(11, 31, 58, 0.12);
   background: rgba(255, 255, 255, 0.80);
   color: var(--text-secondary);
@@ -781,7 +833,7 @@
   }
 }
 
-.syscribe-trust-row {
+.nexdoc-trust-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -789,7 +841,7 @@
   justify-content: flex-end;
 }
 
-.syscribe-trust-chip {
+.nexdoc-trust-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -803,29 +855,29 @@
   cursor: pointer;
 }
 
-[data-theme="light"] .syscribe-trust-chip {
+[data-theme="light"] .nexdoc-trust-chip {
   border-color: rgba(11, 31, 58, 0.10);
   background: rgba(255, 255, 255, 0.78);
 }
 
-.syscribe-trust-chip svg {
+.nexdoc-trust-chip svg {
   width: 14px;
   height: 14px;
   opacity: 0.85;
   color: var(--turquoise);
 }
 
-.syscribe-trust-chip:hover {
+.nexdoc-trust-chip:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(0, 180, 216, 0.3);
   transform: translateY(-1px);
 }
 
-[data-theme="light"] .syscribe-trust-chip:hover {
+[data-theme="light"] .nexdoc-trust-chip:hover {
   background: rgba(11, 31, 58, 0.06);
 }
 
-.syscribe-subtitle {
+.nexdoc-subtitle {
   font-size: 1.125rem;
   line-height: 1.7;
   color: var(--text-secondary);
@@ -833,7 +885,7 @@
   opacity: 0.9;
 }
 
-.syscribe-cta {
+.nexdoc-cta {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -841,7 +893,7 @@
   gap: 1rem;
 }
 
-.syscribe-try-button {
+.nexdoc-try-button {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -861,7 +913,7 @@
   overflow: hidden;
 }
 
-.syscribe-try-button::before {
+.nexdoc-try-button::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -874,12 +926,12 @@
   transition: width 0.6s ease, height 0.6s ease;
 }
 
-.syscribe-try-button:hover::before {
+.nexdoc-try-button:hover::before {
   width: 400px;
   height: 400px;
 }
 
-.syscribe-try-button:hover {
+.nexdoc-try-button:hover {
   background-position: 100% center;
   box-shadow: 
     0 18px 50px rgba(0, 180, 216, 0.45),
@@ -887,7 +939,7 @@
   transform: translateY(-2px);
 }
 
-.syscribe-try-button:active {
+.nexdoc-try-button:active {
   transform: translateY(0);
   box-shadow: 
     0 10px 30px rgba(0, 180, 216, 0.35),
@@ -914,11 +966,11 @@
   transition: transform 0.3s ease;
 }
 
-.syscribe-try-button:hover .try-arrow {
+.nexdoc-try-button:hover .try-arrow {
   transform: translateX(4px);
 }
 
-.syscribe-cta-note {
+.nexdoc-cta-note {
   font-size: 0.9375rem;
   color: var(--text-muted);
   margin: 0;
@@ -929,7 +981,7 @@
 }
 
 /* Metrics Grid */
-.syscribe-metrics {
+.nexdoc-metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
@@ -938,7 +990,7 @@
   padding-left: 2rem;
 }
 
-.syscribe-metric {
+.nexdoc-metric {
   text-align: center;
   padding: 1.5rem;
   border-radius: 18px;
@@ -950,7 +1002,7 @@
   cursor: pointer;
 }
 
-.syscribe-metric::before {
+.nexdoc-metric::before {
   content: '';
   position: absolute;
   top: 0;
@@ -961,11 +1013,11 @@
   transition: left 0.6s ease;
 }
 
-.syscribe-metric:hover::before {
+.nexdoc-metric:hover::before {
   left: 100%;
 }
 
-.syscribe-metric:hover {
+.nexdoc-metric:hover {
   transform: translateY(-8px) scale(1.02);
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(0, 180, 216, 0.4);
@@ -974,12 +1026,12 @@
     0 0 0 1px rgba(0, 180, 216, 0.2);
 }
 
-[data-theme="light"] .syscribe-metric {
+[data-theme="light"] .nexdoc-metric {
   border-color: rgba(11, 31, 58, 0.1);
   background: rgba(255, 255, 255, 0.78);
 }
 
-[data-theme="light"] .syscribe-metric:hover {
+[data-theme="light"] .nexdoc-metric:hover {
   background: rgba(255, 255, 255, 0.85);
 }
 
@@ -1010,7 +1062,7 @@
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.syscribe-metric:hover .metric-value::after {
+.nexdoc-metric:hover .metric-value::after {
   transform: scaleX(1);
 }
 
@@ -1022,13 +1074,13 @@
 }
 
 /* Product Info */
-.syscribe-info {
+.nexdoc-info {
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
 
-.syscribe-description {
+.nexdoc-description {
   max-width: 900px;
   margin-left: auto;
   margin-right: 0;
@@ -1036,35 +1088,35 @@
   padding-left: 2rem;
 }
 
-.syscribe-description h3 {
+.nexdoc-description h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
   color: var(--turquoise);
 }
 
-.syscribe-description p {
+.nexdoc-description p {
   font-size: 1.0625rem;
   line-height: 1.7;
   color: var(--text-secondary);
   margin: 0 0 1rem 0;
 }
 
-.syscribe-description p:last-child {
+.nexdoc-description p:last-child {
   margin-bottom: 0;
 }
 
-.syscribe-description strong {
+.nexdoc-description strong {
   color: var(--text-primary);
   font-weight: 700;
 }
 
 /* Syscribe Features List */
-.syscribe-features-list {
+.nexdoc-features-list {
   margin: 2rem 0;
 }
 
-.syscribe-features-list h4 {
+.nexdoc-features-list h4 {
   font-size: 1.125rem;
   font-weight: 700;
   margin: 1.5rem 0 0.75rem 0;
@@ -1072,14 +1124,14 @@
   text-align: right;
 }
 
-.syscribe-features-list ul {
+.nexdoc-features-list ul {
   list-style: none;
   padding: 0;
   margin: 0 0 1.5rem 0;
   text-align: right;
 }
 
-.syscribe-features-list li {
+.nexdoc-features-list li {
   font-size: 0.9375rem;
   line-height: 1.8;
   color: var(--text-secondary);
@@ -1087,12 +1139,12 @@
   padding-right: 0.5rem;
 }
 
-.syscribe-features-list .excluded-features {
+.nexdoc-features-list .excluded-features {
   opacity: 0.7;
   font-style: italic;
 }
 
-.syscribe-use-cases {
+.nexdoc-use-cases {
   margin-top: 2rem;
   padding: 1.5rem;
   background: rgba(0, 180, 216, 0.05);
@@ -1101,17 +1153,17 @@
   text-align: right;
 }
 
-[data-theme="light"] .syscribe-use-cases {
+[data-theme="light"] .nexdoc-use-cases {
   background: rgba(0, 180, 216, 0.08);
 }
 
 /* Syscribe Download Section */
-.syscribe-download-section {
+.nexdoc-download-section {
   width: 100%;
   margin-top: 3rem;
 }
 
-.syscribe-download-section h3 {
+.nexdoc-download-section h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 1.5rem 0;
@@ -1120,7 +1172,7 @@
   padding-left: 2rem;
 }
 
-.syscribe-download-card {
+.nexdoc-download-card {
   max-width: 600px;
   margin-left: auto;
   margin-right: 0;
@@ -1136,7 +1188,7 @@
   text-align: right;
 }
 
-[data-theme="light"] .syscribe-download-card {
+[data-theme="light"] .nexdoc-download-card {
   border-color: rgba(11, 31, 58, 0.10);
   background:
     radial-gradient(600px 240px at 20% 18%, rgba(0, 180, 216, 0.10), transparent 55%),
@@ -1292,7 +1344,7 @@
   background: rgba(255, 255, 255, 0.75);
 }
 
-.syscribe-download-card::before {
+.nexdoc-download-card::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -1305,11 +1357,11 @@
   pointer-events: none;
 }
 
-.syscribe-download-card:hover::before {
+.nexdoc-download-card:hover::before {
   opacity: 1;
 }
 
-.syscribe-download-card:hover {
+.nexdoc-download-card:hover {
   transform: translateY(-12px) scale(1.02);
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%),
@@ -1321,21 +1373,21 @@
     inset 0 0 40px rgba(0, 180, 216, 0.05);
 }
 
-[data-theme="light"] .syscribe-download-card {
+[data-theme="light"] .nexdoc-download-card {
   border-color: rgba(11, 31, 58, 0.1);
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.65) 100%),
     radial-gradient(circle at top right, rgba(0, 180, 216, 0.08), transparent 70%);
 }
 
-[data-theme="light"] .syscribe-download-card:hover {
+[data-theme="light"] .nexdoc-download-card:hover {
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.75) 100%),
     radial-gradient(circle at top right, rgba(0, 180, 216, 0.12), transparent 70%);
   border-color: rgba(0, 180, 216, 0.4);
 }
 
-.syscribe-product-card::before {
+.nexdoc-product-card::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -1348,11 +1400,11 @@
   pointer-events: none;
 }
 
-.syscribe-product-card:hover::before {
+.nexdoc-product-card:hover::before {
   opacity: 1;
 }
 
-.syscribe-product-card:hover {
+.nexdoc-product-card:hover {
   transform: translateY(-12px) scale(1.02);
   background: 
     linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%),
@@ -1364,12 +1416,12 @@
     inset 0 0 40px rgba(0, 180, 216, 0.05);
 }
 
-[data-theme="light"] .syscribe-product-card {
+[data-theme="light"] .nexdoc-product-card {
   border-color: rgba(11, 31, 58, 0.1);
   background: rgba(255, 255, 255, 0.78);
 }
 
-[data-theme="light"] .syscribe-product-card:hover {
+[data-theme="light"] .nexdoc-product-card:hover {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(0, 180, 216, 0.4);
 }
@@ -1658,17 +1710,17 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .syscribe-product {
+  .nexdoc-product {
     background-size: 500px auto, 500px auto, 400px auto, cover;
     background-position: left top, left top, left 5%, center;
     min-height: auto;
   }
   
-  .syscribe-product::before {
+  .nexdoc-product::before {
     width: 500px;
   }
   
-  .syscribe-product::after {
+  .nexdoc-product::after {
     width: 450px;
     height: 350px;
     left: 30px;
@@ -1676,40 +1728,40 @@
 }
 
 @media (max-width: 768px) {
-  .syscribe-product {
+  .nexdoc-product {
     padding: 3rem 1.5rem;
     background-size: 300px auto, 300px auto, 250px auto, cover;
     background-position: left top, left top, left 5%, center;
   }
   
-  .syscribe-product::before {
+  .nexdoc-product::before {
     width: 100%;
     background: 
       linear-gradient(to right, rgba(10, 22, 40, 0.95) 0%, rgba(10, 22, 40, 0.85) 200px, rgba(10, 22, 40, 0.5) 300px, transparent 400px);
   }
   
-  .syscribe-product::after {
+  .nexdoc-product::after {
     display: none;
   }
   
-  [data-theme="light"] .syscribe-product::before {
+  [data-theme="light"] .nexdoc-product::before {
     background: 
       linear-gradient(to right, rgba(246, 248, 251, 0.95) 0%, rgba(246, 248, 251, 0.85) 200px, rgba(246, 248, 251, 0.5) 300px, transparent 400px);
   }
 
-  .syscribe-header,
-  .syscribe-description,
-  .syscribe-product-section h3,
-  .syscribe-extensions h3,
+  .nexdoc-header,
+  .nexdoc-description,
+  .nexdoc-product-section h3,
+  .nexdoc-extensions h3,
   .extensions-intro,
-  .syscribe-metrics,
+  .nexdoc-metrics,
   .offers-grid {
     padding-left: 0;
     text-align: center;
   }
   
-  .syscribe-product-card,
-  .syscribe-description {
+  .nexdoc-product-card,
+  .nexdoc-description {
     margin-left: auto;
     margin-right: auto;
   }
@@ -1718,7 +1770,7 @@
     align-items: flex-start;
   }
 
-  .syscribe-metrics {
+  .nexdoc-metrics {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin-left: auto;
@@ -1731,11 +1783,11 @@
     margin-right: auto;
   }
 
-  .syscribe-title {
+  .nexdoc-title {
     font-size: 2rem;
   }
 
-  .syscribe-subtitle {
+  .nexdoc-subtitle {
     font-size: 1rem;
   }
 }
