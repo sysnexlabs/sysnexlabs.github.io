@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import PlatformCard from '../../components/product/PlatformCard/PlatformCard'
 import ComparisonTable from '../../components/product/ComparisonTable/ComparisonTable'
 import { useTranslation } from '../../utils/i18n'
@@ -44,6 +45,14 @@ const Platforms = () => {
 
   return (
     <div className="page">
+      <div className="container">
+        <Breadcrumb items={[
+          { label: 'Home', path: '/' },
+          { label: 'Overview', path: '/overview' },
+          { label: 'Platforms' }
+        ]} />
+      </div>
+
       {/* Hero Section */}
       <section className="page-hero-section">
         <div className="container">

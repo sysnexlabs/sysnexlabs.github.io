@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import SpotlightCard from '../../components/SpotlightCard'
 import ProductCard from '../../components/product/ProductCard/ProductCard'
 import { useTranslation } from '../../utils/i18n'
@@ -39,6 +40,14 @@ const Products = () => {
 
   return (
     <div className="page">
+      <div className="container">
+        <Breadcrumb items={[
+          { label: 'Home', path: '/' },
+          { label: 'Overview', path: '/overview' },
+          { label: 'Products' }
+        ]} />
+      </div>
+
       {/* Hero Section */}
       <section className="page-hero-section">
         <div className="container">

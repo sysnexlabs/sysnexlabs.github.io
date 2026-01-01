@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import EditionCard from '../../components/product/EditionCard/EditionCard'
 import ComparisonTable from '../../components/product/ComparisonTable/ComparisonTable'
 import { useTranslation } from '../../utils/i18n'
@@ -56,6 +57,14 @@ const Editions = () => {
 
   return (
     <div className="page">
+      <div className="container">
+        <Breadcrumb items={[
+          { label: 'Home', path: '/' },
+          { label: 'Overview', path: '/overview' },
+          { label: 'Editions' }
+        ]} />
+      </div>
+
       {/* Hero Section */}
       <section className="page-hero-section">
         <div className="container">

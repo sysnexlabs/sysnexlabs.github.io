@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import SpotlightCard from '../../components/SpotlightCard'
 import { useTranslation } from '../../utils/i18n'
 import { useTheme } from '../../contexts/ThemeContext'
@@ -20,6 +21,13 @@ const Overview = () => {
 
   return (
     <div className="page">
+      <div className="container">
+        <Breadcrumb items={[
+          { label: 'Home', path: '/' },
+          { label: 'Overview' }
+        ]} />
+      </div>
+
       {/* Hero Section */}
       <section className="page-hero-section">
         <div className="container">
