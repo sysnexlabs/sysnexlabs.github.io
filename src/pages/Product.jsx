@@ -54,14 +54,16 @@ const Product = () => {
       icon: '👁️',
       title: 'NexDocs Viewer',
       badge: 'Free',
-      description: 'Free read-only web-based viewer for SysML v2 models. Browse, navigate, and explore systems models without editing capabilities.',
+      description: 'Advanced web-based documentation viewer with cross-file navigation, smart import resolution, and automatic diagram generation.',
       features: [
-        'Read-only model viewing with syntax highlighting',
-        'Navigation (go-to-definition, find references)',
-        'Documentation panel (view-only)',
-        'Model statistics display',
-        'Zero installation—access from any browser',
-        'Fast WASM-based performance'
+        'MkDocs-style hierarchical documentation',
+        'Cross-file navigation with clickable imports',
+        'Smart import resolution (standard library detection)',
+        'Automatic diagram generation (BDD, IBD, Activity, StateMachine, Requirement)',
+        'Relationship extraction (specialization, typing, satisfaction)',
+        'HIR-based extraction (single source of truth)',
+        'Theme integration with smooth animations',
+        'Zero installation—browser-based WASM performance'
       ],
       status: '✅ Available Now',
       featured: false,
@@ -72,13 +74,15 @@ const Product = () => {
       icon: '💻',
       title: 'NexSuite IDE',
       badge: 'VS Code Extension',
-      description: 'Production-ready VS Code extension with full editing capabilities, complete LSP implementation, and professional features.',
+      description: 'Production-ready VS Code extension with advanced documentation viewer, complete LSP implementation, and professional features.',
       features: [
-        'Complete LSP implementation',
+        'Complete LSP implementation (18/18 features)',
         '<50ms LSP response (10x faster than legacy)',
+        'Advanced documentation viewer (cross-file nav, auto diagrams)',
         'AI integration (Copilot, Claude, VS Code AI)',
         'Diagram editor with bidirectional sync',
         'Requirements manager & analytics dashboard',
+        'HIR-based tooling (single source of truth)',
         'Git-native workflows & CI/CD support'
       ],
       status: '✅ Production-Ready',
@@ -196,10 +200,10 @@ const Product = () => {
       badge: 'Recommended',
       title: '🔷 Standard',
       size: '~35-40 MB',
-      description: 'Complete professional IDE: all LSP features, documentation, model explorer, requirements, diagrams, analytics.',
+      description: 'Complete professional IDE: all LSP features, advanced documentation viewer, model explorer, requirements, diagrams, analytics.',
       features: [
         'Everything in Essential',
-        'Documentation Viewer',
+        'Advanced Documentation Viewer (cross-file nav, auto diagrams)',
         'Requirements Manager',
         'Diagram Editor',
         'Analytics Dashboard'
@@ -602,15 +606,16 @@ const Product = () => {
                 <div className="variant-badge variant-badge-editor">Editor</div>
                 <h4>NexDocs Editor</h4>
                 <p className="variant-tier">🔶 Platform</p>
-                <p className="variant-description">Full documentation editing with quality indicators, constraint display, and export capabilities</p>
+                <p className="variant-description">Full documentation editing with quality indicators, constraint display, workspace-wide symbol resolution, and export capabilities</p>
                 <ul className="variant-features">
-                  <li>✅ Everything in Viewer</li>
+                  <li>✅ Everything in Viewer (cross-file navigation, smart imports, auto diagrams)</li>
                   <li>✅ Quality indicators (coverage, scores, grades)</li>
                   <li>✅ Constraint display and validation</li>
+                  <li>✅ Workspace-wide symbol lookup and resolution</li>
                   <li>✅ Export to HTML/MD/PDF/Word</li>
-                  <li>✅ Import management panel</li>
-                  <li>✅ Element creation and editing</li>
-                  <li>✅ Documentation editor (85% complete)</li>
+                  <li>✅ Import management panel with visibility tracking</li>
+                  <li>✅ Element creation and editing with type resolution</li>
+                  <li>✅ Documentation editor with comment filtering</li>
                 </ul>
                 <div className="variant-status">✅ Production-Ready</div>
               </div>
@@ -618,14 +623,15 @@ const Product = () => {
                 <div className="variant-badge variant-badge-publisher">Generator</div>
                 <h4>NexDocs Generator</h4>
                 <p className="variant-tier">🔶 Platform</p>
-                <p className="variant-description">Automated documentation publishing with Sphinx integration and workspace generation</p>
+                <p className="variant-description">Automated documentation publishing with Sphinx integration, HIR-based extraction, and workspace generation</p>
                 <ul className="variant-features">
-                  <li>✅ Everything in Editor</li>
-                  <li>✅ MkDocs workspace generation</li>
-                  <li>✅ Sphinx pipeline with type info</li>
+                  <li>✅ Everything in Editor (cross-file nav, symbol resolution, diagrams)</li>
+                  <li>✅ HIR-based documentation extraction (single source of truth)</li>
+                  <li>✅ MkDocs workspace generation with hierarchical structure</li>
+                  <li>✅ Sphinx pipeline with type info and relationship links</li>
                   <li>✅ Continuous documentation on merge</li>
-                  <li>✅ Automated doc generation</li>
-                  <li>✅ CI/CD integration</li>
+                  <li>✅ Automated diagram generation (5 diagram types)</li>
+                  <li>✅ CI/CD integration with batch processing</li>
                 </ul>
                 <div className="variant-status">✅ Production-Ready</div>
               </div>
