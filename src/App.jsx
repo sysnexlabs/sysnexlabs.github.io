@@ -27,6 +27,9 @@ const NexTrade = lazy(() => import('./pages/products/nextrade/NexTrade'))
 const NexVar = lazy(() => import('./pages/products/nexvar/NexVar'))
 const NexSim = lazy(() => import('./pages/products/nexsim/NexSim'))
 const NexSuite = lazy(() => import('./pages/products/nexsuite/NexSuite'))
+// Workspace pages
+const Workspaces = lazy(() => import('./pages/workspaces/Workspaces'))
+const WorkspaceDetail = lazy(() => import('./pages/workspaces/WorkspaceDetail'))
 // Competences pages
 const About = lazy(() => import('./pages/About'))
 const Methods = lazy(() => import('./pages/Methods'))
@@ -82,6 +85,9 @@ function AppContent() {
             <Route path="/products/nexvar" element={<NexVar />} />
             <Route path="/products/nexsim" element={<NexSim />} />
             <Route path="/products/nexsuite" element={<NexSuite />} />
+            {/* Workspace pages */}
+            <Route path="/workspaces" element={<Workspaces />} />
+            <Route path="/workspaces/:workspaceId" element={<WorkspaceDetail />} />
             {/* Legacy product route - keep for backward compatibility */}
             <Route path="/product" element={<Product />} />
             <Route path="/product/try-yourself" element={<TryYourself />} />
