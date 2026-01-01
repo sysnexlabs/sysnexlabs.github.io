@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import SpotlightCard from '../components/SpotlightCard'
 import { useTranslation } from '../utils/i18n'
 import { useTheme } from '../contexts/ThemeContext'
+import { complianceVariants, getProductionReadyVariants } from '../data/product'
 import './Page.css'
 import './Product.css'
 
@@ -1017,6 +1018,202 @@ const Product = () => {
                 </ul>
                 <div className="variant-status">✅ Production-Ready</div>
               </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Compliance Variants Section */}
+      <section className="page-section-alt">
+        <div className="container">
+          <div className="section-header">
+            <h2>Compliance & Regulatory Variants</h2>
+            <p className="section-subtitle">
+              Industry-specific compliance solutions for regulated engineering domains
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="compliance-intro"
+          >
+            <p style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem', fontSize: '1.1rem', lineHeight: '1.8' }}>
+              NexSuite offers specialized compliance variants built on the <strong>Systems Engineering Foundation (ISO/IEC 15288)</strong>,
+              tailored for automotive, aviation, medical, and railway industries. Each variant includes domain-specific standards,
+              work products, and validation workflows required for regulatory approval.
+            </p>
+          </motion.div>
+
+          <div className="product-variants-grid" style={{ gap: '2rem' }}>
+            {complianceVariants.map((variant, index) => (
+              <motion.div
+                key={variant.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="product-variant-card"
+                style={{
+                  border: variant.status.includes('✅') || variant.status.includes('🟡') ? '2px solid var(--accent-primary)' : '1px solid var(--border-color)',
+                  opacity: variant.status.includes('❌') ? 0.7 : 1
+                }}
+              >
+                <div className={`variant-badge variant-badge-${variant.badge.toLowerCase()}`}>
+                  {variant.icon} {variant.badge}
+                </div>
+                <h4>{variant.title}</h4>
+                <p className="variant-tier">{variant.size}</p>
+                <p className="variant-price" style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent-primary)', margin: '0.5rem 0' }}>
+                  {variant.price}
+                  {variant.discount && <span style={{ fontSize: '0.9rem', display: 'block', color: 'var(--success-color)' }}>({variant.discount})</span>}
+                </p>
+                <p className="variant-description">{variant.description}</p>
+
+                {/* Standards */}
+                <div style={{ margin: '1rem 0' }}>
+                  <strong style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Standards:</strong>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+                    {variant.standards.map((standard, i) => (
+                      <span key={i} style={{
+                        background: 'var(--bg-secondary)',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '12px',
+                        fontSize: '0.85rem',
+                        border: '1px solid var(--border-color)'
+                      }}>
+                        {standard}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Features */}
+                <ul className="variant-features" style={{ marginTop: '1rem' }}>
+                  {variant.features.slice(0, 6).map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                  {variant.features.length > 6 && (
+                    <li style={{ fontStyle: 'italic', color: 'var(--text-secondary)' }}>
+                      +{variant.features.length - 6} more features...
+                    </li>
+                  )}
+                </ul>
+
+                {/* Status */}
+                <div className="variant-status" style={{ marginTop: '1rem' }}>
+                  {variant.status}
+                  {variant.statusDetail && (
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                      {variant.statusDetail}
+                    </div>
+                  )}
+                </div>
+
+                {/* ROI */}
+                {variant.roi && (
+                  <div style={{
+                    marginTop: '1rem',
+                    padding: '0.75rem',
+                    background: 'var(--bg-code)',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem'
+                  }}>
+                    <div><strong>ROI:</strong> {variant.roi.saving}</div>
+                    <div style={{ color: 'var(--text-secondary)' }}>Payback: {variant.roi.payback}</div>
+                  </div>
+                )}
+
+                {/* CTA Button */}
+                <div style={{ marginTop: '1.5rem' }}>
+                  <Link
+                    to="/contact"
+                    className={`btn ${variant.status.includes('✅') || variant.status.includes('🟡') ? 'primary' : 'ghost'}`}
+                    style={{ width: '100%' }}
+                  >
+                    {variant.status.includes('❌') ? 'Join Waitlist' : 'Contact Sales'}
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Compliance Summary Table */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            style={{ marginTop: '4rem' }}
+          >
+            <h3 style={{ textAlign: 'center', marginBottom: '2rem' }}>Compliance Variant Comparison</h3>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                background: 'var(--bg-secondary)',
+                borderRadius: '8px',
+                overflow: 'hidden'
+              }}>
+                <thead>
+                  <tr style={{ background: 'var(--bg-tertiary)' }}>
+                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>Variant</th>
+                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>Price/Seat/Year</th>
+                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>ROI Savings</th>
+                    <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>Payback Period</th>
+                    <th style={{ padding: '1rem', textAlign: 'center', borderBottom: '2px solid var(--border-color)' }}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {complianceVariants.map((variant, index) => (
+                    <tr key={variant.id} style={{
+                      borderBottom: index < complianceVariants.length - 1 ? '1px solid var(--border-color)' : 'none'
+                    }}>
+                      <td style={{ padding: '1rem' }}>
+                        <strong>{variant.icon} {variant.title}</strong>
+                      </td>
+                      <td style={{ padding: '1rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>
+                        {variant.price}
+                      </td>
+                      <td style={{ padding: '1rem', color: 'var(--success-color)' }}>
+                        {variant.roi?.saving || 'TBD'}
+                      </td>
+                      <td style={{ padding: '1rem' }}>
+                        {variant.roi?.payback || 'TBD'}
+                      </td>
+                      <td style={{ padding: '1rem', textAlign: 'center' }}>
+                        {variant.status}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+
+          {/* Call-out for Systems Engineering Foundation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+            style={{
+              marginTop: '3rem',
+              padding: '2rem',
+              background: 'linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%)',
+              borderRadius: '12px',
+              border: '2px solid var(--accent-primary)',
+              textAlign: 'center'
+            }}
+          >
+            <h3 style={{ marginBottom: '1rem' }}>🔧 All Compliance Variants Include Systems Engineering Foundation</h3>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '900px', margin: '0 auto' }}>
+              Every compliance variant is built on our <strong>Systems Engineering Foundation (ISO/IEC 15288)</strong>,
+              providing comprehensive systems engineering processes, work products, and lifecycle documentation.
+              This foundation ensures consistent methodology across all regulated domains.
+            </p>
+            <div style={{ marginTop: '1.5rem' }}>
+              <Link to="/contact" className="btn primary large">
+                Learn More About Compliance Variants
+              </Link>
             </div>
           </motion.div>
         </div>
