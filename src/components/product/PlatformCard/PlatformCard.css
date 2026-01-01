@@ -1,0 +1,91 @@
+.platform-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.platform-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.platform-card-featured {
+  border: 2px solid var(--accent-primary);
+}
+
+.platform-card-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.platform-card-badge-featured {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.platform-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.platform-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.platform-card-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.platform-card-features {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.platform-card-features li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.platform-card-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+  font-weight: bold;
+}
+
+.platform-card-features-more {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.platform-card-features-more::before {
+  content: '';
+}
+
+.platform-card-cta {
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}

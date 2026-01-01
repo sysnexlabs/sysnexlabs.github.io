@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SpotlightCard from '../../components/SpotlightCard'
+import ProductCard from '../../components/product/ProductCard/ProductCard'
 import { useTranslation } from '../../utils/i18n'
 import { useTheme } from '../../contexts/ThemeContext'
 import { products, getProductionReadyProducts, getPlannedProducts, getCoreProducts, getAdvancedProducts } from '../../data/product'
@@ -106,142 +107,7 @@ const Products = () => {
         <div className="container">
           <div className="product-variants-grid" style={{ gap: '2rem' }}>
             {filteredProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="product-variant-card"
-              >
-                {product.badge && (
-                  <div
-                    className="variant-badge"
-                    style={{
-                      background: 'var(--bg-secondary)',
-                      color: 'var(--text-primary)'
-                    }}
-                  >
-                    {product.badge}
-                  </div>
-                )}
-
-                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-                  {product.icon}
-                </div>
-
-                <h3>{product.title}</h3>
-
-                {product.subtitle && (
-                  <p style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                    {product.subtitle}
-                  </p>
-                )}
-
-                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                  {product.description}
-                </p>
-
-                <div
-                  className="variant-status"
-                  style={{
-                    display: 'inline-block',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '12px',
-                    fontSize: '0.85rem',
-                    marginBottom: '1rem',
-                    background: product.status.includes('✅')
-                      ? 'rgba(34, 197, 94, 0.1)'
-                      : product.status.includes('🟡')
-                      ? 'rgba(251, 191, 36, 0.1)'
-                      : 'rgba(148, 163, 184, 0.1)',
-                    color: product.status.includes('✅')
-                      ? '#22c55e'
-                      : product.status.includes('🟡')
-                      ? '#fbbf24'
-                      : '#94a3b8'
-                  }}
-                >
-                  {product.status}
-                </div>
-
-                {/* Key Features */}
-                <div style={{ marginBottom: '1rem' }}>
-                  <h4 style={{ fontSize: '0.9rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-                    Key Features:
-                  </h4>
-                  <ul className="variant-features">
-                    {product.features.slice(0, 4).map((feature, i) => (
-                      <li key={i} style={{ fontSize: '0.9rem' }}>{feature}</li>
-                    ))}
-                    {product.features.length > 4 && (
-                      <li style={{ color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '0.85rem' }}>
-                        +{product.features.length - 4} more features...
-                      </li>
-                    )}
-                  </ul>
-                </div>
-
-                {/* Components */}
-                {product.components && product.components.length > 0 && (
-                  <div style={{ marginBottom: '1rem' }}>
-                    <h4 style={{ fontSize: '0.9rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-                      Components:
-                    </h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                      {product.components.map((comp, i) => (
-                        <div key={i} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                          <strong>{comp.name}</strong> ({comp.edition}): {comp.description}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Use Cases */}
-                {product.useCases && product.useCases.length > 0 && (
-                  <details style={{ marginBottom: '1rem' }}>
-                    <summary style={{ cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-                      Use Cases ({product.useCases.length})
-                    </summary>
-                    <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
-                      {product.useCases.map((useCase, i) => (
-                        <li key={i} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
-                          {useCase}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-
-                {/* Pricing */}
-                {product.pricing && (
-                  <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'var(--bg-secondary)', borderRadius: '6px' }}>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Pricing:</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 500 }}>{product.pricing}</div>
-                  </div>
-                )}
-
-                {/* CTA */}
-                <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  {product.status.includes('✅') ? (
-                    <Link
-                      to={product.link}
-                      className="btn primary"
-                      style={{ width: '100%' }}
-                    >
-                      Learn More →
-                    </Link>
-                  ) : (
-                    <button
-                      className="btn ghost"
-                      style={{ width: '100%', cursor: 'not-allowed', opacity: 0.6 }}
-                      disabled
-                    >
-                      Coming Soon
-                    </button>
-                  )}
-                </div>
-              </motion.div>
+              <ProductCard key={product.id} product={product} index={index} />
             ))}
           </div>
         </div>
