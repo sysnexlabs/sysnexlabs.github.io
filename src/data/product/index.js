@@ -18,3 +18,6 @@ export { default as differentiators } from './differentiators'
 
 // LSP Features
 export { default as lspFeatures, getCoreFeatures, getAdvancedFeatures, getTotalFeatureCount } from './lspFeatures'
+
+// Product Tools
+export { default as products, getProductionReadyProducts, getPlannedProducts, getProductsByEdition, getProductById, getCoreProducts, getAdvancedProducts } from './products'

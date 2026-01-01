@@ -11,6 +11,11 @@ const Product = lazy(() => import('./pages/Product'))
 const Pricing = lazy(() => import('./pages/Pricing'))
 const Legal = lazy(() => import('./pages/Legal'))
 const HeroAlternative = lazy(() => import('./pages/HeroAlternative'))
+// New product structure pages
+const Overview = lazy(() => import('./pages/overview/Overview'))
+const Platforms = lazy(() => import('./pages/platforms/Platforms'))
+const Products = lazy(() => import('./pages/products/Products'))
+const Editions = lazy(() => import('./pages/editions/Editions'))
 // Competences pages
 const About = lazy(() => import('./pages/About'))
 const Methods = lazy(() => import('./pages/Methods'))
@@ -50,6 +55,12 @@ function AppContent() {
             <Route path="/legal/privacy" element={<Legal type="privacy" />} />
             <Route path="/legal/terms" element={<Legal type="terms" />} />
             <Route path="/legal/license" element={<Legal type="license" />} />
+            {/* New product structure routes */}
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/platforms" element={<Platforms />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/editions" element={<Editions />} />
+            {/* Legacy product route - keep for backward compatibility */}
             <Route path="/product" element={<Product />} />
             <Route path="/product/try-yourself" element={<TryYourself />} />
             <Route path="/try-yourself" element={<TryYourself />} />
