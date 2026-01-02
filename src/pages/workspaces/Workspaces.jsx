@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
+import StatsGrid from '../../components/StatsGrid/StatsGrid'
 import { useTranslation } from '../../utils/i18n'
 import { useTheme } from '../../contexts/ThemeContext'
 import { workspaces } from '../../data/workspaces/workspaces'
@@ -29,7 +30,7 @@ const Workspaces = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-workspaces">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -48,22 +49,16 @@ const Workspaces = () => {
       </section>
 
       {/* Quick Stats */}
-      <section className="page-content-section" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+      <section className="page-content-section section-py-2">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>7</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>User Workspaces</div>
-            </div>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>40+</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Tailored Features</div>
-            </div>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>100%</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Customizable</div>
-            </div>
-          </div>
+          <StatsGrid
+            stats={[
+              { number: 7, label: 'User Workspaces' },
+              { number: '40+', label: 'Tailored Features' },
+              { number: '100%', label: 'Customizable' }
+            ]}
+            maxWidth="900px"
+          />
         </div>
       </section>
 

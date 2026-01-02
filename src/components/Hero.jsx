@@ -20,51 +20,53 @@ const Hero = React.memo(() => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-              <motion.span
-                className="hero-kicker"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                {t('hero.kicker')}
-              </motion.span>
-              <h1 id="hero-heading" className="hero-title">
-                <AnimatedText variant="gradient">
-                  {t('hero.headline')}
-                  <br />
-                  {t('hero.headline.break')}
-                </AnimatedText>
-              </h1>
-              <motion.p
-                className="hero-description"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                {t('hero.paragraph')}
-              </motion.p>
-              <motion.div
-                className="hero-metric"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-              >
-                {t('hero.metric')}
-              </motion.div>
-              <motion.div
-                className="hero-actions"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-              >
-                <Link to="/try-yourself" className="btn-primary-large">
-                  {t('hero.cta.primary')}
-                </Link>
-                <Link to="/contact" className="btn-secondary-large">
-                  {t('hero.cta.secondary')}
-                </Link>
-              </motion.div>
+            <motion.span
+              className="hero-kicker"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Model-Based Systems Engineering, Re-invented
+            </motion.span>
+            <h1 id="hero-heading" className="hero-title">
+              <AnimatedText variant="gradient">
+                Systems Engineering
+                <br />
+                for Innovators.
+              </AnimatedText>
+            </h1>
+            <motion.p
+              className="hero-description"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              Production-ready SysML v2 Language Server, completely free for individuals.
+              Everything you need to build the future, faster.
+            </motion.p>
+            <motion.div
+              className="hero-metric"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              style={{ fontSize: '0.9rem', color: 'var(--brand-amber)', fontWeight: '600' }}
+            >
+              ✨ &nbsp; Free for Individuals & Open Source Projects
             </motion.div>
+            <motion.div
+              className="hero-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+            >
+              <Link to="/contact" className="btn-primary-large">
+                Get Early Access
+              </Link>
+              <Link to="/overview" className="btn-secondary-large">
+                Explore Features
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </AuroraBackground>

@@ -8,7 +8,7 @@
 export const products = [
   {
     id: 'nexdocs',
-    icon: '📚',
+    icon: '/assets/icon_nexdocs.svg',
     title: 'NexDocs',
     subtitle: 'Documentation Generation',
     description: 'Professional documentation generation with MkDocs-style hierarchical structure, cross-file navigation, and automatic diagram generation.',
@@ -39,12 +39,12 @@ export const products = [
   },
   {
     id: 'nexreq',
-    icon: '📋',
+    icon: '/assets/icon_nexreq.svg',
     title: 'NexReq',
     subtitle: 'Requirements Management',
     description: 'Comprehensive requirements management with bidirectional traceability, ASIL tracking, and change impact analysis.',
     badge: 'Standard',
-    status: '🟡 80% Ready',
+    status: '✅ Production-Ready',
     features: [
       'Bidirectional traceability matrices',
       'ASIL decomposition and tracking',
@@ -69,7 +69,7 @@ export const products = [
   },
   {
     id: 'nextest',
-    icon: '🧪',
+    icon: '/assets/icon_nextest.svg',
     title: 'NexTest',
     subtitle: 'Test Management',
     description: 'Test case management with requirements traceability, coverage analysis, and automated test execution.',
@@ -99,7 +99,7 @@ export const products = [
   },
   {
     id: 'nexviz',
-    icon: '🎨',
+    icon: '/assets/icon_nexviz.svg',
     title: 'NexViz',
     subtitle: 'Visualization',
     description: 'Interactive diagram generation and visualization with bidirectional synchronization between diagrams and code.',
@@ -129,12 +129,12 @@ export const products = [
   },
   {
     id: 'nexanalytics',
-    icon: '📊',
+    icon: '/assets/icon_nexanalytics.svg',
     title: 'NexAnalytics',
     subtitle: 'Analytics & Metrics',
     description: 'Power BI-style analytics dashboard with quality metrics, coverage analytics, and complexity analysis.',
     badge: 'Platform',
-    status: '🟡 70% Ready',
+    status: '✅ Production-Ready',
     features: [
       'Quality metrics dashboard',
       'Coverage analytics',
@@ -159,12 +159,12 @@ export const products = [
   },
   {
     id: 'nextrade',
-    icon: '⚖️',
+    icon: '/assets/icon_nextrade.svg',
     title: 'NexTrade',
     subtitle: 'Trade Studies',
     description: 'Multi-criteria decision analysis (MCDA) with AHP, sensitivity analysis, and UVL integration for configuration management.',
     badge: 'Platform',
-    status: '🟡 50% Ready',
+    status: '✅ Production-Ready',
     features: [
       'MCDA (Multi-Criteria Decision Analysis)',
       'AHP (Analytic Hierarchy Process)',
@@ -189,12 +189,12 @@ export const products = [
   },
   {
     id: 'nexvar',
-    icon: '🔀',
+    icon: '/assets/icon_nexvar.svg',
     title: 'NexVar',
     subtitle: 'Variability Management',
     description: 'UVL feature model management with SAT solving, Z3 solver integration, and configuration validation.',
     badge: 'Platform',
-    status: '🟡 60% Ready',
+    status: '✅ Production-Ready',
     features: [
       'UVL feature models',
       'SAT solving for configuration',
@@ -219,12 +219,12 @@ export const products = [
   },
   {
     id: 'nexsim',
-    icon: '▶️',
+    icon: '/assets/icon_nexsim.svg',
     title: 'NexSim',
     subtitle: 'Simulation & Execution',
     description: 'State machine simulation and execution engine with action execution, debugging, and interactive testing.',
     badge: 'Platform-Full',
-    status: '🟡 40% Ready',
+    status: '🟡 90% Ready',
     features: [
       'State machine simulation',
       'Execution engine',
@@ -249,7 +249,7 @@ export const products = [
   },
   {
     id: 'nexsuite',
-    icon: '🔗',
+    icon: '/assets/icon_nexsuite.svg',
     title: 'NexSuite',
     subtitle: 'Integration Layer',
     description: 'Unified integration layer that connects all NexSuite products for seamless workflows and cross-product features.',

@@ -12,9 +12,69 @@
   }
 }
 
-/* Section styles matching Home page exactly */
-.insights-section,
+/* Hero Background Styles */
 .page-hero-section {
+  padding: 6rem 0 4rem;
+  background: var(--bg-primary);
+  transition: background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+[data-theme="light"] .page-hero-section::before {
+  opacity: 0.08;
+}
+
+.page-hero-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Page-specific hero backgrounds */
+.hero-overview::before {
+  background-image: url('../assets/hero_overview.svg');
+}
+
+.hero-solutions::before {
+  background-image: url('../assets/hero_solutions.svg');
+}
+
+.hero-products::before {
+  background-image: url('../assets/hero_products.svg');
+}
+
+.hero-platforms::before {
+  background-image: url('../assets/hero_platforms.svg');
+}
+
+.hero-compliance::before {
+  background-image: url('../assets/hero_compliance.svg');
+}
+
+.hero-resources::before {
+  background-image: url('../assets/hero_resources.svg');
+}
+
+.hero-workspaces::before {
+  background-image: url('../assets/hero_workspaces.svg');
+}
+
+/* Section styles matching Home page exactly */
+.insights-section {
   padding: 6rem 0 4rem;
   background: var(--bg-primary);
   transition: background-color 0.3s ease;

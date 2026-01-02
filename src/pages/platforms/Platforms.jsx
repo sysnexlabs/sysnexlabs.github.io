@@ -54,7 +54,7 @@ const Platforms = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-platforms">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

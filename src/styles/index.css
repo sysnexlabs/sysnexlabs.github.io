@@ -5,50 +5,74 @@
 }
 
 :root {
-  /* === BRAND STYLE GUIDE COLORS === */
-  /* Primary Brand Colors (from THEME_STYLE_GUIDE.md + logo_new.svg) */
-  --brand-cyan: #00B4D8;
-  --brand-cyan-hover: #0099BF;
-  --brand-amber: #FBBF24;
-  --brand-navy: #0F2747;
-  --brand-orange: #F59E0B;
+  /* === BRAND STYLE GUIDE COLORS (OKLCH) === */
+  /* Primary Brand Colors - Optimized for Perceptual Uniformity */
+  /* Replaces #00B4D8 */
+  --brand-cyan: oklch(76% 0.16 235);
+  /* Replaces #0099BF */
+  --brand-cyan-hover: oklch(68% 0.16 235);
+  /* Replaces #FBBF24 */
+  --brand-amber: oklch(85% 0.16 85);
+  /* Replaces #0F2747 */
+  --brand-navy: oklch(25% 0.08 260);
+  /* Replaces #F59E0B */
+  --brand-orange: oklch(75% 0.18 55);
 
   /* Legacy aliases (backwards compatibility) */
   --turquoise: var(--brand-cyan);
   --amber: var(--brand-amber);
   --navy: var(--brand-navy);
   --coral: var(--brand-orange);
-  --aubergine: #C80064;
+  /* Replaces #C80064 */
+  --aubergine: oklch(55% 0.22 340);
 
   /* Semantic Colors */
-  --color-error: #E5533D;
-  --color-success: #3FB950;
-  --color-warning: #FBBF24;
-  --color-info: #00B4D8;
+  /* Replaces #E5533D */
+  --color-error: oklch(65% 0.22 25);
+  /* Replaces #3FB950 */
+  --color-success: oklch(75% 0.20 145);
+  /* Replaces #FBBF24 */
+  --color-warning: var(--brand-amber);
+  /* Replaces #00B4D8 */
+  --color-info: var(--brand-cyan);
 
   /* Dark Theme Backgrounds */
-  --bg-primary-dark: #0A1628;
-  --bg-secondary-dark: #0F2747;
-  --bg-tertiary-dark: #16335B;
+  /* Replaces #0A1628 */
+  --bg-primary-dark: oklch(18% 0.06 265);
+  /* Replaces #0F2747 */
+  --bg-secondary-dark: oklch(25% 0.08 260);
+  /* Replaces #16335B */
+  --bg-tertiary-dark: oklch(30% 0.09 260);
   --dark-bg: var(--bg-primary-dark); /* Legacy */
 
   /* Light Theme Backgrounds */
-  --bg-primary-light: #F6F8FB;
-  --bg-secondary-light: #FFFFFF;
-  --bg-border-light: #D1D5DB;
-  --bg-accent-light: #0B1F3A;
+  /* Replaces #F6F8FB */
+  --bg-primary-light: oklch(97% 0.01 260);
+  /* Replaces #FFFFFF */
+  --bg-secondary-light: oklch(100% 0 0);
+  /* Replaces #D1D5DB */
+  --bg-border-light: oklch(88% 0.01 260);
+  /* Replaces #0B1F3A */
+  --bg-accent-light: oklch(20% 0.08 265);
 
   /* Text Colors - Dark Theme */
-  --text-primary-dark: #E6EBF2;
-  --text-secondary-dark: #B6C0D0;
-  --text-dim-dark: #7E8AA3;
+  /* Replaces #E6EBF2 */
+  --text-primary-dark: oklch(93% 0.01 260);
+  /* Replaces #B6C0D0 */
+  --text-secondary-dark: oklch(80% 0.04 260);
+  /* Replaces #7E8AA3 */
+  --text-dim-dark: oklch(60% 0.06 260);
   --light-text: var(--text-primary-dark); /* Legacy */
 
   /* Text Colors - Light Theme */
-  --text-primary-light: #2E3440;
-  --text-secondary-light: #0B1F3A;
-  --text-muted-light: #6B7280;
-  --text-dim-light: #9CA3AF;
+  /* Replaces #2E3440 */
+  --text-primary-light: oklch(25% 0.04 260);
+  /* Replaces #0B1F3A */
+  --text-secondary-light: oklch(20% 0.08 265);
+  /* Replaces #6B7280 */
+  --text-muted-light: oklch(55% 0.04 260);
+  /* Replaces #9CA3AF */
+  --text-dim-light: oklch(70% 0.02 260);
 }
 
 /* Dark theme (default) - Using Brand Style Guide Colors */
@@ -149,3 +173,6 @@ button {
   }
 }
 
+
+/* Utility Classes */
+@import './utilities.css';

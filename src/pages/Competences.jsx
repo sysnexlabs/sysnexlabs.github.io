@@ -11,7 +11,7 @@ const Competences = () => {
 
   const coreCompetences = [
     {
-      icon: '🏗️',
+      icon: '/assets/role_architects.svg',
       title: t('competences.core.systems.title'),
       description: t('competences.core.systems.description'),
       areas: [
@@ -33,7 +33,7 @@ const Competences = () => {
       ]
     },
     {
-      icon: '🛡️',
+      icon: '/assets/misc_safety.svg',
       title: t('competences.core.safety.title'),
       description: t('competences.core.safety.description'),
       areas: [
@@ -44,7 +44,7 @@ const Competences = () => {
       ]
     },
     {
-      icon: '⚙️',
+      icon: '/assets/capability_foundation.svg',
       title: t('competences.core.tooling.title'),
       description: t('competences.core.tooling.description'),
       areas: [
@@ -85,7 +85,7 @@ const Competences = () => {
 
   const industries = [
     {
-      icon: '🚗',
+      icon: '/assets/industry_automotive.svg',
       title: t('competences.industries.automotive.title'),
       description: t('competences.industries.automotive.description'),
       expertise: [
@@ -96,7 +96,7 @@ const Competences = () => {
       futureAim: false
     },
     {
-      icon: '✈️',
+      icon: '/assets/industry_aerospace.svg',
       title: t('competences.industries.aerospace.title'),
       description: t('competences.industries.aerospace.description'),
       expertise: [
@@ -107,7 +107,7 @@ const Competences = () => {
       futureAim: true
     },
     {
-      icon: '🚂',
+      icon: '/assets/industry_rail.svg',
       title: t('competences.industries.rail.title'),
       description: t('competences.industries.rail.description'),
       expertise: [
@@ -118,7 +118,7 @@ const Competences = () => {
       futureAim: true
     },
     {
-      icon: '⚡',
+      icon: '/assets/feature_performance.svg',
       title: t('competences.industries.energy.title'),
       description: t('competences.industries.energy.description'),
       expertise: [
@@ -173,7 +173,7 @@ const Competences = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <SpotlightCard className="competence-card">
-                  <div className="competence-icon">{competence.icon}</div>
+                  <div className="competence-icon">{typeof competence.icon === "string" && competence.icon.startsWith("/assets/") ? <img src={competence.icon} alt={competence.title} style={{width: "120px", height: "120px", objectFit: "contain"}} /> : competence.icon}</div>
                   <h3 className="competence-title">{competence.title}</h3>
                   <p className="competence-description">{competence.description}</p>
                   <ul className="competence-areas">
@@ -237,7 +237,7 @@ const Competences = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <SpotlightCard className="industry-card">
-                  <div className="industry-icon">{industry.icon}</div>
+                  <div className="industry-icon">{typeof industry.icon === "string" && industry.icon.startsWith("/assets/") ? <img src={industry.icon} alt={industry.name} style={{width: "120px", height: "120px", objectFit: "contain"}} /> : industry.icon}</div>
                   <div className="industry-header">
                     <h3 className="industry-title">{industry.title}</h3>
                     {industry.futureAim && (

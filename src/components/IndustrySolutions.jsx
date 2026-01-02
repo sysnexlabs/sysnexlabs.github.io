@@ -10,7 +10,7 @@ const IndustrySolutions = () => {
 
   const industries = [
     {
-      icon: '🚗',
+      icon: '/assets/industry_automotive.svg',
       title: t('industries.automotive.title'),
       description: t('industries.automotive.description'),
       benefits: [
@@ -22,7 +22,7 @@ const IndustrySolutions = () => {
       gradient: 'automotive'
     },
     {
-      icon: '✈️',
+      icon: '/assets/industry_aerospace.svg',
       title: t('industries.aerospace.title'),
       description: t('industries.aerospace.description'),
       benefits: [
@@ -70,7 +70,7 @@ const IndustrySolutions = () => {
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
               <SpotlightCard className={`industry-card industry-card--${industry.gradient}`}>
-                <div className="industry-icon">{industry.icon}</div>
+                <div className="industry-icon">{typeof industry.icon === "string" && industry.icon.startsWith("/assets/") ? <img src={industry.icon} alt={industry.title} style={{width: "120px", height: "120px", objectFit: "contain"}} /> : industry.icon}</div>
                 <h3 className="industry-title">{industry.title}</h3>
                 <p className="industry-description">{industry.description}</p>
                 <div className="industry-benefits">

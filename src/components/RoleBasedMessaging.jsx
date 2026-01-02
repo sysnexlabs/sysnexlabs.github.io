@@ -12,28 +12,28 @@ const RoleBasedMessaging = React.memo(() => {
       title: t('home.roles.leadership.title'),
       description: t('home.roles.leadership.description'),
       focus: t('home.roles.leadership.focus'),
-      icon: '👔',
+      icon: '/assets/role_executive.svg',
       gradient: 'leadership'
     },
     {
       title: t('home.roles.architects.title'),
       description: t('home.roles.architects.description'),
       focus: t('home.roles.architects.focus'),
-      icon: '🏗️',
+      icon: '/assets/role_architects.svg',
       gradient: 'architects'
     },
     {
       title: t('home.roles.softwareArchitects.title'),
       description: t('home.roles.softwareArchitects.description'),
       focus: t('home.roles.softwareArchitects.focus'),
-      icon: '💻',
+      icon: '/assets/role_developer.svg',
       gradient: 'softwareArchitects'
     },
     {
       title: t('home.roles.toolchain.title'),
       description: t('home.roles.toolchain.description'),
       focus: t('home.roles.toolchain.focus'),
-      icon: '🔧',
+      icon: '/assets/role_toolchain.svg',
       gradient: 'toolchain'
     }
   ]
@@ -61,7 +61,13 @@ const RoleBasedMessaging = React.memo(() => {
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
               <SpotlightCard className="role-card">
-                <div className="role-icon">{role.icon}</div>
+                <div className="role-icon">
+                  <img
+                    src={role.icon}
+                    alt={role.title}
+                    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  />
+                </div>
                 <h3 className="role-title">{role.title}</h3>
                 <p className="role-description">{role.description}</p>
                 <div className="role-focus">

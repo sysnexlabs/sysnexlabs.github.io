@@ -25,7 +25,15 @@ const ProductCard = ({ product, index = 0 }) => {
       )}
 
       <div className="product-card-icon">
-        {product.icon}
+        {typeof product.icon === 'string' && product.icon.startsWith('/assets/') ? (
+          <img
+            src={product.icon}
+            alt={product.title}
+            style={{width: '120px', height: '120px', objectFit: 'contain'}}
+          />
+        ) : (
+          product.icon
+        )}
       </div>
 
       <h3 className="product-card-title">{product.title}</h3>

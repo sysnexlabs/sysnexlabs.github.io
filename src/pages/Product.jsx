@@ -81,7 +81,17 @@ const Product = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="differentiator-icon">{item.icon}</div>
+                  <div className="differentiator-icon">
+                    {typeof item.icon === 'string' && item.icon.startsWith('/assets/') ? (
+                      <img
+                        src={item.icon}
+                        alt={item.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      item.icon
+                    )}
+                  </div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <ul className="feature-tags">
@@ -148,7 +158,7 @@ const Product = () => {
                 transition={{ delay: 0.3 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-test">🛡️</div>
+                <div className="module-icon module-icon-test"><img src="/assets/icon_nextest.svg" alt="NexTest" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexTest</h3>
                 <p>Model-driven Verification</p>
               </motion.div>
@@ -158,7 +168,7 @@ const Product = () => {
                 transition={{ delay: 0.35 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-viz">📊</div>
+                <div className="module-icon module-icon-viz"><img src="/assets/icon_nexviz.svg" alt="NexViz" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexViz</h3>
                 <p>Interactive Visualization</p>
               </motion.div>
@@ -168,7 +178,7 @@ const Product = () => {
                 transition={{ delay: 0.4 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-analytics">📈</div>
+                <div className="module-icon module-icon-analytics"><img src="/assets/icon_nexanalytics.svg" alt="NexAnalytics" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexAnalytics</h3>
                 <p>Model Analysis</p>
               </motion.div>
@@ -178,7 +188,7 @@ const Product = () => {
                 transition={{ delay: 0.45 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-trade">⚖️</div>
+                <div className="module-icon module-icon-trade"><img src="/assets/icon_nextrade.svg" alt="NexTrade" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexTrade</h3>
                 <p>Trade Study Analysis</p>
               </motion.div>
@@ -188,7 +198,7 @@ const Product = () => {
                 transition={{ delay: 0.5 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-var">🔀</div>
+                <div className="module-icon module-icon-var"><img src="/assets/icon_nexvar.svg" alt="NexVar" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexVar</h3>
                 <p>Variability Management</p>
               </motion.div>
@@ -198,7 +208,7 @@ const Product = () => {
                 transition={{ delay: 0.55 }}
                 className="architecture-module"
               >
-                <div className="module-icon module-icon-sim">▶️</div>
+                <div className="module-icon module-icon-sim"><img src="/assets/icon_nexsim.svg" alt="NexSim" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexSim</h3>
                 <p>State Machine Simulation</p>
               </motion.div>
@@ -208,7 +218,7 @@ const Product = () => {
                 transition={{ delay: 0.6 }}
                 className="architecture-module architecture-module-suite"
               >
-                <div className="module-icon module-icon-suite">🚀</div>
+                <div className="module-icon module-icon-suite"><img src="/assets/icon_nexsuite.svg" alt="NexSuite" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                 <h3>NexSuite</h3>
                 <p>Engineering Workflow Layer</p>
                 <span className="module-badge">Integrates all Nex features</span>
@@ -486,7 +496,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">🛡️</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nextest.svg" alt="NexTest" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexTest - Model-driven Verification</h3>
               <p className="product-suite-description">Comprehensive test management, verification planning, and validation workflows</p>
             </div>
@@ -547,7 +557,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">📊</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nexviz.svg" alt="NexViz" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexViz - Interactive Visualization</h3>
               <p className="product-suite-description">Modern diagram editing and visualization with React Flow and interactive diagrams</p>
             </div>
@@ -594,7 +604,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">📈</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nexanalytics.svg" alt="NexAnalytics" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexAnalytics - Model Analysis</h3>
               <p className="product-suite-description">Comprehensive model quality metrics, complexity analysis, and relationship analytics</p>
             </div>
@@ -641,7 +651,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">⚖️</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nextrade.svg" alt="NexTrade" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexTrade - Trade Study Analysis</h3>
               <p className="product-suite-description">ISO 15288 compliant decision management with MCDA trade studies and UVL integration</p>
             </div>
@@ -673,7 +683,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">🔀</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nexvar.svg" alt="NexVar" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexVar - Variability Management</h3>
               <p className="product-suite-description">UVL feature model management with Z3 solver integration and product derivation</p>
             </div>
@@ -706,7 +716,7 @@ const Product = () => {
             className="product-suite-section"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">▶️</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nexsim.svg" alt="NexSim" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexSim - State Machine Simulation</h3>
               <p className="product-suite-description">Execute and simulate state machines with debugging support and checkpoint/resume</p>
             </div>
@@ -739,7 +749,7 @@ const Product = () => {
             className="product-suite-section product-suite-featured"
           >
             <div className="product-suite-header">
-              <div className="product-suite-icon">🚀</div>
+              <div className="product-suite-icon"><img src="/assets/icon_nexsuite.svg" alt="NexSuite" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
               <h3>NexSuite - Engineering Workflow Layer</h3>
               <p className="product-suite-description">Integrated platform combining all Nex products (NexDocs, NexReq, NexTest, NexViz, NexAnalytics, NexTrade, NexVar, NexSim) with advanced workflow capabilities</p>
               <span className="suite-badge">Integrates all Nex features</span>

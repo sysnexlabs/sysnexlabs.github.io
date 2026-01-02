@@ -7,12 +7,12 @@ import './Page.css'
 const Tools = () => {
   const highlights = [
     {
-      icon: '🚀',
+      icon: '/assets/misc_deployment.svg',
       title: 'SysML v2 Modeling (Production)',
       description: 'Native SysML v2 support with syntax highlighting, IntelliSense, and real-time validation. Define systems in textual format with LSP features. 18/18 LSP features implemented.'
     },
     {
-      icon: '🤖',
+      icon: '/assets/feature_ai_first.svg',
       title: 'AI Integration (Works with Copilot)',
       description: 'Compatible with GitHub Copilot, Claude Code, and VS Code AI. Works with standard AI assistants—no proprietary AI. Leverage existing tooling, not custom solutions.'
     },
@@ -27,7 +27,7 @@ const Tools = () => {
       description: 'SysML v2 files are plain text—use Git naturally. Branch, merge, PR review workflows just work. No proprietary SCM required.'
     },
     {
-      icon: '⚡',
+      icon: '/assets/feature_performance.svg',
       title: 'Real-Time Feedback (Production)',
       description: 'Instant validation, syntax checking, and error detection. 25+ diagnostic collectors. Markers show exactly where issues are.'
     },

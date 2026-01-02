@@ -29,7 +29,7 @@ const Overview = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-overview">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -84,7 +84,17 @@ const Overview = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="differentiator-icon">{item.icon}</div>
+                  <div className="differentiator-icon">
+                    {typeof item.icon === 'string' && item.icon.startsWith('/assets/') ? (
+                      <img
+                        src={item.icon}
+                        alt={item.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      item.icon
+                    )}
+                  </div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <ul className="feature-tags">
@@ -95,6 +105,112 @@ const Overview = () => {
                 </SpotlightCard>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Advanced Capabilities */}
+      <section className="page-content-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Modern Development Experience</h2>
+            <p className="section-subtitle">
+              Production-ready features that set NexSuite apart
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/capability_wasm.svg"
+                  alt="Browser-Based WASM"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>Browser-Based WASM</h3>
+              <p>Run SysML v2 tooling directly in your browser with WebAssembly. Zero server required, full LSP features.</p>
+              <div style={{ marginTop: '1rem' }}>
+                <Link to="/try-yourself" className="btn ghost" style={{ fontSize: '0.9rem' }}>
+                  Try Interactive Demo →
+                </Link>
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/feature_ai_first.svg"
+                  alt="AI-Powered Development"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>AI-Powered Development</h3>
+              <p>Native GitHub Copilot and Claude Code integration. AI-assisted model creation, refactoring, and documentation.</p>
+              <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                First AI-native MBSE platform
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/capability_desktop.svg"
+                  alt="Standalone Desktop App"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>Standalone Desktop App</h3>
+              <p>Tauri-based desktop application with 30+ integrated panels. Full IDE experience without VS Code dependency.</p>
+              <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Production-ready
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/feature_git_native.svg"
+                  alt="Git-Native Workflows"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>Git-Native Workflows</h3>
+              <p>Full version control integration. Models as code with branching, merging, pull requests, and CI/CD pipelines.</p>
+              <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                VSCode SCM integration
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/capability_edge.svg"
+                  alt="Edge Deployment"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>Edge Deployment</h3>
+              <p>Raspberry Pi SaaS server for local/edge deployment. WebSocket LSP server for web-based IDEs.</p>
+              <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                8GB RAM, &lt;100ms completion
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard>
+              <div style={{ marginBottom: '1rem' }}>
+                <img
+                  src="/assets/capability_foundation.svg"
+                  alt="ISO/IEC 15288 Foundation"
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              </div>
+              <h3>ISO/IEC 15288 Foundation</h3>
+              <p>Systems engineering lifecycle processes. Foundation for ASPICE, ISO 26262, DO-178C, and other standards.</p>
+              <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                83% complete
+              </div>
+            </SpotlightCard>
           </div>
         </div>
       </section>

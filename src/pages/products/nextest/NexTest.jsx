@@ -44,7 +44,17 @@ const NexTest = () => {
             transition={{ duration: 0.8 }}
             className="product-hero-content"
           >
-            <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>{product.icon}</div>
+            <div style={{ marginBottom: '1rem' }}>
+              {typeof product.icon === 'string' && product.icon.startsWith('/assets/') ? (
+                <img
+                  src={product.icon}
+                  alt={product.title}
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              ) : (
+                <div style={{ fontSize: '4rem' }}>{product.icon}</div>
+              )}
+            </div>
             <div className="hero-badge">{product.badge} Edition</div>
             <h1>{product.title}</h1>
             <p className="product-subtitle">{product.subtitle}</p>

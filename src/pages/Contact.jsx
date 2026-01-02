@@ -66,7 +66,7 @@ const Contact = () => {
                 </SpotlightCard>
 
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">⚡</div>
+                  <div className="card-icon" aria-hidden="true"><img src="/assets/feature_performance.svg" alt="Performance" style={{width: "120px", height: "120px", objectFit: "contain"}} /></div>
                   <h3 className="card-title">{t('contact.response.title')}</h3>
                   <p className="card-description">
                     {t('contact.response.body')}

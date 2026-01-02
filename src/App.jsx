@@ -13,6 +13,7 @@ const Legal = lazy(() => import('./pages/Legal'))
 const HeroAlternative = lazy(() => import('./pages/HeroAlternative'))
 // New product structure pages
 const Overview = lazy(() => import('./pages/overview/Overview'))
+const Solutions = lazy(() => import('./pages/Solutions'))
 const Platforms = lazy(() => import('./pages/platforms/Platforms'))
 const Products = lazy(() => import('./pages/products/Products'))
 const Editions = lazy(() => import('./pages/editions/Editions'))
@@ -36,6 +37,8 @@ const Methods = lazy(() => import('./pages/Methods'))
 const Process = lazy(() => import('./pages/Process'))
 const Tools = lazy(() => import('./pages/Tools'))
 const Competences = lazy(() => import('./pages/Competences'))
+// Resources page
+const Resources = lazy(() => import('./pages/Resources'))
 import './styles/App.css'
 
 function AppContent() {
@@ -55,6 +58,11 @@ function AppContent() {
       window.dispatchEvent(new PopStateEvent('popstate'))
     }
   }, [])
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
   
   return (
     <div className="app">
@@ -71,6 +79,7 @@ function AppContent() {
             <Route path="/legal/license" element={<Legal type="license" />} />
             {/* New product structure routes */}
             <Route path="/overview" element={<Overview />} />
+            <Route path="/solutions" element={<Solutions />} />
             <Route path="/platforms" element={<Platforms />} />
             <Route path="/products" element={<Products />} />
             <Route path="/editions" element={<Editions />} />
@@ -99,6 +108,8 @@ function AppContent() {
             <Route path="/process" element={<Process />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/competences" element={<Competences />} />
+            {/* Resources page */}
+            <Route path="/resources" element={<Resources />} />
             {/* Catch-all route - show home for any unmatched path */}
             <Route path="*" element={<Home />} />
           </Routes>

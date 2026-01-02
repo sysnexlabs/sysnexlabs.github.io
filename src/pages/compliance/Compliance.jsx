@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import ComplianceCard from '../../components/product/ComplianceCard/ComplianceCard'
 import ComparisonTable from '../../components/product/ComparisonTable/ComparisonTable'
+import StatsGrid from '../../components/StatsGrid/StatsGrid'
 import { useTranslation } from '../../utils/i18n'
 import { useTheme } from '../../contexts/ThemeContext'
 import { complianceVariants, getProductionReadyVariants, getPlannedVariants, getVariantsByIndustry } from '../../data/product'
@@ -72,7 +73,7 @@ const Compliance = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-compliance">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -92,26 +93,17 @@ const Compliance = () => {
       </section>
 
       {/* Quick Stats */}
-      <section className="page-content-section" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+      <section className="page-content-section section-py-2">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>{complianceVariants.length}</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Total Variants</div>
-            </div>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>{getProductionReadyVariants().length}</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Production-Ready</div>
-            </div>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>4</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Industries Covered</div>
-            </div>
-            <div style={{ textAlign: 'center', padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>15+</div>
-              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Standards Supported</div>
-            </div>
-          </div>
+          <StatsGrid
+            stats={[
+              { number: complianceVariants.length, label: 'Total Variants' },
+              { number: getProductionReadyVariants().length, label: 'Production-Ready' },
+              { number: 4, label: 'Industries Covered' },
+              { number: '15+', label: 'Standards Supported' }
+            ]}
+            maxWidth="800px"
+          />
         </div>
       </section>
 
@@ -197,6 +189,104 @@ const Compliance = () => {
             items={complianceVariants}
             rows={comparisonRows}
           />
+        </div>
+      </section>
+
+      {/* Standards Overview */}
+      <section className="page-content-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Standards Supported</h2>
+            <p className="section-subtitle">
+              Comprehensive coverage of major industry standards
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px', border: '2px solid var(--accent-primary)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚙️</div>
+              <h3 style={{ marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>ISO/IEC 15288</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Systems Engineering Foundation</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Lifecycle processes for systems engineering. Foundation for all compliance variants.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: 🟡 83% Complete
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🚗</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>ASPICE</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Automotive Process Excellence</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Automotive SPICE process assessment model. Level 2/3 compliance support.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: 🟡 45% Complete
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🛡️</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>ISO 26262</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Functional Safety (Automotive)</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Road vehicles functional safety. ASIL decomposition, FFI analysis, safety case generation.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: 🟡 45% Complete
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🔒</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>ISO/SAE 21434</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Cybersecurity (Automotive)</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Road vehicles cybersecurity engineering. TARA, attack tree modeling, UNECE WP.29 compliance.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: ❌ Planned Q3 2026
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✈️</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>DO-178C / DO-331</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Aviation Software Certification</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Software considerations in airborne systems. Model-based development, tool qualification.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: ❌ Planned Q4 2026
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🏥</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>IEC 62304</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Medical Device Software</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Medical device software lifecycle. Safety classification, SOUP management, FDA submission support.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: ❌ Planned Q2 2028
+              </div>
+            </div>
+
+            <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🚂</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>EN 50128</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Railway Safety Systems</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                Railway control and protection systems. SIL management, RAMS compliance, CENELEC standards.
+              </p>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Status: ❌ Planned Q3 2028
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

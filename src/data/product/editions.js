@@ -105,12 +105,12 @@ export const editions = [
   },
   {
     id: 'platform-full',
-    badge: 'Default',
+    badge: 'Premium',
     icon: '🟣',
     title: 'Platform-Full',
     size: '~60-70 MB',
-    price: 'Free',
-    priceDetail: 'Open Source (Default Build)',
+    price: '$10,000-$15,000',
+    priceDetail: '/seat/year',
     description: 'All features including constraints, execution engine, ASPICE work products. Maximum compatibility and feature set.',
     features: [
       'Everything in Platform',
@@ -124,11 +124,13 @@ export const editions = [
     status: '🟡 70% Ready',
     statusDetail: 'May have cross-compilation issues, active stabilization',
     buildTime: '~4-6 minutes',
-    target: 'Development, testing, maximum compatibility',
+    target: 'Enterprise teams requiring complete feature set and execution capabilities',
     roi: {
-      saving: 'Complete feature access at no cost',
-      vs: 'Commercial tools with limited free tiers'
-    }
+      saving: '$50K-$100K/year saved',
+      payback: '1.5-3.0 months',
+      vs: 'Cameo + execution tools ($20K-$35K) + consulting'
+    },
+    featured: false
   }
 ]
 

@@ -3,93 +3,51 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTranslation } from '../utils/i18n'
 import SpotlightCard from '../components/SpotlightCard'
+import { editions } from '../data/product'
 import './Pricing.css'
 
 const Pricing = React.memo(() => {
   const { t } = useTranslation()
 
-  const plans = [
-    {
-      name: 'Essential (Free)',
-      badge: 'Available Now',
-      badgeClass: 'badge-available',
-      price: '$0 forever',
-      description: 'Full SysML v2 LSP for VS Code',
-      bestFor: 'Best for: Individual developers and teams exploring SysML v2',
-      features: [
-        '18 LSP features (completion, navigation, diagnostics)',
-        'Syntax highlighting & formatting',
-        'Hover information & symbol rename',
-        'MIT license (commercial use OK)',
-        'Community support (GitHub)',
-        'Web-based model viewer'
-      ],
-      cta: 'Download Free',
-      link: '/try-yourself',
-      featured: false,
-      availability: 'Production ready. Download from VS Code Marketplace.'
-    },
-    {
-      name: 'Standard',
-      badge: 'Beta Testing',
-      badgeClass: 'badge-beta',
-      price: 'TBD ($50-100/user/mo)',
-      description: 'Professional IDE with documentation & traceability',
-      bestFor: 'Best for: Professional teams requiring advanced IDE capabilities',
-      features: [
-        'All Essential features',
-        'Documentation generator (MkDocs/Sphinx)',
-        'Requirements traceability matrix',
-        'Model analytics dashboard',
-        'Email support with SLA',
-        '6-month beta trial available'
-      ],
-      cta: 'Apply for Beta',
-      link: '/contact',
-      featured: true,
-      availability: 'Beta testing now. Seeking design partners.'
-    },
-    {
-      name: 'Platform',
-      badge: 'Q2 2025',
-      badgeClass: 'badge-development',
-      price: 'TBD ($200-500/user/mo)',
-      description: 'Enterprise platform with domain extensions',
-      bestFor: 'Best for: Enterprise teams requiring domain integrations',
-      features: [
-        'Everything in Standard',
-        'UVL variability management',
-        'VSS/YAML architecture integration',
-        'Z3 solver integration',
-        'Python API for custom workflows',
-        'CST viewer & advanced debugging'
-      ],
-      cta: 'Join Waitlist',
-      link: '/contact',
-      featured: false,
-      availability: 'Active development. Pilot partners wanted.'
-    },
-    {
-      name: 'Automotive/Safety',
-      badge: 'Q2 2025',
-      badgeClass: 'badge-development',
-      price: 'Contact for pricing',
-      description: 'Automotive compliance with ASPICE & ISO 26262',
-      bestFor: 'Best for: Automotive OEM/Tier-1 requiring safety compliance',
-      features: [
-        'Everything in Platform',
-        'ASPICE work product automation (20 templates)',
-        'ISO 26262 ASIL decomposition validator',
-        'ISO/SAE 21434 cybersecurity templates',
-        'Audit-ready documentation',
-        'Enterprise support & on-site training'
-      ],
-      cta: 'Contact Sales',
-      link: '/contact',
-      featured: false,
-      availability: 'In development. Pilot program available.'
+  // Map editions to pricing plans with marketing-focused presentation
+  const plans = editions.map(edition => {
+    const isProduction = edition.status.includes('✅')
+    const isFree = edition.price === 'Free'
+
+    return {
+      name: edition.title,
+      badge: edition.badge,
+      badgeClass: isProduction ? 'badge-available' : 'badge-development',
+      price: isFree ? `${edition.price} forever` : `${edition.price} ${edition.priceDetail}`,
+      description: edition.description,
+      bestFor: getBestFor(edition.id),
+      features: edition.features.slice(0, 6), // Top 6 features for pricing page
+      cta: isFree ? 'Download Free' : isProduction ? 'Get Started' : 'Join Waitlist',
+      link: isFree ? '/try-yourself' : '/contact',
+      featured: edition.featured || false,
+      availability: getAvailability(edition),
+      editionLink: '/editions'
     }
-  ]
+  })
+
+  function getBestFor(editionId) {
+    const mapping = {
+      'essential': 'Best for: Individual developers, CI/CD pipelines, and teams exploring SysML v2',
+      'standard': 'Best for: Professional teams requiring advanced IDE capabilities',
+      'platform': 'Best for: Enterprise teams requiring domain integrations and variability management',
+      'platform-full': 'Best for: Development, testing, and users wanting maximum feature access'
+    }
+    return mapping[editionId] || 'Best for: Specialized workflows'
+  }
+
+  function getAvailability(edition) {
+    if (edition.status.includes('✅')) {
+      return edition.price === 'Free'
+        ? 'Production ready. Download from VS Code Marketplace.'
+        : 'Production ready. Contact for licensing.'
+    }
+    return edition.statusDetail || 'In development. Early access available.'
+  }
 
   return (
     <div className="pricing-page">
@@ -208,6 +166,12 @@ const Pricing = React.memo(() => {
 
       <section className="pricing-info-section">
         <div className="container">
+          <div className="section-header" style={{ marginBottom: '2rem' }}>
+            <h2>Pricing Details</h2>
+            <p className="section-subtitle">
+              Transparent pricing with no hidden fees. <Link to="/editions" style={{ color: 'var(--accent-primary)' }}>View full edition comparison →</Link>
+            </p>
+          </div>
           <div className="pricing-info-grid">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -231,10 +195,11 @@ const Pricing = React.memo(() => {
             >
               <h3>Evaluation Terms</h3>
               <ul>
-                <li>Essential: Free forever, no evaluation needed</li>
-                <li>Standard: 6-month beta trial (no credit card)</li>
-                <li>Platform: Pilot program with design partners</li>
-                <li>Automotive: Custom evaluation terms</li>
+                <li>Essential: Free forever (open source)</li>
+                <li>Standard: 30-day free trial (no credit card)</li>
+                <li>Platform: 30-day free trial + pilot program</li>
+                <li>Platform-Full: 30-day free trial + pilot program</li>
+                <li>Custom pricing available for volume licensing</li>
               </ul>
             </motion.div>
             <motion.div
@@ -245,10 +210,11 @@ const Pricing = React.memo(() => {
             >
               <h3>Support</h3>
               <ul>
-                <li><strong>Essential:</strong> Community (GitHub Discussions)</li>
-                <li><strong>Standard:</strong> Email support</li>
-                <li><strong>Platform:</strong> Priority support</li>
-                <li><strong>Automotive:</strong> Dedicated support + training</li>
+                <li><strong>Essential:</strong> Community (GitHub)</li>
+                <li><strong>Standard:</strong> Email support (48h response)</li>
+                <li><strong>Platform:</strong> Priority support (24h response)</li>
+                <li><strong>Platform-Full:</strong> Priority support (24h response)</li>
+                <li><strong>Enterprise:</strong> Dedicated support + training</li>
               </ul>
             </motion.div>
           </div>
@@ -259,10 +225,10 @@ const Pricing = React.memo(() => {
         <div className="container">
           <div className="pricing-cta-content">
             <h2>Ready to Get Started?</h2>
-            <p>Free tier is production-ready. Beta programs open for Standard & Platform tiers.</p>
+            <p>Essential edition is free and production-ready. All commercial editions available with 30-day free trials.</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/try-yourself" className="btn primary large">Try Free Version</Link>
-              <Link to="/contact" className="btn ghost large">Apply for Beta</Link>
+              <Link to="/editions" className="btn ghost large">Compare Editions</Link>
             </div>
           </div>
         </div>

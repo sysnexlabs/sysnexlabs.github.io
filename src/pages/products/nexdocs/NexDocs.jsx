@@ -44,7 +44,17 @@ const NexDocs = () => {
             transition={{ duration: 0.8 }}
             className="product-hero-content"
           >
-            <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>{product.icon}</div>
+            <div style={{ marginBottom: '1rem' }}>
+              {typeof product.icon === 'string' && product.icon.startsWith('/assets/') ? (
+                <img
+                  src={product.icon}
+                  alt={product.title}
+                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                />
+              ) : (
+                <div style={{ fontSize: '4rem' }}>{product.icon}</div>
+              )}
+            </div>
             <div className="hero-badge">{product.badge} Edition</div>
             <h1>{product.title}</h1>
             <p className="product-subtitle">{product.subtitle}</p>
@@ -88,8 +98,140 @@ const NexDocs = () => {
         </div>
       </section>
 
-      {/* Components Breakdown */}
+      {/* Screenshot Gallery */}
       <section className="page-section-alt">
+        <div className="container">
+          <div className="section-header">
+            <h2>Product Screenshots</h2>
+            <p className="section-subtitle">
+              See NexDocs capabilities in action with real product screenshots
+            </p>
+          </div>
+
+          <div style={{ maxWidth: '1400px', margin: '2rem auto 0' }}>
+            {/* Main Featured Screenshots */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(600px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <SpotlightCard>
+                  <div style={{ padding: '1.5rem' }}>
+                    <h3 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>
+                      📄 Documentation Generator
+                    </h3>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                      Professional hierarchical documentation with search, navigation, and element info panels
+                    </p>
+                    <div style={{
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      border: '2px solid var(--border-color)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                    }}>
+                      <img
+                        src="../assets/nexdoc_documentation.png"
+                        alt="NexDocs Documentation Generator"
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <SpotlightCard>
+                  <div style={{ padding: '1.5rem' }}>
+                    <h3 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>
+                      📊 Analytics Dashboard
+                    </h3>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                      Real-time quality scoring with complexity, coupling, cohesion, and maintainability metrics
+                    </p>
+                    <div style={{
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      border: '2px solid var(--border-color)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                    }}>
+                      <img
+                        src="../assets/nexdoc_analytics.png"
+                        alt="NexDocs Analytics Dashboard"
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </motion.div>
+            </div>
+
+            {/* Secondary Screenshots Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+              {[
+                {
+                  image: '../assets/nexdoc_stats.png',
+                  title: 'Quality Assessment',
+                  description: 'Model statistics with element breakdown and documentation coverage tracking',
+                  icon: '/assets/feature_analytics.svg'
+                },
+                {
+                  image: '../assets/nexdoc_cst.png',
+                  title: 'Concrete Syntax Tree',
+                  description: 'CST visualization with statistics and interactive tree navigation',
+                  icon: '🌳'
+                },
+                {
+                  image: '../assets/nexdoc_hir.png',
+                  title: 'High-level IR Tree',
+                  description: 'HIR exploration with namespace hierarchy and type information',
+                  icon: '🔍'
+                }
+              ].map((screenshot, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                >
+                  <SpotlightCard>
+                    <div style={{ padding: '1.5rem' }}>
+                      <h4 style={{ marginBottom: '0.75rem', color: 'var(--accent-primary)' }}>
+                        {screenshot.icon} {screenshot.title}
+                      </h4>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                        {screenshot.description}
+                      </p>
+                      <div style={{
+                        borderRadius: '6px',
+                        overflow: 'hidden',
+                        border: '1px solid var(--border-color)',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+                      }}>
+                        <img
+                          src={screenshot.image}
+                          alt={screenshot.title}
+                          style={{ width: '100%', height: 'auto', display: 'block' }}
+                        />
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Components Breakdown */}
+      <section className="page-content-section">
         <div className="container">
           <div className="section-header">
             <h2>Components</h2>

@@ -18,7 +18,7 @@ const OwnTooling = () => {
       ]
     },
     {
-      icon: '📊',
+      icon: '/assets/feature_analytics.svg',
       title: 'Excel → Requirements Manager',
       description: 'Codebeamer-level features with table views, traceability matrices, analytics dashboards, workflow management, and Excel/CSV/ReqIF export. 93% complete with 62.9K lines of backend code.',
       items: [
@@ -29,7 +29,7 @@ const OwnTooling = () => {
       ]
     },
     {
-      icon: '📊',
+      icon: '/assets/feature_analytics.svg',
       title: 'Excel → Test Management',
       description: 'Test case tracking with execution status, coverage matrices, test suite management, and requirement linking. 95% complete with full backend and frontend.',
       items: [
@@ -40,7 +40,7 @@ const OwnTooling = () => {
       ]
     },
     {
-      icon: '📊',
+      icon: '/assets/feature_analytics.svg',
       title: 'Excel → Trade Study Analysis',
       description: 'Compare design alternatives with ranking charts, Pareto frontiers, AHP weight calculation, and live recalculation. 95% complete with interactive visualizations.',
       items: [
@@ -51,7 +51,7 @@ const OwnTooling = () => {
       ]
     },
     {
-      icon: '📊',
+      icon: '/assets/feature_analytics.svg',
       title: 'Power BI → Analytics Dashboard',
       description: 'Comprehensive quality metrics, coverage analytics, complexity analysis, and relationship metrics with interactive drill-down. 100% complete with all LSP commands working.',
       items: [
@@ -158,7 +158,7 @@ const OwnTooling = () => {
 
   const beyondFeatures = [
     {
-      icon: '⚡',
+      icon: '/assets/feature_performance.svg',
       title: 'Simulation Engine',
       description: 'State machine execution, action execution, time-based simulation, and debugging support. 95% complete.'
     },
@@ -168,22 +168,22 @@ const OwnTooling = () => {
       description: 'Full OCL 2.5 compliance with Z3 integration for constraint validation and satisfaction analysis. 100% complete.'
     },
     {
-      icon: '💻',
+      icon: '/assets/platform_desktop.svg',
       title: 'Code Generation',
       description: 'Template-based generation for C++, Python, Simulink, and build configs. 85% complete with LSP integration.'
     },
     {
-      icon: '🔧',
+      icon: '/assets/role_toolchain.svg',
       title: 'ISO 15288 Frameworks',
       description: '6 systems engineering frameworks (Analysis, Risk, Decision, Design, Implementation, Planning). 80-95% complete.'
     },
     {
-      icon: '🔧',
+      icon: '/assets/role_toolchain.svg',
       title: 'ASPICE Work Products',
       description: 'All 20 ASPICE work products with template engine, HIR extraction, and multi-format export. 100% complete.'
     },
     {
-      icon: '🔧',
+      icon: '/assets/role_toolchain.svg',
       title: 'Domain Extensions',
       description: 'VSS, YAML Architecture, UVL variability, and Python bindings. 90-95% complete across extensions.'
     }
@@ -228,7 +228,7 @@ const OwnTooling = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{feature.icon}</div>
+                  <div className="card-icon" aria-hidden="true">{typeof feature.icon === "string" && feature.icon.startsWith("/assets/") ? <img src={feature.icon} alt="Feature" style={{width: "120px", height: "120px", objectFit: "contain"}} /> : feature.icon}</div>
                   <h3 className="card-title">{feature.title}</h3>
                   <p className="card-description">{feature.description}</p>
                   <ul className="method-list">
@@ -345,7 +345,7 @@ const OwnTooling = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{feature.icon}</div>
+                  <div className="card-icon" aria-hidden="true">{typeof feature.icon === "string" && feature.icon.startsWith("/assets/") ? <img src={feature.icon} alt="Feature" style={{width: "120px", height: "120px", objectFit: "contain"}} /> : feature.icon}</div>
                   <h3 className="card-title">{feature.title}</h3>
                   <p className="card-description">{feature.description}</p>
                 </SpotlightCard>

@@ -14,7 +14,7 @@ const CustomerSuccess = () => {
       challenge: t('customers.case1.challenge'),
       solution: t('customers.case1.solution'),
       outcome: t('customers.case1.outcome'),
-      icon: '🚗'
+      icon: '/assets/industry_automotive.svg'
     },
     {
       company: t('customers.case2.company'),
@@ -22,7 +22,7 @@ const CustomerSuccess = () => {
       challenge: t('customers.case2.challenge'),
       solution: t('customers.case2.solution'),
       outcome: t('customers.case2.outcome'),
-      icon: '✈️'
+      icon: '/assets/industry_aerospace.svg'
     },
     {
       company: t('customers.case3.company'),
@@ -58,7 +58,17 @@ const CustomerSuccess = () => {
             >
               <SpotlightCard className="case-study-card">
                 <div className="case-study-header">
-                  <div className="case-study-icon">{study.icon}</div>
+                  <div className="case-study-icon">
+                    {typeof study.icon === 'string' && study.icon.startsWith('/assets/') ? (
+                      <img
+                        src={study.icon}
+                        alt={study.company}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      study.icon
+                    )}
+                  </div>
                   <div className="case-study-meta">
                     <h3 className="case-study-company">{study.company}</h3>
                     <span className="case-study-industry">{study.industry}</span>
