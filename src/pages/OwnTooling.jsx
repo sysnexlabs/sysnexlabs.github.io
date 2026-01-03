@@ -191,7 +191,7 @@ const OwnTooling = () => {
 
   return (
     <div className="page">
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-products">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -228,7 +228,17 @@ const OwnTooling = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{typeof feature.icon === "string" && feature.icon.startsWith("/assets/") ? <img src={feature.icon} alt="Feature" style={{width: "120px", height: "120px", objectFit: "contain"}} /> : feature.icon}</div>
+                  <div className="card-icon" aria-hidden="true">
+                    {typeof feature.icon === 'string' && feature.icon.startsWith('/assets/') ? (
+                      <img
+                        src={feature.icon}
+                        alt={feature.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      feature.icon
+                    )}
+                  </div>
                   <h3 className="card-title">{feature.title}</h3>
                   <p className="card-description">{feature.description}</p>
                   <ul className="method-list">
@@ -345,7 +355,17 @@ const OwnTooling = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{typeof feature.icon === "string" && feature.icon.startsWith("/assets/") ? <img src={feature.icon} alt="Feature" style={{width: "120px", height: "120px", objectFit: "contain"}} /> : feature.icon}</div>
+                  <div className="card-icon" aria-hidden="true">
+                    {typeof feature.icon === 'string' && feature.icon.startsWith('/assets/') ? (
+                      <img
+                        src={feature.icon}
+                        alt={feature.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      feature.icon
+                    )}
+                  </div>
                   <h3 className="card-title">{feature.title}</h3>
                   <p className="card-description">{feature.description}</p>
                 </SpotlightCard>

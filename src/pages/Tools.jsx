@@ -125,7 +125,7 @@ const Tools = () => {
 
   return (
     <div className="page">
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-resources">
         <div className="container">
           <div className="page-header-image">
             <img src="./assets/tools_header.svg" alt="VS Code Development Environment" className="header-image" />
@@ -147,7 +147,9 @@ const Tools = () => {
 
       <section className="page-content-section">
         <div className="container">
-          <h2 className="section-title">Key Features</h2>
+          <div className="section-header">
+            <h2 className="section-title">Key Features</h2>
+          </div>
           <div className="features-grid">
             {highlights.map((highlight, index) => (
               <motion.div
@@ -158,7 +160,17 @@ const Tools = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <SpotlightCard>
-                  <div className="card-icon" aria-hidden="true">{highlight.icon}</div>
+                  <div className="card-icon" aria-hidden="true">
+                    {typeof highlight.icon === 'string' && highlight.icon.startsWith('/assets/') ? (
+                      <img
+                        src={highlight.icon}
+                        alt={highlight.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      highlight.icon
+                    )}
+                  </div>
                   <h3 className="card-title">{highlight.title}</h3>
                   <p className="card-description">{highlight.description}</p>
                 </SpotlightCard>
@@ -170,7 +182,9 @@ const Tools = () => {
 
       <section className="page-section-alt">
         <div className="container">
-          <h2 className="section-title">IDE Features</h2>
+          <div className="section-header">
+            <h2 className="section-title">IDE Features</h2>
+          </div>
           <div className="methods-grid">
             {features.map((feature, index) => (
               <motion.div
@@ -197,10 +211,12 @@ const Tools = () => {
 
       <section className="page-content-section">
         <div className="container">
-          <h2 className="section-title">Development Experience</h2>
-          <p className="section-subtitle">
-            Our tools are designed for the modern systems engineer who wants to work like a software developer:
-          </p>
+          <div className="section-header">
+            <h2 className="section-title">Development Experience</h2>
+            <p className="section-subtitle">
+              Our tools are designed for the modern systems engineer who wants to work like a software developer:
+            </p>
+          </div>
           <div className="benefits-grid">
             {experience.map((item, index) => (
               <motion.div

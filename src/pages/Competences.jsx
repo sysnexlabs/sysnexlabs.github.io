@@ -133,7 +133,7 @@ const Competences = () => {
   return (
     <div className="page">
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-solutions">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -173,7 +173,17 @@ const Competences = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <SpotlightCard className="competence-card">
-                  <div className="competence-icon">{typeof competence.icon === "string" && competence.icon.startsWith("/assets/") ? <img src={competence.icon} alt={competence.title} style={{width: "120px", height: "120px", objectFit: "contain"}} /> : competence.icon}</div>
+                  <div className="competence-icon">
+                    {typeof competence.icon === 'string' && competence.icon.startsWith('/assets/') ? (
+                      <img
+                        src={competence.icon}
+                        alt={competence.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      competence.icon
+                    )}
+                  </div>
                   <h3 className="competence-title">{competence.title}</h3>
                   <p className="competence-description">{competence.description}</p>
                   <ul className="competence-areas">
@@ -237,7 +247,17 @@ const Competences = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <SpotlightCard className="industry-card">
-                  <div className="industry-icon">{typeof industry.icon === "string" && industry.icon.startsWith("/assets/") ? <img src={industry.icon} alt={industry.name} style={{width: "120px", height: "120px", objectFit: "contain"}} /> : industry.icon}</div>
+                  <div className="industry-icon">
+                    {typeof industry.icon === 'string' && industry.icon.startsWith('/assets/') ? (
+                      <img
+                        src={industry.icon}
+                        alt={industry.title}
+                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                      />
+                    ) : (
+                      industry.icon
+                    )}
+                  </div>
                   <div className="industry-header">
                     <h3 className="industry-title">{industry.title}</h3>
                     {industry.futureAim && (

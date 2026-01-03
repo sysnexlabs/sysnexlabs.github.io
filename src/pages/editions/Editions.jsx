@@ -67,7 +67,7 @@ const Editions = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="page-hero-section">
+      <section className="page-hero-section hero-products">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
