@@ -65,7 +65,7 @@ const RoleBasedMessaging = React.memo(() => {
                   <img
                     src={role.icon}
                     alt={role.title}
-                    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                   />
                 </div>
                 <h3 className="role-title">{role.title}</h3>

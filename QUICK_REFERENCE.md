@@ -138,12 +138,17 @@ src/pages/
   <img
     src={icon}
     alt="Description"
-    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
   />
 ) : (
   icon
 )}
 ```
+
+**Key points:**
+- Fixed height: 120px (all icons same height)
+- Width: auto (maintains aspect ratio)
+- Max width: 120px (prevents very wide icons)
 
 Use this pattern everywhere for consistent icon display.
 

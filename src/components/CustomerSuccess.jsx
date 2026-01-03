@@ -63,7 +63,7 @@ const CustomerSuccess = () => {
                       <img
                         src={study.icon}
                         alt={study.company}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     ) : (
                       study.icon

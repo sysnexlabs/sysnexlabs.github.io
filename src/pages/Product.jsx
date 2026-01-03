@@ -86,7 +86,7 @@ const Product = () => {
                       <img
                         src={item.icon}
                         alt={item.title}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     ) : (
                       item.icon

@@ -62,7 +62,7 @@ const MissionCriticalIndustries = React.memo(() => {
                   <img
                     src={industry.icon}
                     alt={industry.name}
-                    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                   />
                 </div>
                 <div className="industry-item-content">

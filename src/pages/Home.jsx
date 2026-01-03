@@ -103,7 +103,7 @@ const Home = () => {
                   <img
                     src={platform.icon}
                     alt={platform.title}
-                    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                   />
                 </div>
                 <h3 className={styles.platformTitle}>{platform.title}</h3>
@@ -340,7 +340,7 @@ const Home = () => {
                       <img
                         src={roleCard.icon}
                         alt={roleCard.role}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     </div>
                     <h3 style={{ marginBottom: '0.5rem', textAlign: 'center', color: 'var(--accent-primary)' }}>

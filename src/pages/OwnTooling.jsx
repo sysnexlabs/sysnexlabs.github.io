@@ -233,7 +233,7 @@ const OwnTooling = () => {
                       <img
                         src={feature.icon}
                         alt={feature.title}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     ) : (
                       feature.icon
@@ -360,7 +360,7 @@ const OwnTooling = () => {
                       <img
                         src={feature.icon}
                         alt={feature.title}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     ) : (
                       feature.icon

@@ -184,7 +184,7 @@ npm run build
   <img
     src={icon}
     alt="Description"
-    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
   />
 ) : (
   icon
@@ -194,7 +194,9 @@ npm run build
 **Key Points:**
 - Always use multi-line block format, not inline ternary
 - Check both type and path prefix
-- Consistent 120×120px size
+- Fixed height: 120px (ensures all icons have same height)
+- Width: auto (maintains aspect ratio)
+- Max width: 120px (prevents very wide icons)
 - objectFit: 'contain' preserves aspect ratio
 - Fallback to icon (emoji) if not an asset path
 

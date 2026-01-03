@@ -29,7 +29,7 @@ const ProductCard = ({ product, index = 0 }) => {
           <img
             src={product.icon}
             alt={product.title}
-            style={{width: '120px', height: '120px', objectFit: 'contain'}}
+            style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
           />
         ) : (
           product.icon

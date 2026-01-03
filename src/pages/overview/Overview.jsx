@@ -89,7 +89,7 @@ const Overview = () => {
                       <img
                         src={item.icon}
                         alt={item.title}
-                        style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                        style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                       />
                     ) : (
                       item.icon
@@ -125,7 +125,7 @@ const Overview = () => {
                 <img
                   src="/assets/capability_wasm.svg"
                   alt="Browser-Based WASM"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>Browser-Based WASM</h3>
@@ -142,7 +142,7 @@ const Overview = () => {
                 <img
                   src="/assets/feature_ai_first.svg"
                   alt="AI-Powered Development"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>AI-Powered Development</h3>
@@ -157,7 +157,7 @@ const Overview = () => {
                 <img
                   src="/assets/capability_desktop.svg"
                   alt="Standalone Desktop App"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>Standalone Desktop App</h3>
@@ -172,7 +172,7 @@ const Overview = () => {
                 <img
                   src="/assets/feature_git_native.svg"
                   alt="Git-Native Workflows"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>Git-Native Workflows</h3>
@@ -187,7 +187,7 @@ const Overview = () => {
                 <img
                   src="/assets/capability_edge.svg"
                   alt="Edge Deployment"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>Edge Deployment</h3>
@@ -202,7 +202,7 @@ const Overview = () => {
                 <img
                   src="/assets/capability_foundation.svg"
                   alt="ISO/IEC 15288 Foundation"
-                  style={{width: '120px', height: '120px', objectFit: 'contain'}}
+                  style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
                 />
               </div>
               <h3>ISO/IEC 15288 Foundation</h3>

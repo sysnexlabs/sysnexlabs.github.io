@@ -162,7 +162,7 @@ const icon = '/assets/feature_new_feature.svg'
   <img
     src={icon}
     alt="New Feature"
-    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
   />
 ) : (
   icon
@@ -597,7 +597,7 @@ After deployment, check:
   <img
     src={icon}
     alt="Icon Description"
-    style={{width: '120px', height: '120px', objectFit: 'contain'}}
+    style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
   />
 ) : (
   icon  // Fallback for emoji or JSX
@@ -607,7 +607,8 @@ After deployment, check:
 **Why this pattern?**
 - Supports both image paths and emoji fallbacks
 - Validates path format before rendering
-- Consistent 120×120px size across site
+- Consistent 120px height across all icons (width adjusts to maintain aspect ratio)
+- Maximum width of 120px prevents very wide icons from being too large
 - `objectFit: 'contain'` preserves aspect ratio
 
 ### Card Grid Pattern
