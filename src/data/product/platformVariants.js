@@ -7,7 +7,7 @@
 
 export const platformVariants = [
   {
-    icon: '👁️',
+    icon: '/assets/icon_nexdocs.svg',
     title: 'NexDocs Viewer',
     badge: 'Free',
     description: 'Advanced web-based documentation viewer with cross-file navigation, smart import resolution, and automatic diagram generation.',
@@ -27,7 +27,7 @@ export const platformVariants = [
     link: '/try-yourself'
   },
   {
-    icon: '💻',
+    icon: '/assets/platform_vscode.svg',
     title: 'NexSuite IDE',
     badge: 'VS Code Extension',
     description: 'Production-ready VS Code extension with advanced documentation viewer, complete LSP implementation, and professional features.',
@@ -47,7 +47,7 @@ export const platformVariants = [
     link: '/contact'
   },
   {
-    icon: '🖥️',
+    icon: '/assets/capability_desktop.svg',
     title: 'NexSuite Desktop',
     badge: 'Tauri App',
     description: 'Native desktop application built with Tauri. Standalone app with full LSP features, no VS Code required. Fast, secure, and offline-capable.',
@@ -65,7 +65,7 @@ export const platformVariants = [
     link: '/contact'
   },
   {
-    icon: '☁️',
+    icon: '/assets/platform_cloud.svg',
     title: 'NexSuite Cloud',
     badge: 'SaaS Solution',
     description: 'Cloud-based SysML v2 IDE accessible from any browser. Real-time collaboration, cloud storage, and zero installation required.',
@@ -83,7 +83,7 @@ export const platformVariants = [
     link: '/contact'
   },
   {
-    icon: '⚙️',
+    icon: '/assets/feature_compliance.svg',
     title: 'NexSuite CLI + Compliance',
     badge: 'Enterprise',
     description: 'CLI tool for CI/CD validation and compliance packs (ASPICE, ISO 26262) for regulated domain engineering.',
@@ -101,7 +101,7 @@ export const platformVariants = [
     link: '/contact'
   },
   {
-    icon: '🛡️',
+    icon: '/assets/misc_safety.svg',
     title: 'NexSuite Automotive/Safety',
     badge: 'Enterprise',
     description: 'Automotive compliance variant: ASPICE Level 2/3 compliance, ISO 26262 functional safety (ASIL decomposition validation), ISO 15288 systems engineering foundation.',

@@ -12,7 +12,7 @@ export const complianceVariants = [
   {
     id: 'systems-engineering',
     badge: 'Foundation',
-    icon: '🔧',
+    icon: '/assets/capability_foundation.svg',
     title: 'Systems Engineering',
     size: '~75-80 MB',
     price: '$6,000-$10,000/seat/year',
@@ -45,7 +45,7 @@ export const complianceVariants = [
   {
     id: 'automotive-safety',
     badge: 'Automotive',
-    icon: '🛡️',
+    icon: '/assets/misc_safety.svg',
     title: 'Automotive/Safety',
     size: '~80-90 MB',
     price: '$8,000-$12,000/seat/year',
@@ -80,7 +80,7 @@ export const complianceVariants = [
   {
     id: 'automotive-security',
     badge: 'Automotive',
-    icon: '🔒',
+    icon: '/assets/feature_compliance.svg',
     title: 'Automotive Security',
     size: '~85-95 MB',
     price: '$6,000-$10,000/seat/year',
@@ -115,7 +115,7 @@ export const complianceVariants = [
   {
     id: 'automotive-complete',
     badge: 'Bundle',
-    icon: '🛡️🔒',
+    icon: '/assets/misc_safety.svg',
     title: 'Automotive Complete',
     size: '~95-105 MB',
     price: '$12,000-$18,000/seat/year',
@@ -150,7 +150,7 @@ export const complianceVariants = [
   {
     id: 'aviation',
     badge: 'Aviation',
-    icon: '🛩️',
+    icon: '/assets/industry_aerospace.svg',
     title: 'Aviation',
     size: '~90-100 MB',
     price: '$10,000-$15,000/seat/year',
@@ -220,7 +220,7 @@ export const complianceVariants = [
   {
     id: 'railway',
     badge: 'Railway',
-    icon: '🚂',
+    icon: '/assets/industry_rail.svg',
     title: 'Railway',
     size: '~85-95 MB',
     price: '$8,000-$12,000/seat/year',

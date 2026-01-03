@@ -24,7 +24,15 @@ const PlatformCard = ({ variant, index = 0 }) => {
       )}
 
       <div className="platform-card-icon">
-        {variant.icon}
+        {typeof variant.icon === 'string' && variant.icon.startsWith('/assets/') ? (
+          <img
+            src={variant.icon}
+            alt={variant.title}
+            style={{height: '120px', width: 'auto', maxWidth: '120px', objectFit: 'contain'}}
+          />
+        ) : (
+          variant.icon
+        )}
       </div>
 
       <h3 className="platform-card-title">{variant.title}</h3>

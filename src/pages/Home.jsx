@@ -75,7 +75,7 @@ const Home = () => {
                 title: 'CodeFlow Desktop',
                 status: 'Production Ready',
                 statusClass: 'statusAvailable',
-                icon: '/assets/platform_desktop.svg',
+                icon: '/assets/capability_desktop.svg',
                 description: 'Standalone Tauri-based application. No VS Code required. Optimized for large models.',
                 features: ['Standalone App', 'Offline First', 'Multi-Window']
               },
