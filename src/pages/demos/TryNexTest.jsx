@@ -85,8 +85,8 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
         then done;
 
         // Assertions
-        assert constraint { testBMS.voltage <= 4.2 }
-        assert disconnectActive : constraint { testBMS.voltage > 4.2 }
+        assert { testBMS.voltage <= 4.2 }
+        assert disconnectActive { testBMS.voltage > 4.2 }
     }
 
     verification def ThermalShutdownTest {
