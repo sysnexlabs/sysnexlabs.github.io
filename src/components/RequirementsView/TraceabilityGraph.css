@@ -1,0 +1,169 @@
+/* Traceability Graph Visualization */
+
+.traceability-graph {
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.traceability-graph-empty {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}
+
+/* Graph Legend */
+.graph-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--border-color);
+}
+
+.legend-color.implementation {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+}
+
+.legend-color.requirement {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: #8b5cf6;
+}
+
+.legend-color.verification {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+}
+
+/* SVG Graph */
+.graph-svg {
+  display: block;
+  margin: 0 auto;
+  background: var(--bg-primary);
+}
+
+/* Graph Nodes */
+.graph-node rect {
+  stroke-width: 2;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.graph-node.implementation rect {
+  fill: rgba(59, 130, 246, 0.1);
+  stroke: #3b82f6;
+}
+
+.graph-node.implementation:hover rect {
+  fill: rgba(59, 130, 246, 0.2);
+  stroke: #2563eb;
+  stroke-width: 3;
+}
+
+.graph-node.requirement rect {
+  fill: rgba(139, 92, 246, 0.1);
+  stroke: #8b5cf6;
+}
+
+.graph-node.requirement:hover rect {
+  fill: rgba(139, 92, 246, 0.2);
+  stroke: #7c3aed;
+  stroke-width: 3;
+}
+
+.graph-node.verification rect {
+  fill: rgba(16, 185, 129, 0.1);
+  stroke: #10b981;
+}
+
+.graph-node.verification:hover rect {
+  fill: rgba(16, 185, 129, 0.2);
+  stroke: #059669;
+  stroke-width: 3;
+}
+
+.graph-node text {
+  fill: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Graph Edges */
+.graph-edge {
+  stroke-width: 2;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.graph-edge.satisfy {
+  stroke: #3b82f6;
+}
+
+.graph-edge.verify {
+  stroke: #10b981;
+}
+
+.graph-edge:hover {
+  opacity: 1;
+  stroke-width: 3;
+}
+
+.edge-label {
+  fill: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .graph-svg {
+    background: var(--bg-primary);
+  }
+
+  .graph-node text {
+    fill: var(--text-primary);
+  }
+
+  .edge-label {
+    fill: var(--text-secondary);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .graph-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .traceability-graph {
+    padding: 0.5rem;
+  }
+}

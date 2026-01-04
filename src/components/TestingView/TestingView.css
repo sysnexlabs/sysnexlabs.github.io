@@ -1,0 +1,346 @@
+.testing-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.testing-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.testing-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent-primary);
+}
+
+.testing-stats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.test-stat {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.test-stat strong {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.testing-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.test-tab {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.test-tab:hover {
+  color: var(--accent-primary);
+}
+
+.test-tab.active {
+  color: var(--color-success);
+  border-bottom-color: var(--color-success);
+  font-weight: 600;
+}
+
+.testing-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.testing-loading,
+.testing-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.verifications-list,
+.assertions-list,
+.scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.verification-item,
+.assertion-item,
+.scenario-item {
+  padding: 1.5rem;
+}
+
+.verification-header,
+.assertion-header,
+.scenario-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.verification-badge,
+.assertion-badge,
+.scenario-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-success);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.assertion-badge {
+  background: var(--brand-cyan);
+}
+
+.scenario-badge {
+  background: var(--brand-purple);
+}
+
+.verification-title,
+.assertion-title,
+.scenario-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+}
+
+.verification-package,
+.assertion-context {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.verification-package code,
+.assertion-context code {
+  background: var(--bg-tertiary);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.verification-doc,
+.assertion-doc,
+.scenario-doc {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  border-left: 3px solid var(--color-success);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.verification-elements {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.verification-elements strong {
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.verification-elements ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.5rem;
+}
+
+.verification-elements li {
+  margin: 0.25rem 0;
+  color: var(--text-secondary);
+}
+
+.assertion-signature {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  overflow-x: auto;
+}
+
+.coverage-view {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.coverage-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.coverage-metric {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.coverage-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.coverage-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-success);
+}
+
+.coverage-value-large {
+  font-size: 2.5rem;
+}
+
+.coverage-details h4 {
+  margin: 0 0 1rem 0;
+  color: var(--accent-primary);
+}
+
+.coverage-bar {
+  width: 100%;
+  height: 40px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.coverage-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-success), var(--brand-cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+}
+
+.coverage-bar-text {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.coverage-note {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Assertion Validation Badges */
+.assertion-validation-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.assertion-validation-badge.valid {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.assertion-validation-badge.invalid {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.assertion-context {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.assertion-validation-message {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+
+/* Verification Objectives and Actions */
+.verification-objectives,
+.verification-actions {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  border-left: 3px solid #8b5cf6;
+}
+
+.verification-objectives ul,
+.verification-actions ul {
+  margin: 0.5rem 0 0 1rem;
+  padding: 0;
+}
+
+.verification-objectives li,
+.verification-actions li {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+/* Coverage Sources */
+.coverage-source {
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.coverage-source-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.coverage-source-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
