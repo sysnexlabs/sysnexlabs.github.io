@@ -149,6 +149,12 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
     satisfy underVoltageProtection by testBMS1;
     satisfy thermalProtection by testBMS2;
     satisfy chargeCycle by testBMS2;
+
+    // Verification relationships (standalone statements)
+    verify overVoltageProtection by OvervoltageProtectionTest;
+    verify underVoltageProtection by IntegrationTest;
+    verify thermalProtection by ThermalShutdownTest;
+    verify chargeCycle by ChargeCycleTest;
 }`
 
 /**
