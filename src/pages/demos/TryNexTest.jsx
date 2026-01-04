@@ -66,7 +66,7 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
             verify overVoltageProtection;
         }
 
-        // Test steps as actions
+        // Test steps as actions with succession
         action def TestSetup {
             doc /* Initialize BMS with safe parameters */
         }
@@ -79,9 +79,14 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
             doc /* Confirm disconnect signal is active */
         }
 
-        action testSetup : TestSetup;
-        action applyOvervoltage : ApplyOvervoltage;
-        action verifyDisconnect : VerifyDisconnect;
+        first action testSetup : TestSetup;
+        then action applyOvervoltage : ApplyOvervoltage;
+        then action verifyDisconnect : VerifyDisconnect;
+        then done;
+
+        // Assertions
+        assert constraint { testBMS.voltage <= 4.2 }
+        assert disconnectActive : constraint { testBMS.voltage > 4.2 }
     }
 
     verification def ThermalShutdownTest {
@@ -122,9 +127,10 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
             doc /* Check final state */
         }
 
-        action initializeCharge : InitializeCharge;
-        action performCharge : PerformCharge;
-        action validateResults : ValidateResults;
+        first action initializeCharge : InitializeCharge;
+        then action performCharge : PerformCharge;
+        then action validateResults : ValidateResults;
+        then done;
     }
 
     verification def IntegrationTest {
@@ -138,6 +144,70 @@ const DEFAULT_TESTING_EXAMPLE = `package 'Battery Management Testing' {
             verify underVoltageProtection;
             verify thermalProtection;
         }
+    }
+
+    // Test scenarios using use case syntax
+    use case def NormalChargingScenario {
+        doc /*
+         * Scenario: User initiates normal charging from low battery
+         *
+         * Preconditions: Battery at 20% charge, temperature nominal
+         * Expected outcome: Battery charges to 100% without protection triggers
+         */
+
+        subject chargingBMS : BatteryManagementSystem;
+
+        // Scenario steps as actions
+        action def StartCharging {
+            doc /* User connects charger */
+        }
+
+        action def MonitorCharging {
+            doc /* BMS monitors voltage and temperature during charge */
+        }
+
+        action def CompleteCharging {
+            doc /* Charging completes successfully */
+        }
+
+        first action startCharging : StartCharging;
+        then action monitorCharging : MonitorCharging;
+        then action completeCharging : CompleteCharging;
+        then done;
+
+        // Include verifications for this scenario
+        include verification OvervoltageProtectionTest;
+        include verification ChargeCycleTest;
+    }
+
+    use case def EmergencyShutdownScenario {
+        doc /*
+         * Scenario: BMS handles critical temperature event
+         *
+         * Preconditions: Battery charging, temperature sensor functional
+         * Expected outcome: BMS shuts down safely when temperature exceeds threshold
+         */
+
+        subject emergencyBMS : BatteryManagementSystem;
+
+        action def DetectOvertemperature {
+            doc /* Temperature exceeds 60°C */
+        }
+
+        action def TriggerShutdown {
+            doc /* BMS initiates emergency shutdown */
+        }
+
+        action def VerifySafety {
+            doc /* Confirm all systems safe */
+        }
+
+        first action detectOvertemperature : DetectOvertemperature;
+        then action triggerShutdown : TriggerShutdown;
+        then action verifySafety : VerifySafety;
+        then done;
+
+        include verification ThermalShutdownTest;
     }
 
     // Create test BMS instances
